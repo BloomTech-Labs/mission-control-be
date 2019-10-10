@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const generateToken = require('../middleware/generateToken.js')
 
@@ -35,7 +34,7 @@ const Admins = require('../models/admin_user')
  * }
  */
 
-router.post('/shop/login', (req, res) => {
+router.post('/admins', (req, res) => {
     let credentials = req.body
     if (credentials.username && credentials.password) {
         Admins.findByUsername(credentials.username)
@@ -61,3 +60,5 @@ router.post('/shop/login', (req, res) => {
         })
     }
 })
+
+module.exports = router
