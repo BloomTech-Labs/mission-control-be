@@ -7,12 +7,15 @@ const server = express();
 
 //? Routes - 
 const adminRoutes = require('./routes/admins')
+const adminAuth = require('./auth/adminAuth')
 
 server.use(express.json());
 server.use(helmet());
 server.use(cors())
 
-server.use('/admins', adminRoutes)
+server.use('/api/admins', adminRoutes)
+server.use('/api/auth', adminAuth)
+
 
 server.get('/', (req, res) => {
     res.status(200).json({message: "hello"})
