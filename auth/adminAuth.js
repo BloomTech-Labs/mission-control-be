@@ -40,7 +40,7 @@ router.post('/admins', (req, res) => {
         Admins.findByUsername(credentials.username)
             .then(user => {
                 if (user && bcrypt.compareSync(credentials.password, user.password)) {
-                    const token = generateToken(user, 'admin')
+                    const token = generateToken(user)
                     res.status(200).json({
                         user: user,
                         token: token
