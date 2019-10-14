@@ -25,9 +25,12 @@
   },
   "homepage": "https://github.com/Lambda-School-Labs/mission-control-be#readme",
   "dependencies": {
+    "aws-sdk": "latest",
     "bcryptjs": "^2.4.3",
+    "body-parser": "latest",
     "cors": "^2.8.5",
     "dotenv": "^8.1.0",
+    "ejs": "latest",
     "express": "^4.17.1",
     "helmet": "^3.21.1",
     "jsonwebtoken": "^8.5.1",
