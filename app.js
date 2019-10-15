@@ -22,7 +22,6 @@ server.use(express.urlencoded({ extended: false }));
 server.use('/api/admins', adminRoutes)
 server.use('/api/auth', adminAuth)
 
-
 server.get('/', (req, res) => {
     res.status(200).json({message: "hello"})
 })

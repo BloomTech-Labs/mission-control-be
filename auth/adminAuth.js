@@ -1,8 +1,8 @@
-const router = require('express').Router();
-const bcrypt = require('bcryptjs');
-const generateToken = require('../middleware/generateToken.js')
+// const router = require('express').Router();
+// const bcrypt = require('bcryptjs');
+// const generateToken = require('../middleware/generateToken.js')
 
-const Admins = require('../models/admin_user')
+// const Admins = require('../models/admin_user')
 
 /**
  * @api {post} /api/auth/admin/login Admin Login Request
@@ -34,31 +34,31 @@ const Admins = require('../models/admin_user')
  * }
  */
 
-router.post('/admins', (req, res) => {
-    let credentials = req.body
-    if (credentials.username && credentials.password) {
-        Admins.findByUsername(credentials.username)
-            .then(user => {
-                if (user && bcrypt.compareSync(credentials.password, user.password)) {
-                    const token = generateToken(user)
-                    res.status(200).json({
-                        user: user,
-                        token: token
-                    })
-                } else {
-                    res.status(400).json({
-                        message: 'Invalid credentials.'
-                    })
-                }
-            })
-            .catch(err => res.status(500).json({
-                message: "We couldn't process your login at the moment"
-            }))
-    } else {
-        res.status(400).json({
-            message: 'Please provide a username and password.'
-        })
-    }
-})
+// router.post('/admins', (req, res) => {
+//     let credentials = req.body
+//     if (credentials.username && credentials.password) {
+//         Admins.findByUsername(credentials.username)
+//             .then(user => {
+//                 if (user && bcrypt.compareSync(credentials.password, user.password)) {
+//                     const token = generateToken(user)
+//                     res.status(200).json({
+//                         user: user,
+//                         token: token
+//                     })
+//                 } else {
+//                     res.status(400).json({
+//                         message: 'Invalid credentials.'
+//                     })
+//                 }
+//             })
+//             .catch(err => res.status(500).json({
+//                 message: "We couldn't process your login at the moment"
+//             }))
+//     } else {
+//         res.status(400).json({
+//             message: 'Please provide a username and password.'
+//         })
+//     }
+// })
 
-module.exports = router
+// module.exports = router
