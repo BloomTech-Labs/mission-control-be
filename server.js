@@ -1,10 +1,10 @@
 const express = require('express')
 const helmet = require('helmet');
 const cors = require('cors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const createError = require('http-errors');
 
 const server = express();
 
@@ -13,12 +13,12 @@ const server = express();
 const adminRoutes = require('./routes/admins')
 const adminAuth = require('./auth/adminAuth')
 
-app.set('views', path.join(__dirname, 'views'));
-server.use(express.json());
-server.use(helmet());
 server.use(cors());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+server.use(helmet());
+server.use(cookieParser());
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/api/admins', adminRoutes)
 server.use('/api/auth', adminAuth)
@@ -29,5 +29,7 @@ server.get('/', (req, res) => {
 })
 
 server.use('/docs', express.static('./docs'));
+
+server.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = server
