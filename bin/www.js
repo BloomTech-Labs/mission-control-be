@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '5000');
+var port = normalizePort(process.env.RDS_PORT || '5000');
 app.set('port', port);
 
 /**
@@ -87,5 +87,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log(`*** Server is listening on port ${bind} ***`)
+  console.log(`*** Server is listening on ${bind} ***`)
 }
