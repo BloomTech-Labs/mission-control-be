@@ -18,7 +18,6 @@ server.use(helmet());
 server.use(cookieParser());
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
-server.use(express.static(path.join(__dirname, 'public')));
 
 server.use('/api/admins', adminRoutes)
 server.use('/api/auth', adminAuth)
