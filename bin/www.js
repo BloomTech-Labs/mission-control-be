@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app.js');
+var app = require('../main.js');
 var debug = require('debug')('test-eb:server');
 var http = require('http');
 
