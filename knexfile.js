@@ -1,4 +1,5 @@
 // Update with your config settings.
+const { Pool, Client } = require('pg')
 
 module.exports = {
 
@@ -45,7 +46,7 @@ module.exports = {
       password: process.env.RDS_PASSWORD,
     },
     "pool": {
-      "min":0,
+      "min":2,
       "max":10,
       "propagateCreateError": false // <- default is true, set to false
     },
