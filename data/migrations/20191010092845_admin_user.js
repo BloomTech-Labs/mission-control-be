@@ -18,8 +18,10 @@ exports.up = function (knex) {
         .notNullable()
         .primary();
       user
-        .string("username")
-        .unique()
+        .string("first_name")
+        .notNullable();
+      user
+        .string("last_name")
         .notNullable();
       user
         .string("email")

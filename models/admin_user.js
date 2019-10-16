@@ -3,7 +3,8 @@ const db = require('../data/dbConfig.js')
 module.exports = {
     find,
     findByUsername,
-    findByEmail
+    findByEmail,
+    add
 }
 
 function find(){
@@ -30,4 +31,13 @@ async function findByEmail(email){
    .select('a.id as user_id', 'a.password', 'a.username', 'a.email', 'r.name as role')
 
    return results
+}
+
+async function add(values){
+
+    const [newUser] = await db('admin')
+    .insert(values)
+    .returning('*')
+
+    return newUser
 }
