@@ -46,6 +46,8 @@ module.exports = {
       password: process.env.RDS_PASSWORD,
     },
     "pool": {
+      "min":0,
+      "max":10,
       "propagateCreateError": false // <- default is true, set to false
     },
     migrations: {
