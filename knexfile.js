@@ -2,11 +2,11 @@
 const { Pool, Client } = require('pg')
 
 const pgSettings = {
-  port: process.env.RDS_PORT,
   host: process.env.RDS_HOSTNAME,
-  database: process.env.RDS_DB_NAME,
   user: process.env.RDS_USERNAME,
   password: process.env.RDS_PASSWORD,
+  port: process.env.RDS_PORT,
+  database: process.env.RDS_DB_NAME,
 };
 
 module.exports = {
@@ -48,7 +48,7 @@ module.exports = {
     client: 'postgresql',
     connection:pgSettings ,
     "pool": {
-      "min":2,
+      "min":0,
       "max":10
     },
     migrations: {
