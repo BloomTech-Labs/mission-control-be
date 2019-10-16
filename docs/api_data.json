@@ -27,7 +27,7 @@
       "examples": [
         {
           "title": "Successful Response:",
-          "content": "HTTP/1.1 200 OK\n{\n \"user\": {\n   \"id\": 5,\n   \"username\": \"example\",\n   \"email\": \"example@gmonk.com\",\n   \"password\": \"noneya:)\",\n   \"role\": \"example role\"\n },\n \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n \"user\": {\n   \"id\": 123e4567-e89b-12d3-a456-426655440000,\n   \"username\": \"example\",\n   \"email\": \"example@gmonk.com\",\n   \"password\": \"noneya:)\",\n   \"role\": \"example role\"\n },\n \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}",
           "type": "json"
         }
       ]
@@ -73,7 +73,7 @@
       "examples": [
         {
           "title": "Successful Response:",
-          "content": "HTTP/1.1 201 OK\n{\n \"user\": {\n   \"id\": 5,\n   \"username\": \"example\",\n   \"email\": \"example@random.com\",\n   \"password\": \"noneya:)\",\n   \"role\": \"example role\"\n },\n \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}",
+          "content": "HTTP/1.1 201 CREATED\n{\n \"user\": {\n   \"id\": 123e4567-e89b-12d3-a456-426655440000,\n   \"username\": \"example\",\n   \"email\": \"example@random.com\",\n   \"password\": \"noneya:)\",\n   \"role\": \"example role\"\n },\n \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}",
           "type": "json"
         }
       ]

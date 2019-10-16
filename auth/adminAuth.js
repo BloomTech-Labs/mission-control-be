@@ -24,7 +24,7 @@ const Admins = require("../models/admin_user");
  * HTTP/1.1 200 OK
  * {
  *  "user": {
- *    "id": 5,
+ *    "id": 123e4567-e89b-12d3-a456-426655440000,
  *    "username": "example",
  *    "email": "example@gmonk.com",
  *    "password": "noneya:)",
@@ -82,10 +82,10 @@ router.post("/admins/login", (req, res) => {
  *  }
  *
  * @apiSuccessExample Successful Response:
- * HTTP/1.1 201 OK
+ * HTTP/1.1 201 CREATED
  * {
  *  "user": {
- *    "id": 5,
+ *    "id": 123e4567-e89b-12d3-a456-426655440000,
  *    "username": "example",
  *    "email": "example@random.com",
  *    "password": "noneya:)",
@@ -113,19 +113,19 @@ router.post("/admins/register", (req, res) => {
     Admins.add(credentials)
       .then(user => {
         const token = generateToken(user);
-        res.status(200).json({
+        res.status(201).json({
           user: { ...user, password: "noneya:)" },
           token: token
         });
       })
       .catch(err =>
         res.status(500).json({
-          message: "We couldn't process your login at the moment"
+          message: "We couldn't process your registration at the moment"
         })
       );
   } else {
     res.status(400).json({
-      message: "Please provide your email and password."
+      message: "Please provide all credentials."
     });
   }
 });
