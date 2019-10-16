@@ -64,8 +64,8 @@ router.post("/admins/login", (req, res) => {
 });
 
 /**
- * @api {post} /api/auth/admin/login Admin Login Request
- * @apiName Admin Login
+ * @api {post} /api/auth/admin/login Admin Register Request
+ * @apiName Admin Register
  * @apiGroup Auth
  *
  *
