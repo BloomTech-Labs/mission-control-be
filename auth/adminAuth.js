@@ -15,7 +15,7 @@ const Admins = require('../models/admin_user')
  * 
  * @apiParamExample Example Body:
  * {
- *	"username": "example",
+ *	"email": "example",
  *	"password": "password"
  * }
  * 
@@ -26,23 +26,21 @@ const Admins = require('../models/admin_user')
  *    "id": 5,
  *    "username": "example",
  *    "email": "example@gmonk.com",
- *    "password": "$2a$14$IF9EQY7mpuNU2a5TVAAE8O7GLmcHBFRvEiv5jCl5RT1uJa1mojudS",
- *    "city_id": 1,
- *    "state_id": 1
+ *    "password": "$2a$14$IF9EQY7mpuNU2a5TVAAE8O7GLmcHBFRvEiv5jCl5RT1uJa1mojudS"
  *  },
  *  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoicGd1c2VyMTAwIiwidXNlclR5cGUiOiJjb25zdW1lciIsImlhdCI6MTU2OTM0NzE3NiwiZXhwIjoxNTY5NDMzNTc2fQ.EfLfuc_DcYZ5TtjM-Zpd7mwkUPozNhYh-i5jg3YQ-us"
  * }
  */
 
 router.post('/admins', (req, res) => {
-    let credentials = req.body
-    if (credentials.username && credentials.password) {
-        Admins.findByUsername(credentials.username)
+    const { email, password} = req.body
+    if (email && password) {
+        Admins.findByEmail(email)
             .then(user => {
-                if (user && bcrypt.compareSync(credentials.password, user.password)) {
+                if (user && bcrypt.compareSync(password, user.password)) {
                     const token = generateToken(user)
                     res.status(200).json({
-                        user: user,
+                        user: {...user, password:'noneya:)'},
                         token: token
                     })
                 } else {
@@ -56,7 +54,7 @@ router.post('/admins', (req, res) => {
             }))
     } else {
         res.status(400).json({
-            message: 'Please provide a username and password.'
+            message: 'Please provide your email and password.'
         })
     }
 })
