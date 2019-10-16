@@ -7,11 +7,11 @@ exports.seed = function(knex) {
   return knex("admin").insert([
     {
       id: "abc123",
-      first_name: 'John',
-      last_name: 'Doe',
+      firstName: 'John',
+      lastName: 'Doe',
       email: "user1@gmail.com",
       password: password,
-      role_id: "123abc"
+      roleId: "123abc"
     }
   ]);
 };

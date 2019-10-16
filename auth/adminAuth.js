@@ -74,11 +74,11 @@ router.post("/admins/login", (req, res) => {
  *
  * @apiParamExample Example Body:
  *  {
- *    "first_name": "example",
- *	  "last_name": "doe",
+ *    "firstName": "example",
+ *	  "lastName": "doe",
  *    "email": "example@random.com",
  *    "password": "password",
- *    "role_id": "123abc"
+ *    "roleId": "123abc"
  *  }
  *
  * @apiSuccessExample Successful Response:
@@ -100,14 +100,16 @@ router.post("/admins/register", (req, res) => {
   if (
     credentials.email &&
     credentials.password &&
-    credentials.role_id &&
-    credentials.first_name &&
-    credentials.last_name
+    credentials.roleId &&
+    credentials.firstName &&
+    credentials.lastName
   ) {
     credentials.password = bcrypt.hashSync(credentials.password, 14);
 
-    credentials.first_name = credentials.first_name.charAt(0).toUpperCase() + credentials.first_name.substr(1).toLowerCase()
-    credentials.last_name = credentials.last_name.charAt(0).toUpperCase() + credentials.last_name.substr(1).toLowerCase()
+    // ? NORMALIZING NAMES AND ASSIGNING UUID
+
+    credentials.firstName = credentials.firstName.charAt(0).toUpperCase() + credentials.firstName.substr(1).toLowerCase()
+    credentials.lastName = credentials.lastName.charAt(0).toUpperCase() + credentials.lastName.substr(1).toLowerCase()
     credentials.id = uuid();
 
     Admins.add(credentials)

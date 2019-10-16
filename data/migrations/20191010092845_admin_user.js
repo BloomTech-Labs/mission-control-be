@@ -18,10 +18,10 @@ exports.up = function (knex) {
         .notNullable()
         .primary();
       user
-        .string("first_name")
+        .string("firstName")
         .notNullable();
       user
-        .string("last_name")
+        .string("lastName")
         .notNullable();
       user
         .string("email")
@@ -29,7 +29,7 @@ exports.up = function (knex) {
         .notNullable();
       user.string("password").notNullable();
       user
-        .string("role_id")
+        .string("roleId")
         .notNullable()
         .references("id")
         .inTable("role")

@@ -82,7 +82,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Example Body:",
-          "content": " {\n   \"first_name\": \"example\",\n\t  \"last_name\": \"doe\",\n   \"email\": \"example@random.com\",\n   \"password\": \"password\",\n   \"role_id\": \"123abc\"\n }",
+          "content": " {\n   \"firstName\": \"example\",\n\t  \"lastName\": \"doe\",\n   \"email\": \"example@random.com\",\n   \"password\": \"password\",\n   \"roleId\": \"123abc\"\n }",
           "type": "json"
         }
       ]
