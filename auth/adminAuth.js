@@ -10,8 +10,8 @@ const Admins = require('../models/admin_user')
  * @apiGroup Auth
  * 
  * 
- * @apiSuccess {Object} user User User
- * @apiSuccess {String} token User Token
+ * @apiSuccess {Object} user User
+ * @apiSuccess {String} token Token
  * 
  * @apiParamExample Example Body:
  * {
@@ -26,9 +26,9 @@ const Admins = require('../models/admin_user')
  *    "id": 5,
  *    "username": "example",
  *    "email": "example@gmonk.com",
- *    "password": "$2a$14$IF9EQY7mpuNU2a5TVAAE8O7GLmcHBFRvEiv5jCl5RT1uJa1mojudS"
+ *    "password": "noneya:)"
  *  },
- *  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoicGd1c2VyMTAwIiwidXNlclR5cGUiOiJjb25zdW1lciIsImlhdCI6MTU2OTM0NzE3NiwiZXhwIjoxNTY5NDMzNTc2fQ.EfLfuc_DcYZ5TtjM-Zpd7mwkUPozNhYh-i5jg3YQ-us"
+ *  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
  * }
  */
 
