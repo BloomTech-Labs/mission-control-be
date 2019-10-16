@@ -64,7 +64,7 @@ router.post("/admins/login", (req, res) => {
 });
 
 /**
- * @api {post} /api/auth/admin/login Admin Register Request
+ * @api {post} /api/auth/admin/register Admin Register Request
  * @apiName Admin Register
  * @apiGroup Auth
  *
@@ -129,4 +129,5 @@ router.post("/admins/register", (req, res) => {
     });
   }
 });
+
 module.exports = router;
