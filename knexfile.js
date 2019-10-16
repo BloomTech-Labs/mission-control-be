@@ -1,6 +1,14 @@
 // Update with your config settings.
 const { Pool, Client } = require('pg')
 
+const pgSettings = {
+  port: process.env.RDS_PORT,
+  host: process.env.RDS_HOSTNAME,
+  database: process.env.RDS_DB_NAME,
+  user: process.env.RDS_USERNAME,
+  password: process.env.RDS_PASSWORD,
+};
+
 module.exports = {
 
   development: {
@@ -37,18 +45,11 @@ module.exports = {
   },
 
   production: {
-    client: 'pg',
-    connection:{
-      port: process.env.RDS_PORT,
-      host: process.env.RDS_HOSTNAME,
-      database: process.env.RDS_DB_NAME,
-      user: process.env.RDS_USERNAME,
-      password: process.env.RDS_PASSWORD,
-    },
+    client: 'postgresql',
+    connection:pgSettings ,
     "pool": {
       "min":2,
-      "max":10,
-      "propagateCreateError": false // <- default is true, set to false
+      "max":10
     },
     migrations: {
       directory: './data/migrations'
