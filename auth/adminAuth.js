@@ -82,7 +82,7 @@ router.post("/admins/login", (req, res) => {
  *  }
  *
  * @apiSuccessExample Successful Response:
- * HTTP/1.1 200 OK
+ * HTTP/1.1 201 OK
  * {
  *  "user": {
  *    "id": 5,
@@ -109,7 +109,7 @@ router.post("/admins/register", (req, res) => {
     credentials.first_name = credentials.first_name.charAt(0).toUpperCase() + credentials.first_name.substr(1).toLowerCase()
     credentials.last_name = credentials.last_name.charAt(0).toUpperCase() + credentials.last_name.substr(1).toLowerCase()
     credentials.id = uuid();
-    
+
     Admins.add(credentials)
       .then(user => {
         const token = generateToken(user);
