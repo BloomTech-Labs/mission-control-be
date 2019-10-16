@@ -24,7 +24,7 @@ const Admins = require("../models/admin_user");
  * HTTP/1.1 200 OK
  * {
  *  "user": {
- *    "id": 123e4567-e89b-12d3-a456-426655440000,
+ *    "id": "123e4567-e89b-12d3-a456-426655440000",
  *    "username": "example",
  *    "email": "example@gmonk.com",
  *    "password": "noneya:)",
@@ -85,7 +85,7 @@ router.post("/admins/login", (req, res) => {
  * HTTP/1.1 201 CREATED
  * {
  *  "user": {
- *    "id": 123e4567-e89b-12d3-a456-426655440000,
+ *    "id": "123e4567-e89b-12d3-a456-426655440000",
  *    "username": "example",
  *    "email": "example@random.com",
  *    "password": "noneya:)",
