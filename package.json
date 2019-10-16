@@ -8,11 +8,9 @@
     "test": "tests"
   },
   "scripts": {
-    "db:migration:run": "knex migrate:latest DB_ENV='production'",
-    "db:seed:run": "knex seed:run DB_ENV='production'",
     "test": "cross-env DB_ENV=testing jest --watch",
     "server": "nodemon ./bin/www.js",
-    "start": "node ./bin/www.js",
+    "start": "knex migrate:latest && knex seed:run && node ./bin/www.js",
     "docs": "apidoc -i ./ -e node_modules -o ./docs"
   },
   "repository": {
