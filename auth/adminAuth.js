@@ -34,7 +34,7 @@ const Admins = require("../models/admin_user");
  * }
  */
 
-router.post("/admins/login", (req, res) => {
+router.post("/admin/login", (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
     Admins.findByEmail(email)
@@ -95,7 +95,7 @@ router.post("/admins/login", (req, res) => {
  * }
  */
 
-router.post("/admins/register", (req, res) => {
+router.post("/admin/register", (req, res) => {
   let credentials = req.body;
   if (
     credentials.email &&
