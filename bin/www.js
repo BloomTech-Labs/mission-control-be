@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-
+require('dotenv').config()
 /**
  * Module dependencies.
  */
 
-var app = require('../server.js');
+var app = require('../main.js');
 var debug = require('debug')('test-eb:server');
 var http = require('http');
 
@@ -87,5 +87,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log(`*** Server is listening on port ${bind} ***`)
+  console.log(`*** Server is listening on ${bind} ***`)
 }
