@@ -24,16 +24,29 @@ exports.up = function(knex) {
         .unique()
         .notNullable();
       user.string("password").notNullable();
-      user
-        .string("roleId")
+    })
+    .createTable("users-roles", tbl => {
+      tbl
+        .string("user_id")
+        .unique()
         .notNullable()
         .references("id")
-        .inTable("role")
+        .inTable("users")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+      tbl
+        .string("role_id")
+        .defaultTo("01")
+        .references("id")
+        .inTable("roles")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
     });
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("users").dropTableIfExists("roles");
+  return knex.schema
+    .dropTableIfExists("users-roles")
+    .dropTableIfExists("users")
+    .dropTableIfExists("roles");
 };
