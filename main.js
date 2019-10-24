@@ -10,7 +10,7 @@ const server = express();
 
 //? Routes
 const adminRoutes = require("./routes/admins");
-const adminAuth = require("./auth/adminAuth");
+const authRoute = require("./auth/authRoute");
 
 server.use(cors());
 server.use(helmet());
@@ -19,7 +19,7 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
 server.use("/api/admins", adminRoutes);
-server.use("/api/auth", adminAuth);
+server.use("/api/auth", authRoute);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "hello" });
