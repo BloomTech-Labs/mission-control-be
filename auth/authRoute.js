@@ -6,7 +6,7 @@ const uuid = require("uuid/v4");
 const Users = require("../models/admin_user");
 
 /**
- * @api {post} /api/auth/admin/login Admin Login Request
+ * @api {post} /api/auth/login Admin Login Request
  * @apiName Admin Login
  * @apiGroup Auth
  *
@@ -34,7 +34,7 @@ const Users = require("../models/admin_user");
  * }
  */
 
-router.post("/admin/login", (req, res) => {
+router.post("/login", (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
     Users.findByEmail(email)
@@ -64,7 +64,7 @@ router.post("/admin/login", (req, res) => {
 });
 
 /**
- * @api {post} /api/auth/admin/register Admin Register Request
+ * @api {post} /api/auth/register Admin Register Request
  * @apiName Admin Register
  * @apiGroup Auth
  *
@@ -95,12 +95,13 @@ router.post("/admin/login", (req, res) => {
  * }
  */
 
-router.post("/user/register", (req, res) => {
+router.post("/register", (req, res) => {
   let credentials = req.body;
   if (
     credentials.email &&
     credentials.password &&
     credentials.firstName &&
+    credentials.roleId &&
     credentials.lastName
   ) {
     credentials.password = bcrypt.hashSync(credentials.password, 14);
@@ -135,21 +136,3 @@ router.post("/user/register", (req, res) => {
 });
 
 module.exports = router;
-
-/*
-MY PLAN
-- User visits the /api/auth/user/register Route
-- User creates an account and the roleId defaults to `01` (student)
-- User can then have their accounts role updated by an admin account that will be seeded into the production db
-
-ROLES
-Student: Can view data pertaining to his/her account
-Manager: Can view all data
-Admin: Can view/edit/post/delete any and all data
-*/
-
-//TODO Figure out how to set up the Users and Roles schema, most likely Many to Many.
-
-//TODO Figure out why my current iteration of the schema doesn't work. I get a status of 400 - Please provide all credentials when trying to create a user.
-
-//TODO Ask the team if my current direction is good enough.
