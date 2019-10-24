@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const generateToken = require("../middleware/generateToken.js");
-const uuid = require('uuid/v4');
+const uuid = require("uuid/v4");
 
 const Admins = require("../models/admin_user");
 
@@ -106,10 +106,13 @@ router.post("/admin/register", (req, res) => {
   ) {
     credentials.password = bcrypt.hashSync(credentials.password, 14);
 
-    // ? NORMALIZING NAMES AND ASSIGNING UUID
-
-    credentials.firstName = credentials.firstName.charAt(0).toUpperCase() + credentials.firstName.substr(1).toLowerCase()
-    credentials.lastName = credentials.lastName.charAt(0).toUpperCase() + credentials.lastName.substr(1).toLowerCase()
+    //? NORMALIZING NAMES AND ASSIGNING UUID
+    credentials.firstName =
+      credentials.firstName.charAt(0).toUpperCase() +
+      credentials.firstName.substr(1).toLowerCase();
+    credentials.lastName =
+      credentials.lastName.charAt(0).toUpperCase() +
+      credentials.lastName.substr(1).toLowerCase();
     credentials.id = uuid();
 
     Admins.add(credentials)
