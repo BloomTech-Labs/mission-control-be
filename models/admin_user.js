@@ -7,19 +7,19 @@ module.exports = {
 };
 
 function find() {
-  return db("admin");
+  return db("users");
 }
 
 async function findByEmail(email) {
-  let [results] = await db("admin as a")
-    .where({ "a.email": email })
-    .join("role as r", "r.id", "a.roleId")
+  let [results] = await db("users as u")
+    .where({ "u.email": email })
+    .join("roles as r", "r.id", "u.roleId")
     .select(
-      "a.id as userId",
-      "a.password",
-      "a.firstName",
-      "a.lastName",
-      "a.email",
+      "u.id as userId",
+      "u.password",
+      "u.firstName",
+      "u.lastName",
+      "u.email",
       "r.name as role"
     );
 
@@ -27,7 +27,7 @@ async function findByEmail(email) {
 }
 
 async function add(values) {
-  const [newUser] = await db("admin")
+  const [newUser] = await db("users")
     .insert(values)
     .returning("*");
 
