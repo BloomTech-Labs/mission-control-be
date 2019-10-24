@@ -24,19 +24,9 @@ exports.up = function(knex) {
         .unique()
         .notNullable();
       user.string("password").notNullable();
-    })
-    .createTable("users-roles", tbl => {
-      tbl
-        .string("user_id")
-        .unique()
+      user
+        .string("roleId")
         .notNullable()
-        .references("id")
-        .inTable("users")
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE");
-      tbl
-        .string("role_id")
-        .defaultTo("01")
         .references("id")
         .inTable("roles")
         .onUpdate("CASCADE")
@@ -45,8 +35,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema
-    .dropTableIfExists("users-roles")
-    .dropTableIfExists("users")
-    .dropTableIfExists("roles");
+  return knex.schema.dropTableIfExists("users").dropTableIfExists("roles");
 };
