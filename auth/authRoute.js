@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const generateToken = require("../middleware/generateToken.js");
 const uuid = require("uuid/v4");
 
-const Admins = require("../models/admin_user");
+const Users = require("../models/admin_user");
 
 /**
  * @api {post} /api/auth/admin/login Admin Login Request
@@ -37,7 +37,7 @@ const Admins = require("../models/admin_user");
 router.post("/admin/login", (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
-    Admins.findByEmail(email)
+    Users.findByEmail(email)
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
           const token = generateToken(user);
@@ -95,12 +95,11 @@ router.post("/admin/login", (req, res) => {
  * }
  */
 
-router.post("/admin/register", (req, res) => {
+router.post("/user/register", (req, res) => {
   let credentials = req.body;
   if (
     credentials.email &&
     credentials.password &&
-    credentials.roleId &&
     credentials.firstName &&
     credentials.lastName
   ) {
@@ -115,7 +114,7 @@ router.post("/admin/register", (req, res) => {
       credentials.lastName.substr(1).toLowerCase();
     credentials.id = uuid();
 
-    Admins.add(credentials)
+    Users.add(credentials)
       .then(user => {
         const token = generateToken(user);
         res.status(201).json({
@@ -136,3 +135,21 @@ router.post("/admin/register", (req, res) => {
 });
 
 module.exports = router;
+
+/*
+MY PLAN
+- User visits the /api/auth/user/register Route
+- User creates an account and the roleId defaults to `01` (student)
+- User can then have their accounts role updated by an admin account that will be seeded into the production db
+
+ROLES
+Student: Can view data pertaining to his/her account
+Manager: Can view all data
+Admin: Can view/edit/post/delete any and all data
+*/
+
+//TODO Figure out how to set up the Users and Roles schema, most likely Many to Many.
+
+//TODO Figure out why my current iteration of the schema doesn't work. I get a status of 400 - Please provide all credentials when trying to create a user.
+
+//TODO Ask the team if my current direction is good enough.
