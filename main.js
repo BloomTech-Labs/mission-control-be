@@ -3,8 +3,6 @@ const helmet = require('helmet');
 const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const createError = require('http-errors');
 
 const server = express();
 
