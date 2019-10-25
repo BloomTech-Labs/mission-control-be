@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-const express = require('express')
-const helmet = require('helmet');
-const cors = require('cors');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-=======
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -12,7 +5,6 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const createError = require("http-errors");
->>>>>>> 6928cf65c4499c49d6c9dd5f7b50a2170a708842
 
 const server = express();
 
