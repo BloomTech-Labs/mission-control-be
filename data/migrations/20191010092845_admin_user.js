@@ -1,19 +1,19 @@
 exports.up = function(knex) {
     return (
         knex.schema
-          /* The Roles Table stores our 3 roles that will be associated with users */
+        /* The Roles Table stores our 3 roles that will be associated with users */
           .createTable("roles", role => {
             role
               .string("id")
               .unique()
               .notNullable()
               .primary();
-            role
+              role
               .string("name")
               .unique()
               .notNullable();
-          })
-          /* The Users Table stores our users with all relevant user data */
+            })
+            /* The Users Table stores our users with all relevant user data */
           .createTable("users", user => {
             user
               .string("id")
@@ -39,5 +39,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('users').dropTableIfExists('roles')
+  return knex.schema.dropTableIfExists('users').dropTableIfExists('roles').dropTableIfExists("admin").dropTableIfExists("role");
 };
