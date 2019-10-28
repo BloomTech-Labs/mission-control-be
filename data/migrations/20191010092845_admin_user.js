@@ -39,5 +39,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return
+  return knex.schema.dropTableIfExists('users').dropTableIfExists('roles')
 };
