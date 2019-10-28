@@ -1,12 +1,12 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const generateToken = require("../middleware/generateToken.js");
-const uuid = require('uuid/v4');
+const uuid = require("uuid/v4");
 
-const Admins = require("../models/admin_user");
+const Users = require("../models/admin_user");
 
 /**
- * @api {post} /api/auth/admin/login Admin Login Request
+ * @api {post} /api/auth/login Admin Login Request
  * @apiName Admin Login
  * @apiGroup Auth
  *
@@ -34,10 +34,10 @@ const Admins = require("../models/admin_user");
  * }
  */
 
-router.post("/admin/login", (req, res) => {
+router.post("/login", (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
-    Admins.findByEmail(email)
+    Users.findByEmail(email)
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
           const token = generateToken(user);
@@ -64,7 +64,7 @@ router.post("/admin/login", (req, res) => {
 });
 
 /**
- * @api {post} /api/auth/admin/register Admin Register Request
+ * @api {post} /api/auth/register Admin Register Request
  * @apiName Admin Register
  * @apiGroup Auth
  *
@@ -95,24 +95,27 @@ router.post("/admin/login", (req, res) => {
  * }
  */
 
-router.post("/admin/register", (req, res) => {
+router.post("/register", (req, res) => {
   let credentials = req.body;
   if (
     credentials.email &&
     credentials.password &&
-    credentials.roleId &&
     credentials.firstName &&
+    credentials.roleId &&
     credentials.lastName
   ) {
     credentials.password = bcrypt.hashSync(credentials.password, 14);
 
-    // ? NORMALIZING NAMES AND ASSIGNING UUID
-
-    credentials.firstName = credentials.firstName.charAt(0).toUpperCase() + credentials.firstName.substr(1).toLowerCase()
-    credentials.lastName = credentials.lastName.charAt(0).toUpperCase() + credentials.lastName.substr(1).toLowerCase()
+    //? NORMALIZING NAMES AND ASSIGNING UUID
+    credentials.firstName =
+      credentials.firstName.charAt(0).toUpperCase() +
+      credentials.firstName.substr(1).toLowerCase();
+    credentials.lastName =
+      credentials.lastName.charAt(0).toUpperCase() +
+      credentials.lastName.substr(1).toLowerCase();
     credentials.id = uuid();
 
-    Admins.add(credentials)
+    Users.add(credentials)
       .then(user => {
         const token = generateToken(user);
         res.status(201).json({

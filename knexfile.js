@@ -1,5 +1,4 @@
 // Update with your config settings.
-const { Pool, Client } = require('pg')
 
 const pgSettings = {
   host: process.env.RDS_HOSTNAME,
@@ -33,15 +32,12 @@ module.exports = {
   testing: {
     client: 'sqlite3',
     connection: {
-      filename: './data/test.db3'
+      filename: './data/mission-contol-test.db3'
     },
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations',
-    },
-    seeds: {
-      directory: './data/seeds'
-    },
+    }
   },
 
   production: {

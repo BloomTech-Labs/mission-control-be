@@ -1,5 +1,6 @@
 const request = require('supertest');
-const server = require('./server');
+const db = require('./data/dbConfig')
+const server = require('./main');
 
 describe('server.js', () => {
     describe('index route', () => {
@@ -7,6 +8,10 @@ describe('server.js', () => {
             const expectedStatusCode = 200;
             const response = await request(server).get('/');
             expect(response.status).toEqual(expectedStatusCode);
+        });
+        it('should be return hello message', async () => {
+            const response = await request(server).get('/');
+            expect(response.body).toEqual({ message: "hello" });
         });
     });
 });

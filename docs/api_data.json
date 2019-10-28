@@ -1,7 +1,7 @@
 [
   {
     "type": "post",
-    "url": "/api/auth/admin/login",
+    "url": "/api/auth/login",
     "title": "Admin Login Request",
     "name": "Admin_Login",
     "group": "Auth",
@@ -42,12 +42,12 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "./auth/adminAuth.js",
+    "filename": "./auth/authRoute.js",
     "groupTitle": "Auth"
   },
   {
     "type": "post",
-    "url": "/api/auth/admin/register",
+    "url": "/api/auth/register",
     "title": "Admin Register Request",
     "name": "Admin_Register",
     "group": "Auth",
@@ -88,7 +88,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "./auth/adminAuth.js",
+    "filename": "./auth/authRoute.js",
     "groupTitle": "Auth"
   },
   {
@@ -115,8 +115,8 @@
     "url": "",
     "version": "0.0.0",
     "filename": "./docs/main.js",
-    "group": "C__Users_arman_Documents_lambda_copy_labs_mission_control_be_docs_main_js",
-    "groupTitle": "C__Users_arman_Documents_lambda_copy_labs_mission_control_be_docs_main_js",
+    "group": "C__Users_Brandon_Documents_Lambda_mission_control_be_docs_main_js",
+    "groupTitle": "C__Users_Brandon_Documents_Lambda_mission_control_be_docs_main_js",
     "name": ""
   }
 ]
