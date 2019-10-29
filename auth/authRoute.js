@@ -106,7 +106,7 @@ router.post("/register", (req, res) => {
   ) {
     credentials.password = bcrypt.hashSync(credentials.password, 14);
 
-    //? NORMALIZING NAMES AND ASSIGNING UUID
+    //* NORMALIZING NAMES AND ASSIGNING UUID
     credentials.firstName =
       credentials.firstName.charAt(0).toUpperCase() +
       credentials.firstName.substr(1).toLowerCase();
