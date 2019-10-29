@@ -8,7 +8,7 @@ const createError = require("http-errors");
 
 const server = express();
 
-//? Routes
+//* Routes
 const adminRoutes = require("./routes/admins");
 const authRoute = require("./auth/authRoute");
 
