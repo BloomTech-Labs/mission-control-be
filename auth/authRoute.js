@@ -58,6 +58,10 @@ router.post("/login", (req, res) => {
 			  		message: "We couldn't process your login at the moment"
 				})
 		      );
+	  } else {
+		res.status(400).json({
+			message: "Invalid credentials."
+		});
 	  }
   } else {
     res.status(400).json({
