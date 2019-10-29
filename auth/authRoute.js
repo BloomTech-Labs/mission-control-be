@@ -41,8 +41,8 @@ router.post("/login", (req, res) => {
 		    Users.findByEmail(email)
 		      .then(user => {
 				if (user && bcrypt.compareSync(password, user.password)) {
+				  delete user.password;
 				  const token = generateToken(user);
-				  delete user.password	
 				  res.status(200).json({
 					user: { ...user },
 					token: token
