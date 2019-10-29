@@ -3,7 +3,8 @@ const db = require("../data/dbConfig.js");
 module.exports = {
   find,
   findByEmail,
-  add
+  add,
+  findBy
 };
 
 function find() {
@@ -32,4 +33,17 @@ async function add(values) {
     .returning("*");
 
   return newUser;
+}
+
+//! New Models
+async function findBy(filter) {
+  return db("users")
+    .where(filter)
+    .then(response => {
+      if (response) {
+        return response;
+      } else {
+        return null;
+      }
+    });
 }
