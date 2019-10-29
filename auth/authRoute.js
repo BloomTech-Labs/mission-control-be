@@ -37,25 +37,28 @@ const Users = require("../models/admin_user");
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
   if (email && password) {
-    Users.findByEmail(email)
-      .then(user => {
-        if (user && bcrypt.compareSync(password, user.password)) {
-          const token = generateToken(user);
-          res.status(200).json({
-            user: { ...user, password: "noneya:)" },
-            token: token
-          });
-        } else {
-          res.status(400).json({
-            message: "Invalid credentials."
-          });
-        }
-      })
-      .catch(err =>
-        res.status(500).json({
-          message: "We couldn't process your login at the moment"
-        })
-      );
+      if (typeof(email) === "string" && typeof(password) === "string") {
+		    Users.findByEmail(email)
+		      .then(user => {
+				if (user && bcrypt.compareSync(password, user.password)) {
+				  const token = generateToken(user);
+				  delete user.password	
+				  res.status(200).json({
+					user: { ...user },
+					token: token
+				  });
+				} else {
+			  		res.status(400).json({
+			    		message: "Invalid credentials."
+			  		});
+				}
+		      })
+		      .catch(err =>
+				res.status(500).json({
+			  		message: "We couldn't process your login at the moment"
+				})
+		      );
+	  }
   } else {
     res.status(400).json({
       message: "Please provide your email and password."
@@ -96,13 +99,27 @@ router.post("/login", (req, res) => {
  */
 
 router.post("/register", (req, res) => {
-  let credentials = req.body;
+  const {
+	firstName, 
+	lastName,
+	email,
+	password,
+	roleId
+  } = req.body;
+  const credentials = Object.create({
+	firstName,
+	lastName,
+	email,
+	password,
+	roleId
+  }); 
+  
   if (
-    credentials.email &&
-    credentials.password &&
-    credentials.firstName &&
-    credentials.roleId &&
-    credentials.lastName
+    typeof(credentials.email) === "string" &&
+    typeof(credentials.password) === "string" &&
+    typeof(credentials.firstName) === "string" &&
+    typeof(credentials.roleId) === "string" &&
+    typeof(credentials.lastName) === "string"
   ) {
     credentials.password = bcrypt.hashSync(credentials.password, 14);
 
@@ -117,9 +134,10 @@ router.post("/register", (req, res) => {
 
     Users.add(credentials)
       .then(user => {
+		delete user.password;
         const token = generateToken(user);
         res.status(201).json({
-          user: { ...user, password: "noneya:)" },
+          user: { ...user },
           token: token
         });
       })
