@@ -1,9 +1,11 @@
+require("dotenv").config();
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const generateToken = require("../middleware/generateToken.js");
 const uuid = require("uuid/v4");
+const Users = require("../models/userModels");
 
-const Users = require("../models/admin_user");
+//* 'Middleware'
+const generateToken = require("../middleware/generateToken");
 
 /**
  * @api {post} /api/auth/login Admin Login Request
@@ -42,7 +44,7 @@ router.post("/login", (req, res) => {
         if (user && bcrypt.compareSync(password, user.password)) {
           const token = generateToken(user);
           res.status(200).json({
-            user: { ...user, password: "noneya:)" },
+            user: { ...user, password: "********" },
             token: token
           });
         } else {
@@ -119,7 +121,7 @@ router.post("/register", (req, res) => {
       .then(user => {
         const token = generateToken(user);
         res.status(201).json({
-          user: { ...user, password: "noneya:)" },
+          user: { ...user, password: "********" },
           token: token
         });
       })
