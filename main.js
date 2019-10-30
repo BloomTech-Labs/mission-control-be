@@ -3,13 +3,10 @@ const helmet = require("helmet");
 const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const createError = require("http-errors");
-
 const server = express();
 
 //* Routes
-const adminRoutes = require("./routes/admins");
+const usersRoutes = require("./routes/userRoute");
 const authRoute = require("./auth/authRoute");
 
 server.use(cors());
@@ -18,7 +15,7 @@ server.use(cookieParser());
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
-server.use("/api/admins", adminRoutes);
+server.use("/api/users", usersRoutes);
 server.use("/api/auth", authRoute);
 
 server.get("/", (req, res) => {
