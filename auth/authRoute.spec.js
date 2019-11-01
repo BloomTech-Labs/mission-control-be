@@ -33,13 +33,11 @@ describe("POST /register", () => {
         expect(emptyUserDatabase).toHaveLength(0)
         await request(server).post("/api/auth/register").send(completeRegistration)
         const userDatabase = await db("users")
-        console.log("line 38: userDatabase: ", userDatabase)
         expect(userDatabase).toHaveLength(1)
     })
     it("returns a token on register", async() => {
         const response = await request(server).post("/api/auth/register").send(completeRegistration)
-        console.log("line 42: response.body: ", response.body);
-        //expect(typeof(response.body.token)).toBe("string")
+        expect(typeof(response.body.token)).toBe("string")
     })
     it("doesn't allow register without required fields", async() => {
         const emptyUserDatabase = await db("users")
