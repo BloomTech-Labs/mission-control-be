@@ -38,12 +38,12 @@ router.post("/login", (req, res) => {
 	// checks that email is data type string
 	// and that the string has characters
     const email = typeof(req.body.email) === "string"
-		&& req.body.email.length > 0
+		&& req.body.email.trim().length > 0
 		? req.body.email.trim() : false;
 	// checks that password is data type string
 	// and that the string has characters
     const password = typeof(req.body.password) === "string"
-		&& req.body.password.length > 0
+		&& req.body.password.trim().length > 0
 		? req.body.password.trim() : false;
     
 	// if correct data type 
@@ -193,19 +193,19 @@ router.post("/login", (req, res) => {
 
 router.post("/register", (req, res) => {
 	const firstName = typeof(req.body.firstName) === "string"
-		&& req.body.firstName.length >= 1
+		&& req.body.firstName.trim().length >= 1
 		? req.body.firstName.trim() : false;
 	const lastName = typeof(req.body.lastName) === "string"
-		&& req.body.lastName.length >= 1
+		&& req.body.lastName.trim().length >= 1
 		? req.body.lastName.trim() : false;
 	const email = typeof(req.body.email) === "string"
-		&& req.body.email.length > 0
+		&& req.body.email.trim().length > 0
 		? req.body.email.trim() : false;
 	const password = typeof(req.body.password) === "string"
-		&& req.body.password.length > 0
+		&& req.body.password.trim().length > 0
 		? req.body.password.trim() : false;
 	const roleId = typeof(req.body.roleId) === "string"
-		&& req.body.roleId.length > 0
+		&& req.body.roleId.trim().length > 0
 		? req.body.roleId.trim() : false;
 	
 	// if the data types are correct	
