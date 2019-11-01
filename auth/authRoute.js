@@ -201,6 +201,7 @@ router.post("/register", (req, res) => {
 	const email = typeof(req.body.email) === "string"
 		&& req.body.email.trim().length > 0
 		? req.body.email.trim() : false;
+        console.log("line 204: email: ", email);
 	const password = typeof(req.body.password) === "string"
 		&& req.body.password.trim().length > 0
 		? req.body.password.trim() : false;
@@ -216,19 +217,21 @@ router.post("/register", (req, res) => {
 		&& password
 		&& roleId
     ) {
+        console.log("line 219: data types are correct");
 		// if valid email format and the password is correct length
 		if (
 			validator.isEmail(email)
 			&& password.length >= 8
 			&& password.length <= 16
 		) {
+            console.log("line 226: valid email and password");
 			// credentials will be added to the database
-			const credentials = Object.create({
+			const credentials = {
 				firstName,
 				lastName,
 				email,
 				roleId
-			});
+			};
 			// set password to a hashed password on the credentials object
 			credentials.password = bcrypt.hashSync(password, 14);
 
@@ -240,10 +243,11 @@ router.post("/register", (req, res) => {
 			  credentials.lastName.charAt(0).toUpperCase() +
 			  credentials.lastName.substr(1).toLowerCase();
 			credentials.id = uuid();
-			
+		    console.log("line 245: credentials to be sent to db: ", credentials);
 			// adds user to database
 			Users.add(credentials)
 			  .then(user => {
+                  console.log("line 249: user object from database: ", user);
 				  // deletes password before sending response
 				  delete user.password;
 				  // generate token
@@ -255,6 +259,7 @@ router.post("/register", (req, res) => {
 				  });
 			})
 			  .catch(err => {
+                  console.log("line 261: 500 error: ", err);
 				  res.status(500).json({
 					  message: "We couldn't process your registration at the moment"
 				  })
@@ -272,6 +277,7 @@ router.post("/register", (req, res) => {
 				|| password.length > 16
 			)
 		) {
+            console.log("line 279: invalid email or password has been recognized.")
 			// if incorrect email format
 			// but correct password length
 			if (
