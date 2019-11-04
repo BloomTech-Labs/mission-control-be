@@ -5,7 +5,8 @@ module.exports = {
   findByEmail,
   add,
   findByRole,
-  updateUser
+  updateUser,
+  deleteUser
 };
 
 function find() {
@@ -21,8 +22,16 @@ function find() {
     );
 }
 
-async function updateUser(user) {
-  await findByEmail(user.email).then();
+function updateUser(changes, email) {
+  return db("users as u")
+    .where({ "u.email": email })
+    .update(changes);
+}
+
+function deleteUser(email) {
+  return db("users as u")
+    .where({ "u.email": email })
+    .del();
 }
 
 async function findByEmail(email) {
