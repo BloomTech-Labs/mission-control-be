@@ -21,8 +21,8 @@ function find() {
     );
 }
 
-function updateUser(user) {
-  return db("users").update(user);
+async function updateUser(user) {
+  await findByEmail(user.email).then();
 }
 
 async function findByEmail(email) {
