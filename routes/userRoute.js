@@ -32,7 +32,10 @@ router.get("/:role", isAdmin, (req, res) => {
 router.put("/", isAdmin, (req, res) => {
   const { user } = req.body;
   try {
-    Users.findByEmail(user).then(user => {
+    Users.findByEmail(user.email).then(user => {
+      Users.updateUser(user).then(updatedUser => {
+        res.status(200).json({ Updated_User: updatedUser });
+      });
       //! Need to use an updateUser helper function to update user
     });
   } catch (err) {
