@@ -10,7 +10,7 @@
   "scripts": {
     "test": "cross-env DB_ENV=testing jest --watch",
     "server": "nodemon ./bin/www.js",
-    "start": "knex migrate:latest && knex seed:run && node ./bin/www.js",
+    "start": "knex migrate:rollback && knex migrate:up && knex seed:run && node ./bin/www.js",
     "docs": "apidoc -i ./ -e node_modules -o ./docs"
   },
   "repository": {
