@@ -30,9 +30,12 @@ router.get("/:role", isAdmin, (req, res) => {
 //! UPDATE
 //* Update a user by user email
 router.put("/", isAdmin, (req, res) => {
-  const { user } = req.body;
   try {
-    Users.updateUser(user);
+    Users.findByEmail(req.body.email).then(() => {
+      Users.updateUser(req.body, req.body.email).then(() => {
+        res.status(201).json({ message: "User Successfully Updated" });
+      });
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -40,5 +43,16 @@ router.put("/", isAdmin, (req, res) => {
 
 //! DELETE
 //* Delete a user by user email
+router.delete("/", isAdmin, (req, res) => {
+  try {
+    Users.findByEmail(req.body.email).then(() => {
+      Users.deleteUser(req.body.email).then(() => {
+        res.status(201).json({ message: "User Successfully Deleted" });
+      });
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
