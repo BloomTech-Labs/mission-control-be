@@ -51,7 +51,7 @@ async function findByEmail(email) {
     .where({ "u.email": email })
     .join("roles as r", "r.id", "u.roleId")
     .select(
-      "u.id as userId",
+      "u.id",
       "u.firstName",
       "u.lastName",
       "u.email",
