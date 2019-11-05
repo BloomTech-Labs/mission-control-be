@@ -225,7 +225,7 @@ router.post("/register", (req, res) => {
 			&& password.length <= 16
 		) {
 			// credentials will be added to the database
-			const credentials = {
+			let credentials = {
 				firstName,
 				lastName,
 				email,
@@ -251,7 +251,7 @@ router.post("/register", (req, res) => {
 				  const token = generateToken(user);
 				  // send response
 				  res.status(201).json({
-					  user: { ...user },
+					  user: user,
 					  token: token
 				  });
 			})
