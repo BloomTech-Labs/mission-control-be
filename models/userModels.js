@@ -28,6 +28,18 @@ function updateUser(changes, email) {
     .update(changes);
 }
 
+/* function update(email, data){
+  return db('users')
+  .where({email: email})
+  .update(data)
+  .then(([id]) => {
+    return db('users')
+    .where({id: id})
+    .first()
+  })
+  .catch( err => err)
+} */
+
 function deleteUser(email) {
   return db("users as u")
     .where({ "u.email": email })

@@ -27,3 +27,6 @@ server.use("/docs", express.static("./docs"));
 server.use(express.static(path.join(__dirname, "public")));
 
 module.exports = server;
+
+//TODO Clean up code _ UserRoutes and Helper Functions
+//TODO Route testing
