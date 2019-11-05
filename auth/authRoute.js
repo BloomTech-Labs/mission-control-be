@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const generateToken = require("../middleware/generateToken.js");
 const uuid = require("uuid/v4");
 
-const Users = require("../models/admin_user");
+const Users = require("../models/users");
 
 /**
  * @api {post} /api/auth/login Admin Login Request
