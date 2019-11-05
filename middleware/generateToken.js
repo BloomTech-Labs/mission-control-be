@@ -1,22 +1,35 @@
-const jwt = require('jsonwebtoken')
-const secrets = require('../config/secrets.js')
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+const secrets = require("../config/secrets.js");
 
-function generateToken(user){
-
-    // if(userType === 'admin'){
-    //     // userRole = 'admin'
-    // }
-
+function generateToken(user) {
+  //* Changing the secret used based off of the user's role
+  try {
     const payload = {
-        user: user.username,
-        // userType: userRole
-    }
-
+      subject: user.id,
+      user: user.username,
+      role: user.role
+    };
     const options = {
-        expiresIn: '1d'
+      expiresIn: "1d"
+    };
+
+    switch (user.role) {
+      case "admin":
+        return jwt.sign(payload, secrets.adminSecret, options);
+      case "manager":
+        return jwt.sign(payload, secrets.managerSecret, options);
+      case "student":
+        return jwt.sign(payload, secrets.studentSecret, options);
+      default:
+        return res
+          .status(400)
+          .json({ message: "Role Identification Not Found" });
     }
-
-    return jwt.sign(payload, secrets.jwtSecret, options)
+  } catch (err) {
+    res.status(500).json({
+      message: "We couldn't process your login at the moment"
+    });
+  }
 }
-
-module.exports = generateToken
+module.exports = generateToken;

@@ -1,10 +1,13 @@
+require("dotenv").config();
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const generateToken = require("../middleware/generateToken.js");
 const uuid = require("uuid/v4");
 const validator = require("validator");
 
-const Users = require("../models/admin_user");
+const Users = require("../models/userModels");
+
+//* 'Middleware'
+const generateToken = require("../middleware/generateToken");
 
 /**
  * @api {post} /api/auth/login Admin Login Request
@@ -90,7 +93,7 @@ router.post("/login", (req, res) => {
 		      .catch(err =>
 			      res.status(500).json({
 			  	      message: "We couldn't process your login at the moment"
-				  })
+				    })
 		      );
 		}
 
@@ -158,7 +161,6 @@ router.post("/login", (req, res) => {
 			message: "Invalid credentials."
 		});
 	}
-  
 });
 
 /**
