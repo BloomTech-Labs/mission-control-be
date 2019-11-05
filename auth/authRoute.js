@@ -251,7 +251,7 @@ router.post("/register", (req, res) => {
 				  const token = generateToken(user);
 				  // send response
 				  res.status(201).json({
-					  user: user ,
+					  user: user,
 					  token: token
 				  });
 			})

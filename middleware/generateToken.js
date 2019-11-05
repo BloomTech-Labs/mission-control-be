@@ -1,18 +1,17 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const secrets = require("../config/secrets.js");
-
 function generateToken(user) {
+  
   //* Changing the secret used based off of the user's role
     const payload = {
-      subject: user.id,
+      subject: user.userId,
       user: user.firstName,
       role: user.roleId
     };
     const options = {
       expiresIn: "1d"
     };
-
     switch (user.roleId) {
       case "03":
         return jwt.sign(payload, secrets.adminSecret, options);
