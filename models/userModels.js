@@ -56,7 +56,8 @@ async function findByEmail(email) {
       "u.lastName",
       "u.email",
       "u.password",
-      "r.name as role"
+      "r.name as role",
+      'r.id as roleId'
     );
   return results;
 }
@@ -66,7 +67,12 @@ async function add(values) {
     .insert(values)
     .returning("*");
 
-  return newUser;
+  const [returnedValues] = await db('users')
+    .where({id: newUser.id})
+    .join('roles as r', 'r.id', newUser.roleId)
+    .returning('*');
+
+  return returnedValues;
 }
 
 async function findByRole(role) {
