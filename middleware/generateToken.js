@@ -4,32 +4,24 @@ const secrets = require("../config/secrets.js");
 
 function generateToken(user) {
   //* Changing the secret used based off of the user's role
-  try {
     const payload = {
       subject: user.id,
-      user: user.username,
-      role: user.role
+      user: user.firstName,
+      role: user.roleId
     };
     const options = {
       expiresIn: "1d"
     };
 
-    switch (user.role) {
-      case "admin":
+    switch (user.roleId) {
+      case "03":
         return jwt.sign(payload, secrets.adminSecret, options);
-      case "manager":
+      case "02":
         return jwt.sign(payload, secrets.managerSecret, options);
-      case "student":
+      case "01":
         return jwt.sign(payload, secrets.studentSecret, options);
       default:
-        return res
-          .status(400)
-          .json({ message: "Role Identification Not Found" });
+        return 
     }
-  } catch (err) {
-    res.status(500).json({
-      message: "We couldn't process your login at the moment"
-    });
-  }
 }
 module.exports = generateToken;
