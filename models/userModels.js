@@ -46,8 +46,8 @@ function deleteUser(email) {
     .del();
 }
 
-async function findByEmail(email) {
-  let [results] = await db("users as u")
+function findByEmail(email) {
+  return db("users as u")
     .where({ "u.email": email })
     .join("roles as r", "r.id", "u.roleId")
     .select(
@@ -59,7 +59,7 @@ async function findByEmail(email) {
       "r.name as role",
       'r.id as roleId'
     );
-  return results;
+
 }
 
 async function add(values) {
