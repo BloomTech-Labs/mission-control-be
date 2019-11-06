@@ -65,6 +65,12 @@ router.post("/login", (req, res) => {
 			// search for the user by email
 			Users.findByEmail(email)
 		      .then(user => {
+
+				// if user is not found 
+				  if(!user){
+					res.status(404).json({message: 'User not found'})
+				  }
+
 				  // if the user is found by email
 				  // and if the password is correct
 			      if (user && bcrypt.compareSync(password, user.password)) {
@@ -72,17 +78,22 @@ router.post("/login", (req, res) => {
 					  delete user.password;
 					  // generate token
 					  const token = generateToken(user);
-					  // send response
-					  res.status(200).json({
-						user: { ...user },
-						token: token
-					  });
+					if(token){
+						// send response
+						res.status(200).json({
+						  user: user ,
+						  token: token
+						});
+					}
+					if(!token){
+						res.status(409).json({message: 'Token unable to generate due to request made'})
+					}
 				  }
 				  // if email wasn't found
 				  // or if incorrect password
 				  if (
 				      !user 
-					  || !bcrypt.compareSync(password, user.password)
+					  && !bcrypt.compareSync(password, user.password)
 				  ) {
 					  //incorrect email or password
 				      res.status(400).json({
@@ -245,15 +256,26 @@ router.post("/register", (req, res) => {
 			// adds user to database
 			Users.add(credentials)
 			  .then(user => {
-				  // deletes password before sending response
-				  delete user.password;
-				  // generate token
-				  const token = generateToken(user);
-				  // send response
-				  res.status(201).json({
-					  user: user,
-					  token: token
-				  });
+				  if(user){
+					  // deletes password before sending response
+					  delete user.password;
+					  // generate token
+					  const token = generateToken(user);
+					  // send response
+					  if(token){
+						  res.status(201).json({
+							  user: user,
+							  token: token
+						  });
+					  }
+					  //if token is falsy
+					  if(!token){
+						res.status(409).json({message: 'Token unable to generate due to request made'})
+					  }
+				  }
+				  if(!user){
+					  res.status(404).json({message: 'User not found'})
+				  }
 			})
 			  .catch(err => {
 				  res.status(500).json({
