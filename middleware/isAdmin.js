@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     jwt.verify(token, secrets.adminSecret, (err, decodedToken) => {
       if (err) {
         res.status(401).json({ message: "Invalid Token" });
-      } else if (decodedToken.role === "admin") {
+      } else if (decodedToken.roleId === process.env.ADMIN_SECRET) {
         next();
       } else {
         res.status(401).json({ message: "Invalid Permissions" });
