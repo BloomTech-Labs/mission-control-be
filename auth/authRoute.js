@@ -28,10 +28,12 @@ const generateToken = require("../middleware/generateToken");
  * HTTP/1.1 200 OK
  * {
  *  "user": {
- *    "id": "123e4567-e89b-12d3-a456-426655440000",
- *    "username": "example",
- *    "email": "example@gmonk.com",
- *    "role": "example role"
+ *    "id": "cc1804a4-a517-4c36-b100-339b10195923",
+ *    "firstName": "John",
+ *    "lastName": "Doe",
+ *    "email": "example1@example1.com",
+ *    "roleId": "cc1804a4-a517-4c36-b100-339b10195923",
+ *    "role": "example"
  *  },
  *  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
  * }
@@ -188,6 +190,7 @@ router.post("/login", (req, res) => {
  *    "firstName": "example",
  *	  "lastName": "doe",
  *    "email": "example@random.com",
+ * 	  "password": "password",
  *    "roleId": "123abc"
  *  }
  *
@@ -195,10 +198,12 @@ router.post("/login", (req, res) => {
  * HTTP/1.1 201 CREATED
  * {
  *  "user": {
- *    "id": "123e4567-e89b-12d3-a456-426655440000",
- *    "username": "example",
- *    "email": "example@random.com",
- *    "role": "example role"
+ *    "id": "cc1804a4-a517-4c36-b100-339b10195923",
+ *    "firstName": "John",
+ *    "lastName": "Doe",
+ *    "email": "example1@example1.com",
+ *    "roleId": "cc1804a4-a517-4c36-b100-339b10195923",
+ *    "role": "example"
  *  },
  *  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
  * }

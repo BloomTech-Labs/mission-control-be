@@ -13,7 +13,7 @@ const isAdmin = require("../middleware/isAdmin");
  * @apiGroup Admin
  *
  *
- * @apiSuccess {Object[]} users List of all users
+ * @apiSuccess {Object[]} users List of all users in the database.
  *
  * @apiSuccessExample Successful Response:
  * HTTP/1.1 200 OK
@@ -60,13 +60,13 @@ router.get("/", isAdmin, (req, res) => {
 
 /**
  * @api {get} /api/users/:role Get All Users By Role
- * @apiParam {String} role A Role Specified For Each User.
+ * @apiParam {String} role A Role Name Specified For Each User.
  * 
  * @apiName GetAllUsersByRole
  * @apiGroup Admin
  *
  *
- * @apiSuccess {Object[]} users List of all users for a given role
+ * @apiSuccess {Object[]} users List of all users with role requested
  *
  * @apiSuccessExample Successful Response:
  * HTTP/1.1 200 OK
@@ -120,9 +120,18 @@ router.get("/:role", isAdmin, (req, res) => {
  * @apiName UpdateAUsersRole
  * @apiGroup Admin
  *
+ * @apiParamExample Example Body:
+ * {
+ *   "id": "95205b59-1d89-4e9d-9746-c72db32f5779",
+ *   "firstName": "John",
+ *	 "lastName": "Doe",
+ *   "email": "example1@example1.com",
+ *   "roleId": "a498a75c-9b59-4036-91f9-e82914a2aaca" - NEW ROLE ID
+ * }
+ * 
  * @apiSuccess {String} message Confirmation message on successful request. 
  * @apiSuccess {Object} user List of updated user object with new role.
- *
+ * 
  * @apiSuccessExample Successful Response:
  * HTTP/1.1 200 OK
  * {
@@ -160,12 +169,12 @@ router.put("/", isAdmin, ( req, res ) => {
 
 /**
  * @api {delete} /api/users/:userId Delete A User
- * @apiParam {String} id User Id.
+ * @apiParam {String} userId User id of account to be deleted.
  * 
  * @apiName Delete User
  * @apiGroup Admin
  * 
-  * @apiSuccessExample Successful Response:
+ * @apiSuccessExample Successful Response:
  * HTTP/1.1 204 No Content
  */
 
