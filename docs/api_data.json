@@ -10,8 +10,8 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "id",
-            "description": "<p>User Id.</p>"
+            "field": "userId",
+            "description": "<p>User id of account to be deleted.</p>"
           }
         ]
       }
@@ -45,7 +45,7 @@
             "type": "Object[]",
             "optional": false,
             "field": "users",
-            "description": "<p>List of all users</p>"
+            "description": "<p>List of all users in the database.</p>"
           }
         ]
       },
@@ -73,7 +73,7 @@
             "type": "String",
             "optional": false,
             "field": "role",
-            "description": "<p>A Role Specified For Each User.</p>"
+            "description": "<p>A Role Name Specified For Each User.</p>"
           }
         ]
       }
@@ -88,7 +88,7 @@
             "type": "Object[]",
             "optional": false,
             "field": "users",
-            "description": "<p>List of all users for a given role</p>"
+            "description": "<p>List of all users with role requested</p>"
           }
         ]
       },
@@ -110,6 +110,15 @@
     "title": "Update A Users Role",
     "name": "UpdateAUsersRole",
     "group": "Admin",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Example Body:",
+          "content": "{\n  \"id\": \"95205b59-1d89-4e9d-9746-c72db32f5779\",\n  \"firstName\": \"John\",\n\t \"lastName\": \"Doe\",\n  \"email\": \"example1@example1.com\",\n  \"roleId\": \"a498a75c-9b59-4036-91f9-e82914a2aaca\" - NEW ROLE ID\n}",
+          "type": "json"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -169,7 +178,7 @@
       "examples": [
         {
           "title": "Successful Response:",
-          "content": "HTTP/1.1 200 OK\n{\n \"user\": {\n   \"id\": \"123e4567-e89b-12d3-a456-426655440000\",\n   \"username\": \"example\",\n   \"email\": \"example@gmonk.com\",\n   \"role\": \"example role\"\n },\n \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n \"user\": {\n   \"id\": \"cc1804a4-a517-4c36-b100-339b10195923\",\n   \"firstName\": \"John\",\n   \"lastName\": \"Doe\",\n   \"email\": \"example1@example1.com\",\n   \"roleId\": \"cc1804a4-a517-4c36-b100-339b10195923\",\n   \"role\": \"example\"\n },\n \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}",
           "type": "json"
         }
       ]
@@ -215,7 +224,7 @@
       "examples": [
         {
           "title": "Successful Response:",
-          "content": "HTTP/1.1 201 CREATED\n{\n \"user\": {\n   \"id\": \"123e4567-e89b-12d3-a456-426655440000\",\n   \"username\": \"example\",\n   \"email\": \"example@random.com\",\n   \"role\": \"example role\"\n },\n \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}",
+          "content": "HTTP/1.1 201 CREATED\n{\n \"user\": {\n   \"id\": \"cc1804a4-a517-4c36-b100-339b10195923\",\n   \"firstName\": \"John\",\n   \"lastName\": \"Doe\",\n   \"email\": \"example1@example1.com\",\n   \"roleId\": \"cc1804a4-a517-4c36-b100-339b10195923\",\n   \"role\": \"example\"\n },\n \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\"\n}",
           "type": "json"
         }
       ]
@@ -224,7 +233,7 @@
       "examples": [
         {
           "title": "Example Body:",
-          "content": " {\n   \"firstName\": \"example\",\n\t  \"lastName\": \"doe\",\n   \"email\": \"example@random.com\",\n   \"roleId\": \"123abc\"\n }",
+          "content": " {\n   \"firstName\": \"example\",\n\t  \"lastName\": \"doe\",\n   \"email\": \"example@random.com\",\n\t  \"password\": \"password\",\n   \"roleId\": \"123abc\"\n }",
           "type": "json"
         }
       ]
