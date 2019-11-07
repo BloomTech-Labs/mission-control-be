@@ -55,55 +55,61 @@ router.put("/", isAdmin, ( req, res ) => {
   }
 });
 
-//! DELETE
-//* Delete a user by user email
-router.delete("/", isAdmin, (req, res) => {
-  try {
-    Users.findByEmail(req.body.email).then(() => {
-      Users.deleteUser(req.body.email).then(() => {
-        res.status(201).json({ message: "User Successfully Deleted" });
-      });
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+//* Delete users by user id
+//! ADMIN ONLY
+router.delete("/:userId", isAdmin, (req, res) => {
+  const { userId } = req.params
+      Users.deleteUser(userId)
+        .then((deleted) => {
+          // deleted argument returns a 0 or 1 depending on userId provided 
+          if(deleted){
+            res.status(204);
+          }else if(!deleted){
+            res.status(404).json({message: "Invalid account id"})
+          }
+        })
+        .catch(err => res.status(500).json(err));
 });
 
 //* Update a password
 //! ALL USERS
 router.put("/update/password", (req, res) => {
-  let data = req.body;
-  const hashedCurrent = bcrypt.hashSync(data.currentPassword, 14);
-  Users.findByEmail(data.email)
-    .then(user => {
-      if (user) {
-        if (hashedCurrent === user.password) {
-          const newHashed = bcrypt.hashSync(user.newPassword, 14);
-          const packet = {
-            ...user,
-            password: newHashed
-          };
-          Users.update(user.email, packet)
-            .then(user =>
-              res
-                .status(200)
-                .json({ message: "Updated successfully", user: user })
-            )
-            .catch(err =>
-              res.status(500).json({ message: "Unexpected error" })
-            );
+  const { newPassword, currentPassword, email } = req.body
+  // checking for all required fields in request body
+  if( !email || !currentPassword || !newPassword){
+    res.status(400).json({ message: "please provide the credentials needed"})
+  }else{
+    let data = req.body;
+    Users.findByEmail(email)
+      .then(user => {
+        // if there if a user then update the password
+        if(user) {
+          // if the user is found and the current password is sent in request execute code block below
+          if (bcrypt.compareSync( data.currentPassword, user.password)) {
+            user.password = bcrypt.hashSync(newPassword, 14);
+            // delete role property from the user object to avoid conflicts with DB
+            delete user.role
+            Users.updateUser(user, user.email)
+              .then( updatedUser =>{
+                delete updatedUser.password
+                res.status(200).json({ message: "Updated successfully", user: updatedUser })
+              })
+              .catch(err =>
+                res.status(500).json({ message: "Unexpected error" })
+             );
+        // if the password provided isnt current password in DB return 400 status code
         } else {
           res.status(400).json({ message: "Invalid current password" });
         }
+      // if no user is found in the DB return 404
       } else {
-        res
-          .status(404)
-          .json({ message: "We couldn't find your account at the moment" });
+        res.status(404).json({ message: "We couldn't find your account at the moment" });
       }
     })
     .catch(err => {
       res.status(500).json({ message: "Unexpected error", error: err });
     });
+  }
 });
 
 module.exports = router;
