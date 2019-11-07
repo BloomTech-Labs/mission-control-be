@@ -7,39 +7,51 @@ const bcrypt = require("bcryptjs");
 const isAdmin = require("../middleware/isAdmin");
 
 //! READ
-//* Get all users
+//* Get all users 
+// ! ADMIN ONLY
 router.get("/", isAdmin, (req, res) => {
-  try {
-    Users.find().then(users => {
+    Users.find()
+    .then(users => {
       res.status(200).json({ users: users });
-    });
-  } catch (err) {
-    res.status(500).json({ message: "Unexpected error", error: err });
-  }
+    })
+    .catch( err =>{
+      res.status(500).json({ message: "Unexpected error", error: err });
+    })
 });
 
 //* Get all users by role
+// ! ADMIN ONLY
 router.get("/:role", isAdmin, (req, res) => {
-  try {
-    Users.findByRole(req.params.role).then(users => {
-      res.status(200).json({ users: users });
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  const { role } = req.params
+    Users.findByRole(role)
+      .then(users => {
+        if(users){
+          res.status(200).json({ users: users });
+        }else if(!users){
+          res.status(404).json({ message:'Please provide a valid user role'})
+        }
+      })
+      .catch( err => {
+        res.status(500).json({message: "Unexpected error", error:err});
+      })
 });
 
-//! UPDATE
-//* Update a user by user email
-router.put("/", isAdmin, (req, res) => {
-  try {
-    Users.findByEmail(req.body.email).then(() => {
-      Users.updateUser(req.body, req.body.email).then(() => {
-        res.status(201).json({ message: "User Successfully Updated" });
-      });
-    });
-  } catch (err) {
-    res.status(500).json(err);
+//* Update a user profile by user email
+//! ADMINS ONLY
+router.put("/", isAdmin, ( req, res ) => {
+  const { email, roleId, id, firstName, lastName } = req.body
+  // checking for all required fields in request body
+  if( !email || !roleId || !id || !firstName || !lastName ){
+    res.status(400).json({ message: "Please provide an email, role, and roleId"})
+  }else{
+    // if all required fields are provided update request continues
+    Users.updateUser(req.body, email)
+      .then(( updatedUser ) => {
+        res.status(201).json({ message: "User Successfully Updated", updateUser: updatedUser });
+      })
+      .catch( err => {
+        res.status(500).json(err)
+      })
   }
 });
 
@@ -57,6 +69,8 @@ router.delete("/", isAdmin, (req, res) => {
   }
 });
 
+//* Update a password
+//! ALL USERS
 router.put("/update/password", (req, res) => {
   let data = req.body;
   const hashedCurrent = bcrypt.hashSync(data.currentPassword, 14);

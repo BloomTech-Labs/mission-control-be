@@ -23,9 +23,10 @@ function find() {
 }
 
 function updateUser(changes, email) {
-  return db("users as u")
-    .where({ "u.email": email })
-    .update(changes);
+  return db("users")
+    .where({ "email": email })
+    .update(changes)
+    .then(() => findByEmail(email));
 }
 
 /* function update(email, data){
@@ -77,9 +78,10 @@ async function add(values) {
   return {...newUser, ...role};
 }
 
-async function findByRole(role) {
-  return db("users as u")
-    .join("roles as r", "r.id", "u.roleId")
+function findByRole(role) {
+  return db("roles as r")
+    .where({ 'r.name': role })
+    .join("users as u", "r.id", "u.roleId")
     .select(
       "u.id as userId",
       "u.firstName",
@@ -87,5 +89,4 @@ async function findByRole(role) {
       "u.email",
       "r.name as role"
     )
-    .where({ role: role });
 }
