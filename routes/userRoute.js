@@ -165,7 +165,8 @@ router.put("/", isAdmin, ( req, res ) => {
  * @apiName Delete User
  * @apiGroup Admin
  * 
- * @apiSuccess (200)
+  * @apiSuccessExample Successful Response:
+ * HTTP/1.1 204 No Content
  */
 
 //* Delete users by user id
