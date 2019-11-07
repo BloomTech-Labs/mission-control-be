@@ -6,7 +6,7 @@ module.exports = {
   add,
   findByRole,
   updateUser,
-  deleteUser
+  deleteUser,
 };
 
 function find() {
