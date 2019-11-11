@@ -17,7 +17,6 @@ function find() {
       "u.firstName",
       "u.lastName",
       "u.email",
-      "u.password",
       "r.name as role"
     );
 }
