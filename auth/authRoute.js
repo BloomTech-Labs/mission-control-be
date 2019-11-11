@@ -75,7 +75,7 @@ router.post("/login", (req, res) => {
 
 				  // if the user is found by email
 				  // and if the password is correct
-			      if (user || bcrypt.compareSync(password, user.password)) {
+			      if (user && bcrypt.compareSync(password, user.password)) {
 					  // remove the password before sending to response
 					  delete user.password;
 					  // generate token
@@ -95,7 +95,7 @@ router.post("/login", (req, res) => {
 				  // or if incorrect password
 				  if (
 				      !user 
-					  && !bcrypt.compareSync(password, user.password)
+					  || !bcrypt.compareSync(password, user.password)
 				  ) {
 					  //incorrect email or password
 				      res.status(400).json({
