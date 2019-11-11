@@ -95,7 +95,7 @@ router.post("/login", (req, res) => {
 				  // or if incorrect password
 				  if (
 				      !user 
-					  && !bcrypt.compareSync(password, user.password)
+					  || !bcrypt.compareSync(password, user.password)
 				  ) {
 					  //incorrect email or password
 				      res.status(400).json({

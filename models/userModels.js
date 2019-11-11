@@ -6,7 +6,7 @@ module.exports = {
   add,
   findByRole,
   updateUser,
-  deleteUser
+  deleteUser,
 };
 
 function find() {
@@ -17,7 +17,6 @@ function find() {
       "u.firstName",
       "u.lastName",
       "u.email",
-      "u.password",
       "r.name as role"
     );
 }

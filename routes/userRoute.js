@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Users = require("../models/userModels");
+const Roles = require('../models/rolesModels')
 
 const bcrypt = require("bcryptjs");
 
@@ -57,6 +58,46 @@ router.get("/", isAdmin, (req, res) => {
     })
 });
 
+/**
+ * @api {get} /api/users/roles Get All Roles
+ * @apiName GetAllRoles
+ * @apiGroup Admin
+ *
+ *
+ * @apiSuccess {Object[]} users List of all roles in the database.
+ *
+ * @apiSuccessExample Successful Response:
+ * HTTP/1.1 200 OK
+ * {
+ *  "roles": [
+ *    {
+ *      "id": "3a966d8d-efa0-4c30-a5d7-e190f6334056",
+ *      "name": "example"
+ *    },
+ *    {
+ *      "id": "95205b59-1d89-4e9d-9746-c72db32f5779",
+ *      "name": "example"
+ *    },
+ *    {
+ *      "id": "a498a75c-9b59-4036-91f9-e82914a2aaca",
+ *      "name": "example"
+ *    }
+ *  ]
+ * }
+ */
+
+//! READ
+//* Get all users 
+// ! ADMIN ONLY
+router.get("/roles", isAdmin, (req, res) => {
+  Roles.find()
+  .then(roles => {
+    res.status(200).json({ roles: roles });
+  })
+  .catch( err =>{
+    res.status(500).json({ message: "Unexpected error", error: err });
+  })
+});
 
 /**
  * @api {get} /api/users/:role Get All Users By Role
@@ -256,4 +297,5 @@ router.put("/update/password", (req, res) => {
   }
 });
 
+// TODO UPDATE EMAIL
 module.exports = router;
