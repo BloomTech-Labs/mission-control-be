@@ -1,5 +1,4 @@
 // Update with your config settings.
-const { Pool, Client } = require('pg')
 
 const pgSettings = {
   host: process.env.RDS_HOSTNAME,
@@ -10,39 +9,47 @@ const pgSettings = {
 };
 
 module.exports = {
-
   development: {
-    client: 'sqlite3',
+    client: 'pg',
+    connection: 'postgres://gfvzzgyj:78FzbowHwHwYcOi_bQDY_p0117R8RQ5p@salt.db.elephantsql.com:5432/gfvzzgyj',
     useNullAsDefault: true,
-    connection: {
-      filename: './data/mission_control.db3'
+    "pool": {
+      "min":0,
+      "max":10
     },
     migrations: {
       directory: './data/migrations'
     },
     seeds: {
       directory: './data/seeds'
-    },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      },
-    },
+    }
   },
 
   testing: {
     client: 'sqlite3',
     connection: {
-      filename: './data/test.db3'
+      filename: './data/mission-contol-test.db3'
     },
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations',
+    }
+  },
+  
+  staging: {
+    client: 'postgresql',
+    connection:pgSettings ,
+    "pool": {
+      "min":0,
+      "max":10
+    },
+    migrations: {
+      directory: './data/migrations'
     },
     seeds: {
       directory: './data/seeds'
+    }
     },
-  },
 
   production: {
     client: 'postgresql',
