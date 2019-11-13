@@ -2,7 +2,7 @@ exports.up = function(knex) {
     return (
         knex.schema
         /* The Roles Table stores our 3 roles that will be associated with users */
-          .createTable("roles", role => {
+          .createTableIfNotExists("roles", role => {
             role
               .string("id")
               .unique()
@@ -14,7 +14,7 @@ exports.up = function(knex) {
               .notNullable();
             })
             /* The Users Table stores our users with all relevant user data */
-          .createTable("users", user => {
+          .createTableIfNotExists("users", user => {
             user
               .string("id")
               .unique()
