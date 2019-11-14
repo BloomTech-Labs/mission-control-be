@@ -1,6 +1,11 @@
 {
   "valueType": "nodes",
   "values": [
+    { "_typeName": "ProductRole", "id": "ck2mi9f60077n07868mrt1z4s" },
+    { "_typeName": "ProductRole", "id": "ck2mi9zmg078w0786701tjpgm" },
+    { "_typeName": "ProductRole", "id": "ck2miesfl07g70786li1t41bq" },
+    { "_typeName": "ProductRole", "id": "ck2migpi007iw0786jyxw8hzu" },
+    { "_typeName": "ProductRole", "id": "ck2mijnn907ls0786f4xgv0ex" },
     { "_typeName": "LambdaRole", "id": "ck2mi69ry073k0786l2rll8ps" },
     {
       "_typeName": "Project",
