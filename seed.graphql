@@ -1,19 +1,15 @@
 mutation {
-  product01: createProduct(
-    data:{
-      name: "Mission Control"
-    }
-  ) 
-  {
+  product01: createProduct(data: { name: "Mission Control" }) {
     id
   }
 
-  product02: createProduct(
-    data:{
-      name: "Labby"
-    }
-  ) 
-  {
+  product02: createProduct(data: { name: "Labby" }) {
+    id
+  }
+  product03: createProduct(data: { name: "Design Hub" }) {
+    id
+  }
+  product04: createProduct(data: { name: "Memefly" }) {
     id
   }
 }

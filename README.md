@@ -14,9 +14,15 @@ Three environment variables needed are pinned in the Labs 18 Mission Control Cha
 - PM_API_DEV_SECRET
 - PRISMA_MANAGEMENT_API_SECRET
 
-### Token Playground can be aquired by running `prisma token` in the directory with the prisma.yml
+** Token to use in Playground can be aquired by running `prisma token` in the directory with the prisma.yml**
 
-### Use `prisma deploy` propogate changes to the schema on the server.
+** Use `prisma deploy` propogate changes to the schema on the server**
+
+** To Re-seed data**
+
+- Seed data is containe in the .export directory
+- `prisma reset` will clear the database of old data
+- `prisma import -d .export` will import default seed data
 
 #### Backend delpoyed at [AWS Beanstalk](http://mission-control-be-dev.us-east-1.elasticbeanstalk.com) <br>
 
