@@ -1,11 +1,21 @@
+# Points to the file that contains your datamodel
 datamodel: datamodel.prisma
 
+# The HTTP endpoint for your Prisma API
 endpoint: ${env:PM_API_DEV_ENDPOINT}
+
+#Specifies Secret used for Token Creation
 secret: ${env:PM_API_DEV_SECRET}
 
+# Specifies language & location for the generated Prisma client
 generate:
   - generator: javascript-client
     output: ./generated/prisma-client/
 
 seed:
   import: seed.graphql
+
+#Auto-run Generate after deploying
+hooks:
+  post-deploy:
+    - prisma generate
