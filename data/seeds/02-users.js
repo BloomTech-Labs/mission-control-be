@@ -1,10 +1,12 @@
+require("dotenv").config();
+
 const bcrypt = require('bcryptjs')
 
 const password = bcrypt.hashSync('password', 14)
 
-let seeds 
+let seeds = []
 
-if(process.env.DB_ENV === 'development' || process.env.DB_ENV === 'development'){
+if(process.env.DB_ENV === 'development' || process.env.DB_ENV === 'staging'){
   seeds = [
     {
       id: "ac3dc091-8d13-46c5-b589-4a9f2e217f63",
@@ -32,6 +34,7 @@ if(process.env.DB_ENV === 'development' || process.env.DB_ENV === 'development')
     },
   ]
 }else if (process.env.DB_ENV === 'production'){
+  console.log('dev')
   seeds = [{
     id: "ac3dc091-8d13-46c5-b589-4a9f2e217f63",
     firstName: "Bernie",

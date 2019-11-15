@@ -79,9 +79,9 @@ router.post("/login", (req, res) => {
 					  delete user.password;
 					  // generate token
 					  const token = generateToken(user);
-					if(token){
-						// send response
-						res.status(200).json({
+						if(token){
+							// send response
+						  res.status(200).json({
 						  user: user ,
 						  token: token
 						});
@@ -102,10 +102,10 @@ router.post("/login", (req, res) => {
 					  });
 				  } 
 		      })
-		      .catch(err =>
-			      res.status(500).json({
+		      .catch( (err) => {
+				  res.status(500).json({
 			  	      message: "We couldn't process your login at the moment"
-				    })
+				    })}
 		      );
 		}
 
