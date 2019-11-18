@@ -10,7 +10,7 @@
 
 Three environment variables needed are pinned in the Labs 18 Mission Control Channel:
 
-- PRISMA_MANAGEMENT_API_SECRET
+- PM_API_DEV_ENDPOINT
 - PM_API_DEV_SECRET
 - PRISMA_MANAGEMENT_API_SECRET
 
