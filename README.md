@@ -14,6 +14,7 @@ To get the server running locally:
 ### ExpressJs
 
 -    Express.js makes development easy by allowing us to create secure, modular, and fast applications. 
+
 -    Express.js is an unopinionated framework, meaning there isn't any strict and determined rules on how to deal with certain requests. We can create our own custom middleware to handle requests in the ways we wish.
 
 ## Api docs are [HERE](https://d2di75zt4h5vt7.cloudfront.net/docs) <br>
@@ -50,23 +51,24 @@ To get the server running locally:
 
 ## Actions
 
-`getRoles()` -> Returns all roles
+### Roles
+
+`find()` -> Returns all roles
 
 <br>
 
-`getUsers()` -> Returns all users
+### Users
+`find()` -> Returns all users
 
-<br>
+`updateUser(changes, email)` -> Update a user by email
 
-`updateUserRole()` -> Update a users role
+`deleteUser(id)` -> Delete a user by id
 
-<br>
+`findByEmail(email)` -> Find a user by email
 
-`deleteUser()` -> Delete a user
+`add(values)` -> Insert a new user into DB
 
-<br>
-
-`getUsersByRole(roleId)` -> Get all users with requested role.
+`findByRole(role)` -> Find users by role name
 
 
 ## Environment Variables
@@ -120,4 +122,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Frontend Documentation](https://github.com/Lambda-School-Labs/mission-control-fe/blob/master/README.md) for details on the fronend of our project.
+See [Frontend Documentation](https://github.com/Lambda-School-Labs/mission-control-fe/blob/master/README.md) for details on the frontend of our project.
