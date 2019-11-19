@@ -67,7 +67,6 @@ router.post("/login", (req, res) => {
 			// search for the user by email
 			Users.findByEmail(email)
 		      .then(user => {
-
 				// if user is not found 
 				  if(!user){
 					res.status(404).json({message: 'User not found'})
@@ -80,9 +79,9 @@ router.post("/login", (req, res) => {
 					  delete user.password;
 					  // generate token
 					  const token = generateToken(user);
-					if(token){
-						// send response
-						res.status(200).json({
+						if(token){
+							// send response
+						  res.status(200).json({
 						  user: user ,
 						  token: token
 						});
@@ -103,10 +102,10 @@ router.post("/login", (req, res) => {
 					  });
 				  } 
 		      })
-		      .catch(err =>
-			      res.status(500).json({
+		      .catch( (err) => {
+				  res.status(500).json({
 			  	      message: "We couldn't process your login at the moment"
-				    })
+				    })}
 		      );
 		}
 
