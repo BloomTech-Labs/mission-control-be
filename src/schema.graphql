@@ -1,0 +1,66 @@
+scalar DateTime
+
+type Query {
+    product(id: ID!): Product!
+    products: [Product!]!
+}
+
+type Mutation {
+    addProduct(name: String!): Product!
+    updateProduct(id: ID!, name: String): Product
+    deleteProduct(id: ID!): Product
+    addProject(name: String!, product: String!, start: DateTime): Project!
+    updateProject(id: ID!, name: String): Project
+    deleteProject(id: ID!): Project
+}
+
+type Product {
+    id:       ID!
+    name:     String!
+    projects: [Project]
+}
+
+type Project {
+    id:       ID!
+    name:     String!
+    product:  Product!
+    start:    DateTime
+    end:      DateTime
+}
+
+type Person {
+    id:         ID! 
+    firstname:  String
+    lastname:   String
+    timezone:   String
+    program:    String
+    email:      String
+    githubId:   String
+    slackId:    String
+}
+
+type Role {
+    id:      ID! 
+    name:    String
+    type:    String
+}
+
+type ProjectRole {
+    id:       ID!
+    person:   Person!
+    project:  Project!
+    role:     Role!
+}
+
+type ProductRole {
+    id:       ID!
+    person:   Person!
+    product:  Product!
+    role:     Role!
+}
+
+type LambdaRole {
+    id:       ID!
+    person:   Person!
+    role:     Role!
+}
