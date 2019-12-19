@@ -1,49 +1,32 @@
 const { ApolloServer, gql } = require('apollo-server');
-const GraphQLDateTime = require('graphql-type-datetime');
 
 const typeDefs = gql`
-  type Boi {
-    id: Int!
+  type Boy {
+    id: ID!
     name: String!
   }
+
   type Query {
-    allBois: [Boi!]!
-    oneBoi(id: Int!): Boi!
+    allBoys: [Boy!]!
+    oneBoy(id: ID!): Boy!
   }
 `;
-const bois = [
-  {
-    name: 'Nick',
-    id: 0,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    name: 'Roy',
-    id: 1,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    name: 'Kevin',
-    id: 2,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    name: 'Dakotah',
-    id: 3,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    name: 'Tony',
-    id: 4,
-    createdAt: new Date().toISOString(),
-  },
+
+const boys = [
+  { name: 'Nicholas', id: 'one' },
+  { name: 'Kevin', id: 'two' },
+  { name: 'Roy', id: 'three' },
 ];
 
 const resolvers = {
-  // DateTime: GraphQLDateTime,
   Query: {
-    allBois: () => bois,
-    oneBoi: id => bois.filter(boi => boi.id === id),
+    allBoys: () => boys,
+    // Resolvers take in four params -> parent, args, context, info
+    oneBoy: (parent, args) => {
+      const { id } = args;
+      const result = boys.filter(x => x.id === id);
+      return result[0];
+    },
   },
 };
 
@@ -52,6 +35,6 @@ const server = new ApolloServer({
   resolvers,
 });
 
-server.listen().then(({ url }) => {
-  console.log(`Server running on ${url}`);
-});
+server
+  .listen()
+  .then(({ url }) => console.log(`\n *** Listening on ${url} ***\n`));
