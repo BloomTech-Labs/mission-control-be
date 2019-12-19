@@ -3,8 +3,103 @@ type User {
   name: String!
 }
 
-type Boy {
+
+type Program {
   id: ID! @id
   name: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  products: [Product]!
 }
 
+type Product {
+  id: ID! @id
+  name: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  projects: [Project]!
+}
+
+type Project {
+  id: ID! @id
+  name: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  start: DateTime!
+  end: DateTime!
+  product: Product!
+  projectNotes: [ProjectNote]!
+  projectRoles: [Role]!
+}
+
+type ProjectNote {
+  id: ID! @id
+  project: Project!
+  author: Person! @relation(name: "NoteAuthor")
+  title: String!
+  content: String!
+  attendees: [Person] @relation(name: "MeetingAttendee")
+  performanceRating: Rating!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+enum Rating {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+type Role {
+  id: ID! @id
+  # Should this really be a string? Enum?
+  title: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type ProjectRole {
+  id: ID! @id
+  person: Person!
+  project: Project!
+  role: Role!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type ProductRole {
+  id: ID! @id
+  person: Person!
+  product: Product!
+  role: Role!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type ProgramRole {
+  id: ID! @id
+  person: Person!
+  program: Program!
+  role: Role!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Person {
+  id: ID! @id
+  firstName: String!
+  lastName: String!
+  timeZone: TimeZone!
+  program: Program!
+  email: String!
+  githubId: String!
+  slackId: String!
+  # Redundant url? Is this already exposed to the front end via slack/github handle/id?
+  avatarURL: String!
+}
+
+enum TimeZone {
+  PST
+  CST
+  EST
+}

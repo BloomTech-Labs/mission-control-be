@@ -3,7 +3,39 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateBoy {
+/* GraphQL */ `type AggregatePerson {
+  count: Int!
+}
+
+type AggregateProduct {
+  count: Int!
+}
+
+type AggregateProductRole {
+  count: Int!
+}
+
+type AggregateProgram {
+  count: Int!
+}
+
+type AggregateProgramRole {
+  count: Int!
+}
+
+type AggregateProject {
+  count: Int!
+}
+
+type AggregateProjectNote {
+  count: Int!
+}
+
+type AggregateProjectRole {
+  count: Int!
+}
+
+type AggregateRole {
   count: Int!
 }
 
@@ -15,66 +47,656 @@ type BatchPayload {
   count: Long!
 }
 
-type Boy {
+scalar DateTime
+
+scalar Long
+
+type Mutation {
+  createPerson(data: PersonCreateInput!): Person!
+  updatePerson(data: PersonUpdateInput!, where: PersonWhereUniqueInput!): Person
+  updateManyPersons(data: PersonUpdateManyMutationInput!, where: PersonWhereInput): BatchPayload!
+  upsertPerson(where: PersonWhereUniqueInput!, create: PersonCreateInput!, update: PersonUpdateInput!): Person!
+  deletePerson(where: PersonWhereUniqueInput!): Person
+  deleteManyPersons(where: PersonWhereInput): BatchPayload!
+  createProduct(data: ProductCreateInput!): Product!
+  updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
+  updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
+  upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
+  deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteManyProducts(where: ProductWhereInput): BatchPayload!
+  createProductRole(data: ProductRoleCreateInput!): ProductRole!
+  updateProductRole(data: ProductRoleUpdateInput!, where: ProductRoleWhereUniqueInput!): ProductRole
+  upsertProductRole(where: ProductRoleWhereUniqueInput!, create: ProductRoleCreateInput!, update: ProductRoleUpdateInput!): ProductRole!
+  deleteProductRole(where: ProductRoleWhereUniqueInput!): ProductRole
+  deleteManyProductRoles(where: ProductRoleWhereInput): BatchPayload!
+  createProgram(data: ProgramCreateInput!): Program!
+  updateProgram(data: ProgramUpdateInput!, where: ProgramWhereUniqueInput!): Program
+  updateManyPrograms(data: ProgramUpdateManyMutationInput!, where: ProgramWhereInput): BatchPayload!
+  upsertProgram(where: ProgramWhereUniqueInput!, create: ProgramCreateInput!, update: ProgramUpdateInput!): Program!
+  deleteProgram(where: ProgramWhereUniqueInput!): Program
+  deleteManyPrograms(where: ProgramWhereInput): BatchPayload!
+  createProgramRole(data: ProgramRoleCreateInput!): ProgramRole!
+  updateProgramRole(data: ProgramRoleUpdateInput!, where: ProgramRoleWhereUniqueInput!): ProgramRole
+  upsertProgramRole(where: ProgramRoleWhereUniqueInput!, create: ProgramRoleCreateInput!, update: ProgramRoleUpdateInput!): ProgramRole!
+  deleteProgramRole(where: ProgramRoleWhereUniqueInput!): ProgramRole
+  deleteManyProgramRoles(where: ProgramRoleWhereInput): BatchPayload!
+  createProject(data: ProjectCreateInput!): Project!
+  updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
+  updateManyProjects(data: ProjectUpdateManyMutationInput!, where: ProjectWhereInput): BatchPayload!
+  upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
+  deleteProject(where: ProjectWhereUniqueInput!): Project
+  deleteManyProjects(where: ProjectWhereInput): BatchPayload!
+  createProjectNote(data: ProjectNoteCreateInput!): ProjectNote!
+  updateProjectNote(data: ProjectNoteUpdateInput!, where: ProjectNoteWhereUniqueInput!): ProjectNote
+  updateManyProjectNotes(data: ProjectNoteUpdateManyMutationInput!, where: ProjectNoteWhereInput): BatchPayload!
+  upsertProjectNote(where: ProjectNoteWhereUniqueInput!, create: ProjectNoteCreateInput!, update: ProjectNoteUpdateInput!): ProjectNote!
+  deleteProjectNote(where: ProjectNoteWhereUniqueInput!): ProjectNote
+  deleteManyProjectNotes(where: ProjectNoteWhereInput): BatchPayload!
+  createProjectRole(data: ProjectRoleCreateInput!): ProjectRole!
+  updateProjectRole(data: ProjectRoleUpdateInput!, where: ProjectRoleWhereUniqueInput!): ProjectRole
+  upsertProjectRole(where: ProjectRoleWhereUniqueInput!, create: ProjectRoleCreateInput!, update: ProjectRoleUpdateInput!): ProjectRole!
+  deleteProjectRole(where: ProjectRoleWhereUniqueInput!): ProjectRole
+  deleteManyProjectRoles(where: ProjectRoleWhereInput): BatchPayload!
+  createRole(data: RoleCreateInput!): Role!
+  updateRole(data: RoleUpdateInput!, where: RoleWhereUniqueInput!): Role
+  updateManyRoles(data: RoleUpdateManyMutationInput!, where: RoleWhereInput): BatchPayload!
+  upsertRole(where: RoleWhereUniqueInput!, create: RoleCreateInput!, update: RoleUpdateInput!): Role!
+  deleteRole(where: RoleWhereUniqueInput!): Role
+  deleteManyRoles(where: RoleWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
   id: ID!
-  name: String!
 }
 
-type BoyConnection {
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Person {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  timeZone: TimeZone!
+  program: Program!
+  email: String!
+  githubId: String!
+  slackId: String!
+  avatarURL: String!
+}
+
+type PersonConnection {
   pageInfo: PageInfo!
-  edges: [BoyEdge]!
-  aggregate: AggregateBoy!
+  edges: [PersonEdge]!
+  aggregate: AggregatePerson!
 }
 
-input BoyCreateInput {
+input PersonCreateInput {
   id: ID
-  name: String!
+  firstName: String!
+  lastName: String!
+  timeZone: TimeZone!
+  program: ProgramCreateOneInput!
+  email: String!
+  githubId: String!
+  slackId: String!
+  avatarURL: String!
 }
 
-type BoyEdge {
-  node: Boy!
+input PersonCreateManyInput {
+  create: [PersonCreateInput!]
+  connect: [PersonWhereUniqueInput!]
+}
+
+input PersonCreateOneInput {
+  create: PersonCreateInput
+  connect: PersonWhereUniqueInput
+}
+
+type PersonEdge {
+  node: Person!
   cursor: String!
 }
 
-enum BoyOrderByInput {
+enum PersonOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  timeZone_ASC
+  timeZone_DESC
+  email_ASC
+  email_DESC
+  githubId_ASC
+  githubId_DESC
+  slackId_ASC
+  slackId_DESC
+  avatarURL_ASC
+  avatarURL_DESC
 }
 
-type BoyPreviousValues {
+type PersonPreviousValues {
   id: ID!
-  name: String!
+  firstName: String!
+  lastName: String!
+  timeZone: TimeZone!
+  email: String!
+  githubId: String!
+  slackId: String!
+  avatarURL: String!
 }
 
-type BoySubscriptionPayload {
+input PersonScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  timeZone: TimeZone
+  timeZone_not: TimeZone
+  timeZone_in: [TimeZone!]
+  timeZone_not_in: [TimeZone!]
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  githubId: String
+  githubId_not: String
+  githubId_in: [String!]
+  githubId_not_in: [String!]
+  githubId_lt: String
+  githubId_lte: String
+  githubId_gt: String
+  githubId_gte: String
+  githubId_contains: String
+  githubId_not_contains: String
+  githubId_starts_with: String
+  githubId_not_starts_with: String
+  githubId_ends_with: String
+  githubId_not_ends_with: String
+  slackId: String
+  slackId_not: String
+  slackId_in: [String!]
+  slackId_not_in: [String!]
+  slackId_lt: String
+  slackId_lte: String
+  slackId_gt: String
+  slackId_gte: String
+  slackId_contains: String
+  slackId_not_contains: String
+  slackId_starts_with: String
+  slackId_not_starts_with: String
+  slackId_ends_with: String
+  slackId_not_ends_with: String
+  avatarURL: String
+  avatarURL_not: String
+  avatarURL_in: [String!]
+  avatarURL_not_in: [String!]
+  avatarURL_lt: String
+  avatarURL_lte: String
+  avatarURL_gt: String
+  avatarURL_gte: String
+  avatarURL_contains: String
+  avatarURL_not_contains: String
+  avatarURL_starts_with: String
+  avatarURL_not_starts_with: String
+  avatarURL_ends_with: String
+  avatarURL_not_ends_with: String
+  AND: [PersonScalarWhereInput!]
+  OR: [PersonScalarWhereInput!]
+  NOT: [PersonScalarWhereInput!]
+}
+
+type PersonSubscriptionPayload {
   mutation: MutationType!
-  node: Boy
+  node: Person
   updatedFields: [String!]
-  previousValues: BoyPreviousValues
+  previousValues: PersonPreviousValues
 }
 
-input BoySubscriptionWhereInput {
+input PersonSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: BoyWhereInput
-  AND: [BoySubscriptionWhereInput!]
-  OR: [BoySubscriptionWhereInput!]
-  NOT: [BoySubscriptionWhereInput!]
+  node: PersonWhereInput
+  AND: [PersonSubscriptionWhereInput!]
+  OR: [PersonSubscriptionWhereInput!]
+  NOT: [PersonSubscriptionWhereInput!]
 }
 
-input BoyUpdateInput {
-  name: String
+input PersonUpdateDataInput {
+  firstName: String
+  lastName: String
+  timeZone: TimeZone
+  program: ProgramUpdateOneRequiredInput
+  email: String
+  githubId: String
+  slackId: String
+  avatarURL: String
 }
 
-input BoyUpdateManyMutationInput {
-  name: String
+input PersonUpdateInput {
+  firstName: String
+  lastName: String
+  timeZone: TimeZone
+  program: ProgramUpdateOneRequiredInput
+  email: String
+  githubId: String
+  slackId: String
+  avatarURL: String
 }
 
-input BoyWhereInput {
+input PersonUpdateManyDataInput {
+  firstName: String
+  lastName: String
+  timeZone: TimeZone
+  email: String
+  githubId: String
+  slackId: String
+  avatarURL: String
+}
+
+input PersonUpdateManyInput {
+  create: [PersonCreateInput!]
+  update: [PersonUpdateWithWhereUniqueNestedInput!]
+  upsert: [PersonUpsertWithWhereUniqueNestedInput!]
+  delete: [PersonWhereUniqueInput!]
+  connect: [PersonWhereUniqueInput!]
+  set: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  deleteMany: [PersonScalarWhereInput!]
+  updateMany: [PersonUpdateManyWithWhereNestedInput!]
+}
+
+input PersonUpdateManyMutationInput {
+  firstName: String
+  lastName: String
+  timeZone: TimeZone
+  email: String
+  githubId: String
+  slackId: String
+  avatarURL: String
+}
+
+input PersonUpdateManyWithWhereNestedInput {
+  where: PersonScalarWhereInput!
+  data: PersonUpdateManyDataInput!
+}
+
+input PersonUpdateOneRequiredInput {
+  create: PersonCreateInput
+  update: PersonUpdateDataInput
+  upsert: PersonUpsertNestedInput
+  connect: PersonWhereUniqueInput
+}
+
+input PersonUpdateWithWhereUniqueNestedInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateDataInput!
+}
+
+input PersonUpsertNestedInput {
+  update: PersonUpdateDataInput!
+  create: PersonCreateInput!
+}
+
+input PersonUpsertWithWhereUniqueNestedInput {
+  where: PersonWhereUniqueInput!
+  update: PersonUpdateDataInput!
+  create: PersonCreateInput!
+}
+
+input PersonWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  timeZone: TimeZone
+  timeZone_not: TimeZone
+  timeZone_in: [TimeZone!]
+  timeZone_not_in: [TimeZone!]
+  program: ProgramWhereInput
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  githubId: String
+  githubId_not: String
+  githubId_in: [String!]
+  githubId_not_in: [String!]
+  githubId_lt: String
+  githubId_lte: String
+  githubId_gt: String
+  githubId_gte: String
+  githubId_contains: String
+  githubId_not_contains: String
+  githubId_starts_with: String
+  githubId_not_starts_with: String
+  githubId_ends_with: String
+  githubId_not_ends_with: String
+  slackId: String
+  slackId_not: String
+  slackId_in: [String!]
+  slackId_not_in: [String!]
+  slackId_lt: String
+  slackId_lte: String
+  slackId_gt: String
+  slackId_gte: String
+  slackId_contains: String
+  slackId_not_contains: String
+  slackId_starts_with: String
+  slackId_not_starts_with: String
+  slackId_ends_with: String
+  slackId_not_ends_with: String
+  avatarURL: String
+  avatarURL_not: String
+  avatarURL_in: [String!]
+  avatarURL_not_in: [String!]
+  avatarURL_lt: String
+  avatarURL_lte: String
+  avatarURL_gt: String
+  avatarURL_gte: String
+  avatarURL_contains: String
+  avatarURL_not_contains: String
+  avatarURL_starts_with: String
+  avatarURL_not_starts_with: String
+  avatarURL_ends_with: String
+  avatarURL_not_ends_with: String
+  AND: [PersonWhereInput!]
+  OR: [PersonWhereInput!]
+  NOT: [PersonWhereInput!]
+}
+
+input PersonWhereUniqueInput {
+  id: ID
+}
+
+type Product {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+}
+
+type ProductConnection {
+  pageInfo: PageInfo!
+  edges: [ProductEdge]!
+  aggregate: AggregateProduct!
+}
+
+input ProductCreateInput {
+  id: ID
+  name: String!
+  projects: ProjectCreateManyWithoutProductInput
+}
+
+input ProductCreateManyInput {
+  create: [ProductCreateInput!]
+  connect: [ProductWhereUniqueInput!]
+}
+
+input ProductCreateOneInput {
+  create: ProductCreateInput
+  connect: ProductWhereUniqueInput
+}
+
+input ProductCreateOneWithoutProjectsInput {
+  create: ProductCreateWithoutProjectsInput
+  connect: ProductWhereUniqueInput
+}
+
+input ProductCreateWithoutProjectsInput {
+  id: ID
+  name: String!
+}
+
+type ProductEdge {
+  node: Product!
+  cursor: String!
+}
+
+enum ProductOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ProductPreviousValues {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProductRole {
+  id: ID!
+  person: Person!
+  product: Product!
+  role: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProductRoleConnection {
+  pageInfo: PageInfo!
+  edges: [ProductRoleEdge]!
+  aggregate: AggregateProductRole!
+}
+
+input ProductRoleCreateInput {
+  id: ID
+  person: PersonCreateOneInput!
+  product: ProductCreateOneInput!
+  role: RoleCreateOneInput!
+}
+
+type ProductRoleEdge {
+  node: ProductRole!
+  cursor: String!
+}
+
+enum ProductRoleOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ProductRolePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProductRoleSubscriptionPayload {
+  mutation: MutationType!
+  node: ProductRole
+  updatedFields: [String!]
+  previousValues: ProductRolePreviousValues
+}
+
+input ProductRoleSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProductRoleWhereInput
+  AND: [ProductRoleSubscriptionWhereInput!]
+  OR: [ProductRoleSubscriptionWhereInput!]
+  NOT: [ProductRoleSubscriptionWhereInput!]
+}
+
+input ProductRoleUpdateInput {
+  person: PersonUpdateOneRequiredInput
+  product: ProductUpdateOneRequiredInput
+  role: RoleUpdateOneRequiredInput
+}
+
+input ProductRoleWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  person: PersonWhereInput
+  product: ProductWhereInput
+  role: RoleWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ProductRoleWhereInput!]
+  OR: [ProductRoleWhereInput!]
+  NOT: [ProductRoleWhereInput!]
+}
+
+input ProductRoleWhereUniqueInput {
+  id: ID
+}
+
+input ProductScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -103,62 +725,1469 @@ input BoyWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  AND: [BoyWhereInput!]
-  OR: [BoyWhereInput!]
-  NOT: [BoyWhereInput!]
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ProductScalarWhereInput!]
+  OR: [ProductScalarWhereInput!]
+  NOT: [ProductScalarWhereInput!]
 }
 
-input BoyWhereUniqueInput {
+type ProductSubscriptionPayload {
+  mutation: MutationType!
+  node: Product
+  updatedFields: [String!]
+  previousValues: ProductPreviousValues
+}
+
+input ProductSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProductWhereInput
+  AND: [ProductSubscriptionWhereInput!]
+  OR: [ProductSubscriptionWhereInput!]
+  NOT: [ProductSubscriptionWhereInput!]
+}
+
+input ProductUpdateDataInput {
+  name: String
+  projects: ProjectUpdateManyWithoutProductInput
+}
+
+input ProductUpdateInput {
+  name: String
+  projects: ProjectUpdateManyWithoutProductInput
+}
+
+input ProductUpdateManyDataInput {
+  name: String
+}
+
+input ProductUpdateManyInput {
+  create: [ProductCreateInput!]
+  update: [ProductUpdateWithWhereUniqueNestedInput!]
+  upsert: [ProductUpsertWithWhereUniqueNestedInput!]
+  delete: [ProductWhereUniqueInput!]
+  connect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
+  disconnect: [ProductWhereUniqueInput!]
+  deleteMany: [ProductScalarWhereInput!]
+  updateMany: [ProductUpdateManyWithWhereNestedInput!]
+}
+
+input ProductUpdateManyMutationInput {
+  name: String
+}
+
+input ProductUpdateManyWithWhereNestedInput {
+  where: ProductScalarWhereInput!
+  data: ProductUpdateManyDataInput!
+}
+
+input ProductUpdateOneRequiredInput {
+  create: ProductCreateInput
+  update: ProductUpdateDataInput
+  upsert: ProductUpsertNestedInput
+  connect: ProductWhereUniqueInput
+}
+
+input ProductUpdateOneRequiredWithoutProjectsInput {
+  create: ProductCreateWithoutProjectsInput
+  update: ProductUpdateWithoutProjectsDataInput
+  upsert: ProductUpsertWithoutProjectsInput
+  connect: ProductWhereUniqueInput
+}
+
+input ProductUpdateWithoutProjectsDataInput {
+  name: String
+}
+
+input ProductUpdateWithWhereUniqueNestedInput {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateDataInput!
+}
+
+input ProductUpsertNestedInput {
+  update: ProductUpdateDataInput!
+  create: ProductCreateInput!
+}
+
+input ProductUpsertWithoutProjectsInput {
+  update: ProductUpdateWithoutProjectsDataInput!
+  create: ProductCreateWithoutProjectsInput!
+}
+
+input ProductUpsertWithWhereUniqueNestedInput {
+  where: ProductWhereUniqueInput!
+  update: ProductUpdateDataInput!
+  create: ProductCreateInput!
+}
+
+input ProductWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  projects_every: ProjectWhereInput
+  projects_some: ProjectWhereInput
+  projects_none: ProjectWhereInput
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+}
+
+input ProductWhereUniqueInput {
   id: ID
 }
 
-scalar Long
-
-type Mutation {
-  createBoy(data: BoyCreateInput!): Boy!
-  updateBoy(data: BoyUpdateInput!, where: BoyWhereUniqueInput!): Boy
-  updateManyBoys(data: BoyUpdateManyMutationInput!, where: BoyWhereInput): BatchPayload!
-  upsertBoy(where: BoyWhereUniqueInput!, create: BoyCreateInput!, update: BoyUpdateInput!): Boy!
-  deleteBoy(where: BoyWhereUniqueInput!): Boy
-  deleteManyBoys(where: BoyWhereInput): BatchPayload!
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-interface Node {
+type Program {
   id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product!]
 }
 
-type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
-  endCursor: String
+type ProgramConnection {
+  pageInfo: PageInfo!
+  edges: [ProgramEdge]!
+  aggregate: AggregateProgram!
+}
+
+input ProgramCreateInput {
+  id: ID
+  name: String!
+  products: ProductCreateManyInput
+}
+
+input ProgramCreateOneInput {
+  create: ProgramCreateInput
+  connect: ProgramWhereUniqueInput
+}
+
+type ProgramEdge {
+  node: Program!
+  cursor: String!
+}
+
+enum ProgramOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ProgramPreviousValues {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProgramRole {
+  id: ID!
+  person: Person!
+  program: Program!
+  role: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProgramRoleConnection {
+  pageInfo: PageInfo!
+  edges: [ProgramRoleEdge]!
+  aggregate: AggregateProgramRole!
+}
+
+input ProgramRoleCreateInput {
+  id: ID
+  person: PersonCreateOneInput!
+  program: ProgramCreateOneInput!
+  role: RoleCreateOneInput!
+}
+
+type ProgramRoleEdge {
+  node: ProgramRole!
+  cursor: String!
+}
+
+enum ProgramRoleOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ProgramRolePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProgramRoleSubscriptionPayload {
+  mutation: MutationType!
+  node: ProgramRole
+  updatedFields: [String!]
+  previousValues: ProgramRolePreviousValues
+}
+
+input ProgramRoleSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProgramRoleWhereInput
+  AND: [ProgramRoleSubscriptionWhereInput!]
+  OR: [ProgramRoleSubscriptionWhereInput!]
+  NOT: [ProgramRoleSubscriptionWhereInput!]
+}
+
+input ProgramRoleUpdateInput {
+  person: PersonUpdateOneRequiredInput
+  program: ProgramUpdateOneRequiredInput
+  role: RoleUpdateOneRequiredInput
+}
+
+input ProgramRoleWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  person: PersonWhereInput
+  program: ProgramWhereInput
+  role: RoleWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ProgramRoleWhereInput!]
+  OR: [ProgramRoleWhereInput!]
+  NOT: [ProgramRoleWhereInput!]
+}
+
+input ProgramRoleWhereUniqueInput {
+  id: ID
+}
+
+type ProgramSubscriptionPayload {
+  mutation: MutationType!
+  node: Program
+  updatedFields: [String!]
+  previousValues: ProgramPreviousValues
+}
+
+input ProgramSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProgramWhereInput
+  AND: [ProgramSubscriptionWhereInput!]
+  OR: [ProgramSubscriptionWhereInput!]
+  NOT: [ProgramSubscriptionWhereInput!]
+}
+
+input ProgramUpdateDataInput {
+  name: String
+  products: ProductUpdateManyInput
+}
+
+input ProgramUpdateInput {
+  name: String
+  products: ProductUpdateManyInput
+}
+
+input ProgramUpdateManyMutationInput {
+  name: String
+}
+
+input ProgramUpdateOneRequiredInput {
+  create: ProgramCreateInput
+  update: ProgramUpdateDataInput
+  upsert: ProgramUpsertNestedInput
+  connect: ProgramWhereUniqueInput
+}
+
+input ProgramUpsertNestedInput {
+  update: ProgramUpdateDataInput!
+  create: ProgramCreateInput!
+}
+
+input ProgramWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  products_every: ProductWhereInput
+  products_some: ProductWhereInput
+  products_none: ProductWhereInput
+  AND: [ProgramWhereInput!]
+  OR: [ProgramWhereInput!]
+  NOT: [ProgramWhereInput!]
+}
+
+input ProgramWhereUniqueInput {
+  id: ID
+}
+
+type Project {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  start: DateTime!
+  end: DateTime!
+  product: Product!
+  projectNotes(where: ProjectNoteWhereInput, orderBy: ProjectNoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectNote!]
+  projectRoles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
+}
+
+type ProjectConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectEdge]!
+  aggregate: AggregateProject!
+}
+
+input ProjectCreateInput {
+  id: ID
+  name: String!
+  start: DateTime!
+  end: DateTime!
+  product: ProductCreateOneWithoutProjectsInput!
+  projectNotes: ProjectNoteCreateManyWithoutProjectInput
+  projectRoles: RoleCreateManyInput
+}
+
+input ProjectCreateManyWithoutProductInput {
+  create: [ProjectCreateWithoutProductInput!]
+  connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateOneInput {
+  create: ProjectCreateInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectCreateOneWithoutProjectNotesInput {
+  create: ProjectCreateWithoutProjectNotesInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectCreateWithoutProductInput {
+  id: ID
+  name: String!
+  start: DateTime!
+  end: DateTime!
+  projectNotes: ProjectNoteCreateManyWithoutProjectInput
+  projectRoles: RoleCreateManyInput
+}
+
+input ProjectCreateWithoutProjectNotesInput {
+  id: ID
+  name: String!
+  start: DateTime!
+  end: DateTime!
+  product: ProductCreateOneWithoutProjectsInput!
+  projectRoles: RoleCreateManyInput
+}
+
+type ProjectEdge {
+  node: Project!
+  cursor: String!
+}
+
+type ProjectNote {
+  id: ID!
+  project: Project!
+  author: Person!
+  title: String!
+  content: String!
+  attendees(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
+  performanceRating: Rating!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProjectNoteConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectNoteEdge]!
+  aggregate: AggregateProjectNote!
+}
+
+input ProjectNoteCreateInput {
+  id: ID
+  project: ProjectCreateOneWithoutProjectNotesInput!
+  author: PersonCreateOneInput!
+  title: String!
+  content: String!
+  attendees: PersonCreateManyInput
+  performanceRating: Rating!
+}
+
+input ProjectNoteCreateManyWithoutProjectInput {
+  create: [ProjectNoteCreateWithoutProjectInput!]
+  connect: [ProjectNoteWhereUniqueInput!]
+}
+
+input ProjectNoteCreateWithoutProjectInput {
+  id: ID
+  author: PersonCreateOneInput!
+  title: String!
+  content: String!
+  attendees: PersonCreateManyInput
+  performanceRating: Rating!
+}
+
+type ProjectNoteEdge {
+  node: ProjectNote!
+  cursor: String!
+}
+
+enum ProjectNoteOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  content_ASC
+  content_DESC
+  performanceRating_ASC
+  performanceRating_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ProjectNotePreviousValues {
+  id: ID!
+  title: String!
+  content: String!
+  performanceRating: Rating!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input ProjectNoteScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  performanceRating: Rating
+  performanceRating_not: Rating
+  performanceRating_in: [Rating!]
+  performanceRating_not_in: [Rating!]
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ProjectNoteScalarWhereInput!]
+  OR: [ProjectNoteScalarWhereInput!]
+  NOT: [ProjectNoteScalarWhereInput!]
+}
+
+type ProjectNoteSubscriptionPayload {
+  mutation: MutationType!
+  node: ProjectNote
+  updatedFields: [String!]
+  previousValues: ProjectNotePreviousValues
+}
+
+input ProjectNoteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProjectNoteWhereInput
+  AND: [ProjectNoteSubscriptionWhereInput!]
+  OR: [ProjectNoteSubscriptionWhereInput!]
+  NOT: [ProjectNoteSubscriptionWhereInput!]
+}
+
+input ProjectNoteUpdateInput {
+  project: ProjectUpdateOneRequiredWithoutProjectNotesInput
+  author: PersonUpdateOneRequiredInput
+  title: String
+  content: String
+  attendees: PersonUpdateManyInput
+  performanceRating: Rating
+}
+
+input ProjectNoteUpdateManyDataInput {
+  title: String
+  content: String
+  performanceRating: Rating
+}
+
+input ProjectNoteUpdateManyMutationInput {
+  title: String
+  content: String
+  performanceRating: Rating
+}
+
+input ProjectNoteUpdateManyWithoutProjectInput {
+  create: [ProjectNoteCreateWithoutProjectInput!]
+  delete: [ProjectNoteWhereUniqueInput!]
+  connect: [ProjectNoteWhereUniqueInput!]
+  set: [ProjectNoteWhereUniqueInput!]
+  disconnect: [ProjectNoteWhereUniqueInput!]
+  update: [ProjectNoteUpdateWithWhereUniqueWithoutProjectInput!]
+  upsert: [ProjectNoteUpsertWithWhereUniqueWithoutProjectInput!]
+  deleteMany: [ProjectNoteScalarWhereInput!]
+  updateMany: [ProjectNoteUpdateManyWithWhereNestedInput!]
+}
+
+input ProjectNoteUpdateManyWithWhereNestedInput {
+  where: ProjectNoteScalarWhereInput!
+  data: ProjectNoteUpdateManyDataInput!
+}
+
+input ProjectNoteUpdateWithoutProjectDataInput {
+  author: PersonUpdateOneRequiredInput
+  title: String
+  content: String
+  attendees: PersonUpdateManyInput
+  performanceRating: Rating
+}
+
+input ProjectNoteUpdateWithWhereUniqueWithoutProjectInput {
+  where: ProjectNoteWhereUniqueInput!
+  data: ProjectNoteUpdateWithoutProjectDataInput!
+}
+
+input ProjectNoteUpsertWithWhereUniqueWithoutProjectInput {
+  where: ProjectNoteWhereUniqueInput!
+  update: ProjectNoteUpdateWithoutProjectDataInput!
+  create: ProjectNoteCreateWithoutProjectInput!
+}
+
+input ProjectNoteWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  project: ProjectWhereInput
+  author: PersonWhereInput
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  attendees_every: PersonWhereInput
+  attendees_some: PersonWhereInput
+  attendees_none: PersonWhereInput
+  performanceRating: Rating
+  performanceRating_not: Rating
+  performanceRating_in: [Rating!]
+  performanceRating_not_in: [Rating!]
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ProjectNoteWhereInput!]
+  OR: [ProjectNoteWhereInput!]
+  NOT: [ProjectNoteWhereInput!]
+}
+
+input ProjectNoteWhereUniqueInput {
+  id: ID
+}
+
+enum ProjectOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  start_ASC
+  start_DESC
+  end_ASC
+  end_DESC
+}
+
+type ProjectPreviousValues {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  start: DateTime!
+  end: DateTime!
+}
+
+type ProjectRole {
+  id: ID!
+  person: Person!
+  project: Project!
+  role: Role!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProjectRoleConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectRoleEdge]!
+  aggregate: AggregateProjectRole!
+}
+
+input ProjectRoleCreateInput {
+  id: ID
+  person: PersonCreateOneInput!
+  project: ProjectCreateOneInput!
+  role: RoleCreateOneInput!
+}
+
+type ProjectRoleEdge {
+  node: ProjectRole!
+  cursor: String!
+}
+
+enum ProjectRoleOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ProjectRolePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ProjectRoleSubscriptionPayload {
+  mutation: MutationType!
+  node: ProjectRole
+  updatedFields: [String!]
+  previousValues: ProjectRolePreviousValues
+}
+
+input ProjectRoleSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProjectRoleWhereInput
+  AND: [ProjectRoleSubscriptionWhereInput!]
+  OR: [ProjectRoleSubscriptionWhereInput!]
+  NOT: [ProjectRoleSubscriptionWhereInput!]
+}
+
+input ProjectRoleUpdateInput {
+  person: PersonUpdateOneRequiredInput
+  project: ProjectUpdateOneRequiredInput
+  role: RoleUpdateOneRequiredInput
+}
+
+input ProjectRoleWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  person: PersonWhereInput
+  project: ProjectWhereInput
+  role: RoleWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ProjectRoleWhereInput!]
+  OR: [ProjectRoleWhereInput!]
+  NOT: [ProjectRoleWhereInput!]
+}
+
+input ProjectRoleWhereUniqueInput {
+  id: ID
+}
+
+input ProjectScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  start: DateTime
+  start_not: DateTime
+  start_in: [DateTime!]
+  start_not_in: [DateTime!]
+  start_lt: DateTime
+  start_lte: DateTime
+  start_gt: DateTime
+  start_gte: DateTime
+  end: DateTime
+  end_not: DateTime
+  end_in: [DateTime!]
+  end_not_in: [DateTime!]
+  end_lt: DateTime
+  end_lte: DateTime
+  end_gt: DateTime
+  end_gte: DateTime
+  AND: [ProjectScalarWhereInput!]
+  OR: [ProjectScalarWhereInput!]
+  NOT: [ProjectScalarWhereInput!]
+}
+
+type ProjectSubscriptionPayload {
+  mutation: MutationType!
+  node: Project
+  updatedFields: [String!]
+  previousValues: ProjectPreviousValues
+}
+
+input ProjectSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProjectWhereInput
+  AND: [ProjectSubscriptionWhereInput!]
+  OR: [ProjectSubscriptionWhereInput!]
+  NOT: [ProjectSubscriptionWhereInput!]
+}
+
+input ProjectUpdateDataInput {
+  name: String
+  start: DateTime
+  end: DateTime
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  projectNotes: ProjectNoteUpdateManyWithoutProjectInput
+  projectRoles: RoleUpdateManyInput
+}
+
+input ProjectUpdateInput {
+  name: String
+  start: DateTime
+  end: DateTime
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  projectNotes: ProjectNoteUpdateManyWithoutProjectInput
+  projectRoles: RoleUpdateManyInput
+}
+
+input ProjectUpdateManyDataInput {
+  name: String
+  start: DateTime
+  end: DateTime
+}
+
+input ProjectUpdateManyMutationInput {
+  name: String
+  start: DateTime
+  end: DateTime
+}
+
+input ProjectUpdateManyWithoutProductInput {
+  create: [ProjectCreateWithoutProductInput!]
+  delete: [ProjectWhereUniqueInput!]
+  connect: [ProjectWhereUniqueInput!]
+  set: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutProductInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutProductInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+}
+
+input ProjectUpdateManyWithWhereNestedInput {
+  where: ProjectScalarWhereInput!
+  data: ProjectUpdateManyDataInput!
+}
+
+input ProjectUpdateOneRequiredInput {
+  create: ProjectCreateInput
+  update: ProjectUpdateDataInput
+  upsert: ProjectUpsertNestedInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectUpdateOneRequiredWithoutProjectNotesInput {
+  create: ProjectCreateWithoutProjectNotesInput
+  update: ProjectUpdateWithoutProjectNotesDataInput
+  upsert: ProjectUpsertWithoutProjectNotesInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectUpdateWithoutProductDataInput {
+  name: String
+  start: DateTime
+  end: DateTime
+  projectNotes: ProjectNoteUpdateManyWithoutProjectInput
+  projectRoles: RoleUpdateManyInput
+}
+
+input ProjectUpdateWithoutProjectNotesDataInput {
+  name: String
+  start: DateTime
+  end: DateTime
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  projectRoles: RoleUpdateManyInput
+}
+
+input ProjectUpdateWithWhereUniqueWithoutProductInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutProductDataInput!
+}
+
+input ProjectUpsertNestedInput {
+  update: ProjectUpdateDataInput!
+  create: ProjectCreateInput!
+}
+
+input ProjectUpsertWithoutProjectNotesInput {
+  update: ProjectUpdateWithoutProjectNotesDataInput!
+  create: ProjectCreateWithoutProjectNotesInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutProductInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutProductDataInput!
+  create: ProjectCreateWithoutProductInput!
+}
+
+input ProjectWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  start: DateTime
+  start_not: DateTime
+  start_in: [DateTime!]
+  start_not_in: [DateTime!]
+  start_lt: DateTime
+  start_lte: DateTime
+  start_gt: DateTime
+  start_gte: DateTime
+  end: DateTime
+  end_not: DateTime
+  end_in: [DateTime!]
+  end_not_in: [DateTime!]
+  end_lt: DateTime
+  end_lte: DateTime
+  end_gt: DateTime
+  end_gte: DateTime
+  product: ProductWhereInput
+  projectNotes_every: ProjectNoteWhereInput
+  projectNotes_some: ProjectNoteWhereInput
+  projectNotes_none: ProjectNoteWhereInput
+  projectRoles_every: RoleWhereInput
+  projectRoles_some: RoleWhereInput
+  projectRoles_none: RoleWhereInput
+  AND: [ProjectWhereInput!]
+  OR: [ProjectWhereInput!]
+  NOT: [ProjectWhereInput!]
+}
+
+input ProjectWhereUniqueInput {
+  id: ID
 }
 
 type Query {
-  boy(where: BoyWhereUniqueInput!): Boy
-  boys(where: BoyWhereInput, orderBy: BoyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Boy]!
-  boysConnection(where: BoyWhereInput, orderBy: BoyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BoyConnection!
+  person(where: PersonWhereUniqueInput!): Person
+  persons(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person]!
+  personsConnection(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PersonConnection!
+  product(where: ProductWhereUniqueInput!): Product
+  products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
+  productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
+  productRole(where: ProductRoleWhereUniqueInput!): ProductRole
+  productRoles(where: ProductRoleWhereInput, orderBy: ProductRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProductRole]!
+  productRolesConnection(where: ProductRoleWhereInput, orderBy: ProductRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductRoleConnection!
+  program(where: ProgramWhereUniqueInput!): Program
+  programs(where: ProgramWhereInput, orderBy: ProgramOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Program]!
+  programsConnection(where: ProgramWhereInput, orderBy: ProgramOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProgramConnection!
+  programRole(where: ProgramRoleWhereUniqueInput!): ProgramRole
+  programRoles(where: ProgramRoleWhereInput, orderBy: ProgramRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProgramRole]!
+  programRolesConnection(where: ProgramRoleWhereInput, orderBy: ProgramRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProgramRoleConnection!
+  project(where: ProjectWhereUniqueInput!): Project
+  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
+  projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
+  projectNote(where: ProjectNoteWhereUniqueInput!): ProjectNote
+  projectNotes(where: ProjectNoteWhereInput, orderBy: ProjectNoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectNote]!
+  projectNotesConnection(where: ProjectNoteWhereInput, orderBy: ProjectNoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectNoteConnection!
+  projectRole(where: ProjectRoleWhereUniqueInput!): ProjectRole
+  projectRoles(where: ProjectRoleWhereInput, orderBy: ProjectRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectRole]!
+  projectRolesConnection(where: ProjectRoleWhereInput, orderBy: ProjectRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectRoleConnection!
+  role(where: RoleWhereUniqueInput!): Role
+  roles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role]!
+  rolesConnection(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RoleConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
+enum Rating {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+type Role {
+  id: ID!
+  title: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RoleConnection {
+  pageInfo: PageInfo!
+  edges: [RoleEdge]!
+  aggregate: AggregateRole!
+}
+
+input RoleCreateInput {
+  id: ID
+  title: String!
+}
+
+input RoleCreateManyInput {
+  create: [RoleCreateInput!]
+  connect: [RoleWhereUniqueInput!]
+}
+
+input RoleCreateOneInput {
+  create: RoleCreateInput
+  connect: RoleWhereUniqueInput
+}
+
+type RoleEdge {
+  node: Role!
+  cursor: String!
+}
+
+enum RoleOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type RolePreviousValues {
+  id: ID!
+  title: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input RoleScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [RoleScalarWhereInput!]
+  OR: [RoleScalarWhereInput!]
+  NOT: [RoleScalarWhereInput!]
+}
+
+type RoleSubscriptionPayload {
+  mutation: MutationType!
+  node: Role
+  updatedFields: [String!]
+  previousValues: RolePreviousValues
+}
+
+input RoleSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: RoleWhereInput
+  AND: [RoleSubscriptionWhereInput!]
+  OR: [RoleSubscriptionWhereInput!]
+  NOT: [RoleSubscriptionWhereInput!]
+}
+
+input RoleUpdateDataInput {
+  title: String
+}
+
+input RoleUpdateInput {
+  title: String
+}
+
+input RoleUpdateManyDataInput {
+  title: String
+}
+
+input RoleUpdateManyInput {
+  create: [RoleCreateInput!]
+  update: [RoleUpdateWithWhereUniqueNestedInput!]
+  upsert: [RoleUpsertWithWhereUniqueNestedInput!]
+  delete: [RoleWhereUniqueInput!]
+  connect: [RoleWhereUniqueInput!]
+  set: [RoleWhereUniqueInput!]
+  disconnect: [RoleWhereUniqueInput!]
+  deleteMany: [RoleScalarWhereInput!]
+  updateMany: [RoleUpdateManyWithWhereNestedInput!]
+}
+
+input RoleUpdateManyMutationInput {
+  title: String
+}
+
+input RoleUpdateManyWithWhereNestedInput {
+  where: RoleScalarWhereInput!
+  data: RoleUpdateManyDataInput!
+}
+
+input RoleUpdateOneRequiredInput {
+  create: RoleCreateInput
+  update: RoleUpdateDataInput
+  upsert: RoleUpsertNestedInput
+  connect: RoleWhereUniqueInput
+}
+
+input RoleUpdateWithWhereUniqueNestedInput {
+  where: RoleWhereUniqueInput!
+  data: RoleUpdateDataInput!
+}
+
+input RoleUpsertNestedInput {
+  update: RoleUpdateDataInput!
+  create: RoleCreateInput!
+}
+
+input RoleUpsertWithWhereUniqueNestedInput {
+  where: RoleWhereUniqueInput!
+  update: RoleUpdateDataInput!
+  create: RoleCreateInput!
+}
+
+input RoleWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [RoleWhereInput!]
+  OR: [RoleWhereInput!]
+  NOT: [RoleWhereInput!]
+}
+
+input RoleWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
-  boy(where: BoySubscriptionWhereInput): BoySubscriptionPayload
+  person(where: PersonSubscriptionWhereInput): PersonSubscriptionPayload
+  product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
+  productRole(where: ProductRoleSubscriptionWhereInput): ProductRoleSubscriptionPayload
+  program(where: ProgramSubscriptionWhereInput): ProgramSubscriptionPayload
+  programRole(where: ProgramRoleSubscriptionWhereInput): ProgramRoleSubscriptionPayload
+  project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
+  projectNote(where: ProjectNoteSubscriptionWhereInput): ProjectNoteSubscriptionPayload
+  projectRole(where: ProjectRoleSubscriptionWhereInput): ProjectRoleSubscriptionPayload
+  role(where: RoleSubscriptionWhereInput): RoleSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+enum TimeZone {
+  PST
+  CST
+  EST
 }
 
 type User {
