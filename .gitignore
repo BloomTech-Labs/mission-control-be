@@ -86,3 +86,7 @@ typings/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# lockfiles
+yarn.lock
+package-lock.json
