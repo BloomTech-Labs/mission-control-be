@@ -5,6 +5,9 @@
   "repository": "https://github.com/Lambda-School-Labs/mission-control-be.git",
   "author": "Nicholas Gebhart <nicholas.gebhart@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "server": "nodemon server/apollo/index.js"
+  },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
@@ -16,5 +19,10 @@
     "eslint-plugin-react": "^7.17.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "apollo-server": "^2.9.14",
+    "graphql": "^14.5.8",
+    "graphql-type-datetime": "^0.2.4"
   }
 }
