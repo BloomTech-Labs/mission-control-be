@@ -1,0 +1,10 @@
+type User {
+  id: ID! @id
+  name: String!
+}
+
+type Boy {
+  id: ID! @id
+  name: String!
+}
+
