@@ -107,8 +107,10 @@ const dummyData = [
 (async () => {
   const resolvers = {
     Query: {
-      info: async () => {
-        return dummyData;
+      info: async (parent, args, context) => {
+        const { headers } = context;
+        const result = await authReq(headers, 'Everyone');
+        return result ? dummyData : [];
       },
     },
   };
