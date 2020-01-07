@@ -21,6 +21,7 @@
     "prettier": "^1.19.1"
   },
   "dependencies": {
+    "@okta/jwt-verifier": "^1.0.0",
     "apollo-server": "^2.9.14",
     "graphql": "^14.5.8",
     "graphql-type-datetime": "^0.2.4",
