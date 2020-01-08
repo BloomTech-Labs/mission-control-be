@@ -1,8 +1,13 @@
+## Schema involving Person and User types are likely going to change
+## as we understand more about the production schema.
+
+## Assume that User will have a string identifier passed from OKTA
+## As well as a claims array containing a list of strings.
+
 type User {
   id: ID! @id
   name: String!
 }
-
 
 type Program {
   id: ID! @id

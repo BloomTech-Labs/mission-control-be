@@ -9,8 +9,8 @@ const oktaJwtVerifier = new OktaJwtVerifier({
   },
 });
 
-module.exports = (req, role) => {
-  const authHeader = req.authorization;
+module.exports = req => {
+  const authHeader = req;
   const match = authHeader.match(/Bearer (.+)/);
 
   if (!match) {
@@ -29,7 +29,12 @@ module.exports = (req, role) => {
       // Configured via OKTA dashboard for broader audiences
       .verifyAccessToken(accessToken, expectedAudience)
       .then(jwt => {
-        return jwt.claims.Auth.includes(role);
+        const claims = jwt.claims.Auth;
+        const id = jwt.claims.uid;
+        return {
+          id,
+          claims,
+        };
       })
       .catch(err => {
         throw new Error(err);
