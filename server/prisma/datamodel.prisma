@@ -29,7 +29,7 @@ type Project {
   end: DateTime!
   product: Product!
   projectNotes: [ProjectNote]!
-  projectRoles: [Role]!
+  projectRoles: [ProjectRole]!
 }
 
 type ProjectNote {
