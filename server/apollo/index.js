@@ -3,24 +3,31 @@ const typeDefs = require('./schema');
 const { prisma } = require('../prisma/generated/prisma-client');
 const authReq = require('./auth/auth-middleware');
 
+// Temporary data until DB is in place
 const dummyData = require('./dummy');
 
 (async () => {
   const resolvers = {
     Query: {
-      info: async (parent, args, context) => {
-        const { claims } = context.user;
-        return claims.includes('Everyone') ? dummyData : null;
+      info: async () => {
+        return dummyData;
       },
     },
   };
 
+  /**
+   * Create context object to pass request, user object containing result
+   * of Authentication/Authorization middleware, along with prisma client
+   * into all resolvers. Throws error if requests are not authenticated.
+   * */
+
   const context = async ({ req }) => {
     const { headers } = req;
     const { id, claims } = await authReq(headers);
-    const user = { id, claims };
 
     if (!claims.includes('Everyone')) throw new Error('ff');
+
+    const user = { id, claims };
 
     return {
       ...req,
