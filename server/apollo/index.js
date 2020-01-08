@@ -1,7 +1,9 @@
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const { prisma } = require('../prisma/generated/prisma-client');
-const authReq = require('./auth/auth-middleware');
+
+// OKTA specific authorization middleware
+const oktaAuthReq = require('./auth/auth-middleware');
 
 // Temporary data until DB is in place
 const dummyData = require('./dummy');
@@ -9,7 +11,11 @@ const dummyData = require('./dummy');
 (async () => {
   const resolvers = {
     Query: {
-      info: async () => {
+      // Log out context user object as proof of concept
+      // that role-based information is beind threaded into the resolvers
+      info: async (parent, args, context) => {
+        // eslint-disable-next-line no-console
+        console.log(context.user);
         return dummyData;
       },
     },
@@ -22,18 +28,36 @@ const dummyData = require('./dummy');
    * */
 
   const context = async ({ req }) => {
-    const { headers } = req;
-    const { id, claims } = await authReq(headers);
+    const { authorization } = req.headers;
+    const { type, accessToken } = JSON.parse(authorization);
 
-    if (!claims.includes('Everyone')) throw new Error('ff');
+    switch (type) {
+      case 'OKTA': {
+        /** OKTA-specific login flow matches against 'type' case from
+         * client-side fetchOptions on graphQL client. */
 
-    const user = { id, claims };
+        const token = `Bearer ${accessToken}`;
+        const { id, claims } = await oktaAuthReq(token);
 
-    return {
-      ...req,
-      user,
-      prisma,
-    };
+        if (!claims.includes('Everyone')) throw new Error('aaaa');
+
+        const user = { id, claims };
+
+        return {
+          ...req,
+          user,
+          prisma,
+        };
+      }
+      /** Default case returns request and prisma client
+       * May update to provide proper authentication */
+
+      default:
+        return {
+          ...req,
+          prisma,
+        };
+    }
   };
 
   const server = new ApolloServer({
