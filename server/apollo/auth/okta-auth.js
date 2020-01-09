@@ -9,7 +9,7 @@ const oktaJwtVerifier = new OktaJwtVerifier({
   },
 });
 
-module.exports = req => {
+const oktaAuthReq = req => {
   const authHeader = req;
   const match = authHeader.match(/Bearer (.+)/);
 
@@ -41,3 +41,17 @@ module.exports = req => {
       })
   );
 };
+
+const constructOktaContext = async (accessToken, role, client, req) => {
+  const token = `Bearer ${accessToken}`;
+  const { id, claims } = await oktaAuthReq(token);
+  if (!claims.includes('Everyone')) throw new Error('aaaa');
+  const user = { id, claims };
+  return {
+    ...req,
+    user,
+    client,
+  };
+};
+
+module.exports = constructOktaContext;
