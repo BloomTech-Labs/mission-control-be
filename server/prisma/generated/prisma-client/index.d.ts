@@ -516,11 +516,9 @@ export type PersonOrderByInput =
   | "avatarURL_ASC"
   | "avatarURL_DESC";
 
-export type RoleOrderByInput =
+export type ProjectRoleOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "title_ASC"
-  | "title_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -552,9 +550,11 @@ export type ProgramRoleOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type ProjectRoleOrderByInput =
+export type RoleOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "title_ASC"
+  | "title_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -686,9 +686,9 @@ export interface ProjectWhereInput {
   projectNotes_every?: Maybe<ProjectNoteWhereInput>;
   projectNotes_some?: Maybe<ProjectNoteWhereInput>;
   projectNotes_none?: Maybe<ProjectNoteWhereInput>;
-  projectRoles_every?: Maybe<RoleWhereInput>;
-  projectRoles_some?: Maybe<RoleWhereInput>;
-  projectRoles_none?: Maybe<RoleWhereInput>;
+  projectRoles_every?: Maybe<ProjectRoleWhereInput>;
+  projectRoles_some?: Maybe<ProjectRoleWhereInput>;
+  projectRoles_none?: Maybe<ProjectRoleWhereInput>;
   AND?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
   OR?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
   NOT?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
@@ -929,6 +929,45 @@ export interface ProgramWhereInput {
   NOT?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
 }
 
+export interface ProjectRoleWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  person?: Maybe<PersonWhereInput>;
+  project?: Maybe<ProjectWhereInput>;
+  role?: Maybe<RoleWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
+  OR?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
+  NOT?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
+}
+
 export interface RoleWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
@@ -1085,45 +1124,6 @@ export type ProjectRoleWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface ProjectRoleWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  person?: Maybe<PersonWhereInput>;
-  project?: Maybe<ProjectWhereInput>;
-  role?: Maybe<RoleWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
-  OR?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
-  NOT?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
-}
-
 export type RoleWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
@@ -1213,7 +1213,7 @@ export interface ProjectCreateWithoutProductInput {
   start: DateTimeInput;
   end: DateTimeInput;
   projectNotes?: Maybe<ProjectNoteCreateManyWithoutProjectInput>;
-  projectRoles?: Maybe<RoleCreateManyInput>;
+  projectRoles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
 }
 
 export interface ProjectNoteCreateManyWithoutProjectInput {
@@ -1243,9 +1243,23 @@ export interface PersonCreateManyInput {
   connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
 }
 
-export interface RoleCreateManyInput {
-  create?: Maybe<RoleCreateInput[] | RoleCreateInput>;
-  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
+export interface ProjectRoleCreateManyWithoutProjectInput {
+  create?: Maybe<
+    | ProjectRoleCreateWithoutProjectInput[]
+    | ProjectRoleCreateWithoutProjectInput
+  >;
+  connect?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
+}
+
+export interface ProjectRoleCreateWithoutProjectInput {
+  id?: Maybe<ID_Input>;
+  person: PersonCreateOneInput;
+  role: RoleCreateOneInput;
+}
+
+export interface RoleCreateOneInput {
+  create?: Maybe<RoleCreateInput>;
+  connect?: Maybe<RoleWhereUniqueInput>;
 }
 
 export interface RoleCreateInput {
@@ -1340,7 +1354,7 @@ export interface ProjectUpdateWithoutProductDataInput {
   start?: Maybe<DateTimeInput>;
   end?: Maybe<DateTimeInput>;
   projectNotes?: Maybe<ProjectNoteUpdateManyWithoutProjectInput>;
-  projectRoles?: Maybe<RoleUpdateManyInput>;
+  projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
 }
 
 export interface ProjectNoteUpdateManyWithoutProjectInput {
@@ -1647,42 +1661,63 @@ export interface ProjectNoteUpdateManyDataInput {
   performanceRating?: Maybe<Rating>;
 }
 
-export interface RoleUpdateManyInput {
-  create?: Maybe<RoleCreateInput[] | RoleCreateInput>;
+export interface ProjectRoleUpdateManyWithoutProjectInput {
+  create?: Maybe<
+    | ProjectRoleCreateWithoutProjectInput[]
+    | ProjectRoleCreateWithoutProjectInput
+  >;
+  delete?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
+  connect?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
+  set?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
+  disconnect?: Maybe<
+    ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput
+  >;
   update?: Maybe<
-    | RoleUpdateWithWhereUniqueNestedInput[]
-    | RoleUpdateWithWhereUniqueNestedInput
+    | ProjectRoleUpdateWithWhereUniqueWithoutProjectInput[]
+    | ProjectRoleUpdateWithWhereUniqueWithoutProjectInput
   >;
   upsert?: Maybe<
-    | RoleUpsertWithWhereUniqueNestedInput[]
-    | RoleUpsertWithWhereUniqueNestedInput
+    | ProjectRoleUpsertWithWhereUniqueWithoutProjectInput[]
+    | ProjectRoleUpsertWithWhereUniqueWithoutProjectInput
   >;
-  delete?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-  connect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-  set?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-  disconnect?: Maybe<RoleWhereUniqueInput[] | RoleWhereUniqueInput>;
-  deleteMany?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-  updateMany?: Maybe<
-    RoleUpdateManyWithWhereNestedInput[] | RoleUpdateManyWithWhereNestedInput
+  deleteMany?: Maybe<
+    ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput
   >;
 }
 
-export interface RoleUpdateWithWhereUniqueNestedInput {
-  where: RoleWhereUniqueInput;
-  data: RoleUpdateDataInput;
+export interface ProjectRoleUpdateWithWhereUniqueWithoutProjectInput {
+  where: ProjectRoleWhereUniqueInput;
+  data: ProjectRoleUpdateWithoutProjectDataInput;
+}
+
+export interface ProjectRoleUpdateWithoutProjectDataInput {
+  person?: Maybe<PersonUpdateOneRequiredInput>;
+  role?: Maybe<RoleUpdateOneRequiredInput>;
+}
+
+export interface RoleUpdateOneRequiredInput {
+  create?: Maybe<RoleCreateInput>;
+  update?: Maybe<RoleUpdateDataInput>;
+  upsert?: Maybe<RoleUpsertNestedInput>;
+  connect?: Maybe<RoleWhereUniqueInput>;
 }
 
 export interface RoleUpdateDataInput {
   title?: Maybe<String>;
 }
 
-export interface RoleUpsertWithWhereUniqueNestedInput {
-  where: RoleWhereUniqueInput;
+export interface RoleUpsertNestedInput {
   update: RoleUpdateDataInput;
   create: RoleCreateInput;
 }
 
-export interface RoleScalarWhereInput {
+export interface ProjectRoleUpsertWithWhereUniqueWithoutProjectInput {
+  where: ProjectRoleWhereUniqueInput;
+  update: ProjectRoleUpdateWithoutProjectDataInput;
+  create: ProjectRoleCreateWithoutProjectInput;
+}
+
+export interface ProjectRoleScalarWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -1697,20 +1732,6 @@ export interface RoleScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1727,18 +1748,9 @@ export interface RoleScalarWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-  OR?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-  NOT?: Maybe<RoleScalarWhereInput[] | RoleScalarWhereInput>;
-}
-
-export interface RoleUpdateManyWithWhereNestedInput {
-  where: RoleScalarWhereInput;
-  data: RoleUpdateManyDataInput;
-}
-
-export interface RoleUpdateManyDataInput {
-  title?: Maybe<String>;
+  AND?: Maybe<ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput>;
+  OR?: Maybe<ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput>;
+  NOT?: Maybe<ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput>;
 }
 
 export interface ProjectUpsertWithWhereUniqueWithoutProductInput {
@@ -1925,11 +1937,6 @@ export interface ProductCreateOneInput {
   connect?: Maybe<ProductWhereUniqueInput>;
 }
 
-export interface RoleCreateOneInput {
-  create?: Maybe<RoleCreateInput>;
-  connect?: Maybe<RoleWhereUniqueInput>;
-}
-
 export interface ProductRoleUpdateInput {
   person?: Maybe<PersonUpdateOneRequiredInput>;
   product?: Maybe<ProductUpdateOneRequiredInput>;
@@ -1946,18 +1953,6 @@ export interface ProductUpdateOneRequiredInput {
 export interface ProductUpsertNestedInput {
   update: ProductUpdateDataInput;
   create: ProductCreateInput;
-}
-
-export interface RoleUpdateOneRequiredInput {
-  create?: Maybe<RoleCreateInput>;
-  update?: Maybe<RoleUpdateDataInput>;
-  upsert?: Maybe<RoleUpsertNestedInput>;
-  connect?: Maybe<RoleWhereUniqueInput>;
-}
-
-export interface RoleUpsertNestedInput {
-  update: RoleUpdateDataInput;
-  create: RoleCreateInput;
 }
 
 export interface ProgramUpdateInput {
@@ -1989,7 +1984,7 @@ export interface ProjectCreateInput {
   end: DateTimeInput;
   product: ProductCreateOneWithoutProjectsInput;
   projectNotes?: Maybe<ProjectNoteCreateManyWithoutProjectInput>;
-  projectRoles?: Maybe<RoleCreateManyInput>;
+  projectRoles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
 }
 
 export interface ProductCreateOneWithoutProjectsInput {
@@ -2008,7 +2003,7 @@ export interface ProjectUpdateInput {
   end?: Maybe<DateTimeInput>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   projectNotes?: Maybe<ProjectNoteUpdateManyWithoutProjectInput>;
-  projectRoles?: Maybe<RoleUpdateManyInput>;
+  projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
 }
 
 export interface ProductUpdateOneRequiredWithoutProjectsInput {
@@ -2054,7 +2049,7 @@ export interface ProjectCreateWithoutProjectNotesInput {
   start: DateTimeInput;
   end: DateTimeInput;
   product: ProductCreateOneWithoutProjectsInput;
-  projectRoles?: Maybe<RoleCreateManyInput>;
+  projectRoles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
 }
 
 export interface ProjectNoteUpdateInput {
@@ -2078,7 +2073,7 @@ export interface ProjectUpdateWithoutProjectNotesDataInput {
   start?: Maybe<DateTimeInput>;
   end?: Maybe<DateTimeInput>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
-  projectRoles?: Maybe<RoleUpdateManyInput>;
+  projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
 }
 
 export interface ProjectUpsertWithoutProjectNotesInput {
@@ -2095,40 +2090,48 @@ export interface ProjectNoteUpdateManyMutationInput {
 export interface ProjectRoleCreateInput {
   id?: Maybe<ID_Input>;
   person: PersonCreateOneInput;
-  project: ProjectCreateOneInput;
+  project: ProjectCreateOneWithoutProjectRolesInput;
   role: RoleCreateOneInput;
 }
 
-export interface ProjectCreateOneInput {
-  create?: Maybe<ProjectCreateInput>;
+export interface ProjectCreateOneWithoutProjectRolesInput {
+  create?: Maybe<ProjectCreateWithoutProjectRolesInput>;
   connect?: Maybe<ProjectWhereUniqueInput>;
+}
+
+export interface ProjectCreateWithoutProjectRolesInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  start: DateTimeInput;
+  end: DateTimeInput;
+  product: ProductCreateOneWithoutProjectsInput;
+  projectNotes?: Maybe<ProjectNoteCreateManyWithoutProjectInput>;
 }
 
 export interface ProjectRoleUpdateInput {
   person?: Maybe<PersonUpdateOneRequiredInput>;
-  project?: Maybe<ProjectUpdateOneRequiredInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutProjectRolesInput>;
   role?: Maybe<RoleUpdateOneRequiredInput>;
 }
 
-export interface ProjectUpdateOneRequiredInput {
-  create?: Maybe<ProjectCreateInput>;
-  update?: Maybe<ProjectUpdateDataInput>;
-  upsert?: Maybe<ProjectUpsertNestedInput>;
+export interface ProjectUpdateOneRequiredWithoutProjectRolesInput {
+  create?: Maybe<ProjectCreateWithoutProjectRolesInput>;
+  update?: Maybe<ProjectUpdateWithoutProjectRolesDataInput>;
+  upsert?: Maybe<ProjectUpsertWithoutProjectRolesInput>;
   connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ProjectUpdateDataInput {
+export interface ProjectUpdateWithoutProjectRolesDataInput {
   name?: Maybe<String>;
   start?: Maybe<DateTimeInput>;
   end?: Maybe<DateTimeInput>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   projectNotes?: Maybe<ProjectNoteUpdateManyWithoutProjectInput>;
-  projectRoles?: Maybe<RoleUpdateManyInput>;
 }
 
-export interface ProjectUpsertNestedInput {
-  update: ProjectUpdateDataInput;
-  create: ProjectCreateInput;
+export interface ProjectUpsertWithoutProjectRolesInput {
+  update: ProjectUpdateWithoutProjectRolesDataInput;
+  create: ProjectCreateWithoutProjectRolesInput;
 }
 
 export interface RoleUpdateInput {
@@ -2485,9 +2488,9 @@ export interface ProjectPromise extends Promise<Project>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  projectRoles: <T = FragmentableArray<Role>>(args?: {
-    where?: RoleWhereInput;
-    orderBy?: RoleOrderByInput;
+  projectRoles: <T = FragmentableArray<ProjectRole>>(args?: {
+    where?: ProjectRoleWhereInput;
+    orderBy?: ProjectRoleOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2515,9 +2518,9 @@ export interface ProjectSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  projectRoles: <T = Promise<AsyncIterator<RoleSubscription>>>(args?: {
-    where?: RoleWhereInput;
-    orderBy?: RoleOrderByInput;
+  projectRoles: <T = Promise<AsyncIterator<ProjectRoleSubscription>>>(args?: {
+    where?: ProjectRoleWhereInput;
+    orderBy?: ProjectRoleOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2545,9 +2548,9 @@ export interface ProjectNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  projectRoles: <T = FragmentableArray<Role>>(args?: {
-    where?: RoleWhereInput;
-    orderBy?: RoleOrderByInput;
+  projectRoles: <T = FragmentableArray<ProjectRole>>(args?: {
+    where?: ProjectRoleWhereInput;
+    orderBy?: ProjectRoleOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2625,6 +2628,43 @@ export interface ProjectNoteNullablePromise
     last?: Int;
   }) => T;
   performanceRating: () => Promise<Rating>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectRole {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ProjectRolePromise extends Promise<ProjectRole>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  person: <T = PersonPromise>() => T;
+  project: <T = ProjectPromise>() => T;
+  role: <T = RolePromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectRoleSubscription
+  extends Promise<AsyncIterator<ProjectRole>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  person: <T = PersonSubscription>() => T;
+  project: <T = ProjectSubscription>() => T;
+  role: <T = RoleSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ProjectRoleNullablePromise
+  extends Promise<ProjectRole | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  person: <T = PersonPromise>() => T;
+  project: <T = ProjectPromise>() => T;
+  role: <T = RolePromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3140,43 +3180,6 @@ export interface AggregateProjectNoteSubscription
   extends Promise<AsyncIterator<AggregateProjectNote>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ProjectRole {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProjectRolePromise extends Promise<ProjectRole>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  person: <T = PersonPromise>() => T;
-  project: <T = ProjectPromise>() => T;
-  role: <T = RolePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProjectRoleSubscription
-  extends Promise<AsyncIterator<ProjectRole>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  person: <T = PersonSubscription>() => T;
-  project: <T = ProjectSubscription>() => T;
-  role: <T = RoleSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProjectRoleNullablePromise
-  extends Promise<ProjectRole | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  person: <T = PersonPromise>() => T;
-  project: <T = ProjectPromise>() => T;
-  role: <T = RolePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface ProjectRoleConnection {

@@ -1162,7 +1162,7 @@ type Project {
   end: DateTime!
   product: Product!
   projectNotes(where: ProjectNoteWhereInput, orderBy: ProjectNoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectNote!]
-  projectRoles(where: RoleWhereInput, orderBy: RoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Role!]
+  projectRoles(where: ProjectRoleWhereInput, orderBy: ProjectRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectRole!]
 }
 
 type ProjectConnection {
@@ -1178,7 +1178,7 @@ input ProjectCreateInput {
   end: DateTime!
   product: ProductCreateOneWithoutProjectsInput!
   projectNotes: ProjectNoteCreateManyWithoutProjectInput
-  projectRoles: RoleCreateManyInput
+  projectRoles: ProjectRoleCreateManyWithoutProjectInput
 }
 
 input ProjectCreateManyWithoutProductInput {
@@ -1186,13 +1186,13 @@ input ProjectCreateManyWithoutProductInput {
   connect: [ProjectWhereUniqueInput!]
 }
 
-input ProjectCreateOneInput {
-  create: ProjectCreateInput
+input ProjectCreateOneWithoutProjectNotesInput {
+  create: ProjectCreateWithoutProjectNotesInput
   connect: ProjectWhereUniqueInput
 }
 
-input ProjectCreateOneWithoutProjectNotesInput {
-  create: ProjectCreateWithoutProjectNotesInput
+input ProjectCreateOneWithoutProjectRolesInput {
+  create: ProjectCreateWithoutProjectRolesInput
   connect: ProjectWhereUniqueInput
 }
 
@@ -1202,7 +1202,7 @@ input ProjectCreateWithoutProductInput {
   start: DateTime!
   end: DateTime!
   projectNotes: ProjectNoteCreateManyWithoutProjectInput
-  projectRoles: RoleCreateManyInput
+  projectRoles: ProjectRoleCreateManyWithoutProjectInput
 }
 
 input ProjectCreateWithoutProjectNotesInput {
@@ -1211,7 +1211,16 @@ input ProjectCreateWithoutProjectNotesInput {
   start: DateTime!
   end: DateTime!
   product: ProductCreateOneWithoutProjectsInput!
-  projectRoles: RoleCreateManyInput
+  projectRoles: ProjectRoleCreateManyWithoutProjectInput
+}
+
+input ProjectCreateWithoutProjectRolesInput {
+  id: ID
+  name: String!
+  start: DateTime!
+  end: DateTime!
+  product: ProductCreateOneWithoutProjectsInput!
+  projectNotes: ProjectNoteCreateManyWithoutProjectInput
 }
 
 type ProjectEdge {
@@ -1552,7 +1561,18 @@ type ProjectRoleConnection {
 input ProjectRoleCreateInput {
   id: ID
   person: PersonCreateOneInput!
-  project: ProjectCreateOneInput!
+  project: ProjectCreateOneWithoutProjectRolesInput!
+  role: RoleCreateOneInput!
+}
+
+input ProjectRoleCreateManyWithoutProjectInput {
+  create: [ProjectRoleCreateWithoutProjectInput!]
+  connect: [ProjectRoleWhereUniqueInput!]
+}
+
+input ProjectRoleCreateWithoutProjectInput {
+  id: ID
+  person: PersonCreateOneInput!
   role: RoleCreateOneInput!
 }
 
@@ -1576,6 +1596,42 @@ type ProjectRolePreviousValues {
   updatedAt: DateTime!
 }
 
+input ProjectRoleScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ProjectRoleScalarWhereInput!]
+  OR: [ProjectRoleScalarWhereInput!]
+  NOT: [ProjectRoleScalarWhereInput!]
+}
+
 type ProjectRoleSubscriptionPayload {
   mutation: MutationType!
   node: ProjectRole
@@ -1596,8 +1652,35 @@ input ProjectRoleSubscriptionWhereInput {
 
 input ProjectRoleUpdateInput {
   person: PersonUpdateOneRequiredInput
-  project: ProjectUpdateOneRequiredInput
+  project: ProjectUpdateOneRequiredWithoutProjectRolesInput
   role: RoleUpdateOneRequiredInput
+}
+
+input ProjectRoleUpdateManyWithoutProjectInput {
+  create: [ProjectRoleCreateWithoutProjectInput!]
+  delete: [ProjectRoleWhereUniqueInput!]
+  connect: [ProjectRoleWhereUniqueInput!]
+  set: [ProjectRoleWhereUniqueInput!]
+  disconnect: [ProjectRoleWhereUniqueInput!]
+  update: [ProjectRoleUpdateWithWhereUniqueWithoutProjectInput!]
+  upsert: [ProjectRoleUpsertWithWhereUniqueWithoutProjectInput!]
+  deleteMany: [ProjectRoleScalarWhereInput!]
+}
+
+input ProjectRoleUpdateWithoutProjectDataInput {
+  person: PersonUpdateOneRequiredInput
+  role: RoleUpdateOneRequiredInput
+}
+
+input ProjectRoleUpdateWithWhereUniqueWithoutProjectInput {
+  where: ProjectRoleWhereUniqueInput!
+  data: ProjectRoleUpdateWithoutProjectDataInput!
+}
+
+input ProjectRoleUpsertWithWhereUniqueWithoutProjectInput {
+  where: ProjectRoleWhereUniqueInput!
+  update: ProjectRoleUpdateWithoutProjectDataInput!
+  create: ProjectRoleCreateWithoutProjectInput!
 }
 
 input ProjectRoleWhereInput {
@@ -1727,22 +1810,13 @@ input ProjectSubscriptionWhereInput {
   NOT: [ProjectSubscriptionWhereInput!]
 }
 
-input ProjectUpdateDataInput {
-  name: String
-  start: DateTime
-  end: DateTime
-  product: ProductUpdateOneRequiredWithoutProjectsInput
-  projectNotes: ProjectNoteUpdateManyWithoutProjectInput
-  projectRoles: RoleUpdateManyInput
-}
-
 input ProjectUpdateInput {
   name: String
   start: DateTime
   end: DateTime
   product: ProductUpdateOneRequiredWithoutProjectsInput
   projectNotes: ProjectNoteUpdateManyWithoutProjectInput
-  projectRoles: RoleUpdateManyInput
+  projectRoles: ProjectRoleUpdateManyWithoutProjectInput
 }
 
 input ProjectUpdateManyDataInput {
@@ -1774,17 +1848,17 @@ input ProjectUpdateManyWithWhereNestedInput {
   data: ProjectUpdateManyDataInput!
 }
 
-input ProjectUpdateOneRequiredInput {
-  create: ProjectCreateInput
-  update: ProjectUpdateDataInput
-  upsert: ProjectUpsertNestedInput
-  connect: ProjectWhereUniqueInput
-}
-
 input ProjectUpdateOneRequiredWithoutProjectNotesInput {
   create: ProjectCreateWithoutProjectNotesInput
   update: ProjectUpdateWithoutProjectNotesDataInput
   upsert: ProjectUpsertWithoutProjectNotesInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectUpdateOneRequiredWithoutProjectRolesInput {
+  create: ProjectCreateWithoutProjectRolesInput
+  update: ProjectUpdateWithoutProjectRolesDataInput
+  upsert: ProjectUpsertWithoutProjectRolesInput
   connect: ProjectWhereUniqueInput
 }
 
@@ -1793,7 +1867,7 @@ input ProjectUpdateWithoutProductDataInput {
   start: DateTime
   end: DateTime
   projectNotes: ProjectNoteUpdateManyWithoutProjectInput
-  projectRoles: RoleUpdateManyInput
+  projectRoles: ProjectRoleUpdateManyWithoutProjectInput
 }
 
 input ProjectUpdateWithoutProjectNotesDataInput {
@@ -1801,7 +1875,15 @@ input ProjectUpdateWithoutProjectNotesDataInput {
   start: DateTime
   end: DateTime
   product: ProductUpdateOneRequiredWithoutProjectsInput
-  projectRoles: RoleUpdateManyInput
+  projectRoles: ProjectRoleUpdateManyWithoutProjectInput
+}
+
+input ProjectUpdateWithoutProjectRolesDataInput {
+  name: String
+  start: DateTime
+  end: DateTime
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  projectNotes: ProjectNoteUpdateManyWithoutProjectInput
 }
 
 input ProjectUpdateWithWhereUniqueWithoutProductInput {
@@ -1809,14 +1891,14 @@ input ProjectUpdateWithWhereUniqueWithoutProductInput {
   data: ProjectUpdateWithoutProductDataInput!
 }
 
-input ProjectUpsertNestedInput {
-  update: ProjectUpdateDataInput!
-  create: ProjectCreateInput!
-}
-
 input ProjectUpsertWithoutProjectNotesInput {
   update: ProjectUpdateWithoutProjectNotesDataInput!
   create: ProjectCreateWithoutProjectNotesInput!
+}
+
+input ProjectUpsertWithoutProjectRolesInput {
+  update: ProjectUpdateWithoutProjectRolesDataInput!
+  create: ProjectCreateWithoutProjectRolesInput!
 }
 
 input ProjectUpsertWithWhereUniqueWithoutProductInput {
@@ -1890,9 +1972,9 @@ input ProjectWhereInput {
   projectNotes_every: ProjectNoteWhereInput
   projectNotes_some: ProjectNoteWhereInput
   projectNotes_none: ProjectNoteWhereInput
-  projectRoles_every: RoleWhereInput
-  projectRoles_some: RoleWhereInput
-  projectRoles_none: RoleWhereInput
+  projectRoles_every: ProjectRoleWhereInput
+  projectRoles_some: ProjectRoleWhereInput
+  projectRoles_none: ProjectRoleWhereInput
   AND: [ProjectWhereInput!]
   OR: [ProjectWhereInput!]
   NOT: [ProjectWhereInput!]
@@ -1960,11 +2042,6 @@ input RoleCreateInput {
   title: String!
 }
 
-input RoleCreateManyInput {
-  create: [RoleCreateInput!]
-  connect: [RoleWhereUniqueInput!]
-}
-
 input RoleCreateOneInput {
   create: RoleCreateInput
   connect: RoleWhereUniqueInput
@@ -1993,56 +2070,6 @@ type RolePreviousValues {
   updatedAt: DateTime!
 }
 
-input RoleScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  AND: [RoleScalarWhereInput!]
-  OR: [RoleScalarWhereInput!]
-  NOT: [RoleScalarWhereInput!]
-}
-
 type RoleSubscriptionPayload {
   mutation: MutationType!
   node: Role
@@ -2069,29 +2096,8 @@ input RoleUpdateInput {
   title: String
 }
 
-input RoleUpdateManyDataInput {
-  title: String
-}
-
-input RoleUpdateManyInput {
-  create: [RoleCreateInput!]
-  update: [RoleUpdateWithWhereUniqueNestedInput!]
-  upsert: [RoleUpsertWithWhereUniqueNestedInput!]
-  delete: [RoleWhereUniqueInput!]
-  connect: [RoleWhereUniqueInput!]
-  set: [RoleWhereUniqueInput!]
-  disconnect: [RoleWhereUniqueInput!]
-  deleteMany: [RoleScalarWhereInput!]
-  updateMany: [RoleUpdateManyWithWhereNestedInput!]
-}
-
 input RoleUpdateManyMutationInput {
   title: String
-}
-
-input RoleUpdateManyWithWhereNestedInput {
-  where: RoleScalarWhereInput!
-  data: RoleUpdateManyDataInput!
 }
 
 input RoleUpdateOneRequiredInput {
@@ -2101,18 +2107,7 @@ input RoleUpdateOneRequiredInput {
   connect: RoleWhereUniqueInput
 }
 
-input RoleUpdateWithWhereUniqueNestedInput {
-  where: RoleWhereUniqueInput!
-  data: RoleUpdateDataInput!
-}
-
 input RoleUpsertNestedInput {
-  update: RoleUpdateDataInput!
-  create: RoleCreateInput!
-}
-
-input RoleUpsertWithWhereUniqueNestedInput {
-  where: RoleWhereUniqueInput!
   update: RoleUpdateDataInput!
   create: RoleCreateInput!
 }
