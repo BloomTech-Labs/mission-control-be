@@ -526,6 +526,7 @@ input PersonWhereUniqueInput {
 
 type Product {
   id: ID!
+  program: Program!
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -540,12 +541,13 @@ type ProductConnection {
 
 input ProductCreateInput {
   id: ID
+  program: ProgramCreateOneWithoutProductsInput!
   name: String!
   projects: ProjectCreateManyWithoutProductInput
 }
 
-input ProductCreateManyInput {
-  create: [ProductCreateInput!]
+input ProductCreateManyWithoutProgramInput {
+  create: [ProductCreateWithoutProgramInput!]
   connect: [ProductWhereUniqueInput!]
 }
 
@@ -559,8 +561,15 @@ input ProductCreateOneWithoutProjectsInput {
   connect: ProductWhereUniqueInput
 }
 
+input ProductCreateWithoutProgramInput {
+  id: ID
+  name: String!
+  projects: ProjectCreateManyWithoutProductInput
+}
+
 input ProductCreateWithoutProjectsInput {
   id: ID
+  program: ProgramCreateOneWithoutProductsInput!
   name: String!
 }
 
@@ -765,11 +774,13 @@ input ProductSubscriptionWhereInput {
 }
 
 input ProductUpdateDataInput {
+  program: ProgramUpdateOneRequiredWithoutProductsInput
   name: String
   projects: ProjectUpdateManyWithoutProductInput
 }
 
 input ProductUpdateInput {
+  program: ProgramUpdateOneRequiredWithoutProductsInput
   name: String
   projects: ProjectUpdateManyWithoutProductInput
 }
@@ -778,20 +789,20 @@ input ProductUpdateManyDataInput {
   name: String
 }
 
-input ProductUpdateManyInput {
-  create: [ProductCreateInput!]
-  update: [ProductUpdateWithWhereUniqueNestedInput!]
-  upsert: [ProductUpsertWithWhereUniqueNestedInput!]
+input ProductUpdateManyMutationInput {
+  name: String
+}
+
+input ProductUpdateManyWithoutProgramInput {
+  create: [ProductCreateWithoutProgramInput!]
   delete: [ProductWhereUniqueInput!]
   connect: [ProductWhereUniqueInput!]
   set: [ProductWhereUniqueInput!]
   disconnect: [ProductWhereUniqueInput!]
+  update: [ProductUpdateWithWhereUniqueWithoutProgramInput!]
+  upsert: [ProductUpsertWithWhereUniqueWithoutProgramInput!]
   deleteMany: [ProductScalarWhereInput!]
   updateMany: [ProductUpdateManyWithWhereNestedInput!]
-}
-
-input ProductUpdateManyMutationInput {
-  name: String
 }
 
 input ProductUpdateManyWithWhereNestedInput {
@@ -813,13 +824,19 @@ input ProductUpdateOneRequiredWithoutProjectsInput {
   connect: ProductWhereUniqueInput
 }
 
+input ProductUpdateWithoutProgramDataInput {
+  name: String
+  projects: ProjectUpdateManyWithoutProductInput
+}
+
 input ProductUpdateWithoutProjectsDataInput {
+  program: ProgramUpdateOneRequiredWithoutProductsInput
   name: String
 }
 
-input ProductUpdateWithWhereUniqueNestedInput {
+input ProductUpdateWithWhereUniqueWithoutProgramInput {
   where: ProductWhereUniqueInput!
-  data: ProductUpdateDataInput!
+  data: ProductUpdateWithoutProgramDataInput!
 }
 
 input ProductUpsertNestedInput {
@@ -832,10 +849,10 @@ input ProductUpsertWithoutProjectsInput {
   create: ProductCreateWithoutProjectsInput!
 }
 
-input ProductUpsertWithWhereUniqueNestedInput {
+input ProductUpsertWithWhereUniqueWithoutProgramInput {
   where: ProductWhereUniqueInput!
-  update: ProductUpdateDataInput!
-  create: ProductCreateInput!
+  update: ProductUpdateWithoutProgramDataInput!
+  create: ProductCreateWithoutProgramInput!
 }
 
 input ProductWhereInput {
@@ -853,6 +870,7 @@ input ProductWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  program: ProgramWhereInput
   name: String
   name_not: String
   name_in: [String!]
@@ -912,12 +930,22 @@ type ProgramConnection {
 input ProgramCreateInput {
   id: ID
   name: String!
-  products: ProductCreateManyInput
+  products: ProductCreateManyWithoutProgramInput
 }
 
 input ProgramCreateOneInput {
   create: ProgramCreateInput
   connect: ProgramWhereUniqueInput
+}
+
+input ProgramCreateOneWithoutProductsInput {
+  create: ProgramCreateWithoutProductsInput
+  connect: ProgramWhereUniqueInput
+}
+
+input ProgramCreateWithoutProductsInput {
+  id: ID
+  name: String!
 }
 
 type ProgramEdge {
@@ -1072,12 +1100,12 @@ input ProgramSubscriptionWhereInput {
 
 input ProgramUpdateDataInput {
   name: String
-  products: ProductUpdateManyInput
+  products: ProductUpdateManyWithoutProgramInput
 }
 
 input ProgramUpdateInput {
   name: String
-  products: ProductUpdateManyInput
+  products: ProductUpdateManyWithoutProgramInput
 }
 
 input ProgramUpdateManyMutationInput {
@@ -1091,9 +1119,25 @@ input ProgramUpdateOneRequiredInput {
   connect: ProgramWhereUniqueInput
 }
 
+input ProgramUpdateOneRequiredWithoutProductsInput {
+  create: ProgramCreateWithoutProductsInput
+  update: ProgramUpdateWithoutProductsDataInput
+  upsert: ProgramUpsertWithoutProductsInput
+  connect: ProgramWhereUniqueInput
+}
+
+input ProgramUpdateWithoutProductsDataInput {
+  name: String
+}
+
 input ProgramUpsertNestedInput {
   update: ProgramUpdateDataInput!
   create: ProgramCreateInput!
+}
+
+input ProgramUpsertWithoutProductsInput {
+  update: ProgramUpdateWithoutProductsDataInput!
+  create: ProgramCreateWithoutProductsInput!
 }
 
 input ProgramWhereInput {

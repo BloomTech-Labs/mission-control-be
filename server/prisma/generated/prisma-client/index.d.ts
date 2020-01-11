@@ -583,6 +583,7 @@ export interface ProductWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  program?: Maybe<ProgramWhereInput>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -619,6 +620,59 @@ export interface ProductWhereInput {
   AND?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   OR?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   NOT?: Maybe<ProductWhereInput[] | ProductWhereInput>;
+}
+
+export interface ProgramWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  products_every?: Maybe<ProductWhereInput>;
+  products_some?: Maybe<ProductWhereInput>;
+  products_none?: Maybe<ProductWhereInput>;
+  AND?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
+  OR?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
+  NOT?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
 }
 
 export interface ProjectWhereInput {
@@ -874,59 +928,6 @@ export interface PersonWhereInput {
   AND?: Maybe<PersonWhereInput[] | PersonWhereInput>;
   OR?: Maybe<PersonWhereInput[] | PersonWhereInput>;
   NOT?: Maybe<PersonWhereInput[] | PersonWhereInput>;
-}
-
-export interface ProgramWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  products_every?: Maybe<ProductWhereInput>;
-  products_some?: Maybe<ProductWhereInput>;
-  products_none?: Maybe<ProductWhereInput>;
-  AND?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
-  OR?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
-  NOT?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
 }
 
 export interface ProjectRoleWhereInput {
@@ -1186,15 +1187,17 @@ export interface ProgramCreateOneInput {
 export interface ProgramCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
-  products?: Maybe<ProductCreateManyInput>;
+  products?: Maybe<ProductCreateManyWithoutProgramInput>;
 }
 
-export interface ProductCreateManyInput {
-  create?: Maybe<ProductCreateInput[] | ProductCreateInput>;
+export interface ProductCreateManyWithoutProgramInput {
+  create?: Maybe<
+    ProductCreateWithoutProgramInput[] | ProductCreateWithoutProgramInput
+  >;
   connect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
 }
 
-export interface ProductCreateInput {
+export interface ProductCreateWithoutProgramInput {
   id?: Maybe<ID_Input>;
   name: String;
   projects?: Maybe<ProjectCreateManyWithoutProductInput>;
@@ -1287,23 +1290,25 @@ export interface ProgramUpdateOneRequiredInput {
 
 export interface ProgramUpdateDataInput {
   name?: Maybe<String>;
-  products?: Maybe<ProductUpdateManyInput>;
+  products?: Maybe<ProductUpdateManyWithoutProgramInput>;
 }
 
-export interface ProductUpdateManyInput {
-  create?: Maybe<ProductCreateInput[] | ProductCreateInput>;
-  update?: Maybe<
-    | ProductUpdateWithWhereUniqueNestedInput[]
-    | ProductUpdateWithWhereUniqueNestedInput
-  >;
-  upsert?: Maybe<
-    | ProductUpsertWithWhereUniqueNestedInput[]
-    | ProductUpsertWithWhereUniqueNestedInput
+export interface ProductUpdateManyWithoutProgramInput {
+  create?: Maybe<
+    ProductCreateWithoutProgramInput[] | ProductCreateWithoutProgramInput
   >;
   delete?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
   connect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
   set?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
   disconnect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
+  update?: Maybe<
+    | ProductUpdateWithWhereUniqueWithoutProgramInput[]
+    | ProductUpdateWithWhereUniqueWithoutProgramInput
+  >;
+  upsert?: Maybe<
+    | ProductUpsertWithWhereUniqueWithoutProgramInput[]
+    | ProductUpsertWithWhereUniqueWithoutProgramInput
+  >;
   deleteMany?: Maybe<ProductScalarWhereInput[] | ProductScalarWhereInput>;
   updateMany?: Maybe<
     | ProductUpdateManyWithWhereNestedInput[]
@@ -1311,12 +1316,12 @@ export interface ProductUpdateManyInput {
   >;
 }
 
-export interface ProductUpdateWithWhereUniqueNestedInput {
+export interface ProductUpdateWithWhereUniqueWithoutProgramInput {
   where: ProductWhereUniqueInput;
-  data: ProductUpdateDataInput;
+  data: ProductUpdateWithoutProgramDataInput;
 }
 
-export interface ProductUpdateDataInput {
+export interface ProductUpdateWithoutProgramDataInput {
   name?: Maybe<String>;
   projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
 }
@@ -1836,10 +1841,10 @@ export interface ProjectUpdateManyDataInput {
   end?: Maybe<DateTimeInput>;
 }
 
-export interface ProductUpsertWithWhereUniqueNestedInput {
+export interface ProductUpsertWithWhereUniqueWithoutProgramInput {
   where: ProductWhereUniqueInput;
-  update: ProductUpdateDataInput;
-  create: ProductCreateInput;
+  update: ProductUpdateWithoutProgramDataInput;
+  create: ProductCreateWithoutProgramInput;
 }
 
 export interface ProductScalarWhereInput {
@@ -1916,9 +1921,43 @@ export interface PersonUpdateManyMutationInput {
   avatarURL?: Maybe<String>;
 }
 
+export interface ProductCreateInput {
+  id?: Maybe<ID_Input>;
+  program: ProgramCreateOneWithoutProductsInput;
+  name: String;
+  projects?: Maybe<ProjectCreateManyWithoutProductInput>;
+}
+
+export interface ProgramCreateOneWithoutProductsInput {
+  create?: Maybe<ProgramCreateWithoutProductsInput>;
+  connect?: Maybe<ProgramWhereUniqueInput>;
+}
+
+export interface ProgramCreateWithoutProductsInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+}
+
 export interface ProductUpdateInput {
+  program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
   name?: Maybe<String>;
   projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
+}
+
+export interface ProgramUpdateOneRequiredWithoutProductsInput {
+  create?: Maybe<ProgramCreateWithoutProductsInput>;
+  update?: Maybe<ProgramUpdateWithoutProductsDataInput>;
+  upsert?: Maybe<ProgramUpsertWithoutProductsInput>;
+  connect?: Maybe<ProgramWhereUniqueInput>;
+}
+
+export interface ProgramUpdateWithoutProductsDataInput {
+  name?: Maybe<String>;
+}
+
+export interface ProgramUpsertWithoutProductsInput {
+  update: ProgramUpdateWithoutProductsDataInput;
+  create: ProgramCreateWithoutProductsInput;
 }
 
 export interface ProductUpdateManyMutationInput {
@@ -1950,6 +1989,12 @@ export interface ProductUpdateOneRequiredInput {
   connect?: Maybe<ProductWhereUniqueInput>;
 }
 
+export interface ProductUpdateDataInput {
+  program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
+  name?: Maybe<String>;
+  projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
+}
+
 export interface ProductUpsertNestedInput {
   update: ProductUpdateDataInput;
   create: ProductCreateInput;
@@ -1957,7 +2002,7 @@ export interface ProductUpsertNestedInput {
 
 export interface ProgramUpdateInput {
   name?: Maybe<String>;
-  products?: Maybe<ProductUpdateManyInput>;
+  products?: Maybe<ProductUpdateManyWithoutProgramInput>;
 }
 
 export interface ProgramUpdateManyMutationInput {
@@ -1994,6 +2039,7 @@ export interface ProductCreateOneWithoutProjectsInput {
 
 export interface ProductCreateWithoutProjectsInput {
   id?: Maybe<ID_Input>;
+  program: ProgramCreateOneWithoutProductsInput;
   name: String;
 }
 
@@ -2014,6 +2060,7 @@ export interface ProductUpdateOneRequiredWithoutProjectsInput {
 }
 
 export interface ProductUpdateWithoutProjectsDataInput {
+  program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
   name?: Maybe<String>;
 }
 
@@ -2412,6 +2459,7 @@ export interface Product {
 
 export interface ProductPromise extends Promise<Product>, Fragmentable {
   id: () => Promise<ID_Output>;
+  program: <T = ProgramPromise>() => T;
   name: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -2430,6 +2478,7 @@ export interface ProductSubscription
   extends Promise<AsyncIterator<Product>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  program: <T = ProgramSubscription>() => T;
   name: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -2448,6 +2497,7 @@ export interface ProductNullablePromise
   extends Promise<Product | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  program: <T = ProgramPromise>() => T;
   name: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
