@@ -20,6 +20,7 @@ type Program {
 type Product {
   id: ID! @id
   name: String!
+  program: Program!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projects: [Project]!
