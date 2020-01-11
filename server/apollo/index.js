@@ -5,6 +5,8 @@ const { prisma } = require('../prisma/generated/prisma-client');
 // Resolvers
 const Mutation = require('./resolvers/Mutation');
 const Query = require('./resolvers/Query');
+const Program = require('./resolvers/Program');
+const Product = require('./resolvers/Product');
 
 // OKTA specific authorization middleware
 const constructOktaContext = require('./auth/okta-auth');
@@ -35,11 +37,15 @@ const constructOktaContext = require('./auth/okta-auth');
     }
     return {
       ...req,
+      prisma,
     };
   };
 
   const resolvers = {
     Query,
+    Mutation,
+    Program,
+    Product,
   };
 
   const server = new ApolloServer({
