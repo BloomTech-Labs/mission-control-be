@@ -761,22 +761,34 @@ export interface ProjectWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  start?: Maybe<DateTimeInput>;
-  start_not?: Maybe<DateTimeInput>;
-  start_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  start_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  start_lt?: Maybe<DateTimeInput>;
-  start_lte?: Maybe<DateTimeInput>;
-  start_gt?: Maybe<DateTimeInput>;
-  start_gte?: Maybe<DateTimeInput>;
-  end?: Maybe<DateTimeInput>;
-  end_not?: Maybe<DateTimeInput>;
-  end_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  end_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  end_lt?: Maybe<DateTimeInput>;
-  end_lte?: Maybe<DateTimeInput>;
-  end_gt?: Maybe<DateTimeInput>;
-  end_gte?: Maybe<DateTimeInput>;
+  start?: Maybe<String>;
+  start_not?: Maybe<String>;
+  start_in?: Maybe<String[] | String>;
+  start_not_in?: Maybe<String[] | String>;
+  start_lt?: Maybe<String>;
+  start_lte?: Maybe<String>;
+  start_gt?: Maybe<String>;
+  start_gte?: Maybe<String>;
+  start_contains?: Maybe<String>;
+  start_not_contains?: Maybe<String>;
+  start_starts_with?: Maybe<String>;
+  start_not_starts_with?: Maybe<String>;
+  start_ends_with?: Maybe<String>;
+  start_not_ends_with?: Maybe<String>;
+  end?: Maybe<String>;
+  end_not?: Maybe<String>;
+  end_in?: Maybe<String[] | String>;
+  end_not_in?: Maybe<String[] | String>;
+  end_lt?: Maybe<String>;
+  end_lte?: Maybe<String>;
+  end_gt?: Maybe<String>;
+  end_gte?: Maybe<String>;
+  end_contains?: Maybe<String>;
+  end_not_contains?: Maybe<String>;
+  end_starts_with?: Maybe<String>;
+  end_not_starts_with?: Maybe<String>;
+  end_ends_with?: Maybe<String>;
+  end_not_ends_with?: Maybe<String>;
   product?: Maybe<ProductWhereInput>;
   notes_every?: Maybe<ProjectNoteWhereInput>;
   notes_some?: Maybe<ProjectNoteWhereInput>;
@@ -1260,8 +1272,8 @@ export interface ProjectCreateOneInput {
 export interface ProjectCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
-  start: DateTimeInput;
-  end: DateTimeInput;
+  start: String;
+  end: String;
   product: ProductCreateOneWithoutProjectsInput;
   notes?: Maybe<ProjectNoteCreateManyInput>;
   projectRoles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
@@ -1353,8 +1365,8 @@ export interface ProjectCreateManyWithoutProductInput {
 export interface ProjectCreateWithoutProductInput {
   id?: Maybe<ID_Input>;
   name: String;
-  start: DateTimeInput;
-  end: DateTimeInput;
+  start: String;
+  end: String;
   notes?: Maybe<ProjectNoteCreateManyInput>;
   projectRoles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
 }
@@ -1487,8 +1499,8 @@ export interface ProjectUpdateOneRequiredInput {
 
 export interface ProjectUpdateDataInput {
   name?: Maybe<String>;
-  start?: Maybe<DateTimeInput>;
-  end?: Maybe<DateTimeInput>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   notes?: Maybe<ProjectNoteUpdateManyInput>;
   projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
@@ -1673,8 +1685,8 @@ export interface ProjectUpdateWithWhereUniqueWithoutProductInput {
 
 export interface ProjectUpdateWithoutProductDataInput {
   name?: Maybe<String>;
-  start?: Maybe<DateTimeInput>;
-  end?: Maybe<DateTimeInput>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
   notes?: Maybe<ProjectNoteUpdateManyInput>;
   projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
 }
@@ -2098,22 +2110,34 @@ export interface ProjectScalarWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  start?: Maybe<DateTimeInput>;
-  start_not?: Maybe<DateTimeInput>;
-  start_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  start_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  start_lt?: Maybe<DateTimeInput>;
-  start_lte?: Maybe<DateTimeInput>;
-  start_gt?: Maybe<DateTimeInput>;
-  start_gte?: Maybe<DateTimeInput>;
-  end?: Maybe<DateTimeInput>;
-  end_not?: Maybe<DateTimeInput>;
-  end_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  end_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  end_lt?: Maybe<DateTimeInput>;
-  end_lte?: Maybe<DateTimeInput>;
-  end_gt?: Maybe<DateTimeInput>;
-  end_gte?: Maybe<DateTimeInput>;
+  start?: Maybe<String>;
+  start_not?: Maybe<String>;
+  start_in?: Maybe<String[] | String>;
+  start_not_in?: Maybe<String[] | String>;
+  start_lt?: Maybe<String>;
+  start_lte?: Maybe<String>;
+  start_gt?: Maybe<String>;
+  start_gte?: Maybe<String>;
+  start_contains?: Maybe<String>;
+  start_not_contains?: Maybe<String>;
+  start_starts_with?: Maybe<String>;
+  start_not_starts_with?: Maybe<String>;
+  start_ends_with?: Maybe<String>;
+  start_not_ends_with?: Maybe<String>;
+  end?: Maybe<String>;
+  end_not?: Maybe<String>;
+  end_in?: Maybe<String[] | String>;
+  end_not_in?: Maybe<String[] | String>;
+  end_lt?: Maybe<String>;
+  end_lte?: Maybe<String>;
+  end_gt?: Maybe<String>;
+  end_gte?: Maybe<String>;
+  end_contains?: Maybe<String>;
+  end_not_contains?: Maybe<String>;
+  end_starts_with?: Maybe<String>;
+  end_not_starts_with?: Maybe<String>;
+  end_ends_with?: Maybe<String>;
+  end_not_ends_with?: Maybe<String>;
   AND?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
   OR?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
   NOT?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
@@ -2126,8 +2150,8 @@ export interface ProjectUpdateManyWithWhereNestedInput {
 
 export interface ProjectUpdateManyDataInput {
   name?: Maybe<String>;
-  start?: Maybe<DateTimeInput>;
-  end?: Maybe<DateTimeInput>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
 }
 
 export interface ProductUpsertWithWhereUniqueWithoutProgramInput {
@@ -2429,8 +2453,8 @@ export interface ProgramRoleUpdateInput {
 
 export interface ProjectUpdateInput {
   name?: Maybe<String>;
-  start?: Maybe<DateTimeInput>;
-  end?: Maybe<DateTimeInput>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   notes?: Maybe<ProjectNoteUpdateManyInput>;
   projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
@@ -2438,8 +2462,8 @@ export interface ProjectUpdateInput {
 
 export interface ProjectUpdateManyMutationInput {
   name?: Maybe<String>;
-  start?: Maybe<DateTimeInput>;
-  end?: Maybe<DateTimeInput>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
 }
 
 export interface ProjectNoteUpdateInput {
@@ -2462,8 +2486,8 @@ export interface ProjectCreateOneWithoutProjectRolesInput {
 export interface ProjectCreateWithoutProjectRolesInput {
   id?: Maybe<ID_Input>;
   name: String;
-  start: DateTimeInput;
-  end: DateTimeInput;
+  start: String;
+  end: String;
   product: ProductCreateOneWithoutProjectsInput;
   notes?: Maybe<ProjectNoteCreateManyInput>;
 }
@@ -2483,8 +2507,8 @@ export interface ProjectUpdateOneRequiredWithoutProjectRolesInput {
 
 export interface ProjectUpdateWithoutProjectRolesDataInput {
   name?: Maybe<String>;
-  start?: Maybe<DateTimeInput>;
-  end?: Maybe<DateTimeInput>;
+  start?: Maybe<String>;
+  end?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   notes?: Maybe<ProjectNoteUpdateManyInput>;
 }
@@ -2718,8 +2742,8 @@ export interface Project {
   name: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  start: DateTimeOutput;
-  end: DateTimeOutput;
+  start: String;
+  end: String;
 }
 
 export interface ProjectPromise extends Promise<Project>, Fragmentable {
@@ -2727,8 +2751,8 @@ export interface ProjectPromise extends Promise<Project>, Fragmentable {
   name: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  start: () => Promise<DateTimeOutput>;
-  end: () => Promise<DateTimeOutput>;
+  start: () => Promise<String>;
+  end: () => Promise<String>;
   product: <T = ProductPromise>() => T;
   notes: <T = FragmentableArray<ProjectNote>>(args?: {
     where?: ProjectNoteWhereInput;
@@ -2757,8 +2781,8 @@ export interface ProjectSubscription
   name: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  start: () => Promise<AsyncIterator<DateTimeOutput>>;
-  end: () => Promise<AsyncIterator<DateTimeOutput>>;
+  start: () => Promise<AsyncIterator<String>>;
+  end: () => Promise<AsyncIterator<String>>;
   product: <T = ProductSubscription>() => T;
   notes: <T = Promise<AsyncIterator<ProjectNoteSubscription>>>(args?: {
     where?: ProjectNoteWhereInput;
@@ -2787,8 +2811,8 @@ export interface ProjectNullablePromise
   name: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  start: () => Promise<DateTimeOutput>;
-  end: () => Promise<DateTimeOutput>;
+  start: () => Promise<String>;
+  end: () => Promise<String>;
   product: <T = ProductPromise>() => T;
   notes: <T = FragmentableArray<ProjectNote>>(args?: {
     where?: ProjectNoteWhereInput;
@@ -4239,8 +4263,8 @@ export interface ProjectPreviousValues {
   name: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  start: DateTimeOutput;
-  end: DateTimeOutput;
+  start: String;
+  end: String;
 }
 
 export interface ProjectPreviousValuesPromise
@@ -4250,8 +4274,8 @@ export interface ProjectPreviousValuesPromise
   name: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  start: () => Promise<DateTimeOutput>;
-  end: () => Promise<DateTimeOutput>;
+  start: () => Promise<String>;
+  end: () => Promise<String>;
 }
 
 export interface ProjectPreviousValuesSubscription
@@ -4261,8 +4285,8 @@ export interface ProjectPreviousValuesSubscription
   name: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  start: () => Promise<AsyncIterator<DateTimeOutput>>;
-  end: () => Promise<AsyncIterator<DateTimeOutput>>;
+  start: () => Promise<AsyncIterator<String>>;
+  end: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ProjectNoteSubscriptionPayload {

@@ -1574,8 +1574,8 @@ type Project {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  start: DateTime!
-  end: DateTime!
+  start: String!
+  end: String!
   product: Product!
   notes(where: ProjectNoteWhereInput, orderBy: ProjectNoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectNote!]
   projectRoles(where: ProjectRoleWhereInput, orderBy: ProjectRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectRole!]
@@ -1590,8 +1590,8 @@ type ProjectConnection {
 input ProjectCreateInput {
   id: ID
   name: String!
-  start: DateTime!
-  end: DateTime!
+  start: String!
+  end: String!
   product: ProductCreateOneWithoutProjectsInput!
   notes: ProjectNoteCreateManyInput
   projectRoles: ProjectRoleCreateManyWithoutProjectInput
@@ -1615,8 +1615,8 @@ input ProjectCreateOneWithoutProjectRolesInput {
 input ProjectCreateWithoutProductInput {
   id: ID
   name: String!
-  start: DateTime!
-  end: DateTime!
+  start: String!
+  end: String!
   notes: ProjectNoteCreateManyInput
   projectRoles: ProjectRoleCreateManyWithoutProjectInput
 }
@@ -1624,8 +1624,8 @@ input ProjectCreateWithoutProductInput {
 input ProjectCreateWithoutProjectRolesInput {
   id: ID
   name: String!
-  start: DateTime!
-  end: DateTime!
+  start: String!
+  end: String!
   product: ProductCreateOneWithoutProjectsInput!
   notes: ProjectNoteCreateManyInput
 }
@@ -1892,8 +1892,8 @@ type ProjectPreviousValues {
   name: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  start: DateTime!
-  end: DateTime!
+  start: String!
+  end: String!
 }
 
 type ProjectRole {
@@ -2124,22 +2124,34 @@ input ProjectScalarWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  start: DateTime
-  start_not: DateTime
-  start_in: [DateTime!]
-  start_not_in: [DateTime!]
-  start_lt: DateTime
-  start_lte: DateTime
-  start_gt: DateTime
-  start_gte: DateTime
-  end: DateTime
-  end_not: DateTime
-  end_in: [DateTime!]
-  end_not_in: [DateTime!]
-  end_lt: DateTime
-  end_lte: DateTime
-  end_gt: DateTime
-  end_gte: DateTime
+  start: String
+  start_not: String
+  start_in: [String!]
+  start_not_in: [String!]
+  start_lt: String
+  start_lte: String
+  start_gt: String
+  start_gte: String
+  start_contains: String
+  start_not_contains: String
+  start_starts_with: String
+  start_not_starts_with: String
+  start_ends_with: String
+  start_not_ends_with: String
+  end: String
+  end_not: String
+  end_in: [String!]
+  end_not_in: [String!]
+  end_lt: String
+  end_lte: String
+  end_gt: String
+  end_gte: String
+  end_contains: String
+  end_not_contains: String
+  end_starts_with: String
+  end_not_starts_with: String
+  end_ends_with: String
+  end_not_ends_with: String
   AND: [ProjectScalarWhereInput!]
   OR: [ProjectScalarWhereInput!]
   NOT: [ProjectScalarWhereInput!]
@@ -2165,8 +2177,8 @@ input ProjectSubscriptionWhereInput {
 
 input ProjectUpdateDataInput {
   name: String
-  start: DateTime
-  end: DateTime
+  start: String
+  end: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   notes: ProjectNoteUpdateManyInput
   projectRoles: ProjectRoleUpdateManyWithoutProjectInput
@@ -2174,8 +2186,8 @@ input ProjectUpdateDataInput {
 
 input ProjectUpdateInput {
   name: String
-  start: DateTime
-  end: DateTime
+  start: String
+  end: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   notes: ProjectNoteUpdateManyInput
   projectRoles: ProjectRoleUpdateManyWithoutProjectInput
@@ -2183,14 +2195,14 @@ input ProjectUpdateInput {
 
 input ProjectUpdateManyDataInput {
   name: String
-  start: DateTime
-  end: DateTime
+  start: String
+  end: String
 }
 
 input ProjectUpdateManyMutationInput {
   name: String
-  start: DateTime
-  end: DateTime
+  start: String
+  end: String
 }
 
 input ProjectUpdateManyWithoutProductInput {
@@ -2226,16 +2238,16 @@ input ProjectUpdateOneRequiredWithoutProjectRolesInput {
 
 input ProjectUpdateWithoutProductDataInput {
   name: String
-  start: DateTime
-  end: DateTime
+  start: String
+  end: String
   notes: ProjectNoteUpdateManyInput
   projectRoles: ProjectRoleUpdateManyWithoutProjectInput
 }
 
 input ProjectUpdateWithoutProjectRolesDataInput {
   name: String
-  start: DateTime
-  end: DateTime
+  start: String
+  end: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   notes: ProjectNoteUpdateManyInput
 }
@@ -2306,22 +2318,34 @@ input ProjectWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  start: DateTime
-  start_not: DateTime
-  start_in: [DateTime!]
-  start_not_in: [DateTime!]
-  start_lt: DateTime
-  start_lte: DateTime
-  start_gt: DateTime
-  start_gte: DateTime
-  end: DateTime
-  end_not: DateTime
-  end_in: [DateTime!]
-  end_not_in: [DateTime!]
-  end_lt: DateTime
-  end_lte: DateTime
-  end_gt: DateTime
-  end_gte: DateTime
+  start: String
+  start_not: String
+  start_in: [String!]
+  start_not_in: [String!]
+  start_lt: String
+  start_lte: String
+  start_gt: String
+  start_gte: String
+  start_contains: String
+  start_not_contains: String
+  start_starts_with: String
+  start_not_starts_with: String
+  start_ends_with: String
+  start_not_ends_with: String
+  end: String
+  end_not: String
+  end_in: [String!]
+  end_not_in: [String!]
+  end_lt: String
+  end_lte: String
+  end_gt: String
+  end_gte: String
+  end_contains: String
+  end_not_contains: String
+  end_starts_with: String
+  end_not_starts_with: String
+  end_ends_with: String
+  end_not_ends_with: String
   product: ProductWhereInput
   notes_every: ProjectNoteWhereInput
   notes_some: ProjectNoteWhereInput
