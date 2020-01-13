@@ -3,18 +3,23 @@ const typeDefs = require('./schema');
 const { prisma } = require('../prisma/generated/prisma-client');
 
 // Resolvers
-const Mutation = require('./resolvers/Mutation');
 const Query = require('./resolvers/Query');
+const Mutation = require('./resolvers/Mutation');
 const Program = require('./resolvers/Program');
 const Product = require('./resolvers/Product');
 const Project = require('./resolvers/Project');
 const ProjectNote = require('./resolvers/ProjectNote');
+const ProjectRole = require('./resolvers/ProjectRole');
+const ProductRole = require('./resolvers/ProductRole');
+const ProgramRole = require('./resolvers/ProgramRole');
+const Person = require('./resolvers/Person');
 
 // OKTA specific authorization middleware
 const constructOktaContext = require('./auth/okta-auth');
 
 const dummyUser = {
   id: 'flskjfsd98jsdlfsjlsdfjlA',
+  email: 'nicholas@gmail.com',
   claims: ['Everyone', 'Project Manager'],
 };
 
@@ -51,6 +56,10 @@ const dummyUser = {
     Product,
     Project,
     ProjectNote,
+    ProjectRole,
+    ProductRole,
+    ProgramRole,
+    Person,
   };
 
   const server = new ApolloServer({

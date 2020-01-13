@@ -1,11 +1,13 @@
-const note = ({ id }, _, { prisma }) => {
-  console.log(id);
-  return prisma.projectNote({ id }).note();
-};
-
 const project = ({ id }, _, { prisma }) => prisma.projectNote({ id }).project();
 
+const meetingAttendees = ({ id }, _, { prisma }) =>
+  prisma.projectNote({ id }).meetingAttendees();
+
+const performanceRating = ({ id }, _, { prisma }) =>
+  prisma.projectNote({ id }).performanceRating();
+
 module.exports = {
-  note,
   project,
+  meetingAttendees,
+  performanceRating,
 };

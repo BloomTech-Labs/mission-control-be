@@ -6,7 +6,7 @@
 
 type User {
   id: ID! @id
-  name: String!
+  email: String!
   info: Person! @relation(link: INLINE)
 }
 
@@ -39,28 +39,22 @@ type Project {
   projectRoles: [ProjectRole]!
 }
 
-## Need to create an intermediate type
+## Ideally, the author field would return type Person, but
+## there are limitations in the prisma API that prevent this
+## from functioning correctly until Prisma 2 release
 ## See: https://github.com/prisma/prisma/issues/1907
 
 type ProjectNote {
   id: ID! @id
   project: Project!
-  #meetingAttendees: [Person!]!
+  ## author: See comment
+  author: String!
+  meetingAttendees: [Person!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  note: Note! @relation(link: INLINE)
-}
-
-type Note {
-  id: ID! @id
-  #  project: Project!
-  # projectNote: ProjectNote!
-  #author: Person!
   title: String!
   content: String!
-  #  performanceRating: Rating!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  performanceRating: Rating!
 }
 
 enum Rating {
@@ -107,12 +101,10 @@ type Person {
   id: ID! @id
   name: String!
   program: Program!
-  email: String!
   githubId: String!
   slackId: String!
   avatarURL: String!
   timeZone: TimeZone!
-  notes: [Note!]!
   meetingsAttended: [ProjectNote!]!
   user: User!
 }

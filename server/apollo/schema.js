@@ -21,16 +21,12 @@ const typeDefs = gql`
       start: String!
       end: String!
     ): Project!
-    createNote(id: ID!, title: String!, content: String!): Note!
   }
 
   type User {
-    id: String!
-    claims: [Group!]!
-  }
-
-  type Group {
-    name: String!
+    id: ID!
+    email: String!
+    info: Person!
   }
 
   type Program {
@@ -38,14 +34,16 @@ const typeDefs = gql`
     name: String!
     createdAt: String!
     updatedAt: String!
-    products: [Product!]!
+    products: [Product]!
   }
 
   type Product {
     id: ID!
     name: String!
     program: Program!
-    projects: [Project!]!
+    createdAt: String!
+    updatedAt: String!
+    projects: [Project]!
   }
 
   type Project {
@@ -57,24 +55,83 @@ const typeDefs = gql`
     end: String!
     product: Product!
     notes: [ProjectNote!]!
-    # projectRoles: [ProjectRole!]!
+    projectRoles: [ProjectRole]!
   }
+
+  ## Ideally, the author field would return type Person, but
+  ## there are limitations in the prisma API that prevent this
+  ## from functioning correctly until Prisma 2 release
+  ## See: https://github.com/prisma/prisma/issues/1907
 
   type ProjectNote {
     id: ID!
     project: Project!
-    #meetingAttendees: [Person!]!
-    note: Note!
-  }
-
-  type Note {
-    id: ID!
-    # project: Project!
-    #projectNote: ProjectNote!
-    # author: Person!
+    ## author: See comment
+    author: String!
+    meetingAttendees: [Person!]!
+    createdAt: String!
+    updatedAt: String!
     title: String!
     content: String!
-    # performanceRating: Rating!
+    performanceRating: Rating!
+  }
+
+  enum Rating {
+    LOW
+    MEDIUM
+    HIGH
+  }
+
+  type Role {
+    id: ID!
+    title: String!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type ProjectRole {
+    id: ID!
+    person: Person!
+    project: Project!
+    role: Role!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type ProductRole {
+    id: ID!
+    person: Person!
+    product: Product!
+    role: Role!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type ProgramRole {
+    id: ID!
+    person: Person!
+    program: Program!
+    role: Role!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type Person {
+    id: ID!
+    name: String!
+    program: Program!
+    githubId: String!
+    slackId: String!
+    avatarURL: String!
+    timeZone: TimeZone!
+    meetingsAttended: [ProjectNote!]!
+    user: User!
+  }
+
+  enum TimeZone {
+    PST
+    CST
+    EST
   }
 `;
 
