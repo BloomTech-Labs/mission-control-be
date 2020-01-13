@@ -31,8 +31,8 @@ type Project {
   name: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  start: DateTime!
-  end: DateTime!
+  start: String!
+  end: String!
   product: Product!
   notes: [ProjectNote!]!
   projectRoles: [ProjectRole]!
