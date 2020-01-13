@@ -10,7 +10,16 @@ const createProduct = (_, { name, id }, { prisma }) =>
     program: { connect: { id } },
   });
 
+const createProject = (_, { id, name, start, end }, { prisma }) =>
+  prisma.createProject({
+    name,
+    start,
+    end,
+    product: { connect: { id } },
+  });
+
 module.exports = {
   createProgram,
   createProduct,
+  createProject,
 };
