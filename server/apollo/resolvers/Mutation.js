@@ -18,8 +18,16 @@ const createProject = (_, { id, name, start, end }, { prisma }) =>
     product: { connect: { id } },
   });
 
+const createRole = (_, { title }, { prisma }) => prisma.createRole({ title });
+
+const updateRole = (_, { title, id }, { prisma }) => {
+  return prisma.updateRole({ data: { title }, where: { id } });
+};
+
 module.exports = {
   createProgram,
   createProduct,
   createProject,
+  createRole,
+  updateRole,
 };

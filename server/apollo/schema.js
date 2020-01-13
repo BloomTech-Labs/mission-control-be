@@ -21,6 +21,8 @@ const typeDefs = gql`
       start: String!
       end: String!
     ): Project!
+    createRole(title: String!): Role!
+    updateRole(id: ID!, title: String!): Role!
   }
 
   type User {
