@@ -7,6 +7,7 @@ const Mutation = require('./resolvers/Mutation');
 const Query = require('./resolvers/Query');
 const Program = require('./resolvers/Program');
 const Product = require('./resolvers/Product');
+const Project = require('./resolvers/Project');
 
 // OKTA specific authorization middleware
 const constructOktaContext = require('./auth/okta-auth');
@@ -41,6 +42,7 @@ const constructOktaContext = require('./auth/okta-auth');
     Mutation,
     Program,
     Product,
+    Project,
   };
 
   const server = new ApolloServer({
