@@ -34,17 +34,28 @@ type Project {
   start: DateTime!
   end: DateTime!
   product: Product!
-  projectNotes: [ProjectNote]!
+  notes: [ProjectNote!]!
   projectRoles: [ProjectRole]!
 }
 
+## Need to create an intermediate type
+## See: https://github.com/prisma/prisma/issues/1907
+
 type ProjectNote {
   id: ID! @id
+  meetingAttendees: [Person!]!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  note: Note! @relation(link: TABLE)
+}
+
+type Note {
+  id: ID! @id
   project: Project!
-  author: Person! @relation(name: "NoteAuthor")
+  projectNote: ProjectNote!
+  author: Person!
   title: String!
   content: String!
-  attendees: [Person] @relation(name: "MeetingAttendee")
   performanceRating: Rating!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -58,7 +69,6 @@ enum Rating {
 
 type Role {
   id: ID! @id
-  # Should this really be a string? Enum?
   title: String!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -93,15 +103,15 @@ type ProgramRole {
 
 type Person {
   id: ID! @id
-  firstName: String!
-  lastName: String!
-  timeZone: TimeZone!
+  name: String!
   program: Program!
   email: String!
   githubId: String!
   slackId: String!
-  # Redundant url? Is this already exposed to the front end via slack/github handle/id?
   avatarURL: String!
+  timeZone: TimeZone!
+  notes: [Note!]!
+  meetingsAttended: [ProjectNote!]!
 }
 
 enum TimeZone {
