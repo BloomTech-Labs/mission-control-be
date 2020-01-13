@@ -25,10 +25,6 @@ var models = [
     embedded: false
   },
   {
-    name: "Note",
-    embedded: false
-  },
-  {
     name: "Rating",
     embedded: false
   },
