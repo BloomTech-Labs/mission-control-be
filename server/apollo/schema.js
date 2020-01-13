@@ -4,8 +4,22 @@ const typeDefs = gql`
   type Query {
     info: String!
     programs: [Program]
+    program: Program
     products: [Product]
+    product: Product
     projects: [Project]
+    project: Project
+  }
+
+  type Mutation {
+    createProgram(name: String!): Program!
+    createProduct(id: ID!, name: String!): Product!
+    createProject(
+      id: ID!
+      name: String!
+      start: String!
+      end: String!
+    ): Project!
   }
 
   type User {
@@ -15,11 +29,6 @@ const typeDefs = gql`
 
   type Group {
     name: String!
-  }
-
-  type Mutation {
-    createProgram(name: String!): Program!
-    createProduct(id: ID!, name: String!): Product!
   }
 
   type Program {
@@ -40,9 +49,13 @@ const typeDefs = gql`
   type Project {
     id: ID!
     name: String!
+    createdAt: String!
+    updatedAt: String!
+    start: String!
+    end: String!
     product: Product!
-    # projectNotes: [ProjectNote]!
-    # projectRoles: [ProjectRole]!
+    # notes: [ProjectNote!]!
+    # projectRoles: [ProjectRole!]!
   }
 `;
 
