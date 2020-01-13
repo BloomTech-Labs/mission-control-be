@@ -24,13 +24,8 @@ const constructOktaContext = require('./auth/okta-auth');
       const { type, accessToken } = JSON.parse(authorization);
       switch (type) {
         case 'OKTA': {
-          const contextObject = await constructOktaContext(
-            accessToken,
-            'Everyone',
-            prisma,
-            req,
-          );
-          return contextObject;
+          const user = await constructOktaContext(accessToken);
+          return { ...req, user, prisma };
         }
         default:
       }
