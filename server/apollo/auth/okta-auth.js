@@ -42,16 +42,11 @@ const oktaAuthReq = req => {
   );
 };
 
-const constructOktaContext = async (accessToken, role, client, req) => {
+const constructOktaContext = async accessToken => {
   const token = `Bearer ${accessToken}`;
   const { id, claims } = await oktaAuthReq(token);
-  if (!claims.includes('Everyone')) throw new Error('aaaa');
   const user = { id, claims };
-  return {
-    ...req,
-    user,
-    client,
-  };
+  return user;
 };
 
 module.exports = constructOktaContext;
