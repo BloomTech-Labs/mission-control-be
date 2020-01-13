@@ -8,9 +8,15 @@ const Query = require('./resolvers/Query');
 const Program = require('./resolvers/Program');
 const Product = require('./resolvers/Product');
 const Project = require('./resolvers/Project');
+const ProjectNote = require('./resolvers/ProjectNote');
 
 // OKTA specific authorization middleware
 const constructOktaContext = require('./auth/okta-auth');
+
+const dummyUser = {
+  id: 'flskjfsd98jsdlfsjlsdfjlA',
+  claims: ['Everyone', 'Project Manager'],
+};
 
 (async () => {
   /**
@@ -34,6 +40,7 @@ const constructOktaContext = require('./auth/okta-auth');
     return {
       ...req,
       prisma,
+      user: dummyUser,
     };
   };
 
@@ -43,6 +50,7 @@ const constructOktaContext = require('./auth/okta-auth');
     Program,
     Product,
     Project,
+    ProjectNote,
   };
 
   const server = new ApolloServer({

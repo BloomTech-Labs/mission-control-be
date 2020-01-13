@@ -7,6 +7,7 @@
 type User {
   id: ID! @id
   name: String!
+  info: Person! @relation(link: INLINE)
 }
 
 type Program {
@@ -43,20 +44,21 @@ type Project {
 
 type ProjectNote {
   id: ID! @id
-  meetingAttendees: [Person!]!
+  project: Project!
+  #meetingAttendees: [Person!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  note: Note! @relation(link: TABLE)
+  note: Note! @relation(link: INLINE)
 }
 
 type Note {
   id: ID! @id
-  project: Project!
-  projectNote: ProjectNote!
-  author: Person!
+  #  project: Project!
+  # projectNote: ProjectNote!
+  #author: Person!
   title: String!
   content: String!
-  performanceRating: Rating!
+  #  performanceRating: Rating!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
@@ -112,6 +114,7 @@ type Person {
   timeZone: TimeZone!
   notes: [Note!]!
   meetingsAttended: [ProjectNote!]!
+  user: User!
 }
 
 enum TimeZone {

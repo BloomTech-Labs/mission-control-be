@@ -9,6 +9,7 @@ const typeDefs = gql`
     product: Product
     projects: [Project]
     project: Project
+    notes: [ProjectNote!]!
   }
 
   type Mutation {
@@ -20,6 +21,7 @@ const typeDefs = gql`
       start: String!
       end: String!
     ): Project!
+    createNote(id: ID!, title: String!, content: String!): Note!
   }
 
   type User {
@@ -54,8 +56,25 @@ const typeDefs = gql`
     start: String!
     end: String!
     product: Product!
-    # notes: [ProjectNote!]!
+    notes: [ProjectNote!]!
     # projectRoles: [ProjectRole!]!
+  }
+
+  type ProjectNote {
+    id: ID!
+    project: Project!
+    #meetingAttendees: [Person!]!
+    note: Note!
+  }
+
+  type Note {
+    id: ID!
+    # project: Project!
+    #projectNote: ProjectNote!
+    # author: Person!
+    title: String!
+    content: String!
+    # performanceRating: Rating!
   }
 `;
 

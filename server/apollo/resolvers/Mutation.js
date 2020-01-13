@@ -18,8 +18,19 @@ const createProject = (_, { id, name, start, end }, { prisma }) =>
     product: { connect: { id } },
   });
 
+const createNote = async (_, { id, title, content }, { user, prisma }) => {
+  const pjNote = await prisma.createProjectNote({
+    project: { connect: { id } },
+    note: {
+      create: { title, content },
+    },
+  });
+  return pjNote;
+};
+
 module.exports = {
   createProgram,
   createProduct,
   createProject,
+  createNote,
 };
