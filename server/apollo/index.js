@@ -24,11 +24,10 @@ const dummyUser = {
 };
 
 (async () => {
-  /**
-   * Create context object to pass request, user object containing result
-   * of Authentication/Authorization middleware, along with prisma client
-   * into all resolvers. Throws error if requests are not authenticated.
-   * */
+  // ===================================================================
+  // Create context object to pass request, user object containing result
+  // of Authentication/Authorization middleware, along with prisma client
+  // into all resolvers. Throws error if requests are not authenticated.
 
   const context = async ({ req }) => {
     const { authorization } = req.headers;
