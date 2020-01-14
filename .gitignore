@@ -90,3 +90,6 @@ typings/
 # lockfiles
 yarn.lock
 package-lock.json
+
+# docker
+server/prisma/docker-compose.yml
