@@ -21,6 +21,12 @@ const typeDefs = gql`
       start: String!
       end: String!
     ): Project!
+    createProjectNote(
+      id: ID!
+      title: String!
+      content: String!
+      rating: String!
+    ): ProjectNote!
   }
 
   type User {
