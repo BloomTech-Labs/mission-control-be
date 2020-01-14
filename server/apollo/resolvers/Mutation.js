@@ -35,6 +35,7 @@ const createProject = (_, { id, name, start, end }, { prisma }) => {
   return project;
 };
 
+// Required: Product ID, title, content, rating
 const createProjectNote = (_, { id, title, content, rating }, { prisma, user } ) => 
   prisma.createProjectNote({
     title,
@@ -53,6 +54,7 @@ const createUser = (_, _args, { prisma, user: { email } }) => {
 
 // Required fields: name, githubId, slackId, avatarURL, timeZone
 // where context.user.email == args.email
+// where args.id == program.id
 const createPerson = (_, args, { prisma, user: { email } }) => {
   const { id } = args;
   const person = prisma.createPerson({
@@ -71,7 +73,7 @@ const createRole = (_, { title }, { prisma }) => {
   return role;
 };
 
-// Requied: title where id == this.id
+// Required: title where id == this.id
 const updateRole = (_, { title, id }, { prisma }) => {
   const role = prisma.updateRole({ data: { title }, where: { id } });
 
