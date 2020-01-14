@@ -18,6 +18,27 @@ const createProject = (_, { id, name, start, end }, { prisma }) =>
     product: { connect: { id } },
   });
 
+const createUser = (_, _args, { prisma, user }) => {
+  return prisma.createUser({ email: user.email });
+};
+
+const createPerson = (
+  parent,
+  { id, name, githubId, slackId, avatarURL, timeZone },
+  { prisma, user: User },
+) => {
+  return prisma.createPerson({
+    name,
+    githubId,
+    slackId,
+    avatarURL,
+    timeZone,
+    program: { connect: { id } },
+    // meetingsAttended: { connect: { id: noteId } },
+    user: { connect: { email: User.email } },
+  });
+};
+
 const createRole = (_, { title }, { prisma }) => prisma.createRole({ title });
 
 const updateRole = (_, { title, id }, { prisma }) => {
@@ -30,4 +51,6 @@ module.exports = {
   createProject,
   createRole,
   updateRole,
+  createUser,
+  createPerson,
 };
