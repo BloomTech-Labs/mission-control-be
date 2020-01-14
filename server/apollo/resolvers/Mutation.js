@@ -18,8 +18,18 @@ const createProject = (_, { id, name, start, end }, { prisma }) =>
     product: { connect: { id } },
   });
 
+const createProjectNote = (_, { id, title, content, rating }, { prisma, user } ) => 
+  prisma.createProjectNote({
+    title,
+    content,
+    project: { connect: { id }},
+    performanceRating: rating,
+    author: user.email
+  })
+
 module.exports = {
   createProgram,
   createProduct,
   createProject,
+  createProjectNote
 };
