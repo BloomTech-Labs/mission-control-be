@@ -1,6 +1,11 @@
 // Resolvers receive four arguments: parent, args, context, info
 // Prefer destructuring and indicators for unused fields
 
+// ===================================================================
+// The purpose of these functions is to resolver Mutations where the
+// name of the mutation is a function of the same name. Required params
+// come through from arguments and context on a per-mutation basis.
+
 // Required: name @unique
 const createProgram = (_, { name }, { prisma }) => {
   const program = prisma.createProgram({ name });
