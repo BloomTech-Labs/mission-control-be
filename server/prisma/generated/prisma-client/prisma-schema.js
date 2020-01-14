@@ -136,7 +136,6 @@ type Person {
   slackId: String!
   avatarURL: String!
   timeZone: TimeZone!
-  meetingsAttended(where: ProjectNoteWhereInput, orderBy: ProjectNoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectNote!]
   user: User!
 }
 
@@ -149,17 +148,21 @@ type PersonConnection {
 input PersonCreateInput {
   id: ID
   name: String!
-  program: ProgramCreateOneInput!
+  program: ProgramCreateOneWithoutPeopleInput!
   githubId: String!
   slackId: String!
   avatarURL: String!
   timeZone: TimeZone!
-  meetingsAttended: ProjectNoteCreateManyWithoutMeetingAttendeesInput
   user: UserCreateOneWithoutInfoInput!
 }
 
-input PersonCreateManyWithoutMeetingsAttendedInput {
-  create: [PersonCreateWithoutMeetingsAttendedInput!]
+input PersonCreateManyInput {
+  create: [PersonCreateInput!]
+  connect: [PersonWhereUniqueInput!]
+}
+
+input PersonCreateManyWithoutProgramInput {
+  create: [PersonCreateWithoutProgramInput!]
   connect: [PersonWhereUniqueInput!]
 }
 
@@ -173,10 +176,9 @@ input PersonCreateOneWithoutUserInput {
   connect: PersonWhereUniqueInput
 }
 
-input PersonCreateWithoutMeetingsAttendedInput {
+input PersonCreateWithoutProgramInput {
   id: ID
   name: String!
-  program: ProgramCreateOneInput!
   githubId: String!
   slackId: String!
   avatarURL: String!
@@ -187,12 +189,11 @@ input PersonCreateWithoutMeetingsAttendedInput {
 input PersonCreateWithoutUserInput {
   id: ID
   name: String!
-  program: ProgramCreateOneInput!
+  program: ProgramCreateOneWithoutPeopleInput!
   githubId: String!
   slackId: String!
   avatarURL: String!
   timeZone: TimeZone!
-  meetingsAttended: ProjectNoteCreateManyWithoutMeetingAttendeesInput
 }
 
 type PersonEdge {
@@ -324,23 +325,21 @@ input PersonSubscriptionWhereInput {
 
 input PersonUpdateDataInput {
   name: String
-  program: ProgramUpdateOneRequiredInput
+  program: ProgramUpdateOneRequiredWithoutPeopleInput
   githubId: String
   slackId: String
   avatarURL: String
   timeZone: TimeZone
-  meetingsAttended: ProjectNoteUpdateManyWithoutMeetingAttendeesInput
   user: UserUpdateOneRequiredWithoutInfoInput
 }
 
 input PersonUpdateInput {
   name: String
-  program: ProgramUpdateOneRequiredInput
+  program: ProgramUpdateOneRequiredWithoutPeopleInput
   githubId: String
   slackId: String
   avatarURL: String
   timeZone: TimeZone
-  meetingsAttended: ProjectNoteUpdateManyWithoutMeetingAttendeesInput
   user: UserUpdateOneRequiredWithoutInfoInput
 }
 
@@ -352,6 +351,18 @@ input PersonUpdateManyDataInput {
   timeZone: TimeZone
 }
 
+input PersonUpdateManyInput {
+  create: [PersonCreateInput!]
+  update: [PersonUpdateWithWhereUniqueNestedInput!]
+  upsert: [PersonUpsertWithWhereUniqueNestedInput!]
+  delete: [PersonWhereUniqueInput!]
+  connect: [PersonWhereUniqueInput!]
+  set: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  deleteMany: [PersonScalarWhereInput!]
+  updateMany: [PersonUpdateManyWithWhereNestedInput!]
+}
+
 input PersonUpdateManyMutationInput {
   name: String
   githubId: String
@@ -360,14 +371,14 @@ input PersonUpdateManyMutationInput {
   timeZone: TimeZone
 }
 
-input PersonUpdateManyWithoutMeetingsAttendedInput {
-  create: [PersonCreateWithoutMeetingsAttendedInput!]
+input PersonUpdateManyWithoutProgramInput {
+  create: [PersonCreateWithoutProgramInput!]
   delete: [PersonWhereUniqueInput!]
   connect: [PersonWhereUniqueInput!]
   set: [PersonWhereUniqueInput!]
   disconnect: [PersonWhereUniqueInput!]
-  update: [PersonUpdateWithWhereUniqueWithoutMeetingsAttendedInput!]
-  upsert: [PersonUpsertWithWhereUniqueWithoutMeetingsAttendedInput!]
+  update: [PersonUpdateWithWhereUniqueWithoutProgramInput!]
+  upsert: [PersonUpsertWithWhereUniqueWithoutProgramInput!]
   deleteMany: [PersonScalarWhereInput!]
   updateMany: [PersonUpdateManyWithWhereNestedInput!]
 }
@@ -384,16 +395,17 @@ input PersonUpdateOneRequiredInput {
   connect: PersonWhereUniqueInput
 }
 
-input PersonUpdateOneRequiredWithoutUserInput {
+input PersonUpdateOneWithoutUserInput {
   create: PersonCreateWithoutUserInput
   update: PersonUpdateWithoutUserDataInput
   upsert: PersonUpsertWithoutUserInput
+  delete: Boolean
+  disconnect: Boolean
   connect: PersonWhereUniqueInput
 }
 
-input PersonUpdateWithoutMeetingsAttendedDataInput {
+input PersonUpdateWithoutProgramDataInput {
   name: String
-  program: ProgramUpdateOneRequiredInput
   githubId: String
   slackId: String
   avatarURL: String
@@ -403,17 +415,21 @@ input PersonUpdateWithoutMeetingsAttendedDataInput {
 
 input PersonUpdateWithoutUserDataInput {
   name: String
-  program: ProgramUpdateOneRequiredInput
+  program: ProgramUpdateOneRequiredWithoutPeopleInput
   githubId: String
   slackId: String
   avatarURL: String
   timeZone: TimeZone
-  meetingsAttended: ProjectNoteUpdateManyWithoutMeetingAttendeesInput
 }
 
-input PersonUpdateWithWhereUniqueWithoutMeetingsAttendedInput {
+input PersonUpdateWithWhereUniqueNestedInput {
   where: PersonWhereUniqueInput!
-  data: PersonUpdateWithoutMeetingsAttendedDataInput!
+  data: PersonUpdateDataInput!
+}
+
+input PersonUpdateWithWhereUniqueWithoutProgramInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateWithoutProgramDataInput!
 }
 
 input PersonUpsertNestedInput {
@@ -426,10 +442,16 @@ input PersonUpsertWithoutUserInput {
   create: PersonCreateWithoutUserInput!
 }
 
-input PersonUpsertWithWhereUniqueWithoutMeetingsAttendedInput {
+input PersonUpsertWithWhereUniqueNestedInput {
   where: PersonWhereUniqueInput!
-  update: PersonUpdateWithoutMeetingsAttendedDataInput!
-  create: PersonCreateWithoutMeetingsAttendedInput!
+  update: PersonUpdateDataInput!
+  create: PersonCreateInput!
+}
+
+input PersonUpsertWithWhereUniqueWithoutProgramInput {
+  where: PersonWhereUniqueInput!
+  update: PersonUpdateWithoutProgramDataInput!
+  create: PersonCreateWithoutProgramInput!
 }
 
 input PersonWhereInput {
@@ -508,9 +530,6 @@ input PersonWhereInput {
   timeZone_not: TimeZone
   timeZone_in: [TimeZone!]
   timeZone_not_in: [TimeZone!]
-  meetingsAttended_every: ProjectNoteWhereInput
-  meetingsAttended_some: ProjectNoteWhereInput
-  meetingsAttended_none: ProjectNoteWhereInput
   user: UserWhereInput
   AND: [PersonWhereInput!]
   OR: [PersonWhereInput!]
@@ -908,6 +927,7 @@ input ProductWhereInput {
 
 input ProductWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Program {
@@ -916,6 +936,7 @@ type Program {
   createdAt: DateTime!
   updatedAt: DateTime!
   products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product!]
+  people(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
 }
 
 type ProgramConnection {
@@ -928,10 +949,16 @@ input ProgramCreateInput {
   id: ID
   name: String!
   products: ProductCreateManyWithoutProgramInput
+  people: PersonCreateManyWithoutProgramInput
 }
 
 input ProgramCreateOneInput {
   create: ProgramCreateInput
+  connect: ProgramWhereUniqueInput
+}
+
+input ProgramCreateOneWithoutPeopleInput {
+  create: ProgramCreateWithoutPeopleInput
   connect: ProgramWhereUniqueInput
 }
 
@@ -940,9 +967,16 @@ input ProgramCreateOneWithoutProductsInput {
   connect: ProgramWhereUniqueInput
 }
 
+input ProgramCreateWithoutPeopleInput {
+  id: ID
+  name: String!
+  products: ProductCreateManyWithoutProgramInput
+}
+
 input ProgramCreateWithoutProductsInput {
   id: ID
   name: String!
+  people: PersonCreateManyWithoutProgramInput
 }
 
 type ProgramEdge {
@@ -1098,11 +1132,13 @@ input ProgramSubscriptionWhereInput {
 input ProgramUpdateDataInput {
   name: String
   products: ProductUpdateManyWithoutProgramInput
+  people: PersonUpdateManyWithoutProgramInput
 }
 
 input ProgramUpdateInput {
   name: String
   products: ProductUpdateManyWithoutProgramInput
+  people: PersonUpdateManyWithoutProgramInput
 }
 
 input ProgramUpdateManyMutationInput {
@@ -1116,6 +1152,13 @@ input ProgramUpdateOneRequiredInput {
   connect: ProgramWhereUniqueInput
 }
 
+input ProgramUpdateOneRequiredWithoutPeopleInput {
+  create: ProgramCreateWithoutPeopleInput
+  update: ProgramUpdateWithoutPeopleDataInput
+  upsert: ProgramUpsertWithoutPeopleInput
+  connect: ProgramWhereUniqueInput
+}
+
 input ProgramUpdateOneRequiredWithoutProductsInput {
   create: ProgramCreateWithoutProductsInput
   update: ProgramUpdateWithoutProductsDataInput
@@ -1123,13 +1166,24 @@ input ProgramUpdateOneRequiredWithoutProductsInput {
   connect: ProgramWhereUniqueInput
 }
 
+input ProgramUpdateWithoutPeopleDataInput {
+  name: String
+  products: ProductUpdateManyWithoutProgramInput
+}
+
 input ProgramUpdateWithoutProductsDataInput {
   name: String
+  people: PersonUpdateManyWithoutProgramInput
 }
 
 input ProgramUpsertNestedInput {
   update: ProgramUpdateDataInput!
   create: ProgramCreateInput!
+}
+
+input ProgramUpsertWithoutPeopleInput {
+  update: ProgramUpdateWithoutPeopleDataInput!
+  create: ProgramCreateWithoutPeopleInput!
 }
 
 input ProgramUpsertWithoutProductsInput {
@@ -1185,6 +1239,9 @@ input ProgramWhereInput {
   products_every: ProductWhereInput
   products_some: ProductWhereInput
   products_none: ProductWhereInput
+  people_every: PersonWhereInput
+  people_some: PersonWhereInput
+  people_none: PersonWhereInput
   AND: [ProgramWhereInput!]
   OR: [ProgramWhereInput!]
   NOT: [ProgramWhereInput!]
@@ -1192,6 +1249,7 @@ input ProgramWhereInput {
 
 input ProgramWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Project {
@@ -1291,15 +1349,10 @@ input ProjectNoteCreateInput {
   id: ID
   project: ProjectCreateOneWithoutNotesInput!
   author: String!
-  meetingAttendees: PersonCreateManyWithoutMeetingsAttendedInput
+  meetingAttendees: PersonCreateManyInput
   title: String!
   content: String!
   performanceRating: Rating!
-}
-
-input ProjectNoteCreateManyWithoutMeetingAttendeesInput {
-  create: [ProjectNoteCreateWithoutMeetingAttendeesInput!]
-  connect: [ProjectNoteWhereUniqueInput!]
 }
 
 input ProjectNoteCreateManyWithoutProjectInput {
@@ -1307,19 +1360,10 @@ input ProjectNoteCreateManyWithoutProjectInput {
   connect: [ProjectNoteWhereUniqueInput!]
 }
 
-input ProjectNoteCreateWithoutMeetingAttendeesInput {
-  id: ID
-  project: ProjectCreateOneWithoutNotesInput!
-  author: String!
-  title: String!
-  content: String!
-  performanceRating: Rating!
-}
-
 input ProjectNoteCreateWithoutProjectInput {
   id: ID
   author: String!
-  meetingAttendees: PersonCreateManyWithoutMeetingsAttendedInput
+  meetingAttendees: PersonCreateManyInput
   title: String!
   content: String!
   performanceRating: Rating!
@@ -1460,7 +1504,7 @@ input ProjectNoteSubscriptionWhereInput {
 input ProjectNoteUpdateInput {
   project: ProjectUpdateOneRequiredWithoutNotesInput
   author: String
-  meetingAttendees: PersonUpdateManyWithoutMeetingsAttendedInput
+  meetingAttendees: PersonUpdateManyInput
   title: String
   content: String
   performanceRating: Rating
@@ -1480,18 +1524,6 @@ input ProjectNoteUpdateManyMutationInput {
   performanceRating: Rating
 }
 
-input ProjectNoteUpdateManyWithoutMeetingAttendeesInput {
-  create: [ProjectNoteCreateWithoutMeetingAttendeesInput!]
-  delete: [ProjectNoteWhereUniqueInput!]
-  connect: [ProjectNoteWhereUniqueInput!]
-  set: [ProjectNoteWhereUniqueInput!]
-  disconnect: [ProjectNoteWhereUniqueInput!]
-  update: [ProjectNoteUpdateWithWhereUniqueWithoutMeetingAttendeesInput!]
-  upsert: [ProjectNoteUpsertWithWhereUniqueWithoutMeetingAttendeesInput!]
-  deleteMany: [ProjectNoteScalarWhereInput!]
-  updateMany: [ProjectNoteUpdateManyWithWhereNestedInput!]
-}
-
 input ProjectNoteUpdateManyWithoutProjectInput {
   create: [ProjectNoteCreateWithoutProjectInput!]
   delete: [ProjectNoteWhereUniqueInput!]
@@ -1509,36 +1541,17 @@ input ProjectNoteUpdateManyWithWhereNestedInput {
   data: ProjectNoteUpdateManyDataInput!
 }
 
-input ProjectNoteUpdateWithoutMeetingAttendeesDataInput {
-  project: ProjectUpdateOneRequiredWithoutNotesInput
-  author: String
-  title: String
-  content: String
-  performanceRating: Rating
-}
-
 input ProjectNoteUpdateWithoutProjectDataInput {
   author: String
-  meetingAttendees: PersonUpdateManyWithoutMeetingsAttendedInput
+  meetingAttendees: PersonUpdateManyInput
   title: String
   content: String
   performanceRating: Rating
-}
-
-input ProjectNoteUpdateWithWhereUniqueWithoutMeetingAttendeesInput {
-  where: ProjectNoteWhereUniqueInput!
-  data: ProjectNoteUpdateWithoutMeetingAttendeesDataInput!
 }
 
 input ProjectNoteUpdateWithWhereUniqueWithoutProjectInput {
   where: ProjectNoteWhereUniqueInput!
   data: ProjectNoteUpdateWithoutProjectDataInput!
-}
-
-input ProjectNoteUpsertWithWhereUniqueWithoutMeetingAttendeesInput {
-  where: ProjectNoteWhereUniqueInput!
-  update: ProjectNoteUpdateWithoutMeetingAttendeesDataInput!
-  create: ProjectNoteCreateWithoutMeetingAttendeesInput!
 }
 
 input ProjectNoteUpsertWithWhereUniqueWithoutProjectInput {
@@ -2124,6 +2137,7 @@ input ProjectWhereInput {
 
 input ProjectWhereUniqueInput {
   id: ID
+  name: String
 }
 
 type Query {
@@ -2330,7 +2344,7 @@ enum TimeZone {
 type User {
   id: ID!
   email: String!
-  info: Person!
+  info: Person
 }
 
 type UserConnection {
@@ -2342,7 +2356,7 @@ type UserConnection {
 input UserCreateInput {
   id: ID
   email: String!
-  info: PersonCreateOneWithoutUserInput!
+  info: PersonCreateOneWithoutUserInput
 }
 
 input UserCreateOneWithoutInfoInput {
@@ -2392,7 +2406,7 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   email: String
-  info: PersonUpdateOneRequiredWithoutUserInput
+  info: PersonUpdateOneWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -2452,6 +2466,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }
 `
       }

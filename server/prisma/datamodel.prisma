@@ -6,21 +6,22 @@
 
 type User {
   id: ID! @id
-  email: String!
-  info: Person! @relation(link: INLINE)
+  email: String! @unique
+  info: Person @relation(link: INLINE)
 }
 
 type Program {
   id: ID! @id
-  name: String!
+  name: String! @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product]!
+  people: [Person!]!
 }
 
 type Product {
   id: ID! @id
-  name: String!
+  name: String! @unique
   program: Program!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -29,7 +30,7 @@ type Product {
 
 type Project {
   id: ID! @id
-  name: String!
+  name: String! @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   start: String!
@@ -47,7 +48,6 @@ type Project {
 type ProjectNote {
   id: ID! @id
   project: Project!
-  ## author: See comment
   author: String!
   meetingAttendees: [Person!]!
   createdAt: DateTime! @createdAt
@@ -105,7 +105,7 @@ type Person {
   slackId: String!
   avatarURL: String!
   timeZone: TimeZone!
-  meetingsAttended: [ProjectNote!]!
+  # meetingsAttended: [ProjectNote!]!
   user: User!
 }
 
