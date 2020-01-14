@@ -1,8 +1,29 @@
-const person = ({ id }, _, { prisma }) => prisma.projectRole({ id }).person();
+// Resolvers receive four arguments: parent, args, context, info
+// Prefer destructuring and indicators for unused fields
 
-const project = ({ id }, _, { prisma }) => prisma.projectRole({ id }).project();
+// ===================================================================
+// The purpose of these funtions is to resolve fields on ProjectRole type
+// where there exists a relation rather than a Scalar value.
+// They capture the ID from the parent element and resolve
+// a field of the same name as the function by ID.
 
-const role = ({ id }, _, { prisma }) => prisma.projectRole({ id }).role();
+const person = ({ id }, _, { prisma }) => {
+  const res = prisma.projectRole({ id }).person();
+
+  return res;
+};
+
+const project = ({ id }, _, { prisma }) => {
+  const res = prisma.projectRole({ id }).project();
+
+  return res;
+};
+
+const role = ({ id }, _, { prisma }) => {
+  const res = prisma.projectRole({ id }).role();
+
+  return res;
+};
 
 module.exports = {
   person,
