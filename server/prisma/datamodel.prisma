@@ -12,7 +12,7 @@ type User {
 
 type Program {
   id: ID! @id
-  name: String!
+  name: String! @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product]!
@@ -21,7 +21,7 @@ type Program {
 
 type Product {
   id: ID! @id
-  name: String!
+  name: String! @unique
   program: Program!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -30,7 +30,7 @@ type Product {
 
 type Project {
   id: ID! @id
-  name: String!
+  name: String! @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   start: String!
@@ -48,7 +48,6 @@ type Project {
 type ProjectNote {
   id: ID! @id
   project: Project!
-  ## author: See comment
   author: String!
   meetingAttendees: [Person!]!
   createdAt: DateTime! @createdAt
