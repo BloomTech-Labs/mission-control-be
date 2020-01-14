@@ -4,10 +4,13 @@
 ## Assume that User will have a string identifier passed from OKTA
 ## As well as a claims array containing a list of strings.
 
+
+## Removed '!' from Person on info to create user.
 type User {
   id: ID! @id
-  email: String!
-  info: Person! @relation(link: INLINE)
+  email: String! @unique
+  info: Person @relation(link: INLINE)
+  dummy: String
 }
 
 type Program {
@@ -16,6 +19,7 @@ type Program {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product]!
+  people: [Person!]!
 }
 
 type Product {
@@ -105,7 +109,7 @@ type Person {
   slackId: String!
   avatarURL: String!
   timeZone: TimeZone!
-  meetingsAttended: [ProjectNote!]!
+ # meetingsAttended: [ProjectNote!]!
   user: User!
 }
 
