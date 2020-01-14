@@ -1,48 +1,67 @@
 // Resolvers receive four arguments: parent, args, context, info
 // Prefer destructuring and indicators for unused fields
 
-const createProgram = (_, { name }, { prisma }) =>
-  prisma.createProgram({ name });
+// Required: name @unique
+const createProgram = (_, { name }, { prisma }) => {
+  const program = prisma.createProgram({ name });
 
-const createProduct = (_, { name, id }, { prisma }) =>
-  prisma.createProduct({
+  return program;
+};
+
+// Required: name @unique, where pogram id == args id
+const createProduct = (_, { name, id }, { prisma }) => {
+  const product = prisma.createProduct({
     name,
     program: { connect: { id } },
   });
 
-const createProject = (_, { id, name, start, end }, { prisma }) =>
-  prisma.createProject({
+  return product;
+};
+
+// Required: name, start, end, where program id == args id
+const createProject = (_, { id, name, start, end }, { prisma }) => {
+  const project = prisma.createProject({
     name,
     start,
     end,
     product: { connect: { id } },
   });
 
-const createUser = (_, _args, { prisma, user }) => {
-  return prisma.createUser({ email: user.email });
+  return project;
 };
 
-const createPerson = (
-  parent,
-  { id, name, githubId, slackId, avatarURL, timeZone },
-  { prisma, user: User },
-) => {
-  return prisma.createPerson({
-    name,
-    githubId,
-    slackId,
-    avatarURL,
-    timeZone,
+// Required: email @unique
+const createUser = (_, _args, { prisma, user: { email } }) => {
+  const user = prisma.createUser({ email });
+
+  return user;
+};
+
+// Required fields: name, githubId, slackId, avatarURL, timeZone
+// where context.user.email == args.email
+const createPerson = (_, args, { prisma, user: { email } }) => {
+  const { id } = args;
+  const person = prisma.createPerson({
+    ...args,
     program: { connect: { id } },
-    // meetingsAttended: { connect: { id: noteId } },
-    user: { connect: { email: User.email } },
+    user: { connect: { email } },
   });
+
+  return person;
 };
 
-const createRole = (_, { title }, { prisma }) => prisma.createRole({ title });
+// Required: title
+const createRole = (_, { title }, { prisma }) => {
+  const role = prisma.createRole({ title });
 
+  return role;
+};
+
+// Requied: title where id == this.id
 const updateRole = (_, { title, id }, { prisma }) => {
-  return prisma.updateRole({ data: { title }, where: { id } });
+  const role = prisma.updateRole({ data: { title }, where: { id } });
+
+  return role;
 };
 
 module.exports = {
