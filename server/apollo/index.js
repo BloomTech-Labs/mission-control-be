@@ -3,18 +3,6 @@ const { prisma } = require('../prisma/generated/prisma-client');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
-// Resolvers
-const Query = require('./resolvers/Query');
-const Mutation = require('./resolvers/Mutation');
-const Program = require('./resolvers/Program');
-const Product = require('./resolvers/Product');
-const Project = require('./resolvers/Project');
-const ProjectNote = require('./resolvers/ProjectNote');
-const ProjectRole = require('./resolvers/ProjectRole');
-const ProductRole = require('./resolvers/ProductRole');
-const ProgramRole = require('./resolvers/ProgramRole');
-const Person = require('./resolvers/Person');
-
 // OKTA specific authorization middleware
 const constructOktaContext = require('./auth/okta-auth');
 
