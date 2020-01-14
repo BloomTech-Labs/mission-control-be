@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/Lambda-School-Labs/mission-control-be.git",
-  "author": "Nicholas Gebhart <nicholas.gebhart@gmail.com>",
+  "author": "Lambda Labs",
   "license": "MIT",
   "scripts": {
     "server": "nodemon server/apollo/index.js"
