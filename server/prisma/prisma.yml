@@ -1,10 +1,6 @@
-endpoint: https://us1.prisma.sh/nicholas-gebhart-2b3f02/mission-ctrl/dev
+endpoint: http://localhost:4466
 datamodel: datamodel.prisma
 
 generate:
   - generator: javascript-client
     output: ./generated/prisma-client/
-
-hooks:
-  post-deploy:
-    - prisma generate
