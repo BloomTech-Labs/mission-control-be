@@ -5,7 +5,7 @@ secret: ${env:PRISMA_SECRET}
 
 # Generate the schema and client for Apollo to use
 generate:
-  - generator: typescript-client
+  - generator: javascript-client
     output: ../apollo/src/generated/prisma-client
   - generator: graphql-schema
     output: ../apollo/schema/generated/prisma.graphql
