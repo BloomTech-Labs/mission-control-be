@@ -6,7 +6,7 @@
   "author": "Lambda Labs",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon server/apollo/index.js"
+    "server": "nodemon src/index.js"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
