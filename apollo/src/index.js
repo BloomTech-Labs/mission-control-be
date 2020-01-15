@@ -8,6 +8,7 @@ const context = require('./context');
     resolvers,
     typeDefs,
     context,
+    playground: false,
   });
 
   const { url } = await server.listen(8000);
