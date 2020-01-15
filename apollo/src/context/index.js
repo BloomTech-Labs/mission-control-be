@@ -1,4 +1,4 @@
-const { prisma } = require('../../prisma/generated/prisma-client');
+const { prisma } = require('../generated/prisma-client');
 
 // OKTA specific authorization middleware
 const constructOktaContext = require('../auth/okta-auth');
