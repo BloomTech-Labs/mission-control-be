@@ -13,7 +13,7 @@ const decodeToken = async req => {
   const match = req.match(/Bearer (.+)/);
 
   if (!match) {
-    throw new Error('Invalid tokens');
+    throw new Error('Invalid token');
   }
 
   // Extract pure token, stripped of 'Bearer '
@@ -33,7 +33,7 @@ const decodeToken = async req => {
 
 const constructOktaContext = async accessToken => {
   const token = `Bearer ${accessToken}`;
-  const { id, claims } = await oktaAuthReq(token);
+  const { id, claims } = await decodeToken(token);
   const user = { id, claims };
   return user;
 };

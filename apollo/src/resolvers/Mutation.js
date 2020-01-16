@@ -1,80 +1,52 @@
-// Resolvers receive four arguments: parent, args, context, info
-// Prefer destructuring and indicators for unused fields
-
-// ===================================================================
-// The purpose of these functions is to resolver Mutations where the
-// name of the mutation is a function of the same name. Required params
-// come through from arguments and context on a per-mutation basis.
-
-// Required: name @unique
-const createProgram = (_, { name }, { prisma }) => {
-  const program = prisma.createProgram({ name });
+const createProgram = (parent, args, context) => {
+  const program = context.prisma.createProgram({
+    name: args.name,
+  });
 
   return program;
 };
 
-// Required: name @unique, where pogram id == args id
-const createProduct = (_, { name, id }, { prisma }) => {
-  const product = prisma.createProduct({
-    name,
-    program: { connect: { id } },
+const createProduct = (parent, args, context) => {
+  const product = context.prisma.createProduct({
+    name: args.name,
+    program: { connect: { id: args.id } },
   });
 
   return product;
 };
 
-// Required: name, start, end, where program id == args id
-const createProject = (_, { id, name, start, end }, { prisma }) => {
-  const project = prisma.createProject({
-    name,
-    start,
-    end,
-    product: { connect: { id } },
+const createProject = (parent, args, context) => {
+  const project = context.prisma.createProject({
+    name: args.name,
+    status: args.status,
+    product: { connect: { id: args.id } },
   });
 
   return project;
 };
 
-// Required: email @unique
-const createUser = (_, _args, { prisma, user: { email } }) => {
-  const user = prisma.createUser({ email });
-
-  return user;
-};
-
-// Required fields: name, githubId, slackId, avatarURL, timeZone
-// where context.user.email == args.email
-const createPerson = (_, args, { prisma, user: { email } }) => {
-  const { id } = args;
-  const person = prisma.createPerson({
-    ...args,
-    program: { connect: { id } },
-    user: { connect: { email } },
+const createProjectRole = (parent, args, context) => {
+  const { projectId, email, name } = args;
+  const projectRole = context.prisma.createProjectRole({
+    name,
+    person: { connect: { email } },
+    project: { connect: { id: projectId } },
   });
 
+  return projectRole;
+};
+
+const createPerson = (parent, args, context) => {
+  const { name, email } = args;
+  const person = context.prisma.createPerson({ name, email });
+
   return person;
-};
-
-// Required: title
-const createRole = (_, { title }, { prisma }) => {
-  const role = prisma.createRole({ title });
-
-  return role;
-};
-
-// Requied: title where id == this.id
-const updateRole = (_, { title, id }, { prisma }) => {
-  const role = prisma.updateRole({ data: { title }, where: { id } });
-
-  return role;
 };
 
 module.exports = {
   createProgram,
   createProduct,
   createProject,
-  createRole,
-  updateRole,
-  createUser,
+  createProjectRole,
   createPerson,
 };

@@ -1,38 +1,57 @@
-// Resolvers receive four arguments: parent, args, context, info
-// Prefer destructuring and indicators for unused fields
+const program = (parent, args, context) => {
+  const res = context.prisma.program();
 
-// ===================================================================
-// The purpose of these funtions is to resolve queries by type
-// where the function resolves a type field of the same name
+  return res;
+};
 
-// ===================================================================
-// Singular fields require a "where" clause to be useful
-// All introspective (read: own) queries can use context to get
-// information about the user currently logged in, otherwise, use args.
+const product = (parent, args, context) => {
+  const res = context.prisma.product();
 
-const program = (_, _args, { prisma: { program: Program } }) => Program();
-const project = (_, _args, { prisma: { project: Project } }) => Project();
-const product = (_, _args, { prisma: { product: Product } }) => Product();
+  return res;
+};
 
-// ===================================================================
-// Pagination and filtering params can likewise be passed into plurals
-// See the documentation for informatin on filtering, pagination, sorting
+const project = (parent, args, context) => {
+  const res = context.prisma.project();
 
-const products = (_, _args, { prisma: { products: Products } }) => Products();
-const projects = (_, _args, { prisma: { projects: Projects } }) => Projects();
-const programs = (_, _args, { prisma: { programs: Programs } }) => Programs();
-const notes = (_, _args, { prisma: { notes: Notes } }) => Notes();
+  return res;
+};
 
-// Hello, world!
-const info = () => 'Hello from the API';
+const person = (parent, args, context) => {
+  const res = context.prisma.person();
+
+  return res;
+};
+
+const programs = (parent, args, context) => {
+  const res = context.prisma.programs();
+
+  return res;
+};
+
+const products = (parent, args, context) => {
+  const res = context.prisma.products();
+
+  return res;
+};
+
+const projects = (parent, args, context) => {
+  const res = context.prisma.projects();
+
+  return res;
+};
+
+const info = (a, b, context) => {
+  console.log(context.user);
+  return `Hello World`;
+};
 
 module.exports = {
-  info,
-  programs,
   program,
-  products,
   product,
-  projects,
   project,
-  notes,
+  programs,
+  products,
+  projects,
+  person,
+  info,
 };
