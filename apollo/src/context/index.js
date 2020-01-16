@@ -18,15 +18,11 @@ const dummyUser = {
 const context = async ({ req }) => {
   const { authorization } = req.headers;
   if (authorization) {
-    const { type, accessToken } = JSON.parse(authorization);
-    switch (type) {
-      case 'OKTA': {
-        const user = await constructOktaContext(accessToken);
-        return { ...req, user, prisma };
-      }
-      default:
-    }
+    const { accessToken } = JSON.parse(authorization);
+    const user = await constructOktaContext(accessToken);
+    return { ...req, user, prisma };
   }
+
   return {
     ...req,
     prisma,
