@@ -1,4 +1,4 @@
-const { prisma } = require('../../prisma/generated/prisma-client');
+const { prisma } = require('../../../prisma/generated/prisma-client');
 
 // OKTA specific authorization middleware
 const constructOktaContext = require('../auth/okta-auth');
@@ -7,7 +7,7 @@ const constructOktaContext = require('../auth/okta-auth');
 const dummyUser = {
   id: 'flskjfsd98jsdlfsjlsdfjlA',
   email: 'nicholas@gmail.com',
-  claims: ['Everyone', 'Project Manager'],
+  claims: ['Project Manager'],
 };
 
 // ===================================================================
@@ -18,15 +18,10 @@ const dummyUser = {
 const context = async ({ req }) => {
   const { authorization } = req.headers;
   if (authorization) {
-    const { type, accessToken } = JSON.parse(authorization);
-    switch (type) {
-      case 'OKTA': {
-        const user = await constructOktaContext(accessToken);
-        return { ...req, user, prisma };
-      }
-      default:
-    }
+    const user = await constructOktaContext(authorization);
+    return { ...req, user, prisma };
   }
+
   return {
     ...req,
     prisma,

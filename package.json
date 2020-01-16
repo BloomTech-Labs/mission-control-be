@@ -6,7 +6,7 @@
   "author": "Nicholas Gebhart <nicholas.gebhart@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon server/apollo/index.js"
+    "server": "nodemon server/apollo/src/index.js"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
