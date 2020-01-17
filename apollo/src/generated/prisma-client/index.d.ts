@@ -18,14 +18,9 @@ export type Maybe<T> = T | undefined | null;
 export interface Exists {
   person: (where?: PersonWhereInput) => Promise<boolean>;
   product: (where?: ProductWhereInput) => Promise<boolean>;
-  productRole: (where?: ProductRoleWhereInput) => Promise<boolean>;
   program: (where?: ProgramWhereInput) => Promise<boolean>;
-  programRole: (where?: ProgramRoleWhereInput) => Promise<boolean>;
   project: (where?: ProjectWhereInput) => Promise<boolean>;
-  projectNote: (where?: ProjectNoteWhereInput) => Promise<boolean>;
   projectRole: (where?: ProjectRoleWhereInput) => Promise<boolean>;
-  role: (where?: RoleWhereInput) => Promise<boolean>;
-  user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -85,27 +80,6 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ProductConnectionPromise;
-  productRole: (
-    where: ProductRoleWhereUniqueInput
-  ) => ProductRoleNullablePromise;
-  productRoles: (args?: {
-    where?: ProductRoleWhereInput;
-    orderBy?: ProductRoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<ProductRole>;
-  productRolesConnection: (args?: {
-    where?: ProductRoleWhereInput;
-    orderBy?: ProductRoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => ProductRoleConnectionPromise;
   program: (where: ProgramWhereUniqueInput) => ProgramNullablePromise;
   programs: (args?: {
     where?: ProgramWhereInput;
@@ -125,27 +99,6 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ProgramConnectionPromise;
-  programRole: (
-    where: ProgramRoleWhereUniqueInput
-  ) => ProgramRoleNullablePromise;
-  programRoles: (args?: {
-    where?: ProgramRoleWhereInput;
-    orderBy?: ProgramRoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<ProgramRole>;
-  programRolesConnection: (args?: {
-    where?: ProgramRoleWhereInput;
-    orderBy?: ProgramRoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => ProgramRoleConnectionPromise;
   project: (where: ProjectWhereUniqueInput) => ProjectNullablePromise;
   projects: (args?: {
     where?: ProjectWhereInput;
@@ -165,27 +118,6 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ProjectConnectionPromise;
-  projectNote: (
-    where: ProjectNoteWhereUniqueInput
-  ) => ProjectNoteNullablePromise;
-  projectNotes: (args?: {
-    where?: ProjectNoteWhereInput;
-    orderBy?: ProjectNoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<ProjectNote>;
-  projectNotesConnection: (args?: {
-    where?: ProjectNoteWhereInput;
-    orderBy?: ProjectNoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => ProjectNoteConnectionPromise;
   projectRole: (
     where: ProjectRoleWhereUniqueInput
   ) => ProjectRoleNullablePromise;
@@ -207,44 +139,6 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ProjectRoleConnectionPromise;
-  role: (where: RoleWhereUniqueInput) => RoleNullablePromise;
-  roles: (args?: {
-    where?: RoleWhereInput;
-    orderBy?: RoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<Role>;
-  rolesConnection: (args?: {
-    where?: RoleWhereInput;
-    orderBy?: RoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => RoleConnectionPromise;
-  user: (where: UserWhereUniqueInput) => UserNullablePromise;
-  users: (args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<User>;
-  usersConnection: (args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => UserConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -283,20 +177,6 @@ export interface Prisma {
   }) => ProductPromise;
   deleteProduct: (where: ProductWhereUniqueInput) => ProductPromise;
   deleteManyProducts: (where?: ProductWhereInput) => BatchPayloadPromise;
-  createProductRole: (data: ProductRoleCreateInput) => ProductRolePromise;
-  updateProductRole: (args: {
-    data: ProductRoleUpdateInput;
-    where: ProductRoleWhereUniqueInput;
-  }) => ProductRolePromise;
-  upsertProductRole: (args: {
-    where: ProductRoleWhereUniqueInput;
-    create: ProductRoleCreateInput;
-    update: ProductRoleUpdateInput;
-  }) => ProductRolePromise;
-  deleteProductRole: (where: ProductRoleWhereUniqueInput) => ProductRolePromise;
-  deleteManyProductRoles: (
-    where?: ProductRoleWhereInput
-  ) => BatchPayloadPromise;
   createProgram: (data: ProgramCreateInput) => ProgramPromise;
   updateProgram: (args: {
     data: ProgramUpdateInput;
@@ -313,20 +193,6 @@ export interface Prisma {
   }) => ProgramPromise;
   deleteProgram: (where: ProgramWhereUniqueInput) => ProgramPromise;
   deleteManyPrograms: (where?: ProgramWhereInput) => BatchPayloadPromise;
-  createProgramRole: (data: ProgramRoleCreateInput) => ProgramRolePromise;
-  updateProgramRole: (args: {
-    data: ProgramRoleUpdateInput;
-    where: ProgramRoleWhereUniqueInput;
-  }) => ProgramRolePromise;
-  upsertProgramRole: (args: {
-    where: ProgramRoleWhereUniqueInput;
-    create: ProgramRoleCreateInput;
-    update: ProgramRoleUpdateInput;
-  }) => ProgramRolePromise;
-  deleteProgramRole: (where: ProgramRoleWhereUniqueInput) => ProgramRolePromise;
-  deleteManyProgramRoles: (
-    where?: ProgramRoleWhereInput
-  ) => BatchPayloadPromise;
   createProject: (data: ProjectCreateInput) => ProjectPromise;
   updateProject: (args: {
     data: ProjectUpdateInput;
@@ -343,29 +209,15 @@ export interface Prisma {
   }) => ProjectPromise;
   deleteProject: (where: ProjectWhereUniqueInput) => ProjectPromise;
   deleteManyProjects: (where?: ProjectWhereInput) => BatchPayloadPromise;
-  createProjectNote: (data: ProjectNoteCreateInput) => ProjectNotePromise;
-  updateProjectNote: (args: {
-    data: ProjectNoteUpdateInput;
-    where: ProjectNoteWhereUniqueInput;
-  }) => ProjectNotePromise;
-  updateManyProjectNotes: (args: {
-    data: ProjectNoteUpdateManyMutationInput;
-    where?: ProjectNoteWhereInput;
-  }) => BatchPayloadPromise;
-  upsertProjectNote: (args: {
-    where: ProjectNoteWhereUniqueInput;
-    create: ProjectNoteCreateInput;
-    update: ProjectNoteUpdateInput;
-  }) => ProjectNotePromise;
-  deleteProjectNote: (where: ProjectNoteWhereUniqueInput) => ProjectNotePromise;
-  deleteManyProjectNotes: (
-    where?: ProjectNoteWhereInput
-  ) => BatchPayloadPromise;
   createProjectRole: (data: ProjectRoleCreateInput) => ProjectRolePromise;
   updateProjectRole: (args: {
     data: ProjectRoleUpdateInput;
     where: ProjectRoleWhereUniqueInput;
   }) => ProjectRolePromise;
+  updateManyProjectRoles: (args: {
+    data: ProjectRoleUpdateManyMutationInput;
+    where?: ProjectRoleWhereInput;
+  }) => BatchPayloadPromise;
   upsertProjectRole: (args: {
     where: ProjectRoleWhereUniqueInput;
     create: ProjectRoleCreateInput;
@@ -375,38 +227,6 @@ export interface Prisma {
   deleteManyProjectRoles: (
     where?: ProjectRoleWhereInput
   ) => BatchPayloadPromise;
-  createRole: (data: RoleCreateInput) => RolePromise;
-  updateRole: (args: {
-    data: RoleUpdateInput;
-    where: RoleWhereUniqueInput;
-  }) => RolePromise;
-  updateManyRoles: (args: {
-    data: RoleUpdateManyMutationInput;
-    where?: RoleWhereInput;
-  }) => BatchPayloadPromise;
-  upsertRole: (args: {
-    where: RoleWhereUniqueInput;
-    create: RoleCreateInput;
-    update: RoleUpdateInput;
-  }) => RolePromise;
-  deleteRole: (where: RoleWhereUniqueInput) => RolePromise;
-  deleteManyRoles: (where?: RoleWhereInput) => BatchPayloadPromise;
-  createUser: (data: UserCreateInput) => UserPromise;
-  updateUser: (args: {
-    data: UserUpdateInput;
-    where: UserWhereUniqueInput;
-  }) => UserPromise;
-  updateManyUsers: (args: {
-    data: UserUpdateManyMutationInput;
-    where?: UserWhereInput;
-  }) => BatchPayloadPromise;
-  upsertUser: (args: {
-    where: UserWhereUniqueInput;
-    create: UserCreateInput;
-    update: UserUpdateInput;
-  }) => UserPromise;
-  deleteUser: (where: UserWhereUniqueInput) => UserPromise;
-  deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -422,30 +242,15 @@ export interface Subscription {
   product: (
     where?: ProductSubscriptionWhereInput
   ) => ProductSubscriptionPayloadSubscription;
-  productRole: (
-    where?: ProductRoleSubscriptionWhereInput
-  ) => ProductRoleSubscriptionPayloadSubscription;
   program: (
     where?: ProgramSubscriptionWhereInput
   ) => ProgramSubscriptionPayloadSubscription;
-  programRole: (
-    where?: ProgramRoleSubscriptionWhereInput
-  ) => ProgramRoleSubscriptionPayloadSubscription;
   project: (
     where?: ProjectSubscriptionWhereInput
   ) => ProjectSubscriptionPayloadSubscription;
-  projectNote: (
-    where?: ProjectNoteSubscriptionWhereInput
-  ) => ProjectNoteSubscriptionPayloadSubscription;
   projectRole: (
     where?: ProjectRoleSubscriptionWhereInput
   ) => ProjectRoleSubscriptionPayloadSubscription;
-  role: (
-    where?: RoleSubscriptionWhereInput
-  ) => RoleSubscriptionPayloadSubscription;
-  user: (
-    where?: UserSubscriptionWhereInput
-  ) => UserSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -456,79 +261,33 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type TimeZone = "PST" | "CST" | "EST";
-
-export type Rating = "LOW" | "MEDIUM" | "HIGH";
+export type PersonOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "email_ASC"
+  | "email_DESC";
 
 export type ProductOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "name_ASC"
-  | "name_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | "name_DESC";
 
 export type ProjectOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
-  | "start_ASC"
-  | "start_DESC"
-  | "end_ASC"
-  | "end_DESC";
-
-export type ProjectNoteOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "author_ASC"
-  | "author_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "content_ASC"
-  | "content_DESC"
-  | "performanceRating_ASC"
-  | "performanceRating_DESC";
-
-export type PersonOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "githubId_ASC"
-  | "githubId_DESC"
-  | "slackId_ASC"
-  | "slackId_DESC"
-  | "avatarURL_ASC"
-  | "avatarURL_DESC"
-  | "timeZone_ASC"
-  | "timeZone_DESC";
+  | "status_ASC"
+  | "status_DESC";
 
 export type ProjectRoleOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type ProductRoleOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | "name_ASC"
+  | "name_DESC";
 
 export type ProgramOrderByInput =
   | "id_ASC"
@@ -540,33 +299,62 @@ export type ProgramOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type ProgramRoleOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type RoleOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "title_ASC"
-  | "title_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type UserOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "email_ASC"
-  | "email_DESC";
-
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type PersonWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  email?: Maybe<String>;
+}>;
+
+export interface PersonWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  email?: Maybe<String>;
+  email_not?: Maybe<String>;
+  email_in?: Maybe<String[] | String>;
+  email_not_in?: Maybe<String[] | String>;
+  email_lt?: Maybe<String>;
+  email_lte?: Maybe<String>;
+  email_gt?: Maybe<String>;
+  email_gte?: Maybe<String>;
+  email_contains?: Maybe<String>;
+  email_not_contains?: Maybe<String>;
+  email_starts_with?: Maybe<String>;
+  email_not_starts_with?: Maybe<String>;
+  email_ends_with?: Maybe<String>;
+  email_not_ends_with?: Maybe<String>;
+  AND?: Maybe<PersonWhereInput[] | PersonWhereInput>;
+  OR?: Maybe<PersonWhereInput[] | PersonWhereInput>;
+  NOT?: Maybe<PersonWhereInput[] | PersonWhereInput>;
+}
+
+export type ProductWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -600,25 +388,9 @@ export interface ProductWhereInput {
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
   program?: Maybe<ProgramWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  projects_every?: Maybe<ProjectWhereInput>;
-  projects_some?: Maybe<ProjectWhereInput>;
-  projects_none?: Maybe<ProjectWhereInput>;
+  project_every?: Maybe<ProjectWhereInput>;
+  project_some?: Maybe<ProjectWhereInput>;
+  project_none?: Maybe<ProjectWhereInput>;
   AND?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   OR?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   NOT?: Maybe<ProductWhereInput[] | ProductWhereInput>;
@@ -672,129 +444,9 @@ export interface ProgramWhereInput {
   products_every?: Maybe<ProductWhereInput>;
   products_some?: Maybe<ProductWhereInput>;
   products_none?: Maybe<ProductWhereInput>;
-  people_every?: Maybe<PersonWhereInput>;
-  people_some?: Maybe<PersonWhereInput>;
-  people_none?: Maybe<PersonWhereInput>;
   AND?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
   OR?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
   NOT?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
-}
-
-export interface PersonWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  program?: Maybe<ProgramWhereInput>;
-  githubId?: Maybe<String>;
-  githubId_not?: Maybe<String>;
-  githubId_in?: Maybe<String[] | String>;
-  githubId_not_in?: Maybe<String[] | String>;
-  githubId_lt?: Maybe<String>;
-  githubId_lte?: Maybe<String>;
-  githubId_gt?: Maybe<String>;
-  githubId_gte?: Maybe<String>;
-  githubId_contains?: Maybe<String>;
-  githubId_not_contains?: Maybe<String>;
-  githubId_starts_with?: Maybe<String>;
-  githubId_not_starts_with?: Maybe<String>;
-  githubId_ends_with?: Maybe<String>;
-  githubId_not_ends_with?: Maybe<String>;
-  slackId?: Maybe<String>;
-  slackId_not?: Maybe<String>;
-  slackId_in?: Maybe<String[] | String>;
-  slackId_not_in?: Maybe<String[] | String>;
-  slackId_lt?: Maybe<String>;
-  slackId_lte?: Maybe<String>;
-  slackId_gt?: Maybe<String>;
-  slackId_gte?: Maybe<String>;
-  slackId_contains?: Maybe<String>;
-  slackId_not_contains?: Maybe<String>;
-  slackId_starts_with?: Maybe<String>;
-  slackId_not_starts_with?: Maybe<String>;
-  slackId_ends_with?: Maybe<String>;
-  slackId_not_ends_with?: Maybe<String>;
-  avatarURL?: Maybe<String>;
-  avatarURL_not?: Maybe<String>;
-  avatarURL_in?: Maybe<String[] | String>;
-  avatarURL_not_in?: Maybe<String[] | String>;
-  avatarURL_lt?: Maybe<String>;
-  avatarURL_lte?: Maybe<String>;
-  avatarURL_gt?: Maybe<String>;
-  avatarURL_gte?: Maybe<String>;
-  avatarURL_contains?: Maybe<String>;
-  avatarURL_not_contains?: Maybe<String>;
-  avatarURL_starts_with?: Maybe<String>;
-  avatarURL_not_starts_with?: Maybe<String>;
-  avatarURL_ends_with?: Maybe<String>;
-  avatarURL_not_ends_with?: Maybe<String>;
-  timeZone?: Maybe<TimeZone>;
-  timeZone_not?: Maybe<TimeZone>;
-  timeZone_in?: Maybe<TimeZone[] | TimeZone>;
-  timeZone_not_in?: Maybe<TimeZone[] | TimeZone>;
-  user?: Maybe<UserWhereInput>;
-  AND?: Maybe<PersonWhereInput[] | PersonWhereInput>;
-  OR?: Maybe<PersonWhereInput[] | PersonWhereInput>;
-  NOT?: Maybe<PersonWhereInput[] | PersonWhereInput>;
-}
-
-export interface UserWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  email?: Maybe<String>;
-  email_not?: Maybe<String>;
-  email_in?: Maybe<String[] | String>;
-  email_not_in?: Maybe<String[] | String>;
-  email_lt?: Maybe<String>;
-  email_lte?: Maybe<String>;
-  email_gt?: Maybe<String>;
-  email_gte?: Maybe<String>;
-  email_contains?: Maybe<String>;
-  email_not_contains?: Maybe<String>;
-  email_starts_with?: Maybe<String>;
-  email_not_starts_with?: Maybe<String>;
-  email_ends_with?: Maybe<String>;
-  email_not_ends_with?: Maybe<String>;
-  info?: Maybe<PersonWhereInput>;
-  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
-  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
-  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
 export interface ProjectWhereInput {
@@ -826,146 +478,15 @@ export interface ProjectWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  start?: Maybe<String>;
-  start_not?: Maybe<String>;
-  start_in?: Maybe<String[] | String>;
-  start_not_in?: Maybe<String[] | String>;
-  start_lt?: Maybe<String>;
-  start_lte?: Maybe<String>;
-  start_gt?: Maybe<String>;
-  start_gte?: Maybe<String>;
-  start_contains?: Maybe<String>;
-  start_not_contains?: Maybe<String>;
-  start_starts_with?: Maybe<String>;
-  start_not_starts_with?: Maybe<String>;
-  start_ends_with?: Maybe<String>;
-  start_not_ends_with?: Maybe<String>;
-  end?: Maybe<String>;
-  end_not?: Maybe<String>;
-  end_in?: Maybe<String[] | String>;
-  end_not_in?: Maybe<String[] | String>;
-  end_lt?: Maybe<String>;
-  end_lte?: Maybe<String>;
-  end_gt?: Maybe<String>;
-  end_gte?: Maybe<String>;
-  end_contains?: Maybe<String>;
-  end_not_contains?: Maybe<String>;
-  end_starts_with?: Maybe<String>;
-  end_not_starts_with?: Maybe<String>;
-  end_ends_with?: Maybe<String>;
-  end_not_ends_with?: Maybe<String>;
   product?: Maybe<ProductWhereInput>;
-  notes_every?: Maybe<ProjectNoteWhereInput>;
-  notes_some?: Maybe<ProjectNoteWhereInput>;
-  notes_none?: Maybe<ProjectNoteWhereInput>;
-  projectRoles_every?: Maybe<ProjectRoleWhereInput>;
-  projectRoles_some?: Maybe<ProjectRoleWhereInput>;
-  projectRoles_none?: Maybe<ProjectRoleWhereInput>;
+  status?: Maybe<Boolean>;
+  status_not?: Maybe<Boolean>;
+  roles_every?: Maybe<ProjectRoleWhereInput>;
+  roles_some?: Maybe<ProjectRoleWhereInput>;
+  roles_none?: Maybe<ProjectRoleWhereInput>;
   AND?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
   OR?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
   NOT?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-}
-
-export interface ProjectNoteWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  project?: Maybe<ProjectWhereInput>;
-  author?: Maybe<String>;
-  author_not?: Maybe<String>;
-  author_in?: Maybe<String[] | String>;
-  author_not_in?: Maybe<String[] | String>;
-  author_lt?: Maybe<String>;
-  author_lte?: Maybe<String>;
-  author_gt?: Maybe<String>;
-  author_gte?: Maybe<String>;
-  author_contains?: Maybe<String>;
-  author_not_contains?: Maybe<String>;
-  author_starts_with?: Maybe<String>;
-  author_not_starts_with?: Maybe<String>;
-  author_ends_with?: Maybe<String>;
-  author_not_ends_with?: Maybe<String>;
-  meetingAttendees_every?: Maybe<PersonWhereInput>;
-  meetingAttendees_some?: Maybe<PersonWhereInput>;
-  meetingAttendees_none?: Maybe<PersonWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  performanceRating?: Maybe<Rating>;
-  performanceRating_not?: Maybe<Rating>;
-  performanceRating_in?: Maybe<Rating[] | Rating>;
-  performanceRating_not_in?: Maybe<Rating[] | Rating>;
-  AND?: Maybe<ProjectNoteWhereInput[] | ProjectNoteWhereInput>;
-  OR?: Maybe<ProjectNoteWhereInput[] | ProjectNoteWhereInput>;
-  NOT?: Maybe<ProjectNoteWhereInput[] | ProjectNoteWhereInput>;
 }
 
 export interface ProjectRoleWhereInput {
@@ -983,126 +504,25 @@ export interface ProjectRoleWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
   person?: Maybe<PersonWhereInput>;
   project?: Maybe<ProjectWhereInput>;
-  role?: Maybe<RoleWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
   OR?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
   NOT?: Maybe<ProjectRoleWhereInput[] | ProjectRoleWhereInput>;
-}
-
-export interface RoleWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<RoleWhereInput[] | RoleWhereInput>;
-  OR?: Maybe<RoleWhereInput[] | RoleWhereInput>;
-  NOT?: Maybe<RoleWhereInput[] | RoleWhereInput>;
-}
-
-export type ProductWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  name?: Maybe<String>;
-}>;
-
-export type ProductRoleWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface ProductRoleWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  person?: Maybe<PersonWhereInput>;
-  product?: Maybe<ProductWhereInput>;
-  role?: Maybe<RoleWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ProductRoleWhereInput[] | ProductRoleWhereInput>;
-  OR?: Maybe<ProductRoleWhereInput[] | ProductRoleWhereInput>;
-  NOT?: Maybe<ProductRoleWhereInput[] | ProductRoleWhereInput>;
 }
 
 export type ProgramWhereUniqueInput = AtLeastOne<{
@@ -1110,55 +530,7 @@ export type ProgramWhereUniqueInput = AtLeastOne<{
   name?: Maybe<String>;
 }>;
 
-export type ProgramRoleWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface ProgramRoleWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  person?: Maybe<PersonWhereInput>;
-  program?: Maybe<ProgramWhereInput>;
-  role?: Maybe<RoleWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ProgramRoleWhereInput[] | ProgramRoleWhereInput>;
-  OR?: Maybe<ProgramRoleWhereInput[] | ProgramRoleWhereInput>;
-  NOT?: Maybe<ProgramRoleWhereInput[] | ProgramRoleWhereInput>;
-}
-
 export type ProjectWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  name?: Maybe<String>;
-}>;
-
-export type ProjectNoteWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -1166,48 +538,37 @@ export type ProjectRoleWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export type RoleWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  email?: Maybe<String>;
-}>;
-
 export interface PersonCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
-  program: ProgramCreateOneWithoutPeopleInput;
-  githubId: String;
-  slackId: String;
-  avatarURL: String;
-  timeZone: TimeZone;
-  user: UserCreateOneWithoutInfoInput;
+  email: String;
 }
 
-export interface ProgramCreateOneWithoutPeopleInput {
-  create?: Maybe<ProgramCreateWithoutPeopleInput>;
+export interface PersonUpdateInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+}
+
+export interface PersonUpdateManyMutationInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+}
+
+export interface ProductCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  program: ProgramCreateOneWithoutProductsInput;
+  project?: Maybe<ProjectCreateManyWithoutProductInput>;
+}
+
+export interface ProgramCreateOneWithoutProductsInput {
+  create?: Maybe<ProgramCreateWithoutProductsInput>;
   connect?: Maybe<ProgramWhereUniqueInput>;
 }
 
-export interface ProgramCreateWithoutPeopleInput {
+export interface ProgramCreateWithoutProductsInput {
   id?: Maybe<ID_Input>;
   name: String;
-  products?: Maybe<ProductCreateManyWithoutProgramInput>;
-}
-
-export interface ProductCreateManyWithoutProgramInput {
-  create?: Maybe<
-    ProductCreateWithoutProgramInput[] | ProductCreateWithoutProgramInput
-  >;
-  connect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
-}
-
-export interface ProductCreateWithoutProgramInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  projects?: Maybe<ProjectCreateManyWithoutProductInput>;
 }
 
 export interface ProjectCreateManyWithoutProductInput {
@@ -1220,32 +581,8 @@ export interface ProjectCreateManyWithoutProductInput {
 export interface ProjectCreateWithoutProductInput {
   id?: Maybe<ID_Input>;
   name: String;
-  start: String;
-  end: String;
-  notes?: Maybe<ProjectNoteCreateManyWithoutProjectInput>;
-  projectRoles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
-}
-
-export interface ProjectNoteCreateManyWithoutProjectInput {
-  create?: Maybe<
-    | ProjectNoteCreateWithoutProjectInput[]
-    | ProjectNoteCreateWithoutProjectInput
-  >;
-  connect?: Maybe<ProjectNoteWhereUniqueInput[] | ProjectNoteWhereUniqueInput>;
-}
-
-export interface ProjectNoteCreateWithoutProjectInput {
-  id?: Maybe<ID_Input>;
-  author: String;
-  meetingAttendees?: Maybe<PersonCreateManyInput>;
-  title: String;
-  content: String;
-  performanceRating: Rating;
-}
-
-export interface PersonCreateManyInput {
-  create?: Maybe<PersonCreateInput[] | PersonCreateInput>;
-  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  status?: Maybe<Boolean>;
+  roles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
 }
 
 export interface ProjectRoleCreateManyWithoutProjectInput {
@@ -1258,8 +595,8 @@ export interface ProjectRoleCreateManyWithoutProjectInput {
 
 export interface ProjectRoleCreateWithoutProjectInput {
   id?: Maybe<ID_Input>;
+  name: String;
   person: PersonCreateOneInput;
-  role: RoleCreateOneInput;
 }
 
 export interface PersonCreateOneInput {
@@ -1267,79 +604,26 @@ export interface PersonCreateOneInput {
   connect?: Maybe<PersonWhereUniqueInput>;
 }
 
-export interface RoleCreateOneInput {
-  create?: Maybe<RoleCreateInput>;
-  connect?: Maybe<RoleWhereUniqueInput>;
-}
-
-export interface RoleCreateInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-}
-
-export interface UserCreateOneWithoutInfoInput {
-  create?: Maybe<UserCreateWithoutInfoInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserCreateWithoutInfoInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-}
-
-export interface PersonUpdateInput {
+export interface ProductUpdateInput {
   name?: Maybe<String>;
-  program?: Maybe<ProgramUpdateOneRequiredWithoutPeopleInput>;
-  githubId?: Maybe<String>;
-  slackId?: Maybe<String>;
-  avatarURL?: Maybe<String>;
-  timeZone?: Maybe<TimeZone>;
-  user?: Maybe<UserUpdateOneRequiredWithoutInfoInput>;
+  program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
+  project?: Maybe<ProjectUpdateManyWithoutProductInput>;
 }
 
-export interface ProgramUpdateOneRequiredWithoutPeopleInput {
-  create?: Maybe<ProgramCreateWithoutPeopleInput>;
-  update?: Maybe<ProgramUpdateWithoutPeopleDataInput>;
-  upsert?: Maybe<ProgramUpsertWithoutPeopleInput>;
+export interface ProgramUpdateOneRequiredWithoutProductsInput {
+  create?: Maybe<ProgramCreateWithoutProductsInput>;
+  update?: Maybe<ProgramUpdateWithoutProductsDataInput>;
+  upsert?: Maybe<ProgramUpsertWithoutProductsInput>;
   connect?: Maybe<ProgramWhereUniqueInput>;
 }
 
-export interface ProgramUpdateWithoutPeopleDataInput {
+export interface ProgramUpdateWithoutProductsDataInput {
   name?: Maybe<String>;
-  products?: Maybe<ProductUpdateManyWithoutProgramInput>;
 }
 
-export interface ProductUpdateManyWithoutProgramInput {
-  create?: Maybe<
-    ProductCreateWithoutProgramInput[] | ProductCreateWithoutProgramInput
-  >;
-  delete?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
-  connect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
-  set?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
-  disconnect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
-  update?: Maybe<
-    | ProductUpdateWithWhereUniqueWithoutProgramInput[]
-    | ProductUpdateWithWhereUniqueWithoutProgramInput
-  >;
-  upsert?: Maybe<
-    | ProductUpsertWithWhereUniqueWithoutProgramInput[]
-    | ProductUpsertWithWhereUniqueWithoutProgramInput
-  >;
-  deleteMany?: Maybe<ProductScalarWhereInput[] | ProductScalarWhereInput>;
-  updateMany?: Maybe<
-    | ProductUpdateManyWithWhereNestedInput[]
-    | ProductUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface ProductUpdateWithWhereUniqueWithoutProgramInput {
-  where: ProductWhereUniqueInput;
-  data: ProductUpdateWithoutProgramDataInput;
-}
-
-export interface ProductUpdateWithoutProgramDataInput {
-  name?: Maybe<String>;
-  projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
+export interface ProgramUpsertWithoutProductsInput {
+  update: ProgramUpdateWithoutProductsDataInput;
+  create: ProgramCreateWithoutProductsInput;
 }
 
 export interface ProjectUpdateManyWithoutProductInput {
@@ -1372,112 +656,72 @@ export interface ProjectUpdateWithWhereUniqueWithoutProductInput {
 
 export interface ProjectUpdateWithoutProductDataInput {
   name?: Maybe<String>;
-  start?: Maybe<String>;
-  end?: Maybe<String>;
-  notes?: Maybe<ProjectNoteUpdateManyWithoutProjectInput>;
-  projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
+  status?: Maybe<Boolean>;
+  roles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
 }
 
-export interface ProjectNoteUpdateManyWithoutProjectInput {
+export interface ProjectRoleUpdateManyWithoutProjectInput {
   create?: Maybe<
-    | ProjectNoteCreateWithoutProjectInput[]
-    | ProjectNoteCreateWithoutProjectInput
+    | ProjectRoleCreateWithoutProjectInput[]
+    | ProjectRoleCreateWithoutProjectInput
   >;
-  delete?: Maybe<ProjectNoteWhereUniqueInput[] | ProjectNoteWhereUniqueInput>;
-  connect?: Maybe<ProjectNoteWhereUniqueInput[] | ProjectNoteWhereUniqueInput>;
-  set?: Maybe<ProjectNoteWhereUniqueInput[] | ProjectNoteWhereUniqueInput>;
+  delete?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
+  connect?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
+  set?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
   disconnect?: Maybe<
-    ProjectNoteWhereUniqueInput[] | ProjectNoteWhereUniqueInput
+    ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput
   >;
   update?: Maybe<
-    | ProjectNoteUpdateWithWhereUniqueWithoutProjectInput[]
-    | ProjectNoteUpdateWithWhereUniqueWithoutProjectInput
+    | ProjectRoleUpdateWithWhereUniqueWithoutProjectInput[]
+    | ProjectRoleUpdateWithWhereUniqueWithoutProjectInput
   >;
   upsert?: Maybe<
-    | ProjectNoteUpsertWithWhereUniqueWithoutProjectInput[]
-    | ProjectNoteUpsertWithWhereUniqueWithoutProjectInput
+    | ProjectRoleUpsertWithWhereUniqueWithoutProjectInput[]
+    | ProjectRoleUpsertWithWhereUniqueWithoutProjectInput
   >;
   deleteMany?: Maybe<
-    ProjectNoteScalarWhereInput[] | ProjectNoteScalarWhereInput
+    ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput
   >;
   updateMany?: Maybe<
-    | ProjectNoteUpdateManyWithWhereNestedInput[]
-    | ProjectNoteUpdateManyWithWhereNestedInput
+    | ProjectRoleUpdateManyWithWhereNestedInput[]
+    | ProjectRoleUpdateManyWithWhereNestedInput
   >;
 }
 
-export interface ProjectNoteUpdateWithWhereUniqueWithoutProjectInput {
-  where: ProjectNoteWhereUniqueInput;
-  data: ProjectNoteUpdateWithoutProjectDataInput;
+export interface ProjectRoleUpdateWithWhereUniqueWithoutProjectInput {
+  where: ProjectRoleWhereUniqueInput;
+  data: ProjectRoleUpdateWithoutProjectDataInput;
 }
 
-export interface ProjectNoteUpdateWithoutProjectDataInput {
-  author?: Maybe<String>;
-  meetingAttendees?: Maybe<PersonUpdateManyInput>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-  performanceRating?: Maybe<Rating>;
+export interface ProjectRoleUpdateWithoutProjectDataInput {
+  name?: Maybe<String>;
+  person?: Maybe<PersonUpdateOneRequiredInput>;
 }
 
-export interface PersonUpdateManyInput {
-  create?: Maybe<PersonCreateInput[] | PersonCreateInput>;
-  update?: Maybe<
-    | PersonUpdateWithWhereUniqueNestedInput[]
-    | PersonUpdateWithWhereUniqueNestedInput
-  >;
-  upsert?: Maybe<
-    | PersonUpsertWithWhereUniqueNestedInput[]
-    | PersonUpsertWithWhereUniqueNestedInput
-  >;
-  delete?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  set?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  disconnect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  deleteMany?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
-  updateMany?: Maybe<
-    | PersonUpdateManyWithWhereNestedInput[]
-    | PersonUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface PersonUpdateWithWhereUniqueNestedInput {
-  where: PersonWhereUniqueInput;
-  data: PersonUpdateDataInput;
+export interface PersonUpdateOneRequiredInput {
+  create?: Maybe<PersonCreateInput>;
+  update?: Maybe<PersonUpdateDataInput>;
+  upsert?: Maybe<PersonUpsertNestedInput>;
+  connect?: Maybe<PersonWhereUniqueInput>;
 }
 
 export interface PersonUpdateDataInput {
   name?: Maybe<String>;
-  program?: Maybe<ProgramUpdateOneRequiredWithoutPeopleInput>;
-  githubId?: Maybe<String>;
-  slackId?: Maybe<String>;
-  avatarURL?: Maybe<String>;
-  timeZone?: Maybe<TimeZone>;
-  user?: Maybe<UserUpdateOneRequiredWithoutInfoInput>;
-}
-
-export interface UserUpdateOneRequiredWithoutInfoInput {
-  create?: Maybe<UserCreateWithoutInfoInput>;
-  update?: Maybe<UserUpdateWithoutInfoDataInput>;
-  upsert?: Maybe<UserUpsertWithoutInfoInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserUpdateWithoutInfoDataInput {
   email?: Maybe<String>;
 }
 
-export interface UserUpsertWithoutInfoInput {
-  update: UserUpdateWithoutInfoDataInput;
-  create: UserCreateWithoutInfoInput;
-}
-
-export interface PersonUpsertWithWhereUniqueNestedInput {
-  where: PersonWhereUniqueInput;
+export interface PersonUpsertNestedInput {
   update: PersonUpdateDataInput;
   create: PersonCreateInput;
 }
 
-export interface PersonScalarWhereInput {
+export interface ProjectRoleUpsertWithWhereUniqueWithoutProjectInput {
+  where: ProjectRoleWhereUniqueInput;
+  update: ProjectRoleUpdateWithoutProjectDataInput;
+  create: ProjectRoleCreateWithoutProjectInput;
+}
+
+export interface ProjectRoleScalarWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -1506,272 +750,18 @@ export interface PersonScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  githubId?: Maybe<String>;
-  githubId_not?: Maybe<String>;
-  githubId_in?: Maybe<String[] | String>;
-  githubId_not_in?: Maybe<String[] | String>;
-  githubId_lt?: Maybe<String>;
-  githubId_lte?: Maybe<String>;
-  githubId_gt?: Maybe<String>;
-  githubId_gte?: Maybe<String>;
-  githubId_contains?: Maybe<String>;
-  githubId_not_contains?: Maybe<String>;
-  githubId_starts_with?: Maybe<String>;
-  githubId_not_starts_with?: Maybe<String>;
-  githubId_ends_with?: Maybe<String>;
-  githubId_not_ends_with?: Maybe<String>;
-  slackId?: Maybe<String>;
-  slackId_not?: Maybe<String>;
-  slackId_in?: Maybe<String[] | String>;
-  slackId_not_in?: Maybe<String[] | String>;
-  slackId_lt?: Maybe<String>;
-  slackId_lte?: Maybe<String>;
-  slackId_gt?: Maybe<String>;
-  slackId_gte?: Maybe<String>;
-  slackId_contains?: Maybe<String>;
-  slackId_not_contains?: Maybe<String>;
-  slackId_starts_with?: Maybe<String>;
-  slackId_not_starts_with?: Maybe<String>;
-  slackId_ends_with?: Maybe<String>;
-  slackId_not_ends_with?: Maybe<String>;
-  avatarURL?: Maybe<String>;
-  avatarURL_not?: Maybe<String>;
-  avatarURL_in?: Maybe<String[] | String>;
-  avatarURL_not_in?: Maybe<String[] | String>;
-  avatarURL_lt?: Maybe<String>;
-  avatarURL_lte?: Maybe<String>;
-  avatarURL_gt?: Maybe<String>;
-  avatarURL_gte?: Maybe<String>;
-  avatarURL_contains?: Maybe<String>;
-  avatarURL_not_contains?: Maybe<String>;
-  avatarURL_starts_with?: Maybe<String>;
-  avatarURL_not_starts_with?: Maybe<String>;
-  avatarURL_ends_with?: Maybe<String>;
-  avatarURL_not_ends_with?: Maybe<String>;
-  timeZone?: Maybe<TimeZone>;
-  timeZone_not?: Maybe<TimeZone>;
-  timeZone_in?: Maybe<TimeZone[] | TimeZone>;
-  timeZone_not_in?: Maybe<TimeZone[] | TimeZone>;
-  AND?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
-  OR?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
-  NOT?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
-}
-
-export interface PersonUpdateManyWithWhereNestedInput {
-  where: PersonScalarWhereInput;
-  data: PersonUpdateManyDataInput;
-}
-
-export interface PersonUpdateManyDataInput {
-  name?: Maybe<String>;
-  githubId?: Maybe<String>;
-  slackId?: Maybe<String>;
-  avatarURL?: Maybe<String>;
-  timeZone?: Maybe<TimeZone>;
-}
-
-export interface ProjectNoteUpsertWithWhereUniqueWithoutProjectInput {
-  where: ProjectNoteWhereUniqueInput;
-  update: ProjectNoteUpdateWithoutProjectDataInput;
-  create: ProjectNoteCreateWithoutProjectInput;
-}
-
-export interface ProjectNoteScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  author?: Maybe<String>;
-  author_not?: Maybe<String>;
-  author_in?: Maybe<String[] | String>;
-  author_not_in?: Maybe<String[] | String>;
-  author_lt?: Maybe<String>;
-  author_lte?: Maybe<String>;
-  author_gt?: Maybe<String>;
-  author_gte?: Maybe<String>;
-  author_contains?: Maybe<String>;
-  author_not_contains?: Maybe<String>;
-  author_starts_with?: Maybe<String>;
-  author_not_starts_with?: Maybe<String>;
-  author_ends_with?: Maybe<String>;
-  author_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  performanceRating?: Maybe<Rating>;
-  performanceRating_not?: Maybe<Rating>;
-  performanceRating_in?: Maybe<Rating[] | Rating>;
-  performanceRating_not_in?: Maybe<Rating[] | Rating>;
-  AND?: Maybe<ProjectNoteScalarWhereInput[] | ProjectNoteScalarWhereInput>;
-  OR?: Maybe<ProjectNoteScalarWhereInput[] | ProjectNoteScalarWhereInput>;
-  NOT?: Maybe<ProjectNoteScalarWhereInput[] | ProjectNoteScalarWhereInput>;
-}
-
-export interface ProjectNoteUpdateManyWithWhereNestedInput {
-  where: ProjectNoteScalarWhereInput;
-  data: ProjectNoteUpdateManyDataInput;
-}
-
-export interface ProjectNoteUpdateManyDataInput {
-  author?: Maybe<String>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-  performanceRating?: Maybe<Rating>;
-}
-
-export interface ProjectRoleUpdateManyWithoutProjectInput {
-  create?: Maybe<
-    | ProjectRoleCreateWithoutProjectInput[]
-    | ProjectRoleCreateWithoutProjectInput
-  >;
-  delete?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
-  connect?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
-  set?: Maybe<ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput>;
-  disconnect?: Maybe<
-    ProjectRoleWhereUniqueInput[] | ProjectRoleWhereUniqueInput
-  >;
-  update?: Maybe<
-    | ProjectRoleUpdateWithWhereUniqueWithoutProjectInput[]
-    | ProjectRoleUpdateWithWhereUniqueWithoutProjectInput
-  >;
-  upsert?: Maybe<
-    | ProjectRoleUpsertWithWhereUniqueWithoutProjectInput[]
-    | ProjectRoleUpsertWithWhereUniqueWithoutProjectInput
-  >;
-  deleteMany?: Maybe<
-    ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput
-  >;
-}
-
-export interface ProjectRoleUpdateWithWhereUniqueWithoutProjectInput {
-  where: ProjectRoleWhereUniqueInput;
-  data: ProjectRoleUpdateWithoutProjectDataInput;
-}
-
-export interface ProjectRoleUpdateWithoutProjectDataInput {
-  person?: Maybe<PersonUpdateOneRequiredInput>;
-  role?: Maybe<RoleUpdateOneRequiredInput>;
-}
-
-export interface PersonUpdateOneRequiredInput {
-  create?: Maybe<PersonCreateInput>;
-  update?: Maybe<PersonUpdateDataInput>;
-  upsert?: Maybe<PersonUpsertNestedInput>;
-  connect?: Maybe<PersonWhereUniqueInput>;
-}
-
-export interface PersonUpsertNestedInput {
-  update: PersonUpdateDataInput;
-  create: PersonCreateInput;
-}
-
-export interface RoleUpdateOneRequiredInput {
-  create?: Maybe<RoleCreateInput>;
-  update?: Maybe<RoleUpdateDataInput>;
-  upsert?: Maybe<RoleUpsertNestedInput>;
-  connect?: Maybe<RoleWhereUniqueInput>;
-}
-
-export interface RoleUpdateDataInput {
-  title?: Maybe<String>;
-}
-
-export interface RoleUpsertNestedInput {
-  update: RoleUpdateDataInput;
-  create: RoleCreateInput;
-}
-
-export interface ProjectRoleUpsertWithWhereUniqueWithoutProjectInput {
-  where: ProjectRoleWhereUniqueInput;
-  update: ProjectRoleUpdateWithoutProjectDataInput;
-  create: ProjectRoleCreateWithoutProjectInput;
-}
-
-export interface ProjectRoleScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput>;
   OR?: Maybe<ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput>;
   NOT?: Maybe<ProjectRoleScalarWhereInput[] | ProjectRoleScalarWhereInput>;
+}
+
+export interface ProjectRoleUpdateManyWithWhereNestedInput {
+  where: ProjectRoleScalarWhereInput;
+  data: ProjectRoleUpdateManyDataInput;
+}
+
+export interface ProjectRoleUpdateManyDataInput {
+  name?: Maybe<String>;
 }
 
 export interface ProjectUpsertWithWhereUniqueWithoutProductInput {
@@ -1809,50 +799,8 @@ export interface ProjectScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  start?: Maybe<String>;
-  start_not?: Maybe<String>;
-  start_in?: Maybe<String[] | String>;
-  start_not_in?: Maybe<String[] | String>;
-  start_lt?: Maybe<String>;
-  start_lte?: Maybe<String>;
-  start_gt?: Maybe<String>;
-  start_gte?: Maybe<String>;
-  start_contains?: Maybe<String>;
-  start_not_contains?: Maybe<String>;
-  start_starts_with?: Maybe<String>;
-  start_not_starts_with?: Maybe<String>;
-  start_ends_with?: Maybe<String>;
-  start_not_ends_with?: Maybe<String>;
-  end?: Maybe<String>;
-  end_not?: Maybe<String>;
-  end_in?: Maybe<String[] | String>;
-  end_not_in?: Maybe<String[] | String>;
-  end_lt?: Maybe<String>;
-  end_lte?: Maybe<String>;
-  end_gt?: Maybe<String>;
-  end_gte?: Maybe<String>;
-  end_contains?: Maybe<String>;
-  end_not_contains?: Maybe<String>;
-  end_starts_with?: Maybe<String>;
-  end_not_starts_with?: Maybe<String>;
-  end_ends_with?: Maybe<String>;
-  end_not_ends_with?: Maybe<String>;
+  status?: Maybe<Boolean>;
+  status_not?: Maybe<Boolean>;
   AND?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
   OR?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
   NOT?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
@@ -1865,8 +813,68 @@ export interface ProjectUpdateManyWithWhereNestedInput {
 
 export interface ProjectUpdateManyDataInput {
   name?: Maybe<String>;
-  start?: Maybe<String>;
-  end?: Maybe<String>;
+  status?: Maybe<Boolean>;
+}
+
+export interface ProductUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface ProgramCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  products?: Maybe<ProductCreateManyWithoutProgramInput>;
+}
+
+export interface ProductCreateManyWithoutProgramInput {
+  create?: Maybe<
+    ProductCreateWithoutProgramInput[] | ProductCreateWithoutProgramInput
+  >;
+  connect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
+}
+
+export interface ProductCreateWithoutProgramInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  project?: Maybe<ProjectCreateManyWithoutProductInput>;
+}
+
+export interface ProgramUpdateInput {
+  name?: Maybe<String>;
+  products?: Maybe<ProductUpdateManyWithoutProgramInput>;
+}
+
+export interface ProductUpdateManyWithoutProgramInput {
+  create?: Maybe<
+    ProductCreateWithoutProgramInput[] | ProductCreateWithoutProgramInput
+  >;
+  delete?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
+  connect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
+  set?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
+  disconnect?: Maybe<ProductWhereUniqueInput[] | ProductWhereUniqueInput>;
+  update?: Maybe<
+    | ProductUpdateWithWhereUniqueWithoutProgramInput[]
+    | ProductUpdateWithWhereUniqueWithoutProgramInput
+  >;
+  upsert?: Maybe<
+    | ProductUpsertWithWhereUniqueWithoutProgramInput[]
+    | ProductUpsertWithWhereUniqueWithoutProgramInput
+  >;
+  deleteMany?: Maybe<ProductScalarWhereInput[] | ProductScalarWhereInput>;
+  updateMany?: Maybe<
+    | ProductUpdateManyWithWhereNestedInput[]
+    | ProductUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ProductUpdateWithWhereUniqueWithoutProgramInput {
+  where: ProductWhereUniqueInput;
+  data: ProductUpdateWithoutProgramDataInput;
+}
+
+export interface ProductUpdateWithoutProgramDataInput {
+  name?: Maybe<String>;
+  project?: Maybe<ProjectUpdateManyWithoutProductInput>;
 }
 
 export interface ProductUpsertWithWhereUniqueWithoutProgramInput {
@@ -1904,22 +912,6 @@ export interface ProductScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<ProductScalarWhereInput[] | ProductScalarWhereInput>;
   OR?: Maybe<ProductScalarWhereInput[] | ProductScalarWhereInput>;
   NOT?: Maybe<ProductScalarWhereInput[] | ProductScalarWhereInput>;
@@ -1934,229 +926,24 @@ export interface ProductUpdateManyDataInput {
   name?: Maybe<String>;
 }
 
-export interface ProgramUpsertWithoutPeopleInput {
-  update: ProgramUpdateWithoutPeopleDataInput;
-  create: ProgramCreateWithoutPeopleInput;
-}
-
-export interface PersonUpdateManyMutationInput {
-  name?: Maybe<String>;
-  githubId?: Maybe<String>;
-  slackId?: Maybe<String>;
-  avatarURL?: Maybe<String>;
-  timeZone?: Maybe<TimeZone>;
-}
-
-export interface ProductCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  program: ProgramCreateOneWithoutProductsInput;
-  projects?: Maybe<ProjectCreateManyWithoutProductInput>;
-}
-
-export interface ProgramCreateOneWithoutProductsInput {
-  create?: Maybe<ProgramCreateWithoutProductsInput>;
-  connect?: Maybe<ProgramWhereUniqueInput>;
-}
-
-export interface ProgramCreateWithoutProductsInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  people?: Maybe<PersonCreateManyWithoutProgramInput>;
-}
-
-export interface PersonCreateManyWithoutProgramInput {
-  create?: Maybe<
-    PersonCreateWithoutProgramInput[] | PersonCreateWithoutProgramInput
-  >;
-  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-}
-
-export interface PersonCreateWithoutProgramInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  githubId: String;
-  slackId: String;
-  avatarURL: String;
-  timeZone: TimeZone;
-  user: UserCreateOneWithoutInfoInput;
-}
-
-export interface ProductUpdateInput {
-  name?: Maybe<String>;
-  program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
-  projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
-}
-
-export interface ProgramUpdateOneRequiredWithoutProductsInput {
-  create?: Maybe<ProgramCreateWithoutProductsInput>;
-  update?: Maybe<ProgramUpdateWithoutProductsDataInput>;
-  upsert?: Maybe<ProgramUpsertWithoutProductsInput>;
-  connect?: Maybe<ProgramWhereUniqueInput>;
-}
-
-export interface ProgramUpdateWithoutProductsDataInput {
-  name?: Maybe<String>;
-  people?: Maybe<PersonUpdateManyWithoutProgramInput>;
-}
-
-export interface PersonUpdateManyWithoutProgramInput {
-  create?: Maybe<
-    PersonCreateWithoutProgramInput[] | PersonCreateWithoutProgramInput
-  >;
-  delete?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  set?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  disconnect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  update?: Maybe<
-    | PersonUpdateWithWhereUniqueWithoutProgramInput[]
-    | PersonUpdateWithWhereUniqueWithoutProgramInput
-  >;
-  upsert?: Maybe<
-    | PersonUpsertWithWhereUniqueWithoutProgramInput[]
-    | PersonUpsertWithWhereUniqueWithoutProgramInput
-  >;
-  deleteMany?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
-  updateMany?: Maybe<
-    | PersonUpdateManyWithWhereNestedInput[]
-    | PersonUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface PersonUpdateWithWhereUniqueWithoutProgramInput {
-  where: PersonWhereUniqueInput;
-  data: PersonUpdateWithoutProgramDataInput;
-}
-
-export interface PersonUpdateWithoutProgramDataInput {
-  name?: Maybe<String>;
-  githubId?: Maybe<String>;
-  slackId?: Maybe<String>;
-  avatarURL?: Maybe<String>;
-  timeZone?: Maybe<TimeZone>;
-  user?: Maybe<UserUpdateOneRequiredWithoutInfoInput>;
-}
-
-export interface PersonUpsertWithWhereUniqueWithoutProgramInput {
-  where: PersonWhereUniqueInput;
-  update: PersonUpdateWithoutProgramDataInput;
-  create: PersonCreateWithoutProgramInput;
-}
-
-export interface ProgramUpsertWithoutProductsInput {
-  update: ProgramUpdateWithoutProductsDataInput;
-  create: ProgramCreateWithoutProductsInput;
-}
-
-export interface ProductUpdateManyMutationInput {
-  name?: Maybe<String>;
-}
-
-export interface ProductRoleCreateInput {
-  id?: Maybe<ID_Input>;
-  person: PersonCreateOneInput;
-  product: ProductCreateOneInput;
-  role: RoleCreateOneInput;
-}
-
-export interface ProductCreateOneInput {
-  create?: Maybe<ProductCreateInput>;
-  connect?: Maybe<ProductWhereUniqueInput>;
-}
-
-export interface ProductRoleUpdateInput {
-  person?: Maybe<PersonUpdateOneRequiredInput>;
-  product?: Maybe<ProductUpdateOneRequiredInput>;
-  role?: Maybe<RoleUpdateOneRequiredInput>;
-}
-
-export interface ProductUpdateOneRequiredInput {
-  create?: Maybe<ProductCreateInput>;
-  update?: Maybe<ProductUpdateDataInput>;
-  upsert?: Maybe<ProductUpsertNestedInput>;
-  connect?: Maybe<ProductWhereUniqueInput>;
-}
-
-export interface ProductUpdateDataInput {
-  name?: Maybe<String>;
-  program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
-  projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
-}
-
-export interface ProductUpsertNestedInput {
-  update: ProductUpdateDataInput;
-  create: ProductCreateInput;
-}
-
-export interface ProgramCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  products?: Maybe<ProductCreateManyWithoutProgramInput>;
-  people?: Maybe<PersonCreateManyWithoutProgramInput>;
-}
-
-export interface ProgramUpdateInput {
-  name?: Maybe<String>;
-  products?: Maybe<ProductUpdateManyWithoutProgramInput>;
-  people?: Maybe<PersonUpdateManyWithoutProgramInput>;
-}
-
 export interface ProgramUpdateManyMutationInput {
   name?: Maybe<String>;
-}
-
-export interface ProgramRoleCreateInput {
-  id?: Maybe<ID_Input>;
-  person: PersonCreateOneInput;
-  program: ProgramCreateOneInput;
-  role: RoleCreateOneInput;
-}
-
-export interface ProgramCreateOneInput {
-  create?: Maybe<ProgramCreateInput>;
-  connect?: Maybe<ProgramWhereUniqueInput>;
-}
-
-export interface ProgramRoleUpdateInput {
-  person?: Maybe<PersonUpdateOneRequiredInput>;
-  program?: Maybe<ProgramUpdateOneRequiredInput>;
-  role?: Maybe<RoleUpdateOneRequiredInput>;
-}
-
-export interface ProgramUpdateOneRequiredInput {
-  create?: Maybe<ProgramCreateInput>;
-  update?: Maybe<ProgramUpdateDataInput>;
-  upsert?: Maybe<ProgramUpsertNestedInput>;
-  connect?: Maybe<ProgramWhereUniqueInput>;
-}
-
-export interface ProgramUpdateDataInput {
-  name?: Maybe<String>;
-  products?: Maybe<ProductUpdateManyWithoutProgramInput>;
-  people?: Maybe<PersonUpdateManyWithoutProgramInput>;
-}
-
-export interface ProgramUpsertNestedInput {
-  update: ProgramUpdateDataInput;
-  create: ProgramCreateInput;
 }
 
 export interface ProjectCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
-  start: String;
-  end: String;
-  product: ProductCreateOneWithoutProjectsInput;
-  notes?: Maybe<ProjectNoteCreateManyWithoutProjectInput>;
-  projectRoles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
+  product: ProductCreateOneWithoutProjectInput;
+  status?: Maybe<Boolean>;
+  roles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
 }
 
-export interface ProductCreateOneWithoutProjectsInput {
-  create?: Maybe<ProductCreateWithoutProjectsInput>;
+export interface ProductCreateOneWithoutProjectInput {
+  create?: Maybe<ProductCreateWithoutProjectInput>;
   connect?: Maybe<ProductWhereUniqueInput>;
 }
 
-export interface ProductCreateWithoutProjectsInput {
+export interface ProductCreateWithoutProjectInput {
   id?: Maybe<ID_Input>;
   name: String;
   program: ProgramCreateOneWithoutProductsInput;
@@ -2164,202 +951,78 @@ export interface ProductCreateWithoutProjectsInput {
 
 export interface ProjectUpdateInput {
   name?: Maybe<String>;
-  start?: Maybe<String>;
-  end?: Maybe<String>;
-  product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
-  notes?: Maybe<ProjectNoteUpdateManyWithoutProjectInput>;
-  projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
+  product?: Maybe<ProductUpdateOneRequiredWithoutProjectInput>;
+  status?: Maybe<Boolean>;
+  roles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
 }
 
-export interface ProductUpdateOneRequiredWithoutProjectsInput {
-  create?: Maybe<ProductCreateWithoutProjectsInput>;
-  update?: Maybe<ProductUpdateWithoutProjectsDataInput>;
-  upsert?: Maybe<ProductUpsertWithoutProjectsInput>;
+export interface ProductUpdateOneRequiredWithoutProjectInput {
+  create?: Maybe<ProductCreateWithoutProjectInput>;
+  update?: Maybe<ProductUpdateWithoutProjectDataInput>;
+  upsert?: Maybe<ProductUpsertWithoutProjectInput>;
   connect?: Maybe<ProductWhereUniqueInput>;
 }
 
-export interface ProductUpdateWithoutProjectsDataInput {
+export interface ProductUpdateWithoutProjectDataInput {
   name?: Maybe<String>;
   program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
 }
 
-export interface ProductUpsertWithoutProjectsInput {
-  update: ProductUpdateWithoutProjectsDataInput;
-  create: ProductCreateWithoutProjectsInput;
+export interface ProductUpsertWithoutProjectInput {
+  update: ProductUpdateWithoutProjectDataInput;
+  create: ProductCreateWithoutProjectInput;
 }
 
 export interface ProjectUpdateManyMutationInput {
   name?: Maybe<String>;
-  start?: Maybe<String>;
-  end?: Maybe<String>;
-}
-
-export interface ProjectNoteCreateInput {
-  id?: Maybe<ID_Input>;
-  project: ProjectCreateOneWithoutNotesInput;
-  author: String;
-  meetingAttendees?: Maybe<PersonCreateManyInput>;
-  title: String;
-  content: String;
-  performanceRating: Rating;
-}
-
-export interface ProjectCreateOneWithoutNotesInput {
-  create?: Maybe<ProjectCreateWithoutNotesInput>;
-  connect?: Maybe<ProjectWhereUniqueInput>;
-}
-
-export interface ProjectCreateWithoutNotesInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  start: String;
-  end: String;
-  product: ProductCreateOneWithoutProjectsInput;
-  projectRoles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
-}
-
-export interface ProjectNoteUpdateInput {
-  project?: Maybe<ProjectUpdateOneRequiredWithoutNotesInput>;
-  author?: Maybe<String>;
-  meetingAttendees?: Maybe<PersonUpdateManyInput>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-  performanceRating?: Maybe<Rating>;
-}
-
-export interface ProjectUpdateOneRequiredWithoutNotesInput {
-  create?: Maybe<ProjectCreateWithoutNotesInput>;
-  update?: Maybe<ProjectUpdateWithoutNotesDataInput>;
-  upsert?: Maybe<ProjectUpsertWithoutNotesInput>;
-  connect?: Maybe<ProjectWhereUniqueInput>;
-}
-
-export interface ProjectUpdateWithoutNotesDataInput {
-  name?: Maybe<String>;
-  start?: Maybe<String>;
-  end?: Maybe<String>;
-  product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
-  projectRoles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
-}
-
-export interface ProjectUpsertWithoutNotesInput {
-  update: ProjectUpdateWithoutNotesDataInput;
-  create: ProjectCreateWithoutNotesInput;
-}
-
-export interface ProjectNoteUpdateManyMutationInput {
-  author?: Maybe<String>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-  performanceRating?: Maybe<Rating>;
+  status?: Maybe<Boolean>;
 }
 
 export interface ProjectRoleCreateInput {
   id?: Maybe<ID_Input>;
+  name: String;
   person: PersonCreateOneInput;
-  project: ProjectCreateOneWithoutProjectRolesInput;
-  role: RoleCreateOneInput;
+  project: ProjectCreateOneWithoutRolesInput;
 }
 
-export interface ProjectCreateOneWithoutProjectRolesInput {
-  create?: Maybe<ProjectCreateWithoutProjectRolesInput>;
+export interface ProjectCreateOneWithoutRolesInput {
+  create?: Maybe<ProjectCreateWithoutRolesInput>;
   connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ProjectCreateWithoutProjectRolesInput {
+export interface ProjectCreateWithoutRolesInput {
   id?: Maybe<ID_Input>;
   name: String;
-  start: String;
-  end: String;
-  product: ProductCreateOneWithoutProjectsInput;
-  notes?: Maybe<ProjectNoteCreateManyWithoutProjectInput>;
+  product: ProductCreateOneWithoutProjectInput;
+  status?: Maybe<Boolean>;
 }
 
 export interface ProjectRoleUpdateInput {
+  name?: Maybe<String>;
   person?: Maybe<PersonUpdateOneRequiredInput>;
-  project?: Maybe<ProjectUpdateOneRequiredWithoutProjectRolesInput>;
-  role?: Maybe<RoleUpdateOneRequiredInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutRolesInput>;
 }
 
-export interface ProjectUpdateOneRequiredWithoutProjectRolesInput {
-  create?: Maybe<ProjectCreateWithoutProjectRolesInput>;
-  update?: Maybe<ProjectUpdateWithoutProjectRolesDataInput>;
-  upsert?: Maybe<ProjectUpsertWithoutProjectRolesInput>;
+export interface ProjectUpdateOneRequiredWithoutRolesInput {
+  create?: Maybe<ProjectCreateWithoutRolesInput>;
+  update?: Maybe<ProjectUpdateWithoutRolesDataInput>;
+  upsert?: Maybe<ProjectUpsertWithoutRolesInput>;
   connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ProjectUpdateWithoutProjectRolesDataInput {
+export interface ProjectUpdateWithoutRolesDataInput {
   name?: Maybe<String>;
-  start?: Maybe<String>;
-  end?: Maybe<String>;
-  product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
-  notes?: Maybe<ProjectNoteUpdateManyWithoutProjectInput>;
+  product?: Maybe<ProductUpdateOneRequiredWithoutProjectInput>;
+  status?: Maybe<Boolean>;
 }
 
-export interface ProjectUpsertWithoutProjectRolesInput {
-  update: ProjectUpdateWithoutProjectRolesDataInput;
-  create: ProjectCreateWithoutProjectRolesInput;
+export interface ProjectUpsertWithoutRolesInput {
+  update: ProjectUpdateWithoutRolesDataInput;
+  create: ProjectCreateWithoutRolesInput;
 }
 
-export interface RoleUpdateInput {
-  title?: Maybe<String>;
-}
-
-export interface RoleUpdateManyMutationInput {
-  title?: Maybe<String>;
-}
-
-export interface UserCreateInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-  info?: Maybe<PersonCreateOneWithoutUserInput>;
-}
-
-export interface PersonCreateOneWithoutUserInput {
-  create?: Maybe<PersonCreateWithoutUserInput>;
-  connect?: Maybe<PersonWhereUniqueInput>;
-}
-
-export interface PersonCreateWithoutUserInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  program: ProgramCreateOneWithoutPeopleInput;
-  githubId: String;
-  slackId: String;
-  avatarURL: String;
-  timeZone: TimeZone;
-}
-
-export interface UserUpdateInput {
-  email?: Maybe<String>;
-  info?: Maybe<PersonUpdateOneWithoutUserInput>;
-}
-
-export interface PersonUpdateOneWithoutUserInput {
-  create?: Maybe<PersonCreateWithoutUserInput>;
-  update?: Maybe<PersonUpdateWithoutUserDataInput>;
-  upsert?: Maybe<PersonUpsertWithoutUserInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<PersonWhereUniqueInput>;
-}
-
-export interface PersonUpdateWithoutUserDataInput {
+export interface ProjectRoleUpdateManyMutationInput {
   name?: Maybe<String>;
-  program?: Maybe<ProgramUpdateOneRequiredWithoutPeopleInput>;
-  githubId?: Maybe<String>;
-  slackId?: Maybe<String>;
-  avatarURL?: Maybe<String>;
-  timeZone?: Maybe<TimeZone>;
-}
-
-export interface PersonUpsertWithoutUserInput {
-  update: PersonUpdateWithoutUserDataInput;
-  create: PersonCreateWithoutUserInput;
-}
-
-export interface UserUpdateManyMutationInput {
-  email?: Maybe<String>;
 }
 
 export interface PersonSubscriptionWhereInput {
@@ -2384,23 +1047,6 @@ export interface ProductSubscriptionWhereInput {
   NOT?: Maybe<ProductSubscriptionWhereInput[] | ProductSubscriptionWhereInput>;
 }
 
-export interface ProductRoleSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ProductRoleWhereInput>;
-  AND?: Maybe<
-    ProductRoleSubscriptionWhereInput[] | ProductRoleSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    ProductRoleSubscriptionWhereInput[] | ProductRoleSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    ProductRoleSubscriptionWhereInput[] | ProductRoleSubscriptionWhereInput
-  >;
-}
-
 export interface ProgramSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -2412,23 +1058,6 @@ export interface ProgramSubscriptionWhereInput {
   NOT?: Maybe<ProgramSubscriptionWhereInput[] | ProgramSubscriptionWhereInput>;
 }
 
-export interface ProgramRoleSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ProgramRoleWhereInput>;
-  AND?: Maybe<
-    ProgramRoleSubscriptionWhereInput[] | ProgramRoleSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    ProgramRoleSubscriptionWhereInput[] | ProgramRoleSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    ProgramRoleSubscriptionWhereInput[] | ProgramRoleSubscriptionWhereInput
-  >;
-}
-
 export interface ProjectSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -2438,23 +1067,6 @@ export interface ProjectSubscriptionWhereInput {
   AND?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
   OR?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
   NOT?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
-}
-
-export interface ProjectNoteSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ProjectNoteWhereInput>;
-  AND?: Maybe<
-    ProjectNoteSubscriptionWhereInput[] | ProjectNoteSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    ProjectNoteSubscriptionWhereInput[] | ProjectNoteSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    ProjectNoteSubscriptionWhereInput[] | ProjectNoteSubscriptionWhereInput
-  >;
 }
 
 export interface ProjectRoleSubscriptionWhereInput {
@@ -2474,28 +1086,6 @@ export interface ProjectRoleSubscriptionWhereInput {
   >;
 }
 
-export interface RoleSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<RoleWhereInput>;
-  AND?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
-  OR?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
-  NOT?: Maybe<RoleSubscriptionWhereInput[] | RoleSubscriptionWhereInput>;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-}
-
 export interface NodeNode {
   id: ID_Output;
 }
@@ -2503,21 +1093,13 @@ export interface NodeNode {
 export interface Person {
   id: ID_Output;
   name: String;
-  githubId: String;
-  slackId: String;
-  avatarURL: String;
-  timeZone: TimeZone;
+  email: String;
 }
 
 export interface PersonPromise extends Promise<Person>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  program: <T = ProgramPromise>() => T;
-  githubId: () => Promise<String>;
-  slackId: () => Promise<String>;
-  avatarURL: () => Promise<String>;
-  timeZone: () => Promise<TimeZone>;
-  user: <T = UserPromise>() => T;
+  email: () => Promise<String>;
 }
 
 export interface PersonSubscription
@@ -2525,12 +1107,7 @@ export interface PersonSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  program: <T = ProgramSubscription>() => T;
-  githubId: () => Promise<AsyncIterator<String>>;
-  slackId: () => Promise<AsyncIterator<String>>;
-  avatarURL: () => Promise<AsyncIterator<String>>;
-  timeZone: () => Promise<AsyncIterator<TimeZone>>;
-  user: <T = UserSubscription>() => T;
+  email: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PersonNullablePromise
@@ -2538,427 +1115,7 @@ export interface PersonNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  program: <T = ProgramPromise>() => T;
-  githubId: () => Promise<String>;
-  slackId: () => Promise<String>;
-  avatarURL: () => Promise<String>;
-  timeZone: () => Promise<TimeZone>;
-  user: <T = UserPromise>() => T;
-}
-
-export interface Program {
-  id: ID_Output;
-  name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProgramPromise extends Promise<Program>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  products: <T = FragmentableArray<Product>>(args?: {
-    where?: ProductWhereInput;
-    orderBy?: ProductOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  people: <T = FragmentableArray<Person>>(args?: {
-    where?: PersonWhereInput;
-    orderBy?: PersonOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProgramSubscription
-  extends Promise<AsyncIterator<Program>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  products: <T = Promise<AsyncIterator<ProductSubscription>>>(args?: {
-    where?: ProductWhereInput;
-    orderBy?: ProductOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  people: <T = Promise<AsyncIterator<PersonSubscription>>>(args?: {
-    where?: PersonWhereInput;
-    orderBy?: PersonOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProgramNullablePromise
-  extends Promise<Program | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  products: <T = FragmentableArray<Product>>(args?: {
-    where?: ProductWhereInput;
-    orderBy?: ProductOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  people: <T = FragmentableArray<Person>>(args?: {
-    where?: PersonWhereInput;
-    orderBy?: PersonOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface Product {
-  id: ID_Output;
-  name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProductPromise extends Promise<Product>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  program: <T = ProgramPromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  projects: <T = FragmentableArray<Project>>(args?: {
-    where?: ProjectWhereInput;
-    orderBy?: ProjectOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProductSubscription
-  extends Promise<AsyncIterator<Product>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  program: <T = ProgramSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  projects: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
-    where?: ProjectWhereInput;
-    orderBy?: ProjectOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProductNullablePromise
-  extends Promise<Product | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  program: <T = ProgramPromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  projects: <T = FragmentableArray<Project>>(args?: {
-    where?: ProjectWhereInput;
-    orderBy?: ProjectOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface Project {
-  id: ID_Output;
-  name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  start: String;
-  end: String;
-}
-
-export interface ProjectPromise extends Promise<Project>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  start: () => Promise<String>;
-  end: () => Promise<String>;
-  product: <T = ProductPromise>() => T;
-  notes: <T = FragmentableArray<ProjectNote>>(args?: {
-    where?: ProjectNoteWhereInput;
-    orderBy?: ProjectNoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  projectRoles: <T = FragmentableArray<ProjectRole>>(args?: {
-    where?: ProjectRoleWhereInput;
-    orderBy?: ProjectRoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProjectSubscription
-  extends Promise<AsyncIterator<Project>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  start: () => Promise<AsyncIterator<String>>;
-  end: () => Promise<AsyncIterator<String>>;
-  product: <T = ProductSubscription>() => T;
-  notes: <T = Promise<AsyncIterator<ProjectNoteSubscription>>>(args?: {
-    where?: ProjectNoteWhereInput;
-    orderBy?: ProjectNoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  projectRoles: <T = Promise<AsyncIterator<ProjectRoleSubscription>>>(args?: {
-    where?: ProjectRoleWhereInput;
-    orderBy?: ProjectRoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProjectNullablePromise
-  extends Promise<Project | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  start: () => Promise<String>;
-  end: () => Promise<String>;
-  product: <T = ProductPromise>() => T;
-  notes: <T = FragmentableArray<ProjectNote>>(args?: {
-    where?: ProjectNoteWhereInput;
-    orderBy?: ProjectNoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  projectRoles: <T = FragmentableArray<ProjectRole>>(args?: {
-    where?: ProjectRoleWhereInput;
-    orderBy?: ProjectRoleOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProjectNote {
-  id: ID_Output;
-  author: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  title: String;
-  content: String;
-  performanceRating: Rating;
-}
-
-export interface ProjectNotePromise extends Promise<ProjectNote>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  project: <T = ProjectPromise>() => T;
-  author: () => Promise<String>;
-  meetingAttendees: <T = FragmentableArray<Person>>(args?: {
-    where?: PersonWhereInput;
-    orderBy?: PersonOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-  performanceRating: () => Promise<Rating>;
-}
-
-export interface ProjectNoteSubscription
-  extends Promise<AsyncIterator<ProjectNote>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  project: <T = ProjectSubscription>() => T;
-  author: () => Promise<AsyncIterator<String>>;
-  meetingAttendees: <T = Promise<AsyncIterator<PersonSubscription>>>(args?: {
-    where?: PersonWhereInput;
-    orderBy?: PersonOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
-  performanceRating: () => Promise<AsyncIterator<Rating>>;
-}
-
-export interface ProjectNoteNullablePromise
-  extends Promise<ProjectNote | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  project: <T = ProjectPromise>() => T;
-  author: () => Promise<String>;
-  meetingAttendees: <T = FragmentableArray<Person>>(args?: {
-    where?: PersonWhereInput;
-    orderBy?: PersonOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-  performanceRating: () => Promise<Rating>;
-}
-
-export interface ProjectRole {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProjectRolePromise extends Promise<ProjectRole>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  person: <T = PersonPromise>() => T;
-  project: <T = ProjectPromise>() => T;
-  role: <T = RolePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProjectRoleSubscription
-  extends Promise<AsyncIterator<ProjectRole>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  person: <T = PersonSubscription>() => T;
-  project: <T = ProjectSubscription>() => T;
-  role: <T = RoleSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProjectRoleNullablePromise
-  extends Promise<ProjectRole | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  person: <T = PersonPromise>() => T;
-  project: <T = ProjectPromise>() => T;
-  role: <T = RolePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface Role {
-  id: ID_Output;
-  title: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface RolePromise extends Promise<Role>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface RoleSubscription
-  extends Promise<AsyncIterator<Role>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface RoleNullablePromise
-  extends Promise<Role | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface User {
-  id: ID_Output;
-  email: String;
-}
-
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
   email: () => Promise<String>;
-  info: <T = PersonPromise>() => T;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  info: <T = PersonSubscription>() => T;
-}
-
-export interface UserNullablePromise
-  extends Promise<User | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  info: <T = PersonPromise>() => T;
 }
 
 export interface PersonConnection {
@@ -3038,6 +1195,207 @@ export interface AggregatePersonSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface Product {
+  id: ID_Output;
+  name: String;
+}
+
+export interface ProductPromise extends Promise<Product>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  program: <T = ProgramPromise>() => T;
+  project: <T = FragmentableArray<Project>>(args?: {
+    where?: ProjectWhereInput;
+    orderBy?: ProjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ProductSubscription
+  extends Promise<AsyncIterator<Product>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  program: <T = ProgramSubscription>() => T;
+  project: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
+    where?: ProjectWhereInput;
+    orderBy?: ProjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ProductNullablePromise
+  extends Promise<Product | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  program: <T = ProgramPromise>() => T;
+  project: <T = FragmentableArray<Project>>(args?: {
+    where?: ProjectWhereInput;
+    orderBy?: ProjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface Program {
+  id: ID_Output;
+  name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ProgramPromise extends Promise<Program>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  products: <T = FragmentableArray<Product>>(args?: {
+    where?: ProductWhereInput;
+    orderBy?: ProductOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ProgramSubscription
+  extends Promise<AsyncIterator<Program>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  products: <T = Promise<AsyncIterator<ProductSubscription>>>(args?: {
+    where?: ProductWhereInput;
+    orderBy?: ProductOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ProgramNullablePromise
+  extends Promise<Program | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  products: <T = FragmentableArray<Product>>(args?: {
+    where?: ProductWhereInput;
+    orderBy?: ProductOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface Project {
+  id: ID_Output;
+  name: String;
+  status: Boolean;
+}
+
+export interface ProjectPromise extends Promise<Project>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  product: <T = ProductPromise>() => T;
+  status: () => Promise<Boolean>;
+  roles: <T = FragmentableArray<ProjectRole>>(args?: {
+    where?: ProjectRoleWhereInput;
+    orderBy?: ProjectRoleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ProjectSubscription
+  extends Promise<AsyncIterator<Project>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  product: <T = ProductSubscription>() => T;
+  status: () => Promise<AsyncIterator<Boolean>>;
+  roles: <T = Promise<AsyncIterator<ProjectRoleSubscription>>>(args?: {
+    where?: ProjectRoleWhereInput;
+    orderBy?: ProjectRoleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ProjectNullablePromise
+  extends Promise<Project | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  product: <T = ProductPromise>() => T;
+  status: () => Promise<Boolean>;
+  roles: <T = FragmentableArray<ProjectRole>>(args?: {
+    where?: ProjectRoleWhereInput;
+    orderBy?: ProjectRoleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ProjectRole {
+  id: ID_Output;
+  name: String;
+}
+
+export interface ProjectRolePromise extends Promise<ProjectRole>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  person: <T = PersonPromise>() => T;
+  project: <T = ProjectPromise>() => T;
+}
+
+export interface ProjectRoleSubscription
+  extends Promise<AsyncIterator<ProjectRole>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  person: <T = PersonSubscription>() => T;
+  project: <T = ProjectSubscription>() => T;
+}
+
+export interface ProjectRoleNullablePromise
+  extends Promise<ProjectRole | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  person: <T = PersonPromise>() => T;
+  project: <T = ProjectPromise>() => T;
+}
+
 export interface ProductConnection {
   pageInfo: PageInfo;
   edges: ProductEdge[];
@@ -3088,99 +1446,6 @@ export interface AggregateProductPromise
 
 export interface AggregateProductSubscription
   extends Promise<AsyncIterator<AggregateProduct>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ProductRole {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProductRolePromise extends Promise<ProductRole>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  person: <T = PersonPromise>() => T;
-  product: <T = ProductPromise>() => T;
-  role: <T = RolePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProductRoleSubscription
-  extends Promise<AsyncIterator<ProductRole>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  person: <T = PersonSubscription>() => T;
-  product: <T = ProductSubscription>() => T;
-  role: <T = RoleSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProductRoleNullablePromise
-  extends Promise<ProductRole | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  person: <T = PersonPromise>() => T;
-  product: <T = ProductPromise>() => T;
-  role: <T = RolePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProductRoleConnection {
-  pageInfo: PageInfo;
-  edges: ProductRoleEdge[];
-}
-
-export interface ProductRoleConnectionPromise
-  extends Promise<ProductRoleConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProductRoleEdge>>() => T;
-  aggregate: <T = AggregateProductRolePromise>() => T;
-}
-
-export interface ProductRoleConnectionSubscription
-  extends Promise<AsyncIterator<ProductRoleConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProductRoleEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProductRoleSubscription>() => T;
-}
-
-export interface ProductRoleEdge {
-  node: ProductRole;
-  cursor: String;
-}
-
-export interface ProductRoleEdgePromise
-  extends Promise<ProductRoleEdge>,
-    Fragmentable {
-  node: <T = ProductRolePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProductRoleEdgeSubscription
-  extends Promise<AsyncIterator<ProductRoleEdge>>,
-    Fragmentable {
-  node: <T = ProductRoleSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateProductRole {
-  count: Int;
-}
-
-export interface AggregateProductRolePromise
-  extends Promise<AggregateProductRole>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProductRoleSubscription
-  extends Promise<AsyncIterator<AggregateProductRole>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -3239,99 +1504,6 @@ export interface AggregateProgramSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface ProgramRole {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProgramRolePromise extends Promise<ProgramRole>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  person: <T = PersonPromise>() => T;
-  program: <T = ProgramPromise>() => T;
-  role: <T = RolePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProgramRoleSubscription
-  extends Promise<AsyncIterator<ProgramRole>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  person: <T = PersonSubscription>() => T;
-  program: <T = ProgramSubscription>() => T;
-  role: <T = RoleSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProgramRoleNullablePromise
-  extends Promise<ProgramRole | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  person: <T = PersonPromise>() => T;
-  program: <T = ProgramPromise>() => T;
-  role: <T = RolePromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProgramRoleConnection {
-  pageInfo: PageInfo;
-  edges: ProgramRoleEdge[];
-}
-
-export interface ProgramRoleConnectionPromise
-  extends Promise<ProgramRoleConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProgramRoleEdge>>() => T;
-  aggregate: <T = AggregateProgramRolePromise>() => T;
-}
-
-export interface ProgramRoleConnectionSubscription
-  extends Promise<AsyncIterator<ProgramRoleConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProgramRoleEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProgramRoleSubscription>() => T;
-}
-
-export interface ProgramRoleEdge {
-  node: ProgramRole;
-  cursor: String;
-}
-
-export interface ProgramRoleEdgePromise
-  extends Promise<ProgramRoleEdge>,
-    Fragmentable {
-  node: <T = ProgramRolePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProgramRoleEdgeSubscription
-  extends Promise<AsyncIterator<ProgramRoleEdge>>,
-    Fragmentable {
-  node: <T = ProgramRoleSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateProgramRole {
-  count: Int;
-}
-
-export interface AggregateProgramRolePromise
-  extends Promise<AggregateProgramRole>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProgramRoleSubscription
-  extends Promise<AsyncIterator<AggregateProgramRole>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
 export interface ProjectConnection {
   pageInfo: PageInfo;
   edges: ProjectEdge[];
@@ -3382,62 +1554,6 @@ export interface AggregateProjectPromise
 
 export interface AggregateProjectSubscription
   extends Promise<AsyncIterator<AggregateProject>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ProjectNoteConnection {
-  pageInfo: PageInfo;
-  edges: ProjectNoteEdge[];
-}
-
-export interface ProjectNoteConnectionPromise
-  extends Promise<ProjectNoteConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProjectNoteEdge>>() => T;
-  aggregate: <T = AggregateProjectNotePromise>() => T;
-}
-
-export interface ProjectNoteConnectionSubscription
-  extends Promise<AsyncIterator<ProjectNoteConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProjectNoteEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProjectNoteSubscription>() => T;
-}
-
-export interface ProjectNoteEdge {
-  node: ProjectNote;
-  cursor: String;
-}
-
-export interface ProjectNoteEdgePromise
-  extends Promise<ProjectNoteEdge>,
-    Fragmentable {
-  node: <T = ProjectNotePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProjectNoteEdgeSubscription
-  extends Promise<AsyncIterator<ProjectNoteEdge>>,
-    Fragmentable {
-  node: <T = ProjectNoteSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateProjectNote {
-  count: Int;
-}
-
-export interface AggregateProjectNotePromise
-  extends Promise<AggregateProjectNote>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateProjectNoteSubscription
-  extends Promise<AsyncIterator<AggregateProjectNote>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -3498,114 +1614,6 @@ export interface AggregateProjectRoleSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface RoleConnection {
-  pageInfo: PageInfo;
-  edges: RoleEdge[];
-}
-
-export interface RoleConnectionPromise
-  extends Promise<RoleConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<RoleEdge>>() => T;
-  aggregate: <T = AggregateRolePromise>() => T;
-}
-
-export interface RoleConnectionSubscription
-  extends Promise<AsyncIterator<RoleConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<RoleEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateRoleSubscription>() => T;
-}
-
-export interface RoleEdge {
-  node: Role;
-  cursor: String;
-}
-
-export interface RoleEdgePromise extends Promise<RoleEdge>, Fragmentable {
-  node: <T = RolePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface RoleEdgeSubscription
-  extends Promise<AsyncIterator<RoleEdge>>,
-    Fragmentable {
-  node: <T = RoleSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateRole {
-  count: Int;
-}
-
-export interface AggregateRolePromise
-  extends Promise<AggregateRole>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateRoleSubscription
-  extends Promise<AsyncIterator<AggregateRole>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
 export interface BatchPayload {
   count: Long;
 }
@@ -3650,10 +1658,7 @@ export interface PersonSubscriptionPayloadSubscription
 export interface PersonPreviousValues {
   id: ID_Output;
   name: String;
-  githubId: String;
-  slackId: String;
-  avatarURL: String;
-  timeZone: TimeZone;
+  email: String;
 }
 
 export interface PersonPreviousValuesPromise
@@ -3661,10 +1666,7 @@ export interface PersonPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  githubId: () => Promise<String>;
-  slackId: () => Promise<String>;
-  avatarURL: () => Promise<String>;
-  timeZone: () => Promise<TimeZone>;
+  email: () => Promise<String>;
 }
 
 export interface PersonPreviousValuesSubscription
@@ -3672,10 +1674,7 @@ export interface PersonPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  githubId: () => Promise<AsyncIterator<String>>;
-  slackId: () => Promise<AsyncIterator<String>>;
-  avatarURL: () => Promise<AsyncIterator<String>>;
-  timeZone: () => Promise<AsyncIterator<TimeZone>>;
+  email: () => Promise<AsyncIterator<String>>;
 }
 
 export interface ProductSubscriptionPayload {
@@ -3706,8 +1705,6 @@ export interface ProductSubscriptionPayloadSubscription
 export interface ProductPreviousValues {
   id: ID_Output;
   name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
 }
 
 export interface ProductPreviousValuesPromise
@@ -3715,8 +1712,6 @@ export interface ProductPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface ProductPreviousValuesSubscription
@@ -3724,55 +1719,6 @@ export interface ProductPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ProductRoleSubscriptionPayload {
-  mutation: MutationType;
-  node: ProductRole;
-  updatedFields: String[];
-  previousValues: ProductRolePreviousValues;
-}
-
-export interface ProductRoleSubscriptionPayloadPromise
-  extends Promise<ProductRoleSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProductRolePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProductRolePreviousValuesPromise>() => T;
-}
-
-export interface ProductRoleSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProductRoleSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProductRoleSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProductRolePreviousValuesSubscription>() => T;
-}
-
-export interface ProductRolePreviousValues {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProductRolePreviousValuesPromise
-  extends Promise<ProductRolePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProductRolePreviousValuesSubscription
-  extends Promise<AsyncIterator<ProductRolePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ProgramSubscriptionPayload {
@@ -3825,53 +1771,6 @@ export interface ProgramPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface ProgramRoleSubscriptionPayload {
-  mutation: MutationType;
-  node: ProgramRole;
-  updatedFields: String[];
-  previousValues: ProgramRolePreviousValues;
-}
-
-export interface ProgramRoleSubscriptionPayloadPromise
-  extends Promise<ProgramRoleSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProgramRolePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProgramRolePreviousValuesPromise>() => T;
-}
-
-export interface ProgramRoleSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProgramRoleSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProgramRoleSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProgramRolePreviousValuesSubscription>() => T;
-}
-
-export interface ProgramRolePreviousValues {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ProgramRolePreviousValuesPromise
-  extends Promise<ProgramRolePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ProgramRolePreviousValuesSubscription
-  extends Promise<AsyncIterator<ProgramRolePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
 export interface ProjectSubscriptionPayload {
   mutation: MutationType;
   node: Project;
@@ -3900,10 +1799,7 @@ export interface ProjectSubscriptionPayloadSubscription
 export interface ProjectPreviousValues {
   id: ID_Output;
   name: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  start: String;
-  end: String;
+  status: Boolean;
 }
 
 export interface ProjectPreviousValuesPromise
@@ -3911,10 +1807,7 @@ export interface ProjectPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  start: () => Promise<String>;
-  end: () => Promise<String>;
+  status: () => Promise<Boolean>;
 }
 
 export interface ProjectPreviousValuesSubscription
@@ -3922,69 +1815,7 @@ export interface ProjectPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  start: () => Promise<AsyncIterator<String>>;
-  end: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ProjectNoteSubscriptionPayload {
-  mutation: MutationType;
-  node: ProjectNote;
-  updatedFields: String[];
-  previousValues: ProjectNotePreviousValues;
-}
-
-export interface ProjectNoteSubscriptionPayloadPromise
-  extends Promise<ProjectNoteSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ProjectNotePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ProjectNotePreviousValuesPromise>() => T;
-}
-
-export interface ProjectNoteSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ProjectNoteSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ProjectNoteSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ProjectNotePreviousValuesSubscription>() => T;
-}
-
-export interface ProjectNotePreviousValues {
-  id: ID_Output;
-  author: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-  title: String;
-  content: String;
-  performanceRating: Rating;
-}
-
-export interface ProjectNotePreviousValuesPromise
-  extends Promise<ProjectNotePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  author: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
-  performanceRating: () => Promise<Rating>;
-}
-
-export interface ProjectNotePreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectNotePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  author: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
-  performanceRating: () => Promise<AsyncIterator<Rating>>;
+  status: () => Promise<AsyncIterator<Boolean>>;
 }
 
 export interface ProjectRoleSubscriptionPayload {
@@ -4014,118 +1845,21 @@ export interface ProjectRoleSubscriptionPayloadSubscription
 
 export interface ProjectRolePreviousValues {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
+  name: String;
 }
 
 export interface ProjectRolePreviousValuesPromise
   extends Promise<ProjectRolePreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
 }
 
 export interface ProjectRolePreviousValuesSubscription
   extends Promise<AsyncIterator<ProjectRolePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface RoleSubscriptionPayload {
-  mutation: MutationType;
-  node: Role;
-  updatedFields: String[];
-  previousValues: RolePreviousValues;
-}
-
-export interface RoleSubscriptionPayloadPromise
-  extends Promise<RoleSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = RolePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = RolePreviousValuesPromise>() => T;
-}
-
-export interface RoleSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<RoleSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = RoleSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = RolePreviousValuesSubscription>() => T;
-}
-
-export interface RolePreviousValues {
-  id: ID_Output;
-  title: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface RolePreviousValuesPromise
-  extends Promise<RolePreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface RolePreviousValuesSubscription
-  extends Promise<AsyncIterator<RolePreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface UserPreviousValues {
-  id: ID_Output;
-  email: String;
-}
-
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-}
-
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
 }
 
 /*
@@ -4140,16 +1874,6 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string;
 
 /*
-DateTime scalar input type, allowing Date
-*/
-export type DateTimeInput = Date | string;
-
-/*
-DateTime scalar output type, which is always a string
-*/
-export type DateTimeOutput = string;
-
-/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
@@ -4159,6 +1883,16 @@ The `Boolean` scalar type represents `true` or `false`.
 */
 export type Boolean = boolean;
 
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
+
 export type Long = string;
 
 /**
@@ -4166,10 +1900,6 @@ export type Long = string;
  */
 
 export const models: Model[] = [
-  {
-    name: "User",
-    embedded: false
-  },
   {
     name: "Program",
     embedded: false
@@ -4183,35 +1913,11 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "ProjectNote",
-    embedded: false
-  },
-  {
-    name: "Rating",
-    embedded: false
-  },
-  {
-    name: "Role",
-    embedded: false
-  },
-  {
     name: "ProjectRole",
     embedded: false
   },
   {
-    name: "ProductRole",
-    embedded: false
-  },
-  {
-    name: "ProgramRole",
-    embedded: false
-  },
-  {
     name: "Person",
-    embedded: false
-  },
-  {
-    name: "TimeZone",
     embedded: false
   }
 ];
