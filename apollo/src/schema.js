@@ -33,7 +33,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     program: Program!
-    project: [Project!]!
+    projects: [Project!]!
   }
   type Project {
     id: ID!
