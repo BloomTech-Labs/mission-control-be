@@ -23,8 +23,8 @@ const decodeToken = async req => {
   const aud = 'api://default';
 
   try {
-    const { Claims: claims } = await O.verifyAccessToken(token, aud);
-    const { Auth: claims, uid: id } = claims;
+    const { claims: Claims } = await O.verifyAccessToken(token, aud);
+    const { Auth: claims, uid: id } = Claims;
     return { id, claims };
   } catch (err) {
     throw new Error(err);
