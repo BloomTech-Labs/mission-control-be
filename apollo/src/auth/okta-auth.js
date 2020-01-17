@@ -18,16 +18,13 @@ const decodeToken = async req => {
 
   // Extract pure token, stripped of 'Bearer '
   const token = match[1];
-  console.log('------------------------token----------------------', token);
   // Verify audience from client config
   const aud = 'api://default';
 
   try {
     const { claims: Claims } = await O.verifyAccessToken(token, aud);
-    console.log('------------------------claims----------------------', Claims);
 
     const { Auth: claims, uid: id } = Claims;
-    console.log('------------------------id----------------------', id);
     return { id, claims };
   } catch (err) {
     throw new Error(err);
