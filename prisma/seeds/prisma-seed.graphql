@@ -6,7 +6,7 @@ mutation {
         create: [
           {
             name: "Brew Plans"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Brew Plans"
@@ -56,7 +56,7 @@ mutation {
           }
           {
             name: "City Data Comparison"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - City Data Comparison"
@@ -103,7 +103,7 @@ mutation {
           }
           {
             name: "Community Calendar"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Community Calendar"
@@ -147,7 +147,7 @@ mutation {
           }
           {
             name: "Connect Our Kids Social Worker"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Connect Our Kids Social Worker"
@@ -203,7 +203,7 @@ mutation {
           }
           {
             name: "Cooking Recipe Source Control"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Cooking Recipe Source Control"
@@ -250,7 +250,7 @@ mutation {
           }
           {
             name: "Cryptolitic"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Cryptolitic"
@@ -303,7 +303,7 @@ mutation {
           }
           {
             name: "Flashcards"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 18 - Flashcards"
@@ -347,7 +347,7 @@ mutation {
           }
           {
             name: "Forest Fire Watch"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 18 - Forest Fire Watch"
@@ -391,7 +391,7 @@ mutation {
           }
           {
             name: "Hackathon Portal"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 18 - Hackathon Portal"
@@ -441,7 +441,7 @@ mutation {
           }
           {
             name: "Mission Control"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Mission Control"
