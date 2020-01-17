@@ -16,7 +16,7 @@ type Product {
   id: ID! @id
   name: String!
   program: Program!
-  project: [Project!]!
+  projects: [Project!]!
 }
 
 type Project {

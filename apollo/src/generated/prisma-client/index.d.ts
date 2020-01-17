@@ -388,9 +388,9 @@ export interface ProductWhereInput {
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
   program?: Maybe<ProgramWhereInput>;
-  project_every?: Maybe<ProjectWhereInput>;
-  project_some?: Maybe<ProjectWhereInput>;
-  project_none?: Maybe<ProjectWhereInput>;
+  projects_every?: Maybe<ProjectWhereInput>;
+  projects_some?: Maybe<ProjectWhereInput>;
+  projects_none?: Maybe<ProjectWhereInput>;
   AND?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   OR?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   NOT?: Maybe<ProductWhereInput[] | ProductWhereInput>;
@@ -558,7 +558,7 @@ export interface ProductCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
   program: ProgramCreateOneWithoutProductsInput;
-  project?: Maybe<ProjectCreateManyWithoutProductInput>;
+  projects?: Maybe<ProjectCreateManyWithoutProductInput>;
 }
 
 export interface ProgramCreateOneWithoutProductsInput {
@@ -607,7 +607,7 @@ export interface PersonCreateOneInput {
 export interface ProductUpdateInput {
   name?: Maybe<String>;
   program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
-  project?: Maybe<ProjectUpdateManyWithoutProductInput>;
+  projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
 }
 
 export interface ProgramUpdateOneRequiredWithoutProductsInput {
@@ -836,7 +836,7 @@ export interface ProductCreateManyWithoutProgramInput {
 export interface ProductCreateWithoutProgramInput {
   id?: Maybe<ID_Input>;
   name: String;
-  project?: Maybe<ProjectCreateManyWithoutProductInput>;
+  projects?: Maybe<ProjectCreateManyWithoutProductInput>;
 }
 
 export interface ProgramUpdateInput {
@@ -874,7 +874,7 @@ export interface ProductUpdateWithWhereUniqueWithoutProgramInput {
 
 export interface ProductUpdateWithoutProgramDataInput {
   name?: Maybe<String>;
-  project?: Maybe<ProjectUpdateManyWithoutProductInput>;
+  projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
 }
 
 export interface ProductUpsertWithWhereUniqueWithoutProgramInput {
@@ -933,17 +933,17 @@ export interface ProgramUpdateManyMutationInput {
 export interface ProjectCreateInput {
   id?: Maybe<ID_Input>;
   name: String;
-  product: ProductCreateOneWithoutProjectInput;
+  product: ProductCreateOneWithoutProjectsInput;
   status?: Maybe<Boolean>;
   roles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
 }
 
-export interface ProductCreateOneWithoutProjectInput {
-  create?: Maybe<ProductCreateWithoutProjectInput>;
+export interface ProductCreateOneWithoutProjectsInput {
+  create?: Maybe<ProductCreateWithoutProjectsInput>;
   connect?: Maybe<ProductWhereUniqueInput>;
 }
 
-export interface ProductCreateWithoutProjectInput {
+export interface ProductCreateWithoutProjectsInput {
   id?: Maybe<ID_Input>;
   name: String;
   program: ProgramCreateOneWithoutProductsInput;
@@ -951,26 +951,26 @@ export interface ProductCreateWithoutProjectInput {
 
 export interface ProjectUpdateInput {
   name?: Maybe<String>;
-  product?: Maybe<ProductUpdateOneRequiredWithoutProjectInput>;
+  product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
   roles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
 }
 
-export interface ProductUpdateOneRequiredWithoutProjectInput {
-  create?: Maybe<ProductCreateWithoutProjectInput>;
-  update?: Maybe<ProductUpdateWithoutProjectDataInput>;
-  upsert?: Maybe<ProductUpsertWithoutProjectInput>;
+export interface ProductUpdateOneRequiredWithoutProjectsInput {
+  create?: Maybe<ProductCreateWithoutProjectsInput>;
+  update?: Maybe<ProductUpdateWithoutProjectsDataInput>;
+  upsert?: Maybe<ProductUpsertWithoutProjectsInput>;
   connect?: Maybe<ProductWhereUniqueInput>;
 }
 
-export interface ProductUpdateWithoutProjectDataInput {
+export interface ProductUpdateWithoutProjectsDataInput {
   name?: Maybe<String>;
   program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
 }
 
-export interface ProductUpsertWithoutProjectInput {
-  update: ProductUpdateWithoutProjectDataInput;
-  create: ProductCreateWithoutProjectInput;
+export interface ProductUpsertWithoutProjectsInput {
+  update: ProductUpdateWithoutProjectsDataInput;
+  create: ProductCreateWithoutProjectsInput;
 }
 
 export interface ProjectUpdateManyMutationInput {
@@ -993,7 +993,7 @@ export interface ProjectCreateOneWithoutRolesInput {
 export interface ProjectCreateWithoutRolesInput {
   id?: Maybe<ID_Input>;
   name: String;
-  product: ProductCreateOneWithoutProjectInput;
+  product: ProductCreateOneWithoutProjectsInput;
   status?: Maybe<Boolean>;
 }
 
@@ -1012,7 +1012,7 @@ export interface ProjectUpdateOneRequiredWithoutRolesInput {
 
 export interface ProjectUpdateWithoutRolesDataInput {
   name?: Maybe<String>;
-  product?: Maybe<ProductUpdateOneRequiredWithoutProjectInput>;
+  product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
 }
 
@@ -1204,7 +1204,7 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   program: <T = ProgramPromise>() => T;
-  project: <T = FragmentableArray<Project>>(args?: {
+  projects: <T = FragmentableArray<Project>>(args?: {
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
     skip?: Int;
@@ -1221,7 +1221,7 @@ export interface ProductSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   program: <T = ProgramSubscription>() => T;
-  project: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
+  projects: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
     skip?: Int;
@@ -1238,7 +1238,7 @@ export interface ProductNullablePromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   program: <T = ProgramPromise>() => T;
-  project: <T = FragmentableArray<Project>>(args?: {
+  projects: <T = FragmentableArray<Project>>(args?: {
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
     skip?: Int;

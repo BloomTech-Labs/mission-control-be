@@ -226,7 +226,7 @@ type Product {
   id: ID!
   name: String!
   program: Program!
-  project(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
 }
 
 type ProductConnection {
@@ -239,7 +239,7 @@ input ProductCreateInput {
   id: ID
   name: String!
   program: ProgramCreateOneWithoutProductsInput!
-  project: ProjectCreateManyWithoutProductInput
+  projects: ProjectCreateManyWithoutProductInput
 }
 
 input ProductCreateManyWithoutProgramInput {
@@ -247,18 +247,18 @@ input ProductCreateManyWithoutProgramInput {
   connect: [ProductWhereUniqueInput!]
 }
 
-input ProductCreateOneWithoutProjectInput {
-  create: ProductCreateWithoutProjectInput
+input ProductCreateOneWithoutProjectsInput {
+  create: ProductCreateWithoutProjectsInput
   connect: ProductWhereUniqueInput
 }
 
 input ProductCreateWithoutProgramInput {
   id: ID
   name: String!
-  project: ProjectCreateManyWithoutProductInput
+  projects: ProjectCreateManyWithoutProductInput
 }
 
-input ProductCreateWithoutProjectInput {
+input ProductCreateWithoutProjectsInput {
   id: ID
   name: String!
   program: ProgramCreateOneWithoutProductsInput!
@@ -336,7 +336,7 @@ input ProductSubscriptionWhereInput {
 input ProductUpdateInput {
   name: String
   program: ProgramUpdateOneRequiredWithoutProductsInput
-  project: ProjectUpdateManyWithoutProductInput
+  projects: ProjectUpdateManyWithoutProductInput
 }
 
 input ProductUpdateManyDataInput {
@@ -364,19 +364,19 @@ input ProductUpdateManyWithWhereNestedInput {
   data: ProductUpdateManyDataInput!
 }
 
-input ProductUpdateOneRequiredWithoutProjectInput {
-  create: ProductCreateWithoutProjectInput
-  update: ProductUpdateWithoutProjectDataInput
-  upsert: ProductUpsertWithoutProjectInput
+input ProductUpdateOneRequiredWithoutProjectsInput {
+  create: ProductCreateWithoutProjectsInput
+  update: ProductUpdateWithoutProjectsDataInput
+  upsert: ProductUpsertWithoutProjectsInput
   connect: ProductWhereUniqueInput
 }
 
 input ProductUpdateWithoutProgramDataInput {
   name: String
-  project: ProjectUpdateManyWithoutProductInput
+  projects: ProjectUpdateManyWithoutProductInput
 }
 
-input ProductUpdateWithoutProjectDataInput {
+input ProductUpdateWithoutProjectsDataInput {
   name: String
   program: ProgramUpdateOneRequiredWithoutProductsInput
 }
@@ -386,9 +386,9 @@ input ProductUpdateWithWhereUniqueWithoutProgramInput {
   data: ProductUpdateWithoutProgramDataInput!
 }
 
-input ProductUpsertWithoutProjectInput {
-  update: ProductUpdateWithoutProjectDataInput!
-  create: ProductCreateWithoutProjectInput!
+input ProductUpsertWithoutProjectsInput {
+  update: ProductUpdateWithoutProjectsDataInput!
+  create: ProductCreateWithoutProjectsInput!
 }
 
 input ProductUpsertWithWhereUniqueWithoutProgramInput {
@@ -427,9 +427,9 @@ input ProductWhereInput {
   name_ends_with: String
   name_not_ends_with: String
   program: ProgramWhereInput
-  project_every: ProjectWhereInput
-  project_some: ProjectWhereInput
-  project_none: ProjectWhereInput
+  projects_every: ProjectWhereInput
+  projects_some: ProjectWhereInput
+  projects_none: ProjectWhereInput
   AND: [ProductWhereInput!]
   OR: [ProductWhereInput!]
   NOT: [ProductWhereInput!]
@@ -610,7 +610,7 @@ type ProjectConnection {
 input ProjectCreateInput {
   id: ID
   name: String!
-  product: ProductCreateOneWithoutProjectInput!
+  product: ProductCreateOneWithoutProjectsInput!
   status: Boolean
   roles: ProjectRoleCreateManyWithoutProjectInput
 }
@@ -635,7 +635,7 @@ input ProjectCreateWithoutProductInput {
 input ProjectCreateWithoutRolesInput {
   id: ID
   name: String!
-  product: ProductCreateOneWithoutProjectInput!
+  product: ProductCreateOneWithoutProjectsInput!
   status: Boolean
 }
 
@@ -902,7 +902,7 @@ input ProjectSubscriptionWhereInput {
 
 input ProjectUpdateInput {
   name: String
-  product: ProductUpdateOneRequiredWithoutProjectInput
+  product: ProductUpdateOneRequiredWithoutProjectsInput
   status: Boolean
   roles: ProjectRoleUpdateManyWithoutProjectInput
 }
@@ -949,7 +949,7 @@ input ProjectUpdateWithoutProductDataInput {
 
 input ProjectUpdateWithoutRolesDataInput {
   name: String
-  product: ProductUpdateOneRequiredWithoutProjectInput
+  product: ProductUpdateOneRequiredWithoutProjectsInput
   status: Boolean
 }
 

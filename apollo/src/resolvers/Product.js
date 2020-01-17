@@ -4,13 +4,13 @@ const program = (parent, args, context) => {
   return res;
 };
 
-const project = (parent, args, context) => {
-  const res = context.prisma.product({ id: parent.id }).project();
+const projects = (parent, args, context) => {
+  const res = context.prisma.product({ id: parent.id }).projects();
 
   return res;
 };
 
 module.exports = {
   program,
-  project,
+  projects,
 };
