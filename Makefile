@@ -66,7 +66,7 @@ apollo-token:
 	@echo
 	@echo Generating token that can be used for Apollo
 	@curl --request POST \
-		--url ${OAUTH_TOKEN_ENDPOINT}/v1/token \
+		--url ${TEST_OAUTH_TOKEN_ENDPOINT}/v1/token \
 		--header 'content-type: application/x-www-form-urlencoded' \
 		--data 'grant_type=client_credentials&scope=groups' -u ${TEST_OAUTH_CLIENT_ID}:${TEST_OAUTH_CLIENT_SECRET}
 
