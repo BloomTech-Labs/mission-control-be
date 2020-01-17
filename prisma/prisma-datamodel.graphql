@@ -1,0 +1,41 @@
+## Schema involving Person and User types are likely going to change
+## as we understand more about the production schema.
+
+## Assume that User will have a string identifier passed from OKTA
+## As well as a claims array containing a list of strings.
+
+type Program {
+  id: ID! @id
+  name: String! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  products: [Product]!
+}
+
+type Product {
+  id: ID! @id
+  name: String!
+  program: Program!
+  projects: [Project!]!
+}
+
+type Project {
+  id: ID! @id
+  name: String!
+  product: Product!
+  status: Boolean! @default(value: false)
+  roles: [ProjectRole!]!
+}
+
+type ProjectRole {
+  id: ID! @id
+  name: String!
+  person: Person!
+  project: Project!
+}
+
+type Person {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+}
