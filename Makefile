@@ -6,8 +6,9 @@ include .env
 export
 
 # =================================================================
-# Utility targets
+# = Utility targets ===============================================
 # =================================================================
+
 # Allows a target to require environment variables to exist
 # Example that will only run 'mytarget' when the environment variable named 'SERVER' has been set:
 #  mytarget: env-SERVER another-dependency
@@ -18,9 +19,6 @@ env-%:
 		exit 1; \
 	fi
 
-# =================================================================
-# General controls
-# =================================================================
 clean:
 	@echo
 	@echo Cleaning up
@@ -31,10 +29,10 @@ init: clean
 	@echo Initializing
 	@cd apollo && npm install -production && npm prune
 
+# =================================================================
+# = Prisma targets ================================================
+# =================================================================
 
-# =================================================================
-# Local Prisma controls
-# =================================================================
 prisma-generate:
 	@echo
 	@echo Generating Prisma schema
@@ -55,14 +53,15 @@ local-prisma-token:
 
 
 # =================================================================
-# Apollo controls
+# = Apollo targets ================================================
 # =================================================================
+
 apollo-generate: prisma-generate
 	@echo
 	@echo Generating Apollo code
 	cd apollo && npx graphql-codegen
 
-apollo-npm-build: #apollo-generate
+apollo-npm-build: apollo-generate
 	@echo
 	@echo Building Apollo image
 	cd apollo && npm run build
@@ -91,9 +90,7 @@ apollo-token: env-TEST_OAUTH_TOKEN_ENDPOINT env-TEST_OAUTH_CLIENT_ID env-TEST_OA
 
 
 # =================================================================
-# =================================================================
-# AWS targets
-# =================================================================
+# = AWS targets ===================================================
 # =================================================================
 
 # =================================================================
