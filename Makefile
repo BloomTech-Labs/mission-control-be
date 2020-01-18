@@ -35,7 +35,7 @@ init: clean
 # =================================================================
 # Local Prisma controls
 # =================================================================
-local-prisma-generate:
+prisma-generate:
 	@echo
 	@echo Generating Prisma schema
 	@cd prisma && \
@@ -57,22 +57,29 @@ local-prisma-token:
 # =================================================================
 # Apollo controls
 # =================================================================
-apollo-gen: prisma-gen
+apollo-generate: prisma-generate
 	@echo
 	@echo Generating Apollo code
 	cd apollo && npx graphql-codegen
 
-apollo-build: apollo-gen
+apollo-npm-build: #apollo-generate
 	@echo
 	@echo Building Apollo image
-	cd apollo && \
-	npm run build && \
-	docker build -t lambdaschoollabs/prismatopia:latest .
+	cd apollo && npm run build
 
-apollo-push: apollo-build
+apollo-docker-build: #apollo-npm-build
 	@echo
+	@echo ======================================================================================
+	@echo Building Apollo image
+	@echo ======================================================================================
+	cd apollo && docker build -t lambdaschoollabs/missioncontrol:latest .
+
+apollo-push: apollo-docker-build
+	@echo
+	@echo ======================================================================================
 	@echo Pushing Apollo image to registry
-	cd apollo && docker push lambda-school-labs/prismatopia:latest
+	@echo ======================================================================================
+	cd apollo && docker push lambdaschoollabs/missioncontrol:latest
 
 apollo-token: env-TEST_OAUTH_TOKEN_ENDPOINT env-TEST_OAUTH_CLIENT_ID env-TEST_OAUTH_CLIENT_SECRET
 	@echo
