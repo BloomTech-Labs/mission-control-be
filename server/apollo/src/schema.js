@@ -42,6 +42,8 @@ const typeDefs = gql`
     sectionLead: Person
     teamLead: Person
     team: [Person!]!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Person {
