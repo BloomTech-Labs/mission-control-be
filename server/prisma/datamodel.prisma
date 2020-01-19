@@ -40,6 +40,6 @@ type Person {
   email: String! @unique
   role: Role!
   team: Project @relation(name: "Team")
-  manages: Project @relation(name: "SectionLead")
+  manages: [Project!]! @relation(name: "SectionLead")
   leads: Project @relation(name: "TeamLead")
 }

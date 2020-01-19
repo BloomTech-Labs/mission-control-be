@@ -77,7 +77,7 @@ type Person {
   email: String!
   role: Role!
   team: Project
-  manages: Project
+  manages(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
   leads: Project
 }
 
@@ -93,7 +93,7 @@ input PersonCreateInput {
   email: String!
   role: Role!
   team: ProjectCreateOneWithoutTeamInput
-  manages: ProjectCreateOneWithoutSectionLeadInput
+  manages: ProjectCreateManyWithoutSectionLeadInput
   leads: ProjectCreateOneWithoutTeamLeadInput
 }
 
@@ -118,7 +118,7 @@ input PersonCreateWithoutLeadsInput {
   email: String!
   role: Role!
   team: ProjectCreateOneWithoutTeamInput
-  manages: ProjectCreateOneWithoutSectionLeadInput
+  manages: ProjectCreateManyWithoutSectionLeadInput
 }
 
 input PersonCreateWithoutManagesInput {
@@ -135,7 +135,7 @@ input PersonCreateWithoutTeamInput {
   name: String!
   email: String!
   role: Role!
-  manages: ProjectCreateOneWithoutSectionLeadInput
+  manages: ProjectCreateManyWithoutSectionLeadInput
   leads: ProjectCreateOneWithoutTeamLeadInput
 }
 
@@ -237,7 +237,7 @@ input PersonUpdateInput {
   email: String
   role: Role
   team: ProjectUpdateOneWithoutTeamInput
-  manages: ProjectUpdateOneWithoutSectionLeadInput
+  manages: ProjectUpdateManyWithoutSectionLeadInput
   leads: ProjectUpdateOneWithoutTeamLeadInput
 }
 
@@ -293,7 +293,7 @@ input PersonUpdateWithoutLeadsDataInput {
   email: String
   role: Role
   team: ProjectUpdateOneWithoutTeamInput
-  manages: ProjectUpdateOneWithoutSectionLeadInput
+  manages: ProjectUpdateManyWithoutSectionLeadInput
 }
 
 input PersonUpdateWithoutManagesDataInput {
@@ -308,7 +308,7 @@ input PersonUpdateWithoutTeamDataInput {
   name: String
   email: String
   role: Role
-  manages: ProjectUpdateOneWithoutSectionLeadInput
+  manages: ProjectUpdateManyWithoutSectionLeadInput
   leads: ProjectUpdateOneWithoutTeamLeadInput
 }
 
@@ -381,7 +381,9 @@ input PersonWhereInput {
   role_in: [Role!]
   role_not_in: [Role!]
   team: ProjectWhereInput
-  manages: ProjectWhereInput
+  manages_every: ProjectWhereInput
+  manages_some: ProjectWhereInput
+  manages_none: ProjectWhereInput
   leads: ProjectWhereInput
   AND: [PersonWhereInput!]
   OR: [PersonWhereInput!]
@@ -835,9 +837,9 @@ input ProjectCreateManyWithoutProductInput {
   connect: [ProjectWhereUniqueInput!]
 }
 
-input ProjectCreateOneWithoutSectionLeadInput {
-  create: ProjectCreateWithoutSectionLeadInput
-  connect: ProjectWhereUniqueInput
+input ProjectCreateManyWithoutSectionLeadInput {
+  create: [ProjectCreateWithoutSectionLeadInput!]
+  connect: [ProjectWhereUniqueInput!]
 }
 
 input ProjectCreateOneWithoutTeamInput {
@@ -991,18 +993,21 @@ input ProjectUpdateManyWithoutProductInput {
   updateMany: [ProjectUpdateManyWithWhereNestedInput!]
 }
 
+input ProjectUpdateManyWithoutSectionLeadInput {
+  create: [ProjectCreateWithoutSectionLeadInput!]
+  delete: [ProjectWhereUniqueInput!]
+  connect: [ProjectWhereUniqueInput!]
+  set: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutSectionLeadInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutSectionLeadInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+}
+
 input ProjectUpdateManyWithWhereNestedInput {
   where: ProjectScalarWhereInput!
   data: ProjectUpdateManyDataInput!
-}
-
-input ProjectUpdateOneWithoutSectionLeadInput {
-  create: ProjectCreateWithoutSectionLeadInput
-  update: ProjectUpdateWithoutSectionLeadDataInput
-  upsert: ProjectUpsertWithoutSectionLeadInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: ProjectWhereUniqueInput
 }
 
 input ProjectUpdateOneWithoutTeamInput {
@@ -1060,9 +1065,9 @@ input ProjectUpdateWithWhereUniqueWithoutProductInput {
   data: ProjectUpdateWithoutProductDataInput!
 }
 
-input ProjectUpsertWithoutSectionLeadInput {
-  update: ProjectUpdateWithoutSectionLeadDataInput!
-  create: ProjectCreateWithoutSectionLeadInput!
+input ProjectUpdateWithWhereUniqueWithoutSectionLeadInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutSectionLeadDataInput!
 }
 
 input ProjectUpsertWithoutTeamInput {
@@ -1079,6 +1084,12 @@ input ProjectUpsertWithWhereUniqueWithoutProductInput {
   where: ProjectWhereUniqueInput!
   update: ProjectUpdateWithoutProductDataInput!
   create: ProjectCreateWithoutProductInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutSectionLeadInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutSectionLeadDataInput!
+  create: ProjectCreateWithoutSectionLeadInput!
 }
 
 input ProjectWhereInput {
