@@ -39,10 +39,21 @@ const addProjectSectionLead = (parent, args, context) => {
   return project;
 };
 
+const addProjectTeamLead = (parent, args, context) => {
+  const { id, email } = args;
+  const project = context.prisma.updateProject({
+    data: { teamLead: { connect: { email } } },
+    where: { id },
+  });
+
+  return project;
+};
+
 module.exports = {
   createProgram,
   createProduct,
   createProject,
   createPerson,
   addProjectSectionLead,
+  addProjectTeamLead,
 };
