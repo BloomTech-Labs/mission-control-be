@@ -17,9 +17,11 @@ type Product {
 
 type Project {
   id: ID! @id
+  name: String!
+  product: Product!
   status: Boolean @default(value: false)
-  sectionLead: Person! @relation(link: INLINE, name: "SectionLead")
-  teamLead: Person! @relation(link: INLINE, name: "TeamLead")
+  sectionLead: Person @relation(link: INLINE, name: "SectionLead")
+  teamLead: Person @relation(link: INLINE, name: "TeamLead")
   team: [Person!]! @relation(name: "Team")
 }
 
@@ -37,7 +39,7 @@ type Person {
   name: String!
   email: String! @unique
   role: Role!
-  team: Project! @relation(name: "Team")
-  manages: Project! @relation(name: "SectionLead")
-  leads: Project! @relation(name: "TeamLead")
+  team: Project @relation(name: "Team")
+  manages: Project @relation(name: "SectionLead")
+  leads: Project @relation(name: "TeamLead")
 }
