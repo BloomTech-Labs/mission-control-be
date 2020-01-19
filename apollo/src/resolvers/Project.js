@@ -1,3 +1,6 @@
+// Resolves all relational fields on type Project
+// where the name of the function is an exact match to the field
+
 const teamLead = (parent, args, context) => {
   const res = context.prisma.project({ id: parent.id }).teamLead();
 

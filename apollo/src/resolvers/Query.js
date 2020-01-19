@@ -1,3 +1,6 @@
+// Queries must be defined to return fields of the same type
+// See the Query field in the type definitions for examples
+
 const info = () => `Hello World`;
 
 const programs = (parent, args, context) => {
