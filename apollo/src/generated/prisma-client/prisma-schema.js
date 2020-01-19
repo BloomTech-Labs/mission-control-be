@@ -399,15 +399,9 @@ type Product {
   id: ID!
   name: String!
   program: Program!
-<<<<<<< HEAD:server/prisma/generated/prisma-client/prisma-schema.js
   createdAt: DateTime!
   updatedAt: DateTime!
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
-||||||| ade4b98:server/prisma/generated/prisma-client/prisma-schema.js
-  project(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
-=======
-  projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
->>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/prisma-schema.js
 }
 
 type ProductConnection {
@@ -630,7 +624,6 @@ input ProductWhereInput {
   name_ends_with: String
   name_not_ends_with: String
   program: ProgramWhereInput
-<<<<<<< HEAD:server/prisma/generated/prisma-client/prisma-schema.js
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -650,15 +643,6 @@ input ProductWhereInput {
   projects_every: ProjectWhereInput
   projects_some: ProjectWhereInput
   projects_none: ProjectWhereInput
-||||||| ade4b98:server/prisma/generated/prisma-client/prisma-schema.js
-  project_every: ProjectWhereInput
-  project_some: ProjectWhereInput
-  project_none: ProjectWhereInput
-=======
-  projects_every: ProjectWhereInput
-  projects_some: ProjectWhereInput
-  projects_none: ProjectWhereInput
->>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/prisma-schema.js
   AND: [ProductWhereInput!]
   OR: [ProductWhereInput!]
   NOT: [ProductWhereInput!]
