@@ -23,6 +23,8 @@ type Project {
   sectionLead: Person @relation(link: INLINE, name: "SectionLead")
   teamLead: Person @relation(link: INLINE, name: "TeamLead")
   team: [Person!]! @relation(name: "Team")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 enum Role {
