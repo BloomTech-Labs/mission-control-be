@@ -1,0 +1,43 @@
+type Program {
+  id: ID! @id
+  name: String! @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  products: [Product!]!
+}
+
+type Product {
+  id: ID! @id
+  name: String!
+  program: Program!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  projects: [Project!]!
+}
+
+type Project {
+  id: ID! @id
+  status: Boolean @default(value: false)
+  sectionLead: Person! @relation(link: INLINE, name: "SectionLead")
+  teamLead: Person! @relation(link: INLINE, name: "TeamLead")
+  team: [Person!]! @relation(name: "Team")
+}
+
+enum Role {
+  SL
+  TL
+  WEB
+  DS
+  UX
+  PM
+}
+
+type Person {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  role: Role!
+  team: Project! @relation(name: "Team")
+  manages: Project! @relation(name: "SectionLead")
+  leads: Project! @relation(name: "TeamLead")
+}
