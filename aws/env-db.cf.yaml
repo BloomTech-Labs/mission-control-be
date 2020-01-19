@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: An RDS instance for a particular environment
+
+Parameters:
+  ApplicationName:
+    Type: String
+    Description: The name of the application 
+
+  EnvironmentName:
+    Type: String
+    Description: The name of the application environment 
+
+Resources:
+  DBInstanceCredentials:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: !Sub rds-password-${ApplicationName}-${EnvironmentName}
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "master"}'
+        GenerateStringKey: 'password'
+        PasswordLength: 16
+        ExcludeCharacters: '"@/\'
+
+  DBSubnetGroup: 
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties:
+      DBSubnetGroupName: !Sub ${ApplicationName}-${EnvironmentName}
+      DBSubnetGroupDescription: "Subnet group for the API database"
+      SubnetIds: 
+        - Fn::ImportValue:
+            !Sub ${ApplicationName}-PrivateSubnet01
+        - Fn::ImportValue:
+            !Sub ${ApplicationName}-PrivateSubnet02
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group the database
+      VpcId:
+        Fn::ImportValue:
+            !Sub ${ApplicationName}-VPCID
+      SecurityGroupIngress:
+        - CidrIp:
+            Fn::ImportValue:
+              !Sub ${ApplicationName}-VPCCIDR
+          IpProtocol: "tcp"
+          FromPort: 5432
+          ToPort: 5432
+
+  DBInstance:
+    Type: "AWS::RDS::DBInstance"
+    Properties:
+      DBName: prisma
+      PubliclyAccessible: false
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+      DBInstanceClass: "db.t3.small"
+      Engine: "postgres"
+      AllocatedStorage: "100"
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      MasterUsername: !Join ['', ['{{resolve:secretsmanager:', !Ref DBInstanceCredentials, ':SecretString:username}}' ]]
+      MasterUserPassword: !Join ['', ['{{resolve:secretsmanager:', !Ref DBInstanceCredentials, ':SecretString:password}}' ]]
+      Tags: 
+        - Key: Name
+          Value: !Sub ${ApplicationName}-${EnvironmentName}
+
+Outputs:
+  DBAddress:
+    Description: The address of the database listener
+    Value: !GetAtt DBInstance.Endpoint.Address
+    Export:
+      Name: !Sub ${ApplicationName}-${EnvironmentName}-DBAddress
+  DBPort:
+    Description: The port of the database listener
+    Value: !GetAtt DBInstance.Endpoint.Port
+    Export:
+      Name: !Sub ${ApplicationName}-${EnvironmentName}-DBPort
+  DBInstanceCredentials:
+    Description: The secret containing the DB instance credentials
+    Value: !Ref DBInstanceCredentials
+    Export:
+      Name: !Sub ${ApplicationName}-${EnvironmentName}-DBInstanceCredentials
+

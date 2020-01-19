@@ -8,7 +8,6 @@ const typeDefs = gql`
     projects: [Project!]!
     persons: [Person!]!
   }
-
   type Mutation {
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
@@ -17,7 +16,6 @@ const typeDefs = gql`
     addProjectSectionLead(id: ID!, email: String!): Project!
     addProjectTeamLead(id: ID!, email: String!): Project!
   }
-
   type Program {
     id: ID!
     name: String!
@@ -25,7 +23,6 @@ const typeDefs = gql`
     updatedAt: String!
     products: [Product!]!
   }
-
   type Product {
     id: ID!
     name: String!
@@ -34,7 +31,6 @@ const typeDefs = gql`
     updatedAt: String!
     projects: [Project!]!
   }
-
   type Project {
     id: ID!
     name: String!

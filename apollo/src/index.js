@@ -8,9 +8,11 @@ const context = require('./context');
     resolvers,
     typeDefs,
     context,
+    playground: false,
+    cors: true,
   });
 
-  const { url } = await server.listen();
+  const { url } = await server.listen(8000);
   // eslint-disable-next-line no-console
   console.log(url);
 })();

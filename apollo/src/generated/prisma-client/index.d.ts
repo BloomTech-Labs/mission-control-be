@@ -299,6 +299,7 @@ export interface ProductWhereInput {
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
   program?: Maybe<ProgramWhereInput>;
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -318,6 +319,15 @@ export interface ProductWhereInput {
   projects_every?: Maybe<ProjectWhereInput>;
   projects_some?: Maybe<ProjectWhereInput>;
   projects_none?: Maybe<ProjectWhereInput>;
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+  project_every?: Maybe<ProjectWhereInput>;
+  project_some?: Maybe<ProjectWhereInput>;
+  project_none?: Maybe<ProjectWhereInput>;
+=======
+  projects_every?: Maybe<ProjectWhereInput>;
+  projects_some?: Maybe<ProjectWhereInput>;
+  projects_none?: Maybe<ProjectWhereInput>;
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
   AND?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   OR?: Maybe<ProductWhereInput[] | ProductWhereInput>;
   NOT?: Maybe<ProductWhereInput[] | ProductWhereInput>;
@@ -537,6 +547,12 @@ export interface ProductCreateWithoutProjectsInput {
   id?: Maybe<ID_Input>;
   name: String;
   program: ProgramCreateOneWithoutProductsInput;
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+  project?: Maybe<ProjectCreateManyWithoutProductInput>;
+=======
+  projects?: Maybe<ProjectCreateManyWithoutProductInput>;
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
 }
 
 export interface ProgramCreateOneWithoutProductsInput {
@@ -658,6 +674,12 @@ export interface ProductUpdateOneRequiredWithoutProjectsInput {
 export interface ProductUpdateWithoutProjectsDataInput {
   name?: Maybe<String>;
   program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+  project?: Maybe<ProjectUpdateManyWithoutProductInput>;
+=======
+  projects?: Maybe<ProjectUpdateManyWithoutProductInput>;
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
 }
 
 export interface ProgramUpdateOneRequiredWithoutProductsInput {
@@ -1172,18 +1194,86 @@ export interface ProjectCreateInput {
   name: String;
   product: ProductCreateOneWithoutProjectsInput;
   status?: Maybe<Boolean>;
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
   sectionLead?: Maybe<PersonCreateOneWithoutManagesInput>;
   teamLead?: Maybe<PersonCreateOneWithoutLeadsInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+  roles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
+}
+
+export interface ProductCreateOneWithoutProjectInput {
+  create?: Maybe<ProductCreateWithoutProjectInput>;
+  connect?: Maybe<ProductWhereUniqueInput>;
+}
+
+export interface ProductCreateWithoutProjectInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  program: ProgramCreateOneWithoutProductsInput;
+=======
+  roles?: Maybe<ProjectRoleCreateManyWithoutProjectInput>;
+}
+
+export interface ProductCreateOneWithoutProjectsInput {
+  create?: Maybe<ProductCreateWithoutProjectsInput>;
+  connect?: Maybe<ProductWhereUniqueInput>;
+}
+
+export interface ProductCreateWithoutProjectsInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  program: ProgramCreateOneWithoutProductsInput;
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
 }
 
 export interface ProjectUpdateInput {
   name?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
   sectionLead?: Maybe<PersonUpdateOneWithoutManagesInput>;
   teamLead?: Maybe<PersonUpdateOneWithoutLeadsInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+  roles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
+}
+
+export interface ProductUpdateOneRequiredWithoutProjectInput {
+  create?: Maybe<ProductCreateWithoutProjectInput>;
+  update?: Maybe<ProductUpdateWithoutProjectDataInput>;
+  upsert?: Maybe<ProductUpsertWithoutProjectInput>;
+  connect?: Maybe<ProductWhereUniqueInput>;
+}
+
+export interface ProductUpdateWithoutProjectDataInput {
+  name?: Maybe<String>;
+  program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
+}
+
+export interface ProductUpsertWithoutProjectInput {
+  update: ProductUpdateWithoutProjectDataInput;
+  create: ProductCreateWithoutProjectInput;
+=======
+  roles?: Maybe<ProjectRoleUpdateManyWithoutProjectInput>;
+}
+
+export interface ProductUpdateOneRequiredWithoutProjectsInput {
+  create?: Maybe<ProductCreateWithoutProjectsInput>;
+  update?: Maybe<ProductUpdateWithoutProjectsDataInput>;
+  upsert?: Maybe<ProductUpsertWithoutProjectsInput>;
+  connect?: Maybe<ProductWhereUniqueInput>;
+}
+
+export interface ProductUpdateWithoutProjectsDataInput {
+  name?: Maybe<String>;
+  program?: Maybe<ProgramUpdateOneRequiredWithoutProductsInput>;
+}
+
+export interface ProductUpsertWithoutProjectsInput {
+  update: ProductUpdateWithoutProjectsDataInput;
+  create: ProductCreateWithoutProjectsInput;
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
 }
 
 export interface ProjectUpdateManyMutationInput {
@@ -1191,6 +1281,104 @@ export interface ProjectUpdateManyMutationInput {
   status?: Maybe<Boolean>;
 }
 
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+export interface ProjectRoleCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  person: PersonCreateOneInput;
+  project: ProjectCreateOneWithoutRolesInput;
+}
+
+export interface ProjectCreateOneWithoutRolesInput {
+  create?: Maybe<ProjectCreateWithoutRolesInput>;
+  connect?: Maybe<ProjectWhereUniqueInput>;
+}
+
+export interface ProjectCreateWithoutRolesInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  product: ProductCreateOneWithoutProjectInput;
+  status?: Maybe<Boolean>;
+}
+
+export interface ProjectRoleUpdateInput {
+  name?: Maybe<String>;
+  person?: Maybe<PersonUpdateOneRequiredInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutRolesInput>;
+}
+
+export interface ProjectUpdateOneRequiredWithoutRolesInput {
+  create?: Maybe<ProjectCreateWithoutRolesInput>;
+  update?: Maybe<ProjectUpdateWithoutRolesDataInput>;
+  upsert?: Maybe<ProjectUpsertWithoutRolesInput>;
+  connect?: Maybe<ProjectWhereUniqueInput>;
+}
+
+export interface ProjectUpdateWithoutRolesDataInput {
+  name?: Maybe<String>;
+  product?: Maybe<ProductUpdateOneRequiredWithoutProjectInput>;
+  status?: Maybe<Boolean>;
+}
+
+export interface ProjectUpsertWithoutRolesInput {
+  update: ProjectUpdateWithoutRolesDataInput;
+  create: ProjectCreateWithoutRolesInput;
+}
+
+export interface ProjectRoleUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+=======
+export interface ProjectRoleCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  person: PersonCreateOneInput;
+  project: ProjectCreateOneWithoutRolesInput;
+}
+
+export interface ProjectCreateOneWithoutRolesInput {
+  create?: Maybe<ProjectCreateWithoutRolesInput>;
+  connect?: Maybe<ProjectWhereUniqueInput>;
+}
+
+export interface ProjectCreateWithoutRolesInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  product: ProductCreateOneWithoutProjectsInput;
+  status?: Maybe<Boolean>;
+}
+
+export interface ProjectRoleUpdateInput {
+  name?: Maybe<String>;
+  person?: Maybe<PersonUpdateOneRequiredInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutRolesInput>;
+}
+
+export interface ProjectUpdateOneRequiredWithoutRolesInput {
+  create?: Maybe<ProjectCreateWithoutRolesInput>;
+  update?: Maybe<ProjectUpdateWithoutRolesDataInput>;
+  upsert?: Maybe<ProjectUpsertWithoutRolesInput>;
+  connect?: Maybe<ProjectWhereUniqueInput>;
+}
+
+export interface ProjectUpdateWithoutRolesDataInput {
+  name?: Maybe<String>;
+  product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
+  status?: Maybe<Boolean>;
+}
+
+export interface ProjectUpsertWithoutRolesInput {
+  update: ProjectUpdateWithoutRolesDataInput;
+  create: ProjectCreateWithoutRolesInput;
+}
+
+export interface ProjectRoleUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
 export interface PersonSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -1387,9 +1575,15 @@ export interface ProductPromise extends Promise<Product>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   program: <T = ProgramPromise>() => T;
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   projects: <T = FragmentableArray<Project>>(args?: {
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+  project: <T = FragmentableArray<Project>>(args?: {
+=======
+  projects: <T = FragmentableArray<Project>>(args?: {
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
     skip?: Int;
@@ -1406,9 +1600,15 @@ export interface ProductSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   program: <T = ProgramSubscription>() => T;
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   projects: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+  project: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
+=======
+  projects: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
     skip?: Int;
@@ -1425,9 +1625,15 @@ export interface ProductNullablePromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   program: <T = ProgramPromise>() => T;
+<<<<<<< HEAD:server/prisma/generated/prisma-client/index.d.ts
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   projects: <T = FragmentableArray<Project>>(args?: {
+||||||| ade4b98:server/prisma/generated/prisma-client/index.d.ts
+  project: <T = FragmentableArray<Project>>(args?: {
+=======
+  projects: <T = FragmentableArray<Project>>(args?: {
+>>>>>>> 4d68ac783e38509d508efcfa6a5b1632c10506ed:apollo/src/generated/prisma-client/index.d.ts
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
     skip?: Int;

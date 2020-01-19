@@ -1,0 +1,105 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: The Apollo task and service definitions for ECS
+
+Parameters:
+  ApplicationName:
+    Type: String
+    Description: The name of the application
+
+  EnvironmentName:
+    Type: String
+    Description: The name of the application environment
+
+  OAuthTokenEndpoint:
+    Type: String
+    Description: Endpoint for validating OAuth tokens
+
+  OAuthClientID:
+    Type: String
+    Description: The ID of this OAuth client
+
+Resources:
+  LogGroup:
+    Type: 'AWS::Logs::LogGroup'
+    Properties:
+      LogGroupName: !Sub ${ApplicationName}-${EnvironmentName}-apollo
+      RetentionInDays: 14
+
+  TaskDefinition:
+    Type: 'AWS::ECS::TaskDefinition'
+    Properties:
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      Family: apollo
+      Cpu: '1024'
+      Memory: '2048'
+      ExecutionRoleArn:
+        Fn::ImportValue: !Sub ${ApplicationName}-ECSTaskExecutionRole
+      TaskRoleArn:
+        Fn::ImportValue: !Sub ${ApplicationName}-ECSTaskExecutionRole
+      Tags:
+        - Key: Name
+          Value: !Sub ${ApplicationName}-${EnvironmentName}
+        - Key: Application
+          Value: !Sub ${ApplicationName}
+        - Key: Environment
+          Value: !Sub ${EnvironmentName}
+      ContainerDefinitions:
+        - Name: apollo
+          Image: 'lambdaschoollabs/missioncontrol:latest'
+          Essential: true
+          PortMappings:
+            - ContainerPort: 8000
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref LogGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: apollo
+          Environment:
+            - Name: PORT
+              Value: '60000'
+            - Name: GRAPHQL_API_PATH
+              Value: /api/graphql
+            - Name: PRISMA_ENDPOINT
+              Value: http://prisma-stage.mission-control-private.com:60000
+            - Name: PRISMA_SECRET
+              Value:
+                Fn::Sub:
+                  - '{{resolve:secretsmanager:${PrismaServiceAPISecret}:SecretString}}'
+                  - PrismaServiceAPISecret:
+                      Fn::ImportValue: !Sub ${ApplicationName}-${EnvironmentName}-PrismaServiceAPISecret
+            - Name: OAUTH_TOKEN_ENDPOINT
+              Value: !Ref OAuthTokenEndpoint
+            - Name: OAUTH_CLIENT_ID
+              Value: !Ref OAuthClientID
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      LaunchType: FARGATE
+      TaskDefinition: !Ref TaskDefinition
+      Cluster:
+        Fn::ImportValue: !Sub ${ApplicationName}-ECSCluster
+      DesiredCount: 1
+      LoadBalancers:
+        - ContainerName: apollo
+          ContainerPort: 8000
+          TargetGroupArn:
+            Fn::ImportValue: !Sub ${ApplicationName}-${EnvironmentName}-ApolloTargetGroup
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: DISABLED
+          Subnets:
+            - Fn::ImportValue: !Sub ${ApplicationName}-PrivateSubnet01
+            - Fn::ImportValue: !Sub ${ApplicationName}-PrivateSubnet02
+          SecurityGroups:
+            - Fn::ImportValue: !Sub ${ApplicationName}-ServiceSG
+
+Outputs:
+  ApolloServiceArn:
+    Description: The ARN of the Apollo service
+    Value: !Ref Service
+    Export:
+      Name: !Sub ${ApplicationName}-${EnvironmentName}-ApolloServiceArn
