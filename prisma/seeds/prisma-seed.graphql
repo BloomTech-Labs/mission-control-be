@@ -1,4 +1,66 @@
-mutation {
+mutation createParents {
+  # Create section leads
+  sl1: createPerson(
+    data: { name: "Ronny Alvarado", email: "Ronny@gmail.com", role: SL }
+  ) {
+    id
+  }
+  sl2: createPerson(
+    data: { name: "Levi Simpson", email: "Levi@gmail.com", role: SL }
+  ) {
+    id
+  }
+
+  #Create team leads
+
+  tl1: createPerson(
+    data: { name: "Megan M", email: "Megan@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl2: createPerson(
+    data: { name: "Alec B", email: "Alec@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl3: createPerson(
+    data: { name: "Aaron C", email: "Aaron@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl4: createPerson(data: { name: "Ami S", email: "Ami@gmail.com", role: TL }) {
+    id
+  }
+  tl5: createPerson(
+    data: { name: "Nicholas G", email: "Nicholas@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl6: createPerson(
+    data: { name: "Tony K", email: "Tony@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl7: createPerson(data: { name: "Roy W", email: "Roy@gmail.com", role: TL }) {
+    id
+  }
+  tl8: createPerson(
+    data: { name: "Dakotah H", email: "Dakotah@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl9: createPerson(
+    data: { name: "Tommy C", email: "Tommy@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl10: createPerson(
+    data: { name: "Kevin A", email: "Kevin@gmail.com", role: TL }
+  ) {
+    id
+  }
+
+  # Create Program, Products, Projects
   createProgram(
     data: {
       name: "Lambda Labs"
@@ -6,20 +68,122 @@ mutation {
         create: [
           {
             name: "Mission Control"
-            projects: { create: [{ name: "Labs 19 - Brew Plans" }] }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Brew Plans"
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Megan@gmail.com" } }
+                }
+              ]
+            }
           }
           {
             name: "City Data Comparison"
-            projects: { create: [{ name: "Labs 19 - City Data Comparison" }] }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - City Data Comparison"
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Alec@gmail.com" } }
+                }
+              ]
+            }
           }
           {
             name: "Community Calendar"
-            projects: { create: [{ name: "Labs 19 - Community Calendar" }] }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Community Calendar"
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Aaron@gmail.com" } }
+                }
+              ]
+            }
           }
           {
             name: "Connect Our Kids Social Worker"
             projects: {
-              create: [{ name: "Labs 19 - Connect Our Kids Social Worker" }]
+              create: [
+                {
+                  name: "Labs 19 - Connect Our Kids Social Worker"
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Ami@gmail.com" } }
+                }
+              ]
+            }
+          }
+          {
+            name: "Sauti - Databank"
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Sauti - Databank"
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Nicholas@gmail.com" } }
+                }
+              ]
+            }
+          }
+          {
+            name: "Omega 2020"
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Omega 2020"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Tony@gmail.com" } }
+                }
+              ]
+            }
+          }
+          {
+            name: "Quality Hub - Resume Q"
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Quality Hub - Resume Q"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Roy@gmail.com" } }
+                }
+              ]
+            }
+          }
+          {
+            name: "Hackaton Portal"
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Hackathon Portal"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Dakotah@gmail.com" } }
+                }
+              ]
+            }
+          }
+          {
+            name: "Student Art Collection"
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Student Art Collection"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Tommy@gmail.com" } }
+                }
+              ]
+            }
+          }
+          {
+            name: "Well Done"
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Well Done"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Kevin@gmail.com" } }
+                }
+              ]
             }
           }
         ]
