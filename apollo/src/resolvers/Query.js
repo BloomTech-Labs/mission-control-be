@@ -1,7 +1,7 @@
 // Queries must be defined to return fields of the same type
 // See the Query field in the type definitions for examples
 
-const info = () => `Hello World`;
+const info = (parent, args, context) => `Hello World`;
 
 const programs = (parent, args, context) => {
   const res = context.prisma.programs();
@@ -23,10 +23,26 @@ const persons = (parent, args, context) => {
   return res;
 };
 
+const project = (parent, args, context) => {
+  const { email } = context.user;
+  const where = {
+    OR: [{ sectionLead: { email } }, { teamLead: { email } }],
+  };
+  const res = context.prisma.projects({
+    where,
+  });
+
+  return res;
+};
+
+const me = (parent, args, context) => context.user;
+
 module.exports = {
   info,
   programs,
   products,
   projects,
+  project,
   persons,
+  me,
 };
