@@ -22,6 +22,7 @@ type Project {
   status: Boolean @default(value: false)
   sectionLead: Person @relation(link: INLINE, name: "SectionLead")
   teamLead: Person @relation(link: INLINE, name: "TeamLead")
+  projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
@@ -41,7 +42,8 @@ type Person {
   name: String!
   email: String! @unique
   role: Role!
+  manages: [Project!]! @relation(name: "ProjectManager")
   team: Project @relation(name: "Team")
-  manages: [Project!]! @relation(name: "SectionLead")
-  leads: Project @relation(name: "TeamLead")
+  sl: [Project!]! @relation(name: "SectionLead")
+  tl: Project @relation(name: "TeamLead")
 }
