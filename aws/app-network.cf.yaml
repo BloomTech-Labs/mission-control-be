@@ -4,12 +4,26 @@ Description: A very simple VPC for hosting an application
 Parameters:
   ApplicationName:
     Type: String
-    Description: The name of the application 
+    Description: The name of the application
+    AllowedPattern: ^[a-z0-9\-]*$
 
   VPCCidrBlock:
     Type: String
     AllowedPattern: '((\d{1,3})\.){3}\d{1,3}/\d{1,2}'
     Default: 10.0.0.0/16
+  
+  ApplicationDomainNamespace:
+    Type: String
+    Description: The DNS domain namespace for the application (e.g. mycoolapplication.com)
+    AllowedPattern: ^[a-z0-9\-]*\.[a-z0-9\-]*$
+
+  ApolloServicePort:
+    Type: Number
+    Description: The port that the Apollo service will be listening on
+  
+  PrismaServicePort:
+    Type: Number
+    Description: The port that the Prisma service will be listening on
 
 Resources:
   VPC:
@@ -18,30 +32,6 @@ Resources:
       CidrBlock: !Ref VPCCidrBlock
       EnableDnsHostnames: true
       EnableDnsSupport: true
-  
-  LoggingRole:
-    Type: 'AWS::IAM::Role'
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-        - Effect: Allow
-          Principal:
-            Service: 'vpc-flow-logs.amazonaws.com'
-          Action: 'sts:AssumeRole'
-        - Effect: Allow
-          Principal:
-            Service: 'cloudtrail.amazonaws.com'
-          Action: 'sts:AssumeRole'
-      Policies:
-        - PolicyName: 'flowlogs-policy'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - 'logs:*'
-                Resource: '*'
 
   FlowLogsLogGroup:
     Type: AWS::Logs::LogGroup
@@ -51,7 +41,8 @@ Resources:
   FlowLog:
     Type: AWS::EC2::FlowLog
     Properties:
-      DeliverLogsPermissionArn: !GetAtt LoggingRole.Arn
+      DeliverLogsPermissionArn:
+        Fn::ImportValue: !Sub ${ApplicationName}-LoggingRoleArn
       LogGroupName: !Ref FlowLogsLogGroup
       ResourceId: !Ref VPC
       ResourceType: VPC
@@ -105,7 +96,8 @@ Resources:
     Properties: 
       S3BucketName: !Ref CloudTrailBucket
       CloudWatchLogsLogGroupArn: !GetAtt CloudTrailLogGroup.Arn
-      CloudWatchLogsRoleArn: !GetAtt LoggingRole.Arn
+      CloudWatchLogsRoleArn:
+        Fn::ImportValue: !Sub ${ApplicationName}-LoggingRoleArn
       IsLogging: true
 
   InternetGateway:
@@ -357,28 +349,6 @@ Resources:
       SubnetId: !Ref PrivateSubnet02
       NetworkAclId: !Ref PrivateSubnetNACL
 
-  ECSTaskExecutionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Statement:
-        - Effect: Allow
-          Principal:
-            Service: ecs-tasks.amazonaws.com
-          Action:
-            - 'sts:AssumeRole'
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
-      Policies:
-        - PolicyName: AmazonECSTaskExecutionRolePolicy
-          PolicyDocument:
-            Statement:
-            - Effect: Allow
-              Action:
-                - 'logs:*'
-                - 'ecr:*'
-              Resource: '*'
-
   ServiceSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -387,8 +357,28 @@ Resources:
       SecurityGroupIngress:
         - CidrIp: !GetAtt VPC.CidrBlock
           IpProtocol: "tcp"
-          FromPort: 60000
-          ToPort: 60000
+          FromPort: !Ref ApolloServicePort
+          ToPort: !Ref ApolloServicePort
+        - CidrIp: !GetAtt VPC.CidrBlock
+          IpProtocol: "tcp"
+          FromPort: !Ref PrismaServicePort
+          ToPort: !Ref PrismaServicePort
+
+  ProductionHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig: 
+        Comment: !Sub Hosted zone for the production environment of ${ApplicationName}
+      Name: !Ref ApplicationDomainNamespace
+
+  PrivateNamespace:
+    Type: AWS::ServiceDiscovery::PrivateDnsNamespace
+    Properties:
+      Name: !Sub private.${ApplicationDomainNamespace}
+      Vpc:
+        Fn::ImportValue:
+          !Sub ${ApplicationName}-VPCID
+
 
 Outputs:
   VPCID:
@@ -396,38 +386,51 @@ Outputs:
     Value: !Ref VPC
     Export:
       Name: !Sub ${ApplicationName}-VPCID
+
   VPCCIDR:
     Description: The CIDR block for the VPC
     Value: !GetAtt VPC.CidrBlock
     Export:
       Name: !Sub ${ApplicationName}-VPCCIDR
+
   PublicSubnet01:
     Description: ID for public subnet 01
     Value: !Ref PublicSubnet01
     Export:
       Name: !Sub ${ApplicationName}-PublicSubnet01
+
   PublicSubnet02:
     Description: ID for public subnet 02
     Value: !Ref PublicSubnet02
     Export:
       Name: !Sub ${ApplicationName}-PublicSubnet02
+
   PrivateSubnet01:
     Description: ID for private subnet 01
     Value: !Ref PrivateSubnet01
     Export:
       Name: !Sub ${ApplicationName}-PrivateSubnet01
+
   PrivateSubnet02:
     Description: ID for private subnet 02
     Value: !Ref PrivateSubnet02
     Export:
       Name: !Sub ${ApplicationName}-PrivateSubnet02
+
   ServiceSG:
     Description: Security group for ECS services
     Value: !Ref ServiceSG
     Export:
       Name: !Sub ${ApplicationName}-ServiceSG
-  ECSTaskExecutionRole:
-    Description: ECS task execution role for the application
-    Value: !Ref ECSTaskExecutionRole
+
+  ProductionHostedZone:
+    Description: HostedZone ID for the production hosted zone
+    Value: !Ref ProductionHostedZone
     Export:
-      Name: !Sub ${ApplicationName}-ECSTaskExecutionRole
+      Name: !Sub ${ApplicationName}-production-HostedZone
+  
+  ProductionPrivateNamespace:
+    Description: Private namespace for the production environment
+    Value: !Ref PrivateNamespace
+    Export:
+      Name: !Sub ${ApplicationName}-production-PrivateNamespace
