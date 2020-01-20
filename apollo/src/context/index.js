@@ -5,8 +5,8 @@ const { prisma } = require('../generated/prisma-client');
 const constructOktaContext = require('../auth/okta-auth');
 
 const dummyUser = {
-  id: 'flskjfsd98jsdlfsjlsdfjlA',
-  email: 'nicholas@gmail.com',
+  id: 'ck5max4wb00180790dc38y4vx',
+  email: 'Nicholas@gmail.com',
   claims: ['Project Manager'],
 };
 

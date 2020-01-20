@@ -220,16 +220,6 @@ export interface ClientConstructor<T> {
 
 export type Role = "SL" | "TL" | "WEB" | "DS" | "UX" | "PM";
 
-export type ProductOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
 export type ProjectOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -237,6 +227,16 @@ export type ProjectOrderByInput =
   | "name_DESC"
   | "status_ASC"
   | "status_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type ProductOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -268,6 +268,67 @@ export type PersonWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
 }>;
+
+export interface ProjectWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  product?: Maybe<ProductWhereInput>;
+  status?: Maybe<Boolean>;
+  status_not?: Maybe<Boolean>;
+  sectionLead?: Maybe<PersonWhereInput>;
+  teamLead?: Maybe<PersonWhereInput>;
+  projectManagers_every?: Maybe<PersonWhereInput>;
+  projectManagers_some?: Maybe<PersonWhereInput>;
+  projectManagers_none?: Maybe<PersonWhereInput>;
+  team_every?: Maybe<PersonWhereInput>;
+  team_some?: Maybe<PersonWhereInput>;
+  team_none?: Maybe<PersonWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
+  OR?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
+  NOT?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
+}
 
 export interface ProductWhereInput {
   id?: Maybe<ID_Input>;
@@ -376,64 +437,6 @@ export interface ProgramWhereInput {
   NOT?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
 }
 
-export interface ProjectWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  product?: Maybe<ProductWhereInput>;
-  status?: Maybe<Boolean>;
-  status_not?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonWhereInput>;
-  teamLead?: Maybe<PersonWhereInput>;
-  team_every?: Maybe<PersonWhereInput>;
-  team_some?: Maybe<PersonWhereInput>;
-  team_none?: Maybe<PersonWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-  OR?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-  NOT?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-}
-
 export interface PersonWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
@@ -481,11 +484,14 @@ export interface PersonWhereInput {
   role_not?: Maybe<Role>;
   role_in?: Maybe<Role[] | Role>;
   role_not_in?: Maybe<Role[] | Role>;
-  team?: Maybe<ProjectWhereInput>;
   manages_every?: Maybe<ProjectWhereInput>;
   manages_some?: Maybe<ProjectWhereInput>;
   manages_none?: Maybe<ProjectWhereInput>;
-  leads?: Maybe<ProjectWhereInput>;
+  team?: Maybe<ProjectWhereInput>;
+  sl_every?: Maybe<ProjectWhereInput>;
+  sl_some?: Maybe<ProjectWhereInput>;
+  sl_none?: Maybe<ProjectWhereInput>;
+  tl?: Maybe<ProjectWhereInput>;
   AND?: Maybe<PersonWhereInput[] | PersonWhereInput>;
   OR?: Maybe<PersonWhereInput[] | PersonWhereInput>;
   NOT?: Maybe<PersonWhereInput[] | PersonWhereInput>;
@@ -509,23 +515,28 @@ export interface PersonCreateInput {
   name: String;
   email: String;
   role: Role;
+  manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
-  manages?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
-  leads?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
+  sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
+  tl?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
 }
 
-export interface ProjectCreateOneWithoutTeamInput {
-  create?: Maybe<ProjectCreateWithoutTeamInput>;
-  connect?: Maybe<ProjectWhereUniqueInput>;
+export interface ProjectCreateManyWithoutProjectManagersInput {
+  create?: Maybe<
+    | ProjectCreateWithoutProjectManagersInput[]
+    | ProjectCreateWithoutProjectManagersInput
+  >;
+  connect?: Maybe<ProjectWhereUniqueInput[] | ProjectWhereUniqueInput>;
 }
 
-export interface ProjectCreateWithoutTeamInput {
+export interface ProjectCreateWithoutProjectManagersInput {
   id?: Maybe<ID_Input>;
   name: String;
   product: ProductCreateOneWithoutProjectsInput;
   status?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonCreateOneWithoutManagesInput>;
-  teamLead?: Maybe<PersonCreateOneWithoutLeadsInput>;
+  sectionLead?: Maybe<PersonCreateOneWithoutSlInput>;
+  teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
+  team?: Maybe<PersonCreateManyWithoutTeamInput>;
 }
 
 export interface ProductCreateOneWithoutProjectsInput {
@@ -549,46 +560,49 @@ export interface ProgramCreateWithoutProductsInput {
   name: String;
 }
 
-export interface PersonCreateOneWithoutManagesInput {
-  create?: Maybe<PersonCreateWithoutManagesInput>;
+export interface PersonCreateOneWithoutSlInput {
+  create?: Maybe<PersonCreateWithoutSlInput>;
   connect?: Maybe<PersonWhereUniqueInput>;
 }
 
-export interface PersonCreateWithoutManagesInput {
+export interface PersonCreateWithoutSlInput {
   id?: Maybe<ID_Input>;
   name: String;
   email: String;
   role: Role;
+  manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
-  leads?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
+  tl?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
 }
 
-export interface ProjectCreateOneWithoutTeamLeadInput {
-  create?: Maybe<ProjectCreateWithoutTeamLeadInput>;
+export interface ProjectCreateOneWithoutTeamInput {
+  create?: Maybe<ProjectCreateWithoutTeamInput>;
   connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ProjectCreateWithoutTeamLeadInput {
+export interface ProjectCreateWithoutTeamInput {
   id?: Maybe<ID_Input>;
   name: String;
   product: ProductCreateOneWithoutProjectsInput;
   status?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonCreateOneWithoutManagesInput>;
-  team?: Maybe<PersonCreateManyWithoutTeamInput>;
+  sectionLead?: Maybe<PersonCreateOneWithoutSlInput>;
+  teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
+  projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
 }
 
-export interface PersonCreateManyWithoutTeamInput {
-  create?: Maybe<PersonCreateWithoutTeamInput[] | PersonCreateWithoutTeamInput>;
-  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+export interface PersonCreateOneWithoutTlInput {
+  create?: Maybe<PersonCreateWithoutTlInput>;
+  connect?: Maybe<PersonWhereUniqueInput>;
 }
 
-export interface PersonCreateWithoutTeamInput {
+export interface PersonCreateWithoutTlInput {
   id?: Maybe<ID_Input>;
   name: String;
   email: String;
   role: Role;
-  manages?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
-  leads?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
+  manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
+  team?: Maybe<ProjectCreateOneWithoutTeamInput>;
+  sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
 }
 
 export interface ProjectCreateManyWithoutSectionLeadInput {
@@ -604,48 +618,104 @@ export interface ProjectCreateWithoutSectionLeadInput {
   name: String;
   product: ProductCreateOneWithoutProjectsInput;
   status?: Maybe<Boolean>;
-  teamLead?: Maybe<PersonCreateOneWithoutLeadsInput>;
+  teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
+  projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
 }
 
-export interface PersonCreateOneWithoutLeadsInput {
-  create?: Maybe<PersonCreateWithoutLeadsInput>;
-  connect?: Maybe<PersonWhereUniqueInput>;
+export interface PersonCreateManyWithoutManagesInput {
+  create?: Maybe<
+    PersonCreateWithoutManagesInput[] | PersonCreateWithoutManagesInput
+  >;
+  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
 }
 
-export interface PersonCreateWithoutLeadsInput {
+export interface PersonCreateWithoutManagesInput {
   id?: Maybe<ID_Input>;
   name: String;
   email: String;
   role: Role;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
-  manages?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
+  sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
+  tl?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
+}
+
+export interface ProjectCreateOneWithoutTeamLeadInput {
+  create?: Maybe<ProjectCreateWithoutTeamLeadInput>;
+  connect?: Maybe<ProjectWhereUniqueInput>;
+}
+
+export interface ProjectCreateWithoutTeamLeadInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  product: ProductCreateOneWithoutProjectsInput;
+  status?: Maybe<Boolean>;
+  sectionLead?: Maybe<PersonCreateOneWithoutSlInput>;
+  projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
+  team?: Maybe<PersonCreateManyWithoutTeamInput>;
+}
+
+export interface PersonCreateManyWithoutTeamInput {
+  create?: Maybe<PersonCreateWithoutTeamInput[] | PersonCreateWithoutTeamInput>;
+  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+}
+
+export interface PersonCreateWithoutTeamInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  email: String;
+  role: Role;
+  manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
+  sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
+  tl?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
 }
 
 export interface PersonUpdateInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
+  manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
-  manages?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
-  leads?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
+  sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
+  tl?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
 }
 
-export interface ProjectUpdateOneWithoutTeamInput {
-  create?: Maybe<ProjectCreateWithoutTeamInput>;
-  update?: Maybe<ProjectUpdateWithoutTeamDataInput>;
-  upsert?: Maybe<ProjectUpsertWithoutTeamInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<ProjectWhereUniqueInput>;
+export interface ProjectUpdateManyWithoutProjectManagersInput {
+  create?: Maybe<
+    | ProjectCreateWithoutProjectManagersInput[]
+    | ProjectCreateWithoutProjectManagersInput
+  >;
+  delete?: Maybe<ProjectWhereUniqueInput[] | ProjectWhereUniqueInput>;
+  connect?: Maybe<ProjectWhereUniqueInput[] | ProjectWhereUniqueInput>;
+  set?: Maybe<ProjectWhereUniqueInput[] | ProjectWhereUniqueInput>;
+  disconnect?: Maybe<ProjectWhereUniqueInput[] | ProjectWhereUniqueInput>;
+  update?: Maybe<
+    | ProjectUpdateWithWhereUniqueWithoutProjectManagersInput[]
+    | ProjectUpdateWithWhereUniqueWithoutProjectManagersInput
+  >;
+  upsert?: Maybe<
+    | ProjectUpsertWithWhereUniqueWithoutProjectManagersInput[]
+    | ProjectUpsertWithWhereUniqueWithoutProjectManagersInput
+  >;
+  deleteMany?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
+  updateMany?: Maybe<
+    | ProjectUpdateManyWithWhereNestedInput[]
+    | ProjectUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface ProjectUpdateWithoutTeamDataInput {
+export interface ProjectUpdateWithWhereUniqueWithoutProjectManagersInput {
+  where: ProjectWhereUniqueInput;
+  data: ProjectUpdateWithoutProjectManagersDataInput;
+}
+
+export interface ProjectUpdateWithoutProjectManagersDataInput {
   name?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonUpdateOneWithoutManagesInput>;
-  teamLead?: Maybe<PersonUpdateOneWithoutLeadsInput>;
+  sectionLead?: Maybe<PersonUpdateOneWithoutSlInput>;
+  teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
+  team?: Maybe<PersonUpdateManyWithoutTeamInput>;
 }
 
 export interface ProductUpdateOneRequiredWithoutProjectsInput {
@@ -681,72 +751,58 @@ export interface ProductUpsertWithoutProjectsInput {
   create: ProductCreateWithoutProjectsInput;
 }
 
-export interface PersonUpdateOneWithoutManagesInput {
-  create?: Maybe<PersonCreateWithoutManagesInput>;
-  update?: Maybe<PersonUpdateWithoutManagesDataInput>;
-  upsert?: Maybe<PersonUpsertWithoutManagesInput>;
+export interface PersonUpdateOneWithoutSlInput {
+  create?: Maybe<PersonCreateWithoutSlInput>;
+  update?: Maybe<PersonUpdateWithoutSlDataInput>;
+  upsert?: Maybe<PersonUpsertWithoutSlInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
   connect?: Maybe<PersonWhereUniqueInput>;
 }
 
-export interface PersonUpdateWithoutManagesDataInput {
+export interface PersonUpdateWithoutSlDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
+  manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
-  leads?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
+  tl?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
 }
 
-export interface ProjectUpdateOneWithoutTeamLeadInput {
-  create?: Maybe<ProjectCreateWithoutTeamLeadInput>;
-  update?: Maybe<ProjectUpdateWithoutTeamLeadDataInput>;
-  upsert?: Maybe<ProjectUpsertWithoutTeamLeadInput>;
+export interface ProjectUpdateOneWithoutTeamInput {
+  create?: Maybe<ProjectCreateWithoutTeamInput>;
+  update?: Maybe<ProjectUpdateWithoutTeamDataInput>;
+  upsert?: Maybe<ProjectUpsertWithoutTeamInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
   connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ProjectUpdateWithoutTeamLeadDataInput {
+export interface ProjectUpdateWithoutTeamDataInput {
   name?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonUpdateOneWithoutManagesInput>;
-  team?: Maybe<PersonUpdateManyWithoutTeamInput>;
+  sectionLead?: Maybe<PersonUpdateOneWithoutSlInput>;
+  teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
+  projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
 }
 
-export interface PersonUpdateManyWithoutTeamInput {
-  create?: Maybe<PersonCreateWithoutTeamInput[] | PersonCreateWithoutTeamInput>;
-  delete?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  set?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  disconnect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  update?: Maybe<
-    | PersonUpdateWithWhereUniqueWithoutTeamInput[]
-    | PersonUpdateWithWhereUniqueWithoutTeamInput
-  >;
-  upsert?: Maybe<
-    | PersonUpsertWithWhereUniqueWithoutTeamInput[]
-    | PersonUpsertWithWhereUniqueWithoutTeamInput
-  >;
-  deleteMany?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
-  updateMany?: Maybe<
-    | PersonUpdateManyWithWhereNestedInput[]
-    | PersonUpdateManyWithWhereNestedInput
-  >;
+export interface PersonUpdateOneWithoutTlInput {
+  create?: Maybe<PersonCreateWithoutTlInput>;
+  update?: Maybe<PersonUpdateWithoutTlDataInput>;
+  upsert?: Maybe<PersonUpsertWithoutTlInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<PersonWhereUniqueInput>;
 }
 
-export interface PersonUpdateWithWhereUniqueWithoutTeamInput {
-  where: PersonWhereUniqueInput;
-  data: PersonUpdateWithoutTeamDataInput;
-}
-
-export interface PersonUpdateWithoutTeamDataInput {
+export interface PersonUpdateWithoutTlDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
-  manages?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
-  leads?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
+  manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
+  team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
+  sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
 }
 
 export interface ProjectUpdateManyWithoutSectionLeadInput {
@@ -782,98 +838,99 @@ export interface ProjectUpdateWithoutSectionLeadDataInput {
   name?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
-  teamLead?: Maybe<PersonUpdateOneWithoutLeadsInput>;
+  teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
+  projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
 }
 
-export interface PersonUpdateOneWithoutLeadsInput {
-  create?: Maybe<PersonCreateWithoutLeadsInput>;
-  update?: Maybe<PersonUpdateWithoutLeadsDataInput>;
-  upsert?: Maybe<PersonUpsertWithoutLeadsInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<PersonWhereUniqueInput>;
+export interface PersonUpdateManyWithoutManagesInput {
+  create?: Maybe<
+    PersonCreateWithoutManagesInput[] | PersonCreateWithoutManagesInput
+  >;
+  delete?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  set?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  disconnect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  update?: Maybe<
+    | PersonUpdateWithWhereUniqueWithoutManagesInput[]
+    | PersonUpdateWithWhereUniqueWithoutManagesInput
+  >;
+  upsert?: Maybe<
+    | PersonUpsertWithWhereUniqueWithoutManagesInput[]
+    | PersonUpsertWithWhereUniqueWithoutManagesInput
+  >;
+  deleteMany?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
+  updateMany?: Maybe<
+    | PersonUpdateManyWithWhereNestedInput[]
+    | PersonUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface PersonUpdateWithoutLeadsDataInput {
+export interface PersonUpdateWithWhereUniqueWithoutManagesInput {
+  where: PersonWhereUniqueInput;
+  data: PersonUpdateWithoutManagesDataInput;
+}
+
+export interface PersonUpdateWithoutManagesDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
-  manages?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
+  sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
+  tl?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
 }
 
-export interface PersonUpsertWithoutLeadsInput {
-  update: PersonUpdateWithoutLeadsDataInput;
-  create: PersonCreateWithoutLeadsInput;
+export interface ProjectUpdateOneWithoutTeamLeadInput {
+  create?: Maybe<ProjectCreateWithoutTeamLeadInput>;
+  update?: Maybe<ProjectUpdateWithoutTeamLeadDataInput>;
+  upsert?: Maybe<ProjectUpsertWithoutTeamLeadInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ProjectUpsertWithWhereUniqueWithoutSectionLeadInput {
-  where: ProjectWhereUniqueInput;
-  update: ProjectUpdateWithoutSectionLeadDataInput;
-  create: ProjectCreateWithoutSectionLeadInput;
-}
-
-export interface ProjectScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
+export interface ProjectUpdateWithoutTeamLeadDataInput {
   name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
+  product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
-  status_not?: Maybe<Boolean>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
-  OR?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
-  NOT?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
+  sectionLead?: Maybe<PersonUpdateOneWithoutSlInput>;
+  projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
+  team?: Maybe<PersonUpdateManyWithoutTeamInput>;
 }
 
-export interface ProjectUpdateManyWithWhereNestedInput {
-  where: ProjectScalarWhereInput;
-  data: ProjectUpdateManyDataInput;
+export interface PersonUpdateManyWithoutTeamInput {
+  create?: Maybe<PersonCreateWithoutTeamInput[] | PersonCreateWithoutTeamInput>;
+  delete?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  set?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  disconnect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  update?: Maybe<
+    | PersonUpdateWithWhereUniqueWithoutTeamInput[]
+    | PersonUpdateWithWhereUniqueWithoutTeamInput
+  >;
+  upsert?: Maybe<
+    | PersonUpsertWithWhereUniqueWithoutTeamInput[]
+    | PersonUpsertWithWhereUniqueWithoutTeamInput
+  >;
+  deleteMany?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
+  updateMany?: Maybe<
+    | PersonUpdateManyWithWhereNestedInput[]
+    | PersonUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface ProjectUpdateManyDataInput {
+export interface PersonUpdateWithWhereUniqueWithoutTeamInput {
+  where: PersonWhereUniqueInput;
+  data: PersonUpdateWithoutTeamDataInput;
+}
+
+export interface PersonUpdateWithoutTeamDataInput {
   name?: Maybe<String>;
-  status?: Maybe<Boolean>;
+  email?: Maybe<String>;
+  role?: Maybe<Role>;
+  manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
+  sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
+  tl?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
 }
 
 export interface PersonUpsertWithWhereUniqueWithoutTeamInput {
@@ -950,14 +1007,99 @@ export interface ProjectUpsertWithoutTeamLeadInput {
   create: ProjectCreateWithoutTeamLeadInput;
 }
 
-export interface PersonUpsertWithoutManagesInput {
+export interface PersonUpsertWithWhereUniqueWithoutManagesInput {
+  where: PersonWhereUniqueInput;
   update: PersonUpdateWithoutManagesDataInput;
   create: PersonCreateWithoutManagesInput;
+}
+
+export interface ProjectUpsertWithWhereUniqueWithoutSectionLeadInput {
+  where: ProjectWhereUniqueInput;
+  update: ProjectUpdateWithoutSectionLeadDataInput;
+  create: ProjectCreateWithoutSectionLeadInput;
+}
+
+export interface ProjectScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  status?: Maybe<Boolean>;
+  status_not?: Maybe<Boolean>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
+  OR?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
+  NOT?: Maybe<ProjectScalarWhereInput[] | ProjectScalarWhereInput>;
+}
+
+export interface ProjectUpdateManyWithWhereNestedInput {
+  where: ProjectScalarWhereInput;
+  data: ProjectUpdateManyDataInput;
+}
+
+export interface ProjectUpdateManyDataInput {
+  name?: Maybe<String>;
+  status?: Maybe<Boolean>;
+}
+
+export interface PersonUpsertWithoutTlInput {
+  update: PersonUpdateWithoutTlDataInput;
+  create: PersonCreateWithoutTlInput;
 }
 
 export interface ProjectUpsertWithoutTeamInput {
   update: ProjectUpdateWithoutTeamDataInput;
   create: ProjectCreateWithoutTeamInput;
+}
+
+export interface PersonUpsertWithoutSlInput {
+  update: PersonUpdateWithoutSlDataInput;
+  create: PersonCreateWithoutSlInput;
+}
+
+export interface ProjectUpsertWithWhereUniqueWithoutProjectManagersInput {
+  where: ProjectWhereUniqueInput;
+  update: ProjectUpdateWithoutProjectManagersDataInput;
+  create: ProjectCreateWithoutProjectManagersInput;
 }
 
 export interface PersonUpdateManyMutationInput {
@@ -984,8 +1126,9 @@ export interface ProjectCreateWithoutProductInput {
   id?: Maybe<ID_Input>;
   name: String;
   status?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonCreateOneWithoutManagesInput>;
-  teamLead?: Maybe<PersonCreateOneWithoutLeadsInput>;
+  sectionLead?: Maybe<PersonCreateOneWithoutSlInput>;
+  teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
+  projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
 }
 
@@ -1026,8 +1169,9 @@ export interface ProjectUpdateWithWhereUniqueWithoutProductInput {
 export interface ProjectUpdateWithoutProductDataInput {
   name?: Maybe<String>;
   status?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonUpdateOneWithoutManagesInput>;
-  teamLead?: Maybe<PersonUpdateOneWithoutLeadsInput>;
+  sectionLead?: Maybe<PersonUpdateOneWithoutSlInput>;
+  teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
+  projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
 }
 
@@ -1172,8 +1316,9 @@ export interface ProjectCreateInput {
   name: String;
   product: ProductCreateOneWithoutProjectsInput;
   status?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonCreateOneWithoutManagesInput>;
-  teamLead?: Maybe<PersonCreateOneWithoutLeadsInput>;
+  sectionLead?: Maybe<PersonCreateOneWithoutSlInput>;
+  teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
+  projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
 }
 
@@ -1181,8 +1326,9 @@ export interface ProjectUpdateInput {
   name?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
-  sectionLead?: Maybe<PersonUpdateOneWithoutManagesInput>;
-  teamLead?: Maybe<PersonUpdateOneWithoutLeadsInput>;
+  sectionLead?: Maybe<PersonUpdateOneWithoutSlInput>;
+  teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
+  projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
 }
 
@@ -1251,7 +1397,6 @@ export interface PersonPromise extends Promise<Person>, Fragmentable {
   name: () => Promise<String>;
   email: () => Promise<String>;
   role: () => Promise<Role>;
-  team: <T = ProjectPromise>() => T;
   manages: <T = FragmentableArray<Project>>(args?: {
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
@@ -1261,7 +1406,17 @@ export interface PersonPromise extends Promise<Person>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  leads: <T = ProjectPromise>() => T;
+  team: <T = ProjectPromise>() => T;
+  sl: <T = FragmentableArray<Project>>(args?: {
+    where?: ProjectWhereInput;
+    orderBy?: ProjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tl: <T = ProjectPromise>() => T;
 }
 
 export interface PersonSubscription
@@ -1271,7 +1426,6 @@ export interface PersonSubscription
   name: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   role: () => Promise<AsyncIterator<Role>>;
-  team: <T = ProjectSubscription>() => T;
   manages: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
@@ -1281,7 +1435,17 @@ export interface PersonSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  leads: <T = ProjectSubscription>() => T;
+  team: <T = ProjectSubscription>() => T;
+  sl: <T = Promise<AsyncIterator<ProjectSubscription>>>(args?: {
+    where?: ProjectWhereInput;
+    orderBy?: ProjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tl: <T = ProjectSubscription>() => T;
 }
 
 export interface PersonNullablePromise
@@ -1291,7 +1455,6 @@ export interface PersonNullablePromise
   name: () => Promise<String>;
   email: () => Promise<String>;
   role: () => Promise<Role>;
-  team: <T = ProjectPromise>() => T;
   manages: <T = FragmentableArray<Project>>(args?: {
     where?: ProjectWhereInput;
     orderBy?: ProjectOrderByInput;
@@ -1301,7 +1464,17 @@ export interface PersonNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  leads: <T = ProjectPromise>() => T;
+  team: <T = ProjectPromise>() => T;
+  sl: <T = FragmentableArray<Project>>(args?: {
+    where?: ProjectWhereInput;
+    orderBy?: ProjectOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  tl: <T = ProjectPromise>() => T;
 }
 
 export interface Project {
@@ -1319,6 +1492,15 @@ export interface ProjectPromise extends Promise<Project>, Fragmentable {
   status: () => Promise<Boolean>;
   sectionLead: <T = PersonPromise>() => T;
   teamLead: <T = PersonPromise>() => T;
+  projectManagers: <T = FragmentableArray<Person>>(args?: {
+    where?: PersonWhereInput;
+    orderBy?: PersonOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   team: <T = FragmentableArray<Person>>(args?: {
     where?: PersonWhereInput;
     orderBy?: PersonOrderByInput;
@@ -1341,6 +1523,15 @@ export interface ProjectSubscription
   status: () => Promise<AsyncIterator<Boolean>>;
   sectionLead: <T = PersonSubscription>() => T;
   teamLead: <T = PersonSubscription>() => T;
+  projectManagers: <T = Promise<AsyncIterator<PersonSubscription>>>(args?: {
+    where?: PersonWhereInput;
+    orderBy?: PersonOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   team: <T = Promise<AsyncIterator<PersonSubscription>>>(args?: {
     where?: PersonWhereInput;
     orderBy?: PersonOrderByInput;
@@ -1363,6 +1554,15 @@ export interface ProjectNullablePromise
   status: () => Promise<Boolean>;
   sectionLead: <T = PersonPromise>() => T;
   teamLead: <T = PersonPromise>() => T;
+  projectManagers: <T = FragmentableArray<Person>>(args?: {
+    where?: PersonWhereInput;
+    orderBy?: PersonOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   team: <T = FragmentableArray<Person>>(args?: {
     where?: PersonWhereInput;
     orderBy?: PersonOrderByInput;

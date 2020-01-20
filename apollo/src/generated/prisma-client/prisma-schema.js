@@ -76,9 +76,10 @@ type Person {
   name: String!
   email: String!
   role: Role!
-  team: Project
   manages(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
-  leads: Project
+  team: Project
+  sl(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+  tl: Project
 }
 
 type PersonConnection {
@@ -92,9 +93,15 @@ input PersonCreateInput {
   name: String!
   email: String!
   role: Role!
+  manages: ProjectCreateManyWithoutProjectManagersInput
   team: ProjectCreateOneWithoutTeamInput
-  manages: ProjectCreateManyWithoutSectionLeadInput
-  leads: ProjectCreateOneWithoutTeamLeadInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
+}
+
+input PersonCreateManyWithoutManagesInput {
+  create: [PersonCreateWithoutManagesInput!]
+  connect: [PersonWhereUniqueInput!]
 }
 
 input PersonCreateManyWithoutTeamInput {
@@ -102,23 +109,14 @@ input PersonCreateManyWithoutTeamInput {
   connect: [PersonWhereUniqueInput!]
 }
 
-input PersonCreateOneWithoutLeadsInput {
-  create: PersonCreateWithoutLeadsInput
+input PersonCreateOneWithoutSlInput {
+  create: PersonCreateWithoutSlInput
   connect: PersonWhereUniqueInput
 }
 
-input PersonCreateOneWithoutManagesInput {
-  create: PersonCreateWithoutManagesInput
+input PersonCreateOneWithoutTlInput {
+  create: PersonCreateWithoutTlInput
   connect: PersonWhereUniqueInput
-}
-
-input PersonCreateWithoutLeadsInput {
-  id: ID
-  name: String!
-  email: String!
-  role: Role!
-  team: ProjectCreateOneWithoutTeamInput
-  manages: ProjectCreateManyWithoutSectionLeadInput
 }
 
 input PersonCreateWithoutManagesInput {
@@ -127,7 +125,18 @@ input PersonCreateWithoutManagesInput {
   email: String!
   role: Role!
   team: ProjectCreateOneWithoutTeamInput
-  leads: ProjectCreateOneWithoutTeamLeadInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
+}
+
+input PersonCreateWithoutSlInput {
+  id: ID
+  name: String!
+  email: String!
+  role: Role!
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  team: ProjectCreateOneWithoutTeamInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
 }
 
 input PersonCreateWithoutTeamInput {
@@ -135,8 +144,19 @@ input PersonCreateWithoutTeamInput {
   name: String!
   email: String!
   role: Role!
-  manages: ProjectCreateManyWithoutSectionLeadInput
-  leads: ProjectCreateOneWithoutTeamLeadInput
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
+}
+
+input PersonCreateWithoutTlInput {
+  id: ID
+  name: String!
+  email: String!
+  role: Role!
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  team: ProjectCreateOneWithoutTeamInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
 }
 
 type PersonEdge {
@@ -236,9 +256,10 @@ input PersonUpdateInput {
   name: String
   email: String
   role: Role
+  manages: ProjectUpdateManyWithoutProjectManagersInput
   team: ProjectUpdateOneWithoutTeamInput
-  manages: ProjectUpdateManyWithoutSectionLeadInput
-  leads: ProjectUpdateOneWithoutTeamLeadInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
 }
 
 input PersonUpdateManyDataInput {
@@ -251,6 +272,18 @@ input PersonUpdateManyMutationInput {
   name: String
   email: String
   role: Role
+}
+
+input PersonUpdateManyWithoutManagesInput {
+  create: [PersonCreateWithoutManagesInput!]
+  delete: [PersonWhereUniqueInput!]
+  connect: [PersonWhereUniqueInput!]
+  set: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  update: [PersonUpdateWithWhereUniqueWithoutManagesInput!]
+  upsert: [PersonUpsertWithWhereUniqueWithoutManagesInput!]
+  deleteMany: [PersonScalarWhereInput!]
+  updateMany: [PersonUpdateManyWithWhereNestedInput!]
 }
 
 input PersonUpdateManyWithoutTeamInput {
@@ -270,30 +303,22 @@ input PersonUpdateManyWithWhereNestedInput {
   data: PersonUpdateManyDataInput!
 }
 
-input PersonUpdateOneWithoutLeadsInput {
-  create: PersonCreateWithoutLeadsInput
-  update: PersonUpdateWithoutLeadsDataInput
-  upsert: PersonUpsertWithoutLeadsInput
+input PersonUpdateOneWithoutSlInput {
+  create: PersonCreateWithoutSlInput
+  update: PersonUpdateWithoutSlDataInput
+  upsert: PersonUpsertWithoutSlInput
   delete: Boolean
   disconnect: Boolean
   connect: PersonWhereUniqueInput
 }
 
-input PersonUpdateOneWithoutManagesInput {
-  create: PersonCreateWithoutManagesInput
-  update: PersonUpdateWithoutManagesDataInput
-  upsert: PersonUpsertWithoutManagesInput
+input PersonUpdateOneWithoutTlInput {
+  create: PersonCreateWithoutTlInput
+  update: PersonUpdateWithoutTlDataInput
+  upsert: PersonUpsertWithoutTlInput
   delete: Boolean
   disconnect: Boolean
   connect: PersonWhereUniqueInput
-}
-
-input PersonUpdateWithoutLeadsDataInput {
-  name: String
-  email: String
-  role: Role
-  team: ProjectUpdateOneWithoutTeamInput
-  manages: ProjectUpdateManyWithoutSectionLeadInput
 }
 
 input PersonUpdateWithoutManagesDataInput {
@@ -301,15 +326,40 @@ input PersonUpdateWithoutManagesDataInput {
   email: String
   role: Role
   team: ProjectUpdateOneWithoutTeamInput
-  leads: ProjectUpdateOneWithoutTeamLeadInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
+}
+
+input PersonUpdateWithoutSlDataInput {
+  name: String
+  email: String
+  role: Role
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  team: ProjectUpdateOneWithoutTeamInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
 }
 
 input PersonUpdateWithoutTeamDataInput {
   name: String
   email: String
   role: Role
-  manages: ProjectUpdateManyWithoutSectionLeadInput
-  leads: ProjectUpdateOneWithoutTeamLeadInput
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
+}
+
+input PersonUpdateWithoutTlDataInput {
+  name: String
+  email: String
+  role: Role
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  team: ProjectUpdateOneWithoutTeamInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+}
+
+input PersonUpdateWithWhereUniqueWithoutManagesInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateWithoutManagesDataInput!
 }
 
 input PersonUpdateWithWhereUniqueWithoutTeamInput {
@@ -317,12 +367,18 @@ input PersonUpdateWithWhereUniqueWithoutTeamInput {
   data: PersonUpdateWithoutTeamDataInput!
 }
 
-input PersonUpsertWithoutLeadsInput {
-  update: PersonUpdateWithoutLeadsDataInput!
-  create: PersonCreateWithoutLeadsInput!
+input PersonUpsertWithoutSlInput {
+  update: PersonUpdateWithoutSlDataInput!
+  create: PersonCreateWithoutSlInput!
 }
 
-input PersonUpsertWithoutManagesInput {
+input PersonUpsertWithoutTlInput {
+  update: PersonUpdateWithoutTlDataInput!
+  create: PersonCreateWithoutTlInput!
+}
+
+input PersonUpsertWithWhereUniqueWithoutManagesInput {
+  where: PersonWhereUniqueInput!
   update: PersonUpdateWithoutManagesDataInput!
   create: PersonCreateWithoutManagesInput!
 }
@@ -380,11 +436,14 @@ input PersonWhereInput {
   role_not: Role
   role_in: [Role!]
   role_not_in: [Role!]
-  team: ProjectWhereInput
   manages_every: ProjectWhereInput
   manages_some: ProjectWhereInput
   manages_none: ProjectWhereInput
-  leads: ProjectWhereInput
+  team: ProjectWhereInput
+  sl_every: ProjectWhereInput
+  sl_some: ProjectWhereInput
+  sl_none: ProjectWhereInput
+  tl: ProjectWhereInput
   AND: [PersonWhereInput!]
   OR: [PersonWhereInput!]
   NOT: [PersonWhereInput!]
@@ -813,6 +872,7 @@ type Project {
   status: Boolean
   sectionLead: Person
   teamLead: Person
+  projectManagers(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
   team(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -829,13 +889,19 @@ input ProjectCreateInput {
   name: String!
   product: ProductCreateOneWithoutProjectsInput!
   status: Boolean
-  sectionLead: PersonCreateOneWithoutManagesInput
-  teamLead: PersonCreateOneWithoutLeadsInput
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
   team: PersonCreateManyWithoutTeamInput
 }
 
 input ProjectCreateManyWithoutProductInput {
   create: [ProjectCreateWithoutProductInput!]
+  connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateManyWithoutProjectManagersInput {
+  create: [ProjectCreateWithoutProjectManagersInput!]
   connect: [ProjectWhereUniqueInput!]
 }
 
@@ -858,8 +924,19 @@ input ProjectCreateWithoutProductInput {
   id: ID
   name: String!
   status: Boolean
-  sectionLead: PersonCreateOneWithoutManagesInput
-  teamLead: PersonCreateOneWithoutLeadsInput
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
+  team: PersonCreateManyWithoutTeamInput
+}
+
+input ProjectCreateWithoutProjectManagersInput {
+  id: ID
+  name: String!
+  product: ProductCreateOneWithoutProjectsInput!
+  status: Boolean
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
   team: PersonCreateManyWithoutTeamInput
 }
 
@@ -868,7 +945,8 @@ input ProjectCreateWithoutSectionLeadInput {
   name: String!
   product: ProductCreateOneWithoutProjectsInput!
   status: Boolean
-  teamLead: PersonCreateOneWithoutLeadsInput
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
   team: PersonCreateManyWithoutTeamInput
 }
 
@@ -877,8 +955,9 @@ input ProjectCreateWithoutTeamInput {
   name: String!
   product: ProductCreateOneWithoutProjectsInput!
   status: Boolean
-  sectionLead: PersonCreateOneWithoutManagesInput
-  teamLead: PersonCreateOneWithoutLeadsInput
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
 }
 
 input ProjectCreateWithoutTeamLeadInput {
@@ -886,7 +965,8 @@ input ProjectCreateWithoutTeamLeadInput {
   name: String!
   product: ProductCreateOneWithoutProjectsInput!
   status: Boolean
-  sectionLead: PersonCreateOneWithoutManagesInput
+  sectionLead: PersonCreateOneWithoutSlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
   team: PersonCreateManyWithoutTeamInput
 }
 
@@ -990,8 +1070,9 @@ input ProjectUpdateInput {
   name: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   status: Boolean
-  sectionLead: PersonUpdateOneWithoutManagesInput
-  teamLead: PersonUpdateOneWithoutLeadsInput
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
   team: PersonUpdateManyWithoutTeamInput
 }
 
@@ -1013,6 +1094,18 @@ input ProjectUpdateManyWithoutProductInput {
   disconnect: [ProjectWhereUniqueInput!]
   update: [ProjectUpdateWithWhereUniqueWithoutProductInput!]
   upsert: [ProjectUpsertWithWhereUniqueWithoutProductInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+}
+
+input ProjectUpdateManyWithoutProjectManagersInput {
+  create: [ProjectCreateWithoutProjectManagersInput!]
+  delete: [ProjectWhereUniqueInput!]
+  connect: [ProjectWhereUniqueInput!]
+  set: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutProjectManagersInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutProjectManagersInput!]
   deleteMany: [ProjectScalarWhereInput!]
   updateMany: [ProjectUpdateManyWithWhereNestedInput!]
 }
@@ -1055,8 +1148,18 @@ input ProjectUpdateOneWithoutTeamLeadInput {
 input ProjectUpdateWithoutProductDataInput {
   name: String
   status: Boolean
-  sectionLead: PersonUpdateOneWithoutManagesInput
-  teamLead: PersonUpdateOneWithoutLeadsInput
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
+  team: PersonUpdateManyWithoutTeamInput
+}
+
+input ProjectUpdateWithoutProjectManagersDataInput {
+  name: String
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  status: Boolean
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
   team: PersonUpdateManyWithoutTeamInput
 }
 
@@ -1064,7 +1167,8 @@ input ProjectUpdateWithoutSectionLeadDataInput {
   name: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   status: Boolean
-  teamLead: PersonUpdateOneWithoutLeadsInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
   team: PersonUpdateManyWithoutTeamInput
 }
 
@@ -1072,21 +1176,28 @@ input ProjectUpdateWithoutTeamDataInput {
   name: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   status: Boolean
-  sectionLead: PersonUpdateOneWithoutManagesInput
-  teamLead: PersonUpdateOneWithoutLeadsInput
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
 }
 
 input ProjectUpdateWithoutTeamLeadDataInput {
   name: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   status: Boolean
-  sectionLead: PersonUpdateOneWithoutManagesInput
+  sectionLead: PersonUpdateOneWithoutSlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
   team: PersonUpdateManyWithoutTeamInput
 }
 
 input ProjectUpdateWithWhereUniqueWithoutProductInput {
   where: ProjectWhereUniqueInput!
   data: ProjectUpdateWithoutProductDataInput!
+}
+
+input ProjectUpdateWithWhereUniqueWithoutProjectManagersInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutProjectManagersDataInput!
 }
 
 input ProjectUpdateWithWhereUniqueWithoutSectionLeadInput {
@@ -1108,6 +1219,12 @@ input ProjectUpsertWithWhereUniqueWithoutProductInput {
   where: ProjectWhereUniqueInput!
   update: ProjectUpdateWithoutProductDataInput!
   create: ProjectCreateWithoutProductInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutProjectManagersInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutProjectManagersDataInput!
+  create: ProjectCreateWithoutProjectManagersInput!
 }
 
 input ProjectUpsertWithWhereUniqueWithoutSectionLeadInput {
@@ -1150,6 +1267,9 @@ input ProjectWhereInput {
   status_not: Boolean
   sectionLead: PersonWhereInput
   teamLead: PersonWhereInput
+  projectManagers_every: PersonWhereInput
+  projectManagers_some: PersonWhereInput
+  projectManagers_none: PersonWhereInput
   team_every: PersonWhereInput
   team_some: PersonWhereInput
   team_none: PersonWhereInput

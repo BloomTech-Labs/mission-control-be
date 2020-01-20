@@ -1,6 +1,12 @@
 // Resolves all relational fields on type Project
 // where the name of the function is an exact match to the field
 
+const product = (parent, args, context) => {
+  const res = context.prisma.project({ id: parent.id }).product();
+
+  return res;
+};
+
 const teamLead = (parent, args, context) => {
   const res = context.prisma.project({ id: parent.id }).teamLead();
 
@@ -17,8 +23,16 @@ const team = (parent, args, context) => {
   return res;
 };
 
+const projectManagers = (parent, args, context) => {
+  const res = context.prisma.project({ id: parent.id }).projectManagers();
+
+  return res;
+};
+
 module.exports = {
+  product,
   teamLead,
   sectionLead,
   team,
+  projectManagers,
 };
