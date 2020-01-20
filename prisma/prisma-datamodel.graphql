@@ -24,8 +24,24 @@ type Project {
   teamLead: Person @relation(link: INLINE, name: "TeamLead")
   projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
+  meetings: [Meeting!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+}
+
+type Meeting {
+  id: ID! @id
+  title: String!
+  attendedBy: [Person!]!
+  project: Project!
+  notes: [Note!]!
+}
+
+type Note {
+  id: ID! @id
+  title: String!
+  content: String!
+  author: Person!
 }
 
 enum Role {
@@ -42,6 +58,7 @@ type Person {
   name: String!
   email: String! @unique
   role: Role!
+  notes: [Note!]!
   manages: [Project!]! @relation(name: "ProjectManager")
   team: Project @relation(name: "Team")
   sl: [Project!]! @relation(name: "SectionLead")
