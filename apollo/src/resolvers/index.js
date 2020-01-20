@@ -8,6 +8,7 @@ const Mutation = require('./Mutation');
 const Program = require('./Program');
 const Product = require('./Product');
 const Project = require('./Project');
+const User = require('./User');
 
 const resolvers = {
   Query,
@@ -15,6 +16,7 @@ const resolvers = {
   Program,
   Product,
   Project,
+  User,
 };
 
 module.exports = resolvers;
