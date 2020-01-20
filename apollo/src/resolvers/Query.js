@@ -23,18 +23,6 @@ const persons = (parent, args, context) => {
   return res;
 };
 
-const project = (parent, args, context) => {
-  const { email } = context.user;
-  const where = {
-    OR: [{ sectionLead: { email } }, { teamLead: { email } }],
-  };
-  const res = context.prisma.projects({
-    where,
-  });
-
-  return res;
-};
-
 const me = (parent, args, context) => context.user;
 
 module.exports = {
@@ -42,7 +30,6 @@ module.exports = {
   programs,
   products,
   projects,
-  project,
   persons,
   me,
 };
