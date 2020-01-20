@@ -7,7 +7,10 @@ const typeDefs = gql`
     products: [Product!]!
     projects: [Project!]!
     persons: [Person!]!
+    project: [Project!]!
+    me: User!
   }
+
   type Mutation {
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
@@ -16,6 +19,7 @@ const typeDefs = gql`
     addProjectSectionLead(id: ID!, email: String!): Project!
     addProjectTeamLead(id: ID!, email: String!): Project!
   }
+
   type Program {
     id: ID!
     name: String!
@@ -23,6 +27,7 @@ const typeDefs = gql`
     updatedAt: String!
     products: [Product!]!
   }
+
   type Product {
     id: ID!
     name: String!
@@ -31,12 +36,15 @@ const typeDefs = gql`
     updatedAt: String!
     projects: [Project!]!
   }
+
   type Project {
     id: ID!
     name: String!
+    product: Product!
     status: Boolean!
     sectionLead: Person
     teamLead: Person
+    projectManagers: [Person!]!
     team: [Person!]!
     createdAt: String!
     updatedAt: String!
@@ -47,9 +55,17 @@ const typeDefs = gql`
     name: String!
     email: String!
     role: Role!
-    team: Project
     manages: [Project!]!
-    leads: Project
+    team: Project
+    sl: [Project!]!
+    tl: Project
+  }
+
+  type User {
+    id: ID!
+    email: String!
+    claims: [String!]!
+    projects: [Project!]!
   }
 
   enum Role {
