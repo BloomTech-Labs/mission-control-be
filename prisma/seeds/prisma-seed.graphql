@@ -1,7 +1,11 @@
 mutation createParents {
   # Create section leads
   sl1: createPerson(
-    data: { name: "Ronny Alvarado", email: "Ronny@gmail.com", role: SL }
+    data: {
+      name: "Nicholas Gebhart"
+      email: "nicholas.gebhart@gmail.com"
+      role: SL
+    }
   ) {
     id
   }
@@ -107,7 +111,9 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - Brew Plans"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "nicholas.gebhart@gmail.com" }
+                  }
                   teamLead: { connect: { email: "Megan@gmail.com" } }
                   team: {
                     connect: [
@@ -123,6 +129,30 @@ mutation createParents {
                       { email: "Parth@gmail.com" }
                     ]
                   }
+                  # meetings: {
+                  #   create: {
+                  #     data: {
+                  #       title: "Meeting One"
+                  #       attendedBy: {
+                  #         connect: [
+                  #           { email: "Jess@gmail.com" }
+                  #           { email: "Emma@gmail.com" }
+                  #           { email: "Chance@gmail.com" }
+                  #           { email: "Coop@gmail.com" }
+                  #         ]
+                  #       }
+                  #     }
+                  #     notes: {
+                  #       create: {
+                  #         data: {
+                  #           title: "Good Note"
+                  #           content: "Really Important and good work"
+                  #           author: { connect: { email: "Jess@gmail.com" } }
+                  #         }
+                  #       }
+                  #     }
+                  # }
+                  # }
                 }
               ]
             }
@@ -133,7 +163,9 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - City Data Comparison"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "nicholas.gebhart@gmail.com" }
+                  }
                   teamLead: { connect: { email: "Alec@gmail.com" } }
                   projectManagers: {
                     connect: [
@@ -152,7 +184,9 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - Community Calendar"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "nicholas.gebhart@gmail.com" }
+                  }
                   teamLead: { connect: { email: "Aaron@gmail.com" } }
                   projectManagers: {
                     connect: [
@@ -171,7 +205,9 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - Connect Our Kids Social Worker"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "nicholas.gebhart@gmail.com" }
+                  }
                   teamLead: { connect: { email: "Ami@gmail.com" } }
                   projectManagers: {
                     connect: [
@@ -190,7 +226,9 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - Sauti - Databank"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "nicholas.gebhart@gmail.com" }
+                  }
                   teamLead: { connect: { email: "Nicholas@gmail.com" } }
                   projectManagers: {
                     connect: [
