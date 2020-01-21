@@ -4,11 +4,30 @@ Description: The Apollo task and service definitions for ECS
 Parameters:
   ApplicationName:
     Type: String
-    Description: The name of the application
+    Description: The name of the application 
+    AllowedPattern: ^[a-z0-9\-]*$
 
   EnvironmentName:
     Type: String
     Description: The name of the application environment
+    AllowedPattern: ^[a-z0-9\-]*$
+  
+  ApplicationDomainNamespace:
+    Type: String
+    Description: The DNS domain namespace for the application (e.g. mycoolapplication.com)
+    AllowedPattern: ^[a-z0-9\-]*\.[a-z0-9\-]*$
+
+  ApolloDockerImage:
+    Type: String
+    Description: The name of the Docker image to use for Apollo
+
+  ApolloServicePort:
+    Type: Number
+    Description: The port that the Apollo service will be listening on
+  
+  PrismaServicePort:
+    Type: Number
+    Description: The port that the Prisma service will be listening on
 
   OAuthTokenEndpoint:
     Type: String
@@ -47,10 +66,10 @@ Resources:
           Value: !Sub ${EnvironmentName}
       ContainerDefinitions:
         - Name: apollo
-          Image: 'lambdaschoollabs/missioncontrol:latest'
+          Image: !Ref ApolloDockerImage
           Essential: true
           PortMappings:
-            - ContainerPort: 8000
+            - ContainerPort: !Ref ApolloServicePort
           LogConfiguration:
             LogDriver: awslogs
             Options:
@@ -59,11 +78,11 @@ Resources:
               awslogs-stream-prefix: apollo
           Environment:
             - Name: PORT
-              Value: '60000'
+              Value: !Ref ApolloServicePort
             - Name: GRAPHQL_API_PATH
-              Value: /api/graphql
+              Value: /
             - Name: PRISMA_ENDPOINT
-              Value: http://prisma-stage.mission-control-private.com:60000
+              Value: !Sub "http://prisma.private.${EnvironmentName}.${ApplicationDomainNamespace}:${PrismaServicePort}"
             - Name: PRISMA_SECRET
               Value:
                 Fn::Sub:
@@ -78,15 +97,14 @@ Resources:
   Service:
     Type: AWS::ECS::Service
     Properties:
-      ServiceName: !Sub apollo-${EnvironmentName}
       LaunchType: FARGATE
       TaskDefinition: !Ref TaskDefinition
       Cluster:
-        Fn::ImportValue: !Sub ${ApplicationName}-ECSCluster
+        Fn::ImportValue: !Sub ${ApplicationName}-${EnvironmentName}-ECSCluster
       DesiredCount: 1
       LoadBalancers:
         - ContainerName: apollo
-          ContainerPort: 8000
+          ContainerPort: !Ref ApolloServicePort
           TargetGroupArn:
             Fn::ImportValue: !Sub ${ApplicationName}-${EnvironmentName}-ApolloTargetGroup
       NetworkConfiguration:
@@ -97,3 +115,10 @@ Resources:
             - Fn::ImportValue: !Sub ${ApplicationName}-PrivateSubnet02
           SecurityGroups:
             - Fn::ImportValue: !Sub ${ApplicationName}-ServiceSG
+
+Outputs:
+  ApolloServiceArn:
+    Description: The ARN of the Apollo service
+    Value: !Ref Service
+    Export:
+      Name: !Sub ${ApplicationName}-${EnvironmentName}-ApolloServiceArn
