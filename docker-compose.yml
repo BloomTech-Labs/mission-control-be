@@ -4,7 +4,10 @@ services:
   apollo:
     build:
       context: ./apollo
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    command: nodemon src/index.js
+    volumes:
+      - ./apollo:/app
     ports:
       - '${APOLLO_LISTEN_PORT:-8000}:${APOLLO_LISTEN_PORT:-8000}'
     environment:

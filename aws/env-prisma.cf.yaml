@@ -94,7 +94,6 @@ Resources:
   Service:
     Type: AWS::ECS::Service
     Properties:
-      ServiceName: !Sub prisma-${EnvironmentName}
       LaunchType: FARGATE
       TaskDefinition: !Ref TaskDefinition
       Cluster:
@@ -142,6 +141,12 @@ Resources:
           !Sub ${ApplicationName}-${EnvironmentName}-PrivateNamespace
 
 Outputs:
+  PrismaServiceArn:
+    Description: The ARN of the Prisma service
+    Value: !Ref Service
+    Export:
+      Name: !Sub ${ApplicationName}-${EnvironmentName}-PrismaServiceArn
+
   PrismaManagementAPISecret:
     Description: The secret used to access the Prisma management API
     Value: !Ref PrismaManagementAPISecret

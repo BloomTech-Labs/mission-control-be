@@ -17,7 +17,15 @@ var models = [
     embedded: false
   },
   {
-    name: "ProjectRole",
+    name: "Meeting",
+    embedded: false
+  },
+  {
+    name: "Note",
+    embedded: false
+  },
+  {
+    name: "Role",
     embedded: false
   },
   {

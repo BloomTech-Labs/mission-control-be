@@ -1,11 +1,14 @@
 const OktaJwtVerifier = require('@okta/jwt-verifier');
 
-// Configure OKTA client
+// Constants
+const AUD = 'api://default';
+
+// Instantiate OKTA client with Mission Control credentials
 const O = new OktaJwtVerifier({
   issuer: process.env.OAUTH_TOKEN_ENDPOINT,
   clientId: process.env.OAUTH_CLIENT_ID,
   assertClaims: {
-    aud: 'api://default',
+    aud: AUD,
   },
 });
 
@@ -16,25 +19,26 @@ const decodeToken = async req => {
     throw new Error('Invalid token');
   }
 
-  // Extract pure token, stripped of 'Bearer '
+  // Yoinks out the 'Bearer ' prefix
   const token = match[1];
-  // Verify audience from client config
-  const aud = 'api://default';
 
   try {
-    const { claims: Claims } = await O.verifyAccessToken(token, aud);
-
-    const { Auth: claims, uid: id } = Claims;
-    return { id, claims };
+    const result = await O.verifyAccessToken(token, AUD);
+    const {
+      claims: { sub: email, Auth: claims, uid: id },
+    } = result;
+    return { id, claims, email };
   } catch (err) {
     throw new Error(err);
   }
 };
 
+// Construct a context object for a specific authorization server.
+// Should eventually accept more than just OKTA as an auth provider.
 const constructOktaContext = async accessToken => {
   const token = `Bearer ${accessToken}`;
-  const { id, claims } = await decodeToken(token);
-  const user = { id, claims };
+  const { id, email, claims } = await decodeToken(token);
+  const user = { id, claims, email };
   return user;
 };
 
