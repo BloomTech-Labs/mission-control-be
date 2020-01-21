@@ -1,53 +1,126 @@
-mutation {
+mutation createParents {
+  # Create section leads
+  sl1: createPerson(
+    data: { name: "Ronny Alvarado", email: "Ronny@gmail.com", role: SL }
+  ) {
+    id
+  }
+  sl2: createPerson(
+    data: { name: "Levi Simpson", email: "Levi@gmail.com", role: SL }
+  ) {
+    id
+  }
+
+  #Create team leads
+
+  tl1: createPerson(
+    data: { name: "Megan M", email: "Megan@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl2: createPerson(
+    data: { name: "Alec B", email: "Alec@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl3: createPerson(
+    data: { name: "Aaron C", email: "Aaron@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl4: createPerson(data: { name: "Ami S", email: "Ami@gmail.com", role: TL }) {
+    id
+  }
+  tl5: createPerson(
+    data: { name: "Nicholas G", email: "Nicholas@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl6: createPerson(
+    data: { name: "Tony K", email: "Tony@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl7: createPerson(data: { name: "Roy W", email: "Roy@gmail.com", role: TL }) {
+    id
+  }
+  tl8: createPerson(
+    data: { name: "Dakotah H", email: "Dakotah@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl9: createPerson(
+    data: { name: "Tommy C", email: "Tommy@gmail.com", role: TL }
+  ) {
+    id
+  }
+  tl10: createPerson(
+    data: { name: "Kevin A", email: "Kevin@gmail.com", role: TL }
+  ) {
+    id
+  }
+
+  ## Create PMs
+  pm0: createPerson(data: { name: "Jess", email: "Jess@gmail.com", role: PM }) {
+    id
+  }
+  pm1: createPerson(
+    data: { name: "Parth", email: "Parth@gmail.com", role: PM }
+  ) {
+    id
+  }
+  pm2: createPerson(
+    data: { name: "Bernie", email: "Bernie@gmail.com", role: PM }
+  ) {
+    id
+  }
+
+  ## Create Web Developers
+
+  web0: createPerson(
+    data: { name: "Emma", email: "Emma@gmail.com", role: WEB }
+  ) {
+    id
+  }
+
+  ux0: createPerson(
+    data: { name: "Chance", email: "Chance@gmail.com", role: UX }
+  ) {
+    id
+  }
+
+  ## Create DS
+
+  ds0: createPerson(data: { name: "Coop", email: "Coop@gmail.com", role: DS }) {
+    id
+  }
+
+  # Create Program, Products, Projects
   createProgram(
     data: {
       name: "Lambda Labs"
       products: {
         create: [
           {
-            name: "Brew Plans"
-            project: {
+            name: "Mission Control"
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Brew Plans"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: {
-                            name: "Nicholas"
-                            email: "nicholas@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: {
-                            name: "Dakotah"
-                            email: "dakotah@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Tony", email: "tony@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Roy", email: "roy@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Kevin", email: "kevin@gmail.com" }
-                        }
-                      }
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Megan@gmail.com" } }
+                  team: {
+                    connect: [
+                      { email: "Emma@gmail.com" }
+                      { email: "Chance@gmail.com" }
+                      { email: "Coop@gmail.com" }
+                    ]
+                  }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -56,45 +129,17 @@ mutation {
           }
           {
             name: "City Data Comparison"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - City Data Comparison"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: { name: "Megan", email: "Megan@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: { name: "Aaron", email: "aaron@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: {
-                            name: "Viper"
-                            email: "viperrapper@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Alec", email: "alec@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Rae", email: "rae@gmail.com" }
-                        }
-                      }
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Alec@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -103,42 +148,17 @@ mutation {
           }
           {
             name: "Community Calendar"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Community Calendar"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: { name: "Ronny", email: "ronny@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: { name: "Basil", email: "basil@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Kyle", email: "kyle@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Jess", email: "jess@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Emma", email: "emma@gmail.com" }
-                        }
-                      }
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Aaron@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -147,54 +167,17 @@ mutation {
           }
           {
             name: "Connect Our Kids Social Worker"
-            project: {
+            projects: {
               create: [
                 {
                   name: "Labs 19 - Connect Our Kids Social Worker"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: {
-                            name: "Cherdley"
-                            email: "cherdley@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: { name: "Kyler", email: "kyler@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: {
-                            name: "The Homie"
-                            email: "homie@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: {
-                            name: "Anthony"
-                            email: "anthony@ballin.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: {
-                            name: "Project Pat"
-                            email: "projects@gmail.com"
-                          }
-                        }
-                      }
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Ami@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -202,46 +185,18 @@ mutation {
             }
           }
           {
-            name: "Cooking Recipe Source Control"
-            project: {
+            name: "Sauti - Databank"
+            projects: {
               create: [
                 {
-                  name: "Labs 19 - Cooking Recipe Source Control"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: { name: "Ami", email: "ami@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: { name: "Bailey", email: "bailey@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: {
-                            name: "Aaron"
-                            email: "aaron@galaxybrain.edu"
-                          }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Bella", email: "smella@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Corn", email: "corn@gmail.com" }
-                        }
-                      }
+                  name: "Labs 19 - Sauti - Databank"
+                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  teamLead: { connect: { email: "Nicholas@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -249,52 +204,18 @@ mutation {
             }
           }
           {
-            name: "Cryptolitic"
-            project: {
+            name: "Omega 2020"
+            projects: {
               create: [
                 {
-                  name: "Labs 19 - Cryptolitic"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: {
-                            name: "Catfish"
-                            email: "catfish@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: {
-                            name: "Paul Walker"
-                            email: "paul@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Bobby", email: "bobby@shmurda.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: {
-                            name: "Keith"
-                            email: "chiefkeith@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Raps", email: "bobby@raps.com" }
-                        }
-                      }
+                  name: "Labs 19 - Omega 2020"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Tony@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -302,43 +223,18 @@ mutation {
             }
           }
           {
-            name: "Flashcards"
-            project: {
+            name: "Quality Hub - Resume Q"
+            projects: {
               create: [
                 {
-                  name: "Labs 18 - Flashcards"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: { name: "Chance", email: "chance@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: { name: "Devin", email: "devin@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Steven", email: "steven@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Anise", email: "anise@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Bianca", email: "bianca@gmail.com" }
-                        }
-                      }
+                  name: "Labs 19 - Quality Hub - Resume Q"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Roy@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -346,43 +242,18 @@ mutation {
             }
           }
           {
-            name: "Forest Fire Watch"
-            project: {
+            name: "Hackaton Portal"
+            projects: {
               create: [
                 {
-                  name: "Labs 18 - Forest Fire Watch"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: { name: "Clay", email: "clay@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: { name: "Ryan", email: "ryan@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Unique", email: "unique@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Holdy", email: "holdy@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Parth", email: "parth@gmail.com" }
-                        }
-                      }
+                  name: "Labs 19 - Hackathon Portal"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Dakotah@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -390,49 +261,18 @@ mutation {
             }
           }
           {
-            name: "Hackathon Portal"
-            project: {
+            name: "Student Art Collection"
+            projects: {
               create: [
                 {
-                  name: "Labs 18 - Hackathon Portal"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: {
-                            name: "Berniez"
-                            email: "berniez@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: { name: "Laura", email: "laura@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: {
-                            name: "Charlie"
-                            email: "charlie@gmail.com"
-                          }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Ian", email: "ian@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Floss", email: "floss@gmail.com" }
-                        }
-                      }
+                  name: "Labs 19 - Student Art Collection"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Tommy@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Jess@gmail.com" }
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
@@ -440,43 +280,17 @@ mutation {
             }
           }
           {
-            name: "Mission Control"
-            project: {
+            name: "Well Done"
+            projects: {
               create: [
                 {
-                  name: "Labs 19 - Mission Control"
-                  roles: {
-                    create: [
-                      {
-                        name: "Section Lead"
-                        person: {
-                          create: { name: "Tommy", email: "tommy@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Team Lead"
-                        person: {
-                          create: { name: "Joseph", email: "joseph.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "cats", email: "cats@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Web"
-                        person: {
-                          create: { name: "Cooper", email: "cooper@gmail.com" }
-                        }
-                      }
-                      {
-                        name: "Ops"
-                        person: {
-                          create: { name: "Flask", email: "flask@gmail.com" }
-                        }
-                      }
+                  name: "Labs 19 - Well Done"
+                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  teamLead: { connect: { email: "Kevin@gmail.com" } }
+                  projectManagers: {
+                    connect: [
+                      { email: "Bernie@gmail.com" }
+                      { email: "Parth@gmail.com" }
                     ]
                   }
                 }
