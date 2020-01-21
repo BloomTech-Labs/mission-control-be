@@ -40,6 +40,7 @@ type Meeting {
 type Note {
   id: ID! @id
   title: String!
+  meeting: Meeting!
   content: String!
   author: Person!
 }
@@ -59,6 +60,7 @@ type Person {
   email: String! @unique
   role: Role!
   notes: [Note!]!
+  meetings: [Meeting!]
   manages: [Project!]! @relation(name: "ProjectManager")
   team: Project @relation(name: "Team")
   sl: [Project!]! @relation(name: "SectionLead")
