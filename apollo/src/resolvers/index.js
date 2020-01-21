@@ -11,6 +11,7 @@ const Project = require('./Project');
 const User = require('./User');
 const Meeting = require('./Meeting');
 const Note = require('./Note');
+const Person = require('./Person');
 
 const resolvers = {
   Query,
@@ -21,6 +22,7 @@ const resolvers = {
   User,
   Meeting,
   Note,
+  Person,
 };
 
 module.exports = resolvers;
