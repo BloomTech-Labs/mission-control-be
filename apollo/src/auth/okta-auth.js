@@ -23,9 +23,11 @@ const decodeToken = async req => {
   const token = match[1];
 
   try {
-    const { claims: Claims } = await O.verifyAccessToken(token, AUD);
-    const { Auth: claims, uid: id } = Claims;
-    return { id, claims };
+    const result = await O.verifyAccessToken(token, AUD);
+    const {
+      claims: { sub: email, Auth: claims, uid: id },
+    } = result;
+    return { id, claims, email };
   } catch (err) {
     throw new Error(err);
   }
@@ -35,8 +37,8 @@ const decodeToken = async req => {
 // Should eventually accept more than just OKTA as an auth provider.
 const constructOktaContext = async accessToken => {
   const token = `Bearer ${accessToken}`;
-  const { id, claims } = await decodeToken(token);
-  const user = { id, claims };
+  const { id, email, claims } = await decodeToken(token);
+  const user = { id, claims, email };
   return user;
 };
 

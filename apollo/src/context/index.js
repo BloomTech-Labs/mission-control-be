@@ -6,7 +6,7 @@ const constructOktaContext = require('../auth/okta-auth');
 
 const dummyUser = {
   id: 'ck5max4wb00180790dc38y4vx',
-  email: 'Nicholas@gmail.com',
+  email: 'nicholas.gebhart@gmail.com',
   claims: ['Project Manager'],
 };
 
@@ -18,6 +18,7 @@ const context = async ({ req }) => {
   const { authorization } = req.headers;
   if (authorization) {
     const user = await constructOktaContext(authorization);
+    console.log(user);
     return { ...req, user, prisma };
   }
 
