@@ -1,7 +1,7 @@
 // Queries must be defined to return fields of the same type
 // See the Query field in the type definitions for examples
 
-const info = (parent, args, context) => `Hello World`;
+const info = () => `Hello World`;
 
 const programs = (parent, args, context) => {
   const res = context.prisma.programs();
