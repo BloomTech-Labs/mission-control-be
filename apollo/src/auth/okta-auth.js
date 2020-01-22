@@ -37,8 +37,7 @@ const decodeToken = async req => {
 // Should eventually accept more than just OKTA as an auth provider.
 const constructOktaContext = async accessToken => {
   const token = `Bearer ${accessToken}`;
-  const { id, email, claims } = await decodeToken(token);
-  const user = { id, claims, email };
+  const user = await decodeToken(token);
   return user;
 };
 

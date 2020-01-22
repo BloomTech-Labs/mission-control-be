@@ -18,7 +18,6 @@ const context = async ({ req }) => {
   const { authorization } = req.headers;
   if (authorization) {
     const user = await constructOktaContext(authorization);
-    console.log(user);
     return { ...req, user, prisma };
   }
 
