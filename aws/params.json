@@ -9,7 +9,7 @@
   },
   {
     "ParameterKey": "ApplicationDomainNamespace",
-    "ParameterValue": "labsmc.net"
+    "ParameterValue": "use-mission-control.com"
   },
   {
     "ParameterKey": "ApolloDockerImage",
@@ -32,5 +32,3 @@
     "ParameterValue": "0oa23ze1sdfwtoKNQ357"
   }
 ]
-
-
