@@ -6,7 +6,7 @@ const constructOktaContext = require('../auth/okta-auth');
 
 const dummyUser = {
   id: 'ck5max4wb00180790dc38y4vx',
-  email: 'Nicholas@gmail.com',
+  email: 'nicholas.gebhart@gmail.com',
   claims: ['Project Manager'],
 };
 

@@ -1,5 +1,4 @@
-const projects = (parent, args, context) => {
-  const { email } = context.user;
+const projects = (_, _args, { user: { email }, prisma }) => {
   const where = {
     OR: [
       { sectionLead: { email } },
@@ -8,7 +7,7 @@ const projects = (parent, args, context) => {
       { team_some: { email_in: email } },
     ],
   };
-  const res = context.prisma.projects({
+  const res = prisma.projects({
     where,
   });
 

@@ -7,7 +7,6 @@ const typeDefs = gql`
     products: [Product!]!
     projects: [Project!]!
     persons: [Person!]!
-    project: [Project!]!
     me: User!
   }
 
@@ -16,8 +15,9 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createPerson(name: String!, email: String!, role: String!): Person!
-    addProjectSectionLead(id: ID!, email: String!): Project!
-    addProjectTeamLead(id: ID!, email: String!): Project!
+    addProjectSectionLead(id: ID!, email: String!): Person!
+    addProjectTeamLead(id: ID!, email: String!): Person!
+    addProjectMember(id: ID!, email: String!): Person!
   }
 
   type Program {
@@ -46,8 +46,25 @@ const typeDefs = gql`
     teamLead: Person
     projectManagers: [Person!]!
     team: [Person!]!
+    meetings: [Meeting!]!
     createdAt: String!
     updatedAt: String!
+  }
+
+  type Meeting {
+    id: ID!
+    title: String!
+    attendedBy: [Person!]!
+    project: Project!
+    notes: [Note!]!
+  }
+
+  type Note {
+    id: ID!
+    title: String!
+    content: String!
+    meeting: Meeting!
+    author: Person!
   }
 
   type Person {
@@ -55,6 +72,7 @@ const typeDefs = gql`
     name: String!
     email: String!
     role: Role!
+    notes: [Note!]!
     manages: [Project!]!
     team: Project
     sl: [Project!]!
