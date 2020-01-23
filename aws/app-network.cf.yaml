@@ -15,7 +15,7 @@ Parameters:
   ApplicationDomainNamespace:
     Type: String
     Description: The DNS domain namespace for the application (e.g. mycoolapplication.com)
-    AllowedPattern: ^[a-z0-9\-]*\.[a-z0-9\-]*$
+    AllowedPattern: ^[a-z0-9\-\.]*$
 
   ApolloServicePort:
     Type: Number
@@ -375,9 +375,7 @@ Resources:
     Type: AWS::ServiceDiscovery::PrivateDnsNamespace
     Properties:
       Name: !Sub private.${ApplicationDomainNamespace}
-      Vpc:
-        Fn::ImportValue:
-          !Sub ${ApplicationName}-VPCID
+      Vpc: !Ref VPC
 
 
 Outputs:

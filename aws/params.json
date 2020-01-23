@@ -9,7 +9,7 @@
   },
   {
     "ParameterKey": "ApplicationDomainNamespace",
-    "ParameterValue": "labsmc.net"
+    "ParameterValue": "mc.lambdaschool.com"
   },
   {
     "ParameterKey": "ApolloDockerImage",
