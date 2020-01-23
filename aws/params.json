@@ -8,8 +8,20 @@
     "ParameterValue": "stage"
   },
   {
-    "ParameterKey": "ApplicationCertificateArn",
-    "ParameterValue": "arn:aws:acm:us-east-1:576275871595:certificate/44c2ccb9-2333-43f8-8ad6-07a191c8ecfe"
+    "ParameterKey": "ApplicationDomainNamespace",
+    "ParameterValue": "mc.lambdaschool.com"
+  },
+  {
+    "ParameterKey": "ApolloDockerImage",
+    "ParameterValue": "lambdaschoollabs/missioncontrol:latest"
+  },
+  {
+    "ParameterKey": "ApolloServicePort",
+    "ParameterValue": "8000"
+  },
+  {
+    "ParameterKey": "PrismaServicePort",
+    "ParameterValue": "8000"
   },
   {
     "ParameterKey": "OAuthTokenEndpoint",
@@ -20,5 +32,3 @@
     "ParameterValue": "0oa23ze1sdfwtoKNQ357"
   }
 ]
-
-
