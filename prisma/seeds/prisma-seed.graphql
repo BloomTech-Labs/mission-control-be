@@ -1,7 +1,11 @@
-mutation createParents {
+mutation {
   # Create section leads
   sl1: createPerson(
-    data: { name: "Ronny Alvarado", email: "Ronny@gmail.com", role: SL }
+    data: {
+      name: "Ronny Alvarado"
+      email: "missioncontrolsectionlead@gmail.com"
+      role: SL
+    }
   ) {
     id
   }
@@ -61,7 +65,9 @@ mutation createParents {
   }
 
   ## Create PMs
-  pm0: createPerson(data: { name: "Jess", email: "Jess@gmail.com", role: PM }) {
+  pm0: createPerson(
+    data: { name: "Jess", email: "missioncontrolpm@gmail.com", role: PM }
+  ) {
     id
   }
   pm1: createPerson(
@@ -78,7 +84,11 @@ mutation createParents {
   ## Create Web Developers
 
   web0: createPerson(
-    data: { name: "Emma", email: "Emma@gmail.com", role: WEB }
+    data: {
+      name: "Nicholas Gebhart"
+      email: "missioncontrolstudent@gmail.com"
+      role: WEB
+    }
   ) {
     id
   }
@@ -106,23 +116,50 @@ mutation createParents {
             projects: {
               create: [
                 {
-                  name: "Labs 19 - Brew Plans"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  name: "Labs 19 - Mission Control"
+                  sectionLead: {
+                    connect: { email: "missioncontrolsectionlead@gmail.com" }
+                  }
+                  status: true
                   teamLead: { connect: { email: "Megan@gmail.com" } }
                   team: {
                     connect: [
-                      { email: "Emma@gmail.com" }
+                      { email: "missioncontrolstudent@gmail.com" }
                       { email: "Chance@gmail.com" }
                       { email: "Coop@gmail.com" }
                     ]
                   }
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
                   }
+                  # meetings: {
+                  #   create: {
+                  #     data: {
+                  #       title: "Meeting One"
+                  #       attendedBy: {
+                  #         connect: [
+                  #           { email: "missioncontrolpm@gmail.com" }
+                  #           { email: "Emma@gmail.com" }
+                  #           { email: "Chance@gmail.com" }
+                  #           { email: "Coop@gmail.com" }
+                  #         ]
+                  #       }
+                  #     }
+                  #     notes: {
+                  #       create: {
+                  #         data: {
+                  #           title: "Good Note"
+                  #           content: "Really Important and good work"
+                  #           author: { connect: { email: "missioncontrolpm@gmail.com" } }
+                  #         }
+                  #       }
+                  #     }
+                  # }
+                  # }
                 }
               ]
             }
@@ -133,11 +170,14 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - City Data Comparison"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "missioncontrolsectionlead@gmail.com" }
+                  }
+                  status: true
                   teamLead: { connect: { email: "Alec@gmail.com" } }
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
@@ -152,11 +192,13 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - Community Calendar"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "missioncontrolsectionlead@gmail.com" }
+                  }
                   teamLead: { connect: { email: "Aaron@gmail.com" } }
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
@@ -171,11 +213,13 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - Connect Our Kids Social Worker"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "missioncontrolsectionlead@gmail.com" }
+                  }
                   teamLead: { connect: { email: "Ami@gmail.com" } }
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
@@ -190,11 +234,14 @@ mutation createParents {
               create: [
                 {
                   name: "Labs 19 - Sauti - Databank"
-                  sectionLead: { connect: { email: "Ronny@gmail.com" } }
+                  status: true
+                  sectionLead: {
+                    connect: { email: "missioncontrolsectionlead@gmail.com" }
+                  }
                   teamLead: { connect: { email: "Nicholas@gmail.com" } }
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
@@ -213,7 +260,7 @@ mutation createParents {
                   teamLead: { connect: { email: "Tony@gmail.com" } }
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
@@ -232,7 +279,7 @@ mutation createParents {
                   teamLead: { connect: { email: "Roy@gmail.com" } }
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
@@ -251,7 +298,7 @@ mutation createParents {
                   teamLead: { connect: { email: "Dakotah@gmail.com" } }
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
@@ -268,9 +315,10 @@ mutation createParents {
                   name: "Labs 19 - Student Art Collection"
                   sectionLead: { connect: { email: "Levi@gmail.com" } }
                   teamLead: { connect: { email: "Tommy@gmail.com" } }
+                  status: true
                   projectManagers: {
                     connect: [
-                      { email: "Jess@gmail.com" }
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "Bernie@gmail.com" }
                       { email: "Parth@gmail.com" }
                     ]
