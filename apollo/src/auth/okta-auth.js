@@ -29,6 +29,7 @@ const decodeToken = async req => {
     } = result;
     return { id, claims, email };
   } catch (err) {
+    console.log(err);
     throw new Error(err);
   }
 };

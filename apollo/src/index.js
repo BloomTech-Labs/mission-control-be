@@ -11,7 +11,7 @@ const context = require('./context');
     cors: true,
   });
 
-  const { url } = await server.listen(PORT);
+  const { url } = await server.listen(process.env.PORT);
   // eslint-disable-next-line no-console
   console.log(url);
 })();
