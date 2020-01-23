@@ -7,8 +7,19 @@
 To get the server running locally:
 
 - Clone this repo
-- **yarn** to install all required dependencies
-- **yarn server** to start the local server
+- Ensure you have configured your environment variables as seen below
+- Export environment variables by running `source sourceme.sh`
+- Run `docker-compose up --build`
+
+The Apollo instance is listining on port 8000, and an authenticated prisma playground with documentation regarding the exposed methods can be found on port 7000. To authenticate and view the prisma playground:
+
+- Run `prisma token`
+- Copy the token and attach it to the HTTP headers inside the playground:
+```
+{
+"authorization": {token}
+}
+```
 
 ### Apollo Server
 
@@ -33,151 +44,90 @@ To get the server running locally:
 ```graphql
 server/prisma/datamodel.prisma
 
-type User {
-  id: ID! @id
-  name: String!
-}
-
 type Program {
   id: ID! @id
-  name: String!
+  name: String! @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  products: [Product]!
+  products: [Product!]!
 }
 
 type Product {
   id: ID! @id
   name: String!
+  program: Program!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  projects: [Project]!
+  projects: [Project!]!
 }
 
 type Project {
   id: ID! @id
   name: String!
+  product: Product!
+  status: Boolean @default(value: false)
+  sectionLead: Person @relation(link: INLINE, name: "SectionLead")
+  teamLead: Person @relation(link: INLINE, name: "TeamLead")
+  projectManagers: [Person!]! @relation(name: "ProjectManager")
+  team: [Person!]! @relation(name: "Team")
+  meetings: [Meeting!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  start: DateTime!
-  end: DateTime!
-  product: Product!
-  projectNotes: [ProjectNote]!
-  projectRoles: [ProjectRole]!
 }
 
-type ProjectNote {
+type Meeting {
   id: ID! @id
-  project: Project!
-  author: Person! @relation(name: "NoteAuthor")
   title: String!
+  attendedBy: [Person!]!
+  project: Project!
+  notes: [Note!]!
+}
+
+type Note {
+  id: ID! @id
+  title: String!
+  meeting: Meeting!
   content: String!
-  attendees: [Person] @relation(name: "MeetingAttendee")
-  performanceRating: Rating!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  author: Person!
 }
 
-enum Rating {
-  LOW
-  MEDIUM
-  HIGH
-}
-
-type Role {
-  id: ID! @id
-  title: String!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type ProjectRole {
-  id: ID! @id
-  person: Person!
-  project: Project!
-  role: Role!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type ProductRole {
-  id: ID! @id
-  person: Person!
-  product: Product!
-  role: Role!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type ProgramRole {
-  id: ID! @id
-  person: Person!
-  program: Program!
-  role: Role!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+enum Role {
+  SL
+  TL
+  WEB
+  DS
+  UX
+  PM
 }
 
 type Person {
   id: ID! @id
-  firstName: String!
-  lastName: String!
-  timeZone: TimeZone!
-  program: Program!
-  email: String!
-  githubId: String!
-  slackId: String!
-  avatarURL: String!
-}
-
-enum TimeZone {
-  PST
-  CST
-  EST
+  name: String!
+  email: String! @unique
+  role: Role!
+  notes: [Note!]!
+  meetings: [Meeting!]
+  manages: [Project!]! @relation(name: "ProjectManager")
+  team: Project @relation(name: "Team")
+  sl: [Project!]! @relation(name: "SectionLead")
+  tl: Project @relation(name: "TeamLead")
 }
 ```
 
 ### Authentication Services
 
-- Currently, the application only supports OKTA as an authentication service, but is written such that you may implement an authentication solution and implement the logic to decode the token inside of the middleware directory to attach a user object to the Apollo context object:
+- Currently, Mission Control only features support for OKTA authentication services, but should work with other providers in theory. Once the client makes a request of the API, a decoded user object is attached to context that holds information about the user's email and claims.
 
 ```javascript
-  const context = async ({ req }) => {
-    const { authorization } = req.headers;
-    if (authorization) {
-      const { type, accessToken } = JSON.parse(authorization);
-      switch (type) {
-        case 'OKTA': {
-          const contextObject = await constructOktaContext(
-            accessToken,
-            'Everyone',
-            prisma,
-            req,
-          );
-          return contextObject;
-        }
-      case 'OTHER_AUTH_SERVICE': {
-         // do something...
-        }
-      }
-     default:
-    }
-    return {
-      ...req,
-    };
-  };
+const context = async ({ req }) => {
+  const { authorization } = req.headers;
+  if (authorization) {
+    const user = await decodeToken(authorization);
+    return { ...req, user, prisma };
+  }
+  throw new Error('A valid token _must_ be provided!')
+};
 ```
-
-- The purpose of attaching the user object to context is to pluck out the authenticated user ID and provide an authorization solution for protected data.
-- The authorization headers come from the client-side containing a string such that it can be parsed to reveal an object of the following shape:
-
-```javascript
-{
- "token": {auth token, string},
- "type": {authentication service identifier, string}
-}
-```
-
 
 
 ## Environment Variables
@@ -186,8 +136,15 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-* OKTA_ISSUER_URL={OKTA issuer URI}
-* OKTA_CLIENT_ID={OKTA client ID}
+* OAUTH_TOKEN_ENDPOINT
+* OAUTH_CLIENT_ID
+* APPLICATION_NAME
+* ENVIRONMENT_NAME
+* TEST_OAUTH_CLIENT_ID
+* TEST_OAUTH_CLIENT_SECRET
+* PRISMA_MANAGEMENT_API_SECRET
+* PRISMA_ENDPOINT
+* PRISMA_SECRET
 
 
 ## Contributing
