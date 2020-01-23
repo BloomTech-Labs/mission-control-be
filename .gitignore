@@ -92,13 +92,15 @@ public
 # DynamoDB Local files
 .dynamodb/
 
-#serverless 
+#serverless
 serverless.yml
 
 .vscode
 
 out/
 dist/
+
+apollo/src/generated/
 
 # lockfiles
 yarn.lock

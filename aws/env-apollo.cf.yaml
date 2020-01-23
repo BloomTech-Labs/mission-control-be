@@ -78,7 +78,6 @@ Resources:
   Service:
     Type: AWS::ECS::Service
     Properties:
-      ServiceName: !Sub apollo-${EnvironmentName}
       LaunchType: FARGATE
       TaskDefinition: !Ref TaskDefinition
       Cluster:
@@ -97,3 +96,10 @@ Resources:
             - Fn::ImportValue: !Sub ${ApplicationName}-PrivateSubnet02
           SecurityGroups:
             - Fn::ImportValue: !Sub ${ApplicationName}-ServiceSG
+
+Outputs:
+  ApolloServiceArn:
+    Description: The ARN of the Apollo service
+    Value: !Ref Service
+    Export:
+      Name: !Sub ${ApplicationName}-${EnvironmentName}-ApolloServiceArn

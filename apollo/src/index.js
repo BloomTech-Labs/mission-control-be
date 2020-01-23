@@ -8,7 +8,6 @@ const context = require('./context');
     resolvers,
     typeDefs,
     context,
-    playground: false,
     cors: true,
   });
 

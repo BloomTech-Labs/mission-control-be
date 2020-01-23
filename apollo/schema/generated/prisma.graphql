@@ -1,3 +1,11 @@
+type AggregateMeeting {
+  count: Int!
+}
+
+type AggregateNote {
+  count: Int!
+}
+
 type AggregatePerson {
   count: Int!
 }
@@ -14,10 +22,6 @@ type AggregateProject {
   count: Int!
 }
 
-type AggregateProjectRole {
-  count: Int!
-}
-
 type BatchPayload {
   count: Long!
 }
@@ -26,7 +30,287 @@ scalar DateTime
 
 scalar Long
 
+type Meeting {
+  id: ID!
+  title: String!
+  attendedBy(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
+  project: Project!
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note!]
+}
+
+type MeetingConnection {
+  pageInfo: PageInfo!
+  edges: [MeetingEdge]!
+  aggregate: AggregateMeeting!
+}
+
+input MeetingCreateInput {
+  id: ID
+  title: String!
+  attendedBy: PersonCreateManyWithoutMeetingsInput
+  project: ProjectCreateOneWithoutMeetingsInput!
+  notes: NoteCreateManyWithoutMeetingInput
+}
+
+input MeetingCreateManyWithoutAttendedByInput {
+  create: [MeetingCreateWithoutAttendedByInput!]
+  connect: [MeetingWhereUniqueInput!]
+}
+
+input MeetingCreateManyWithoutProjectInput {
+  create: [MeetingCreateWithoutProjectInput!]
+  connect: [MeetingWhereUniqueInput!]
+}
+
+input MeetingCreateOneWithoutNotesInput {
+  create: MeetingCreateWithoutNotesInput
+  connect: MeetingWhereUniqueInput
+}
+
+input MeetingCreateWithoutAttendedByInput {
+  id: ID
+  title: String!
+  project: ProjectCreateOneWithoutMeetingsInput!
+  notes: NoteCreateManyWithoutMeetingInput
+}
+
+input MeetingCreateWithoutNotesInput {
+  id: ID
+  title: String!
+  attendedBy: PersonCreateManyWithoutMeetingsInput
+  project: ProjectCreateOneWithoutMeetingsInput!
+}
+
+input MeetingCreateWithoutProjectInput {
+  id: ID
+  title: String!
+  attendedBy: PersonCreateManyWithoutMeetingsInput
+  notes: NoteCreateManyWithoutMeetingInput
+}
+
+type MeetingEdge {
+  node: Meeting!
+  cursor: String!
+}
+
+enum MeetingOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+}
+
+type MeetingPreviousValues {
+  id: ID!
+  title: String!
+}
+
+input MeetingScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  AND: [MeetingScalarWhereInput!]
+  OR: [MeetingScalarWhereInput!]
+  NOT: [MeetingScalarWhereInput!]
+}
+
+type MeetingSubscriptionPayload {
+  mutation: MutationType!
+  node: Meeting
+  updatedFields: [String!]
+  previousValues: MeetingPreviousValues
+}
+
+input MeetingSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: MeetingWhereInput
+  AND: [MeetingSubscriptionWhereInput!]
+  OR: [MeetingSubscriptionWhereInput!]
+  NOT: [MeetingSubscriptionWhereInput!]
+}
+
+input MeetingUpdateInput {
+  title: String
+  attendedBy: PersonUpdateManyWithoutMeetingsInput
+  project: ProjectUpdateOneRequiredWithoutMeetingsInput
+  notes: NoteUpdateManyWithoutMeetingInput
+}
+
+input MeetingUpdateManyDataInput {
+  title: String
+}
+
+input MeetingUpdateManyMutationInput {
+  title: String
+}
+
+input MeetingUpdateManyWithoutAttendedByInput {
+  create: [MeetingCreateWithoutAttendedByInput!]
+  delete: [MeetingWhereUniqueInput!]
+  connect: [MeetingWhereUniqueInput!]
+  set: [MeetingWhereUniqueInput!]
+  disconnect: [MeetingWhereUniqueInput!]
+  update: [MeetingUpdateWithWhereUniqueWithoutAttendedByInput!]
+  upsert: [MeetingUpsertWithWhereUniqueWithoutAttendedByInput!]
+  deleteMany: [MeetingScalarWhereInput!]
+  updateMany: [MeetingUpdateManyWithWhereNestedInput!]
+}
+
+input MeetingUpdateManyWithoutProjectInput {
+  create: [MeetingCreateWithoutProjectInput!]
+  delete: [MeetingWhereUniqueInput!]
+  connect: [MeetingWhereUniqueInput!]
+  set: [MeetingWhereUniqueInput!]
+  disconnect: [MeetingWhereUniqueInput!]
+  update: [MeetingUpdateWithWhereUniqueWithoutProjectInput!]
+  upsert: [MeetingUpsertWithWhereUniqueWithoutProjectInput!]
+  deleteMany: [MeetingScalarWhereInput!]
+  updateMany: [MeetingUpdateManyWithWhereNestedInput!]
+}
+
+input MeetingUpdateManyWithWhereNestedInput {
+  where: MeetingScalarWhereInput!
+  data: MeetingUpdateManyDataInput!
+}
+
+input MeetingUpdateOneRequiredWithoutNotesInput {
+  create: MeetingCreateWithoutNotesInput
+  update: MeetingUpdateWithoutNotesDataInput
+  upsert: MeetingUpsertWithoutNotesInput
+  connect: MeetingWhereUniqueInput
+}
+
+input MeetingUpdateWithoutAttendedByDataInput {
+  title: String
+  project: ProjectUpdateOneRequiredWithoutMeetingsInput
+  notes: NoteUpdateManyWithoutMeetingInput
+}
+
+input MeetingUpdateWithoutNotesDataInput {
+  title: String
+  attendedBy: PersonUpdateManyWithoutMeetingsInput
+  project: ProjectUpdateOneRequiredWithoutMeetingsInput
+}
+
+input MeetingUpdateWithoutProjectDataInput {
+  title: String
+  attendedBy: PersonUpdateManyWithoutMeetingsInput
+  notes: NoteUpdateManyWithoutMeetingInput
+}
+
+input MeetingUpdateWithWhereUniqueWithoutAttendedByInput {
+  where: MeetingWhereUniqueInput!
+  data: MeetingUpdateWithoutAttendedByDataInput!
+}
+
+input MeetingUpdateWithWhereUniqueWithoutProjectInput {
+  where: MeetingWhereUniqueInput!
+  data: MeetingUpdateWithoutProjectDataInput!
+}
+
+input MeetingUpsertWithoutNotesInput {
+  update: MeetingUpdateWithoutNotesDataInput!
+  create: MeetingCreateWithoutNotesInput!
+}
+
+input MeetingUpsertWithWhereUniqueWithoutAttendedByInput {
+  where: MeetingWhereUniqueInput!
+  update: MeetingUpdateWithoutAttendedByDataInput!
+  create: MeetingCreateWithoutAttendedByInput!
+}
+
+input MeetingUpsertWithWhereUniqueWithoutProjectInput {
+  where: MeetingWhereUniqueInput!
+  update: MeetingUpdateWithoutProjectDataInput!
+  create: MeetingCreateWithoutProjectInput!
+}
+
+input MeetingWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  attendedBy_every: PersonWhereInput
+  attendedBy_some: PersonWhereInput
+  attendedBy_none: PersonWhereInput
+  project: ProjectWhereInput
+  notes_every: NoteWhereInput
+  notes_some: NoteWhereInput
+  notes_none: NoteWhereInput
+  AND: [MeetingWhereInput!]
+  OR: [MeetingWhereInput!]
+  NOT: [MeetingWhereInput!]
+}
+
+input MeetingWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
+  createMeeting(data: MeetingCreateInput!): Meeting!
+  updateMeeting(data: MeetingUpdateInput!, where: MeetingWhereUniqueInput!): Meeting
+  updateManyMeetings(data: MeetingUpdateManyMutationInput!, where: MeetingWhereInput): BatchPayload!
+  upsertMeeting(where: MeetingWhereUniqueInput!, create: MeetingCreateInput!, update: MeetingUpdateInput!): Meeting!
+  deleteMeeting(where: MeetingWhereUniqueInput!): Meeting
+  deleteManyMeetings(where: MeetingWhereInput): BatchPayload!
+  createNote(data: NoteCreateInput!): Note!
+  updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
+  updateManyNotes(data: NoteUpdateManyMutationInput!, where: NoteWhereInput): BatchPayload!
+  upsertNote(where: NoteWhereUniqueInput!, create: NoteCreateInput!, update: NoteUpdateInput!): Note!
+  deleteNote(where: NoteWhereUniqueInput!): Note
+  deleteManyNotes(where: NoteWhereInput): BatchPayload!
   createPerson(data: PersonCreateInput!): Person!
   updatePerson(data: PersonUpdateInput!, where: PersonWhereUniqueInput!): Person
   updateManyPersons(data: PersonUpdateManyMutationInput!, where: PersonWhereInput): BatchPayload!
@@ -51,12 +335,6 @@ type Mutation {
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
-  createProjectRole(data: ProjectRoleCreateInput!): ProjectRole!
-  updateProjectRole(data: ProjectRoleUpdateInput!, where: ProjectRoleWhereUniqueInput!): ProjectRole
-  updateManyProjectRoles(data: ProjectRoleUpdateManyMutationInput!, where: ProjectRoleWhereInput): BatchPayload!
-  upsertProjectRole(where: ProjectRoleWhereUniqueInput!, create: ProjectRoleCreateInput!, update: ProjectRoleUpdateInput!): ProjectRole!
-  deleteProjectRole(where: ProjectRoleWhereUniqueInput!): ProjectRole
-  deleteManyProjectRoles(where: ProjectRoleWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -67,6 +345,272 @@ enum MutationType {
 
 interface Node {
   id: ID!
+}
+
+type Note {
+  id: ID!
+  title: String!
+  meeting: Meeting!
+  content: String!
+  author: Person!
+}
+
+type NoteConnection {
+  pageInfo: PageInfo!
+  edges: [NoteEdge]!
+  aggregate: AggregateNote!
+}
+
+input NoteCreateInput {
+  id: ID
+  title: String!
+  meeting: MeetingCreateOneWithoutNotesInput!
+  content: String!
+  author: PersonCreateOneWithoutNotesInput!
+}
+
+input NoteCreateManyWithoutAuthorInput {
+  create: [NoteCreateWithoutAuthorInput!]
+  connect: [NoteWhereUniqueInput!]
+}
+
+input NoteCreateManyWithoutMeetingInput {
+  create: [NoteCreateWithoutMeetingInput!]
+  connect: [NoteWhereUniqueInput!]
+}
+
+input NoteCreateWithoutAuthorInput {
+  id: ID
+  title: String!
+  meeting: MeetingCreateOneWithoutNotesInput!
+  content: String!
+}
+
+input NoteCreateWithoutMeetingInput {
+  id: ID
+  title: String!
+  content: String!
+  author: PersonCreateOneWithoutNotesInput!
+}
+
+type NoteEdge {
+  node: Note!
+  cursor: String!
+}
+
+enum NoteOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  content_ASC
+  content_DESC
+}
+
+type NotePreviousValues {
+  id: ID!
+  title: String!
+  content: String!
+}
+
+input NoteScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  AND: [NoteScalarWhereInput!]
+  OR: [NoteScalarWhereInput!]
+  NOT: [NoteScalarWhereInput!]
+}
+
+type NoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Note
+  updatedFields: [String!]
+  previousValues: NotePreviousValues
+}
+
+input NoteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: NoteWhereInput
+  AND: [NoteSubscriptionWhereInput!]
+  OR: [NoteSubscriptionWhereInput!]
+  NOT: [NoteSubscriptionWhereInput!]
+}
+
+input NoteUpdateInput {
+  title: String
+  meeting: MeetingUpdateOneRequiredWithoutNotesInput
+  content: String
+  author: PersonUpdateOneRequiredWithoutNotesInput
+}
+
+input NoteUpdateManyDataInput {
+  title: String
+  content: String
+}
+
+input NoteUpdateManyMutationInput {
+  title: String
+  content: String
+}
+
+input NoteUpdateManyWithoutAuthorInput {
+  create: [NoteCreateWithoutAuthorInput!]
+  delete: [NoteWhereUniqueInput!]
+  connect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
+  disconnect: [NoteWhereUniqueInput!]
+  update: [NoteUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [NoteUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [NoteScalarWhereInput!]
+  updateMany: [NoteUpdateManyWithWhereNestedInput!]
+}
+
+input NoteUpdateManyWithoutMeetingInput {
+  create: [NoteCreateWithoutMeetingInput!]
+  delete: [NoteWhereUniqueInput!]
+  connect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
+  disconnect: [NoteWhereUniqueInput!]
+  update: [NoteUpdateWithWhereUniqueWithoutMeetingInput!]
+  upsert: [NoteUpsertWithWhereUniqueWithoutMeetingInput!]
+  deleteMany: [NoteScalarWhereInput!]
+  updateMany: [NoteUpdateManyWithWhereNestedInput!]
+}
+
+input NoteUpdateManyWithWhereNestedInput {
+  where: NoteScalarWhereInput!
+  data: NoteUpdateManyDataInput!
+}
+
+input NoteUpdateWithoutAuthorDataInput {
+  title: String
+  meeting: MeetingUpdateOneRequiredWithoutNotesInput
+  content: String
+}
+
+input NoteUpdateWithoutMeetingDataInput {
+  title: String
+  content: String
+  author: PersonUpdateOneRequiredWithoutNotesInput
+}
+
+input NoteUpdateWithWhereUniqueWithoutAuthorInput {
+  where: NoteWhereUniqueInput!
+  data: NoteUpdateWithoutAuthorDataInput!
+}
+
+input NoteUpdateWithWhereUniqueWithoutMeetingInput {
+  where: NoteWhereUniqueInput!
+  data: NoteUpdateWithoutMeetingDataInput!
+}
+
+input NoteUpsertWithWhereUniqueWithoutAuthorInput {
+  where: NoteWhereUniqueInput!
+  update: NoteUpdateWithoutAuthorDataInput!
+  create: NoteCreateWithoutAuthorInput!
+}
+
+input NoteUpsertWithWhereUniqueWithoutMeetingInput {
+  where: NoteWhereUniqueInput!
+  update: NoteUpdateWithoutMeetingDataInput!
+  create: NoteCreateWithoutMeetingInput!
+}
+
+input NoteWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  meeting: MeetingWhereInput
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  author: PersonWhereInput
+  AND: [NoteWhereInput!]
+  OR: [NoteWhereInput!]
+  NOT: [NoteWhereInput!]
+}
+
+input NoteWhereUniqueInput {
+  id: ID
 }
 
 type PageInfo {
@@ -80,6 +624,13 @@ type Person {
   id: ID!
   name: String!
   email: String!
+  role: Role!
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note!]
+  meetings(where: MeetingWhereInput, orderBy: MeetingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meeting!]
+  manages(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+  team: Project
+  sl(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
+  tl: Project
 }
 
 type PersonConnection {
@@ -92,11 +643,115 @@ input PersonCreateInput {
   id: ID
   name: String!
   email: String!
+  role: Role!
+  notes: NoteCreateManyWithoutAuthorInput
+  meetings: MeetingCreateManyWithoutAttendedByInput
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  team: ProjectCreateOneWithoutTeamInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
 }
 
-input PersonCreateOneInput {
-  create: PersonCreateInput
+input PersonCreateManyWithoutManagesInput {
+  create: [PersonCreateWithoutManagesInput!]
+  connect: [PersonWhereUniqueInput!]
+}
+
+input PersonCreateManyWithoutMeetingsInput {
+  create: [PersonCreateWithoutMeetingsInput!]
+  connect: [PersonWhereUniqueInput!]
+}
+
+input PersonCreateManyWithoutTeamInput {
+  create: [PersonCreateWithoutTeamInput!]
+  connect: [PersonWhereUniqueInput!]
+}
+
+input PersonCreateOneWithoutNotesInput {
+  create: PersonCreateWithoutNotesInput
   connect: PersonWhereUniqueInput
+}
+
+input PersonCreateOneWithoutSlInput {
+  create: PersonCreateWithoutSlInput
+  connect: PersonWhereUniqueInput
+}
+
+input PersonCreateOneWithoutTlInput {
+  create: PersonCreateWithoutTlInput
+  connect: PersonWhereUniqueInput
+}
+
+input PersonCreateWithoutManagesInput {
+  id: ID
+  name: String!
+  email: String!
+  role: Role!
+  notes: NoteCreateManyWithoutAuthorInput
+  meetings: MeetingCreateManyWithoutAttendedByInput
+  team: ProjectCreateOneWithoutTeamInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
+}
+
+input PersonCreateWithoutMeetingsInput {
+  id: ID
+  name: String!
+  email: String!
+  role: Role!
+  notes: NoteCreateManyWithoutAuthorInput
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  team: ProjectCreateOneWithoutTeamInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
+}
+
+input PersonCreateWithoutNotesInput {
+  id: ID
+  name: String!
+  email: String!
+  role: Role!
+  meetings: MeetingCreateManyWithoutAttendedByInput
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  team: ProjectCreateOneWithoutTeamInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
+}
+
+input PersonCreateWithoutSlInput {
+  id: ID
+  name: String!
+  email: String!
+  role: Role!
+  notes: NoteCreateManyWithoutAuthorInput
+  meetings: MeetingCreateManyWithoutAttendedByInput
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  team: ProjectCreateOneWithoutTeamInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
+}
+
+input PersonCreateWithoutTeamInput {
+  id: ID
+  name: String!
+  email: String!
+  role: Role!
+  notes: NoteCreateManyWithoutAuthorInput
+  meetings: MeetingCreateManyWithoutAttendedByInput
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
+  tl: ProjectCreateOneWithoutTeamLeadInput
+}
+
+input PersonCreateWithoutTlInput {
+  id: ID
+  name: String!
+  email: String!
+  role: Role!
+  notes: NoteCreateManyWithoutAuthorInput
+  meetings: MeetingCreateManyWithoutAttendedByInput
+  manages: ProjectCreateManyWithoutProjectManagersInput
+  team: ProjectCreateOneWithoutTeamInput
+  sl: ProjectCreateManyWithoutSectionLeadInput
 }
 
 type PersonEdge {
@@ -111,12 +766,67 @@ enum PersonOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  role_ASC
+  role_DESC
 }
 
 type PersonPreviousValues {
   id: ID!
   name: String!
   email: String!
+  role: Role!
+}
+
+input PersonScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  role: Role
+  role_not: Role
+  role_in: [Role!]
+  role_not_in: [Role!]
+  AND: [PersonScalarWhereInput!]
+  OR: [PersonScalarWhereInput!]
+  NOT: [PersonScalarWhereInput!]
 }
 
 type PersonSubscriptionPayload {
@@ -137,31 +847,208 @@ input PersonSubscriptionWhereInput {
   NOT: [PersonSubscriptionWhereInput!]
 }
 
-input PersonUpdateDataInput {
-  name: String
-  email: String
-}
-
 input PersonUpdateInput {
   name: String
   email: String
+  role: Role
+  notes: NoteUpdateManyWithoutAuthorInput
+  meetings: MeetingUpdateManyWithoutAttendedByInput
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  team: ProjectUpdateOneWithoutTeamInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
+}
+
+input PersonUpdateManyDataInput {
+  name: String
+  email: String
+  role: Role
 }
 
 input PersonUpdateManyMutationInput {
   name: String
   email: String
+  role: Role
 }
 
-input PersonUpdateOneRequiredInput {
-  create: PersonCreateInput
-  update: PersonUpdateDataInput
-  upsert: PersonUpsertNestedInput
+input PersonUpdateManyWithoutManagesInput {
+  create: [PersonCreateWithoutManagesInput!]
+  delete: [PersonWhereUniqueInput!]
+  connect: [PersonWhereUniqueInput!]
+  set: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  update: [PersonUpdateWithWhereUniqueWithoutManagesInput!]
+  upsert: [PersonUpsertWithWhereUniqueWithoutManagesInput!]
+  deleteMany: [PersonScalarWhereInput!]
+  updateMany: [PersonUpdateManyWithWhereNestedInput!]
+}
+
+input PersonUpdateManyWithoutMeetingsInput {
+  create: [PersonCreateWithoutMeetingsInput!]
+  delete: [PersonWhereUniqueInput!]
+  connect: [PersonWhereUniqueInput!]
+  set: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  update: [PersonUpdateWithWhereUniqueWithoutMeetingsInput!]
+  upsert: [PersonUpsertWithWhereUniqueWithoutMeetingsInput!]
+  deleteMany: [PersonScalarWhereInput!]
+  updateMany: [PersonUpdateManyWithWhereNestedInput!]
+}
+
+input PersonUpdateManyWithoutTeamInput {
+  create: [PersonCreateWithoutTeamInput!]
+  delete: [PersonWhereUniqueInput!]
+  connect: [PersonWhereUniqueInput!]
+  set: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  update: [PersonUpdateWithWhereUniqueWithoutTeamInput!]
+  upsert: [PersonUpsertWithWhereUniqueWithoutTeamInput!]
+  deleteMany: [PersonScalarWhereInput!]
+  updateMany: [PersonUpdateManyWithWhereNestedInput!]
+}
+
+input PersonUpdateManyWithWhereNestedInput {
+  where: PersonScalarWhereInput!
+  data: PersonUpdateManyDataInput!
+}
+
+input PersonUpdateOneRequiredWithoutNotesInput {
+  create: PersonCreateWithoutNotesInput
+  update: PersonUpdateWithoutNotesDataInput
+  upsert: PersonUpsertWithoutNotesInput
   connect: PersonWhereUniqueInput
 }
 
-input PersonUpsertNestedInput {
-  update: PersonUpdateDataInput!
-  create: PersonCreateInput!
+input PersonUpdateOneWithoutSlInput {
+  create: PersonCreateWithoutSlInput
+  update: PersonUpdateWithoutSlDataInput
+  upsert: PersonUpsertWithoutSlInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: PersonWhereUniqueInput
+}
+
+input PersonUpdateOneWithoutTlInput {
+  create: PersonCreateWithoutTlInput
+  update: PersonUpdateWithoutTlDataInput
+  upsert: PersonUpsertWithoutTlInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: PersonWhereUniqueInput
+}
+
+input PersonUpdateWithoutManagesDataInput {
+  name: String
+  email: String
+  role: Role
+  notes: NoteUpdateManyWithoutAuthorInput
+  meetings: MeetingUpdateManyWithoutAttendedByInput
+  team: ProjectUpdateOneWithoutTeamInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
+}
+
+input PersonUpdateWithoutMeetingsDataInput {
+  name: String
+  email: String
+  role: Role
+  notes: NoteUpdateManyWithoutAuthorInput
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  team: ProjectUpdateOneWithoutTeamInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
+}
+
+input PersonUpdateWithoutNotesDataInput {
+  name: String
+  email: String
+  role: Role
+  meetings: MeetingUpdateManyWithoutAttendedByInput
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  team: ProjectUpdateOneWithoutTeamInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
+}
+
+input PersonUpdateWithoutSlDataInput {
+  name: String
+  email: String
+  role: Role
+  notes: NoteUpdateManyWithoutAuthorInput
+  meetings: MeetingUpdateManyWithoutAttendedByInput
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  team: ProjectUpdateOneWithoutTeamInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
+}
+
+input PersonUpdateWithoutTeamDataInput {
+  name: String
+  email: String
+  role: Role
+  notes: NoteUpdateManyWithoutAuthorInput
+  meetings: MeetingUpdateManyWithoutAttendedByInput
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+  tl: ProjectUpdateOneWithoutTeamLeadInput
+}
+
+input PersonUpdateWithoutTlDataInput {
+  name: String
+  email: String
+  role: Role
+  notes: NoteUpdateManyWithoutAuthorInput
+  meetings: MeetingUpdateManyWithoutAttendedByInput
+  manages: ProjectUpdateManyWithoutProjectManagersInput
+  team: ProjectUpdateOneWithoutTeamInput
+  sl: ProjectUpdateManyWithoutSectionLeadInput
+}
+
+input PersonUpdateWithWhereUniqueWithoutManagesInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateWithoutManagesDataInput!
+}
+
+input PersonUpdateWithWhereUniqueWithoutMeetingsInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateWithoutMeetingsDataInput!
+}
+
+input PersonUpdateWithWhereUniqueWithoutTeamInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateWithoutTeamDataInput!
+}
+
+input PersonUpsertWithoutNotesInput {
+  update: PersonUpdateWithoutNotesDataInput!
+  create: PersonCreateWithoutNotesInput!
+}
+
+input PersonUpsertWithoutSlInput {
+  update: PersonUpdateWithoutSlDataInput!
+  create: PersonCreateWithoutSlInput!
+}
+
+input PersonUpsertWithoutTlInput {
+  update: PersonUpdateWithoutTlDataInput!
+  create: PersonCreateWithoutTlInput!
+}
+
+input PersonUpsertWithWhereUniqueWithoutManagesInput {
+  where: PersonWhereUniqueInput!
+  update: PersonUpdateWithoutManagesDataInput!
+  create: PersonCreateWithoutManagesInput!
+}
+
+input PersonUpsertWithWhereUniqueWithoutMeetingsInput {
+  where: PersonWhereUniqueInput!
+  update: PersonUpdateWithoutMeetingsDataInput!
+  create: PersonCreateWithoutMeetingsInput!
+}
+
+input PersonUpsertWithWhereUniqueWithoutTeamInput {
+  where: PersonWhereUniqueInput!
+  update: PersonUpdateWithoutTeamDataInput!
+  create: PersonCreateWithoutTeamInput!
 }
 
 input PersonWhereInput {
@@ -207,6 +1094,24 @@ input PersonWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  role: Role
+  role_not: Role
+  role_in: [Role!]
+  role_not_in: [Role!]
+  notes_every: NoteWhereInput
+  notes_some: NoteWhereInput
+  notes_none: NoteWhereInput
+  meetings_every: MeetingWhereInput
+  meetings_some: MeetingWhereInput
+  meetings_none: MeetingWhereInput
+  manages_every: ProjectWhereInput
+  manages_some: ProjectWhereInput
+  manages_none: ProjectWhereInput
+  team: ProjectWhereInput
+  sl_every: ProjectWhereInput
+  sl_some: ProjectWhereInput
+  sl_none: ProjectWhereInput
+  tl: ProjectWhereInput
   AND: [PersonWhereInput!]
   OR: [PersonWhereInput!]
   NOT: [PersonWhereInput!]
@@ -221,6 +1126,8 @@ type Product {
   id: ID!
   name: String!
   program: Program!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project!]
 }
 
@@ -269,11 +1176,17 @@ enum ProductOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ProductPreviousValues {
   id: ID!
   name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input ProductScalarWhereInput {
@@ -305,6 +1218,22 @@ input ProductScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ProductScalarWhereInput!]
   OR: [ProductScalarWhereInput!]
   NOT: [ProductScalarWhereInput!]
@@ -422,6 +1351,22 @@ input ProductWhereInput {
   name_ends_with: String
   name_not_ends_with: String
   program: ProgramWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   projects_every: ProjectWhereInput
   projects_some: ProjectWhereInput
   projects_none: ProjectWhereInput
@@ -592,8 +1537,14 @@ type Project {
   id: ID!
   name: String!
   product: Product!
-  status: Boolean!
-  roles(where: ProjectRoleWhereInput, orderBy: ProjectRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectRole!]
+  status: Boolean
+  sectionLead: Person
+  teamLead: Person
+  projectManagers(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
+  team(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
+  meetings(where: MeetingWhereInput, orderBy: MeetingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meeting!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ProjectConnection {
@@ -607,7 +1558,11 @@ input ProjectCreateInput {
   name: String!
   product: ProductCreateOneWithoutProjectsInput!
   status: Boolean
-  roles: ProjectRoleCreateManyWithoutProjectInput
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
+  team: PersonCreateManyWithoutTeamInput
+  meetings: MeetingCreateManyWithoutProjectInput
 }
 
 input ProjectCreateManyWithoutProductInput {
@@ -615,23 +1570,95 @@ input ProjectCreateManyWithoutProductInput {
   connect: [ProjectWhereUniqueInput!]
 }
 
-input ProjectCreateOneWithoutRolesInput {
-  create: ProjectCreateWithoutRolesInput
+input ProjectCreateManyWithoutProjectManagersInput {
+  create: [ProjectCreateWithoutProjectManagersInput!]
+  connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateManyWithoutSectionLeadInput {
+  create: [ProjectCreateWithoutSectionLeadInput!]
+  connect: [ProjectWhereUniqueInput!]
+}
+
+input ProjectCreateOneWithoutMeetingsInput {
+  create: ProjectCreateWithoutMeetingsInput
   connect: ProjectWhereUniqueInput
+}
+
+input ProjectCreateOneWithoutTeamInput {
+  create: ProjectCreateWithoutTeamInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectCreateOneWithoutTeamLeadInput {
+  create: ProjectCreateWithoutTeamLeadInput
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectCreateWithoutMeetingsInput {
+  id: ID
+  name: String!
+  product: ProductCreateOneWithoutProjectsInput!
+  status: Boolean
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
+  team: PersonCreateManyWithoutTeamInput
 }
 
 input ProjectCreateWithoutProductInput {
   id: ID
   name: String!
   status: Boolean
-  roles: ProjectRoleCreateManyWithoutProjectInput
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
+  team: PersonCreateManyWithoutTeamInput
+  meetings: MeetingCreateManyWithoutProjectInput
 }
 
-input ProjectCreateWithoutRolesInput {
+input ProjectCreateWithoutProjectManagersInput {
   id: ID
   name: String!
   product: ProductCreateOneWithoutProjectsInput!
   status: Boolean
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
+  team: PersonCreateManyWithoutTeamInput
+  meetings: MeetingCreateManyWithoutProjectInput
+}
+
+input ProjectCreateWithoutSectionLeadInput {
+  id: ID
+  name: String!
+  product: ProductCreateOneWithoutProjectsInput!
+  status: Boolean
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
+  team: PersonCreateManyWithoutTeamInput
+  meetings: MeetingCreateManyWithoutProjectInput
+}
+
+input ProjectCreateWithoutTeamInput {
+  id: ID
+  name: String!
+  product: ProductCreateOneWithoutProjectsInput!
+  status: Boolean
+  sectionLead: PersonCreateOneWithoutSlInput
+  teamLead: PersonCreateOneWithoutTlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
+  meetings: MeetingCreateManyWithoutProjectInput
+}
+
+input ProjectCreateWithoutTeamLeadInput {
+  id: ID
+  name: String!
+  product: ProductCreateOneWithoutProjectsInput!
+  status: Boolean
+  sectionLead: PersonCreateOneWithoutSlInput
+  projectManagers: PersonCreateManyWithoutManagesInput
+  team: PersonCreateManyWithoutTeamInput
+  meetings: MeetingCreateManyWithoutProjectInput
 }
 
 type ProjectEdge {
@@ -646,199 +1673,18 @@ enum ProjectOrderByInput {
   name_DESC
   status_ASC
   status_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ProjectPreviousValues {
   id: ID!
   name: String!
-  status: Boolean!
-}
-
-type ProjectRole {
-  id: ID!
-  name: String!
-  person: Person!
-  project: Project!
-}
-
-type ProjectRoleConnection {
-  pageInfo: PageInfo!
-  edges: [ProjectRoleEdge]!
-  aggregate: AggregateProjectRole!
-}
-
-input ProjectRoleCreateInput {
-  id: ID
-  name: String!
-  person: PersonCreateOneInput!
-  project: ProjectCreateOneWithoutRolesInput!
-}
-
-input ProjectRoleCreateManyWithoutProjectInput {
-  create: [ProjectRoleCreateWithoutProjectInput!]
-  connect: [ProjectRoleWhereUniqueInput!]
-}
-
-input ProjectRoleCreateWithoutProjectInput {
-  id: ID
-  name: String!
-  person: PersonCreateOneInput!
-}
-
-type ProjectRoleEdge {
-  node: ProjectRole!
-  cursor: String!
-}
-
-enum ProjectRoleOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-}
-
-type ProjectRolePreviousValues {
-  id: ID!
-  name: String!
-}
-
-input ProjectRoleScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  AND: [ProjectRoleScalarWhereInput!]
-  OR: [ProjectRoleScalarWhereInput!]
-  NOT: [ProjectRoleScalarWhereInput!]
-}
-
-type ProjectRoleSubscriptionPayload {
-  mutation: MutationType!
-  node: ProjectRole
-  updatedFields: [String!]
-  previousValues: ProjectRolePreviousValues
-}
-
-input ProjectRoleSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: ProjectRoleWhereInput
-  AND: [ProjectRoleSubscriptionWhereInput!]
-  OR: [ProjectRoleSubscriptionWhereInput!]
-  NOT: [ProjectRoleSubscriptionWhereInput!]
-}
-
-input ProjectRoleUpdateInput {
-  name: String
-  person: PersonUpdateOneRequiredInput
-  project: ProjectUpdateOneRequiredWithoutRolesInput
-}
-
-input ProjectRoleUpdateManyDataInput {
-  name: String
-}
-
-input ProjectRoleUpdateManyMutationInput {
-  name: String
-}
-
-input ProjectRoleUpdateManyWithoutProjectInput {
-  create: [ProjectRoleCreateWithoutProjectInput!]
-  delete: [ProjectRoleWhereUniqueInput!]
-  connect: [ProjectRoleWhereUniqueInput!]
-  set: [ProjectRoleWhereUniqueInput!]
-  disconnect: [ProjectRoleWhereUniqueInput!]
-  update: [ProjectRoleUpdateWithWhereUniqueWithoutProjectInput!]
-  upsert: [ProjectRoleUpsertWithWhereUniqueWithoutProjectInput!]
-  deleteMany: [ProjectRoleScalarWhereInput!]
-  updateMany: [ProjectRoleUpdateManyWithWhereNestedInput!]
-}
-
-input ProjectRoleUpdateManyWithWhereNestedInput {
-  where: ProjectRoleScalarWhereInput!
-  data: ProjectRoleUpdateManyDataInput!
-}
-
-input ProjectRoleUpdateWithoutProjectDataInput {
-  name: String
-  person: PersonUpdateOneRequiredInput
-}
-
-input ProjectRoleUpdateWithWhereUniqueWithoutProjectInput {
-  where: ProjectRoleWhereUniqueInput!
-  data: ProjectRoleUpdateWithoutProjectDataInput!
-}
-
-input ProjectRoleUpsertWithWhereUniqueWithoutProjectInput {
-  where: ProjectRoleWhereUniqueInput!
-  update: ProjectRoleUpdateWithoutProjectDataInput!
-  create: ProjectRoleCreateWithoutProjectInput!
-}
-
-input ProjectRoleWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  person: PersonWhereInput
-  project: ProjectWhereInput
-  AND: [ProjectRoleWhereInput!]
-  OR: [ProjectRoleWhereInput!]
-  NOT: [ProjectRoleWhereInput!]
-}
-
-input ProjectRoleWhereUniqueInput {
-  id: ID
+  status: Boolean
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input ProjectScalarWhereInput {
@@ -872,6 +1718,22 @@ input ProjectScalarWhereInput {
   name_not_ends_with: String
   status: Boolean
   status_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ProjectScalarWhereInput!]
   OR: [ProjectScalarWhereInput!]
   NOT: [ProjectScalarWhereInput!]
@@ -899,7 +1761,11 @@ input ProjectUpdateInput {
   name: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   status: Boolean
-  roles: ProjectRoleUpdateManyWithoutProjectInput
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
+  team: PersonUpdateManyWithoutTeamInput
+  meetings: MeetingUpdateManyWithoutProjectInput
 }
 
 input ProjectUpdateManyDataInput {
@@ -924,28 +1790,118 @@ input ProjectUpdateManyWithoutProductInput {
   updateMany: [ProjectUpdateManyWithWhereNestedInput!]
 }
 
+input ProjectUpdateManyWithoutProjectManagersInput {
+  create: [ProjectCreateWithoutProjectManagersInput!]
+  delete: [ProjectWhereUniqueInput!]
+  connect: [ProjectWhereUniqueInput!]
+  set: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutProjectManagersInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutProjectManagersInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+}
+
+input ProjectUpdateManyWithoutSectionLeadInput {
+  create: [ProjectCreateWithoutSectionLeadInput!]
+  delete: [ProjectWhereUniqueInput!]
+  connect: [ProjectWhereUniqueInput!]
+  set: [ProjectWhereUniqueInput!]
+  disconnect: [ProjectWhereUniqueInput!]
+  update: [ProjectUpdateWithWhereUniqueWithoutSectionLeadInput!]
+  upsert: [ProjectUpsertWithWhereUniqueWithoutSectionLeadInput!]
+  deleteMany: [ProjectScalarWhereInput!]
+  updateMany: [ProjectUpdateManyWithWhereNestedInput!]
+}
+
 input ProjectUpdateManyWithWhereNestedInput {
   where: ProjectScalarWhereInput!
   data: ProjectUpdateManyDataInput!
 }
 
-input ProjectUpdateOneRequiredWithoutRolesInput {
-  create: ProjectCreateWithoutRolesInput
-  update: ProjectUpdateWithoutRolesDataInput
-  upsert: ProjectUpsertWithoutRolesInput
+input ProjectUpdateOneRequiredWithoutMeetingsInput {
+  create: ProjectCreateWithoutMeetingsInput
+  update: ProjectUpdateWithoutMeetingsDataInput
+  upsert: ProjectUpsertWithoutMeetingsInput
   connect: ProjectWhereUniqueInput
+}
+
+input ProjectUpdateOneWithoutTeamInput {
+  create: ProjectCreateWithoutTeamInput
+  update: ProjectUpdateWithoutTeamDataInput
+  upsert: ProjectUpsertWithoutTeamInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectUpdateOneWithoutTeamLeadInput {
+  create: ProjectCreateWithoutTeamLeadInput
+  update: ProjectUpdateWithoutTeamLeadDataInput
+  upsert: ProjectUpsertWithoutTeamLeadInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ProjectWhereUniqueInput
+}
+
+input ProjectUpdateWithoutMeetingsDataInput {
+  name: String
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  status: Boolean
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
+  team: PersonUpdateManyWithoutTeamInput
 }
 
 input ProjectUpdateWithoutProductDataInput {
   name: String
   status: Boolean
-  roles: ProjectRoleUpdateManyWithoutProjectInput
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
+  team: PersonUpdateManyWithoutTeamInput
+  meetings: MeetingUpdateManyWithoutProjectInput
 }
 
-input ProjectUpdateWithoutRolesDataInput {
+input ProjectUpdateWithoutProjectManagersDataInput {
   name: String
   product: ProductUpdateOneRequiredWithoutProjectsInput
   status: Boolean
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  team: PersonUpdateManyWithoutTeamInput
+  meetings: MeetingUpdateManyWithoutProjectInput
+}
+
+input ProjectUpdateWithoutSectionLeadDataInput {
+  name: String
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  status: Boolean
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
+  team: PersonUpdateManyWithoutTeamInput
+  meetings: MeetingUpdateManyWithoutProjectInput
+}
+
+input ProjectUpdateWithoutTeamDataInput {
+  name: String
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  status: Boolean
+  sectionLead: PersonUpdateOneWithoutSlInput
+  teamLead: PersonUpdateOneWithoutTlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
+  meetings: MeetingUpdateManyWithoutProjectInput
+}
+
+input ProjectUpdateWithoutTeamLeadDataInput {
+  name: String
+  product: ProductUpdateOneRequiredWithoutProjectsInput
+  status: Boolean
+  sectionLead: PersonUpdateOneWithoutSlInput
+  projectManagers: PersonUpdateManyWithoutManagesInput
+  team: PersonUpdateManyWithoutTeamInput
+  meetings: MeetingUpdateManyWithoutProjectInput
 }
 
 input ProjectUpdateWithWhereUniqueWithoutProductInput {
@@ -953,15 +1909,47 @@ input ProjectUpdateWithWhereUniqueWithoutProductInput {
   data: ProjectUpdateWithoutProductDataInput!
 }
 
-input ProjectUpsertWithoutRolesInput {
-  update: ProjectUpdateWithoutRolesDataInput!
-  create: ProjectCreateWithoutRolesInput!
+input ProjectUpdateWithWhereUniqueWithoutProjectManagersInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutProjectManagersDataInput!
+}
+
+input ProjectUpdateWithWhereUniqueWithoutSectionLeadInput {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateWithoutSectionLeadDataInput!
+}
+
+input ProjectUpsertWithoutMeetingsInput {
+  update: ProjectUpdateWithoutMeetingsDataInput!
+  create: ProjectCreateWithoutMeetingsInput!
+}
+
+input ProjectUpsertWithoutTeamInput {
+  update: ProjectUpdateWithoutTeamDataInput!
+  create: ProjectCreateWithoutTeamInput!
+}
+
+input ProjectUpsertWithoutTeamLeadInput {
+  update: ProjectUpdateWithoutTeamLeadDataInput!
+  create: ProjectCreateWithoutTeamLeadInput!
 }
 
 input ProjectUpsertWithWhereUniqueWithoutProductInput {
   where: ProjectWhereUniqueInput!
   update: ProjectUpdateWithoutProductDataInput!
   create: ProjectCreateWithoutProductInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutProjectManagersInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutProjectManagersDataInput!
+  create: ProjectCreateWithoutProjectManagersInput!
+}
+
+input ProjectUpsertWithWhereUniqueWithoutSectionLeadInput {
+  where: ProjectWhereUniqueInput!
+  update: ProjectUpdateWithoutSectionLeadDataInput!
+  create: ProjectCreateWithoutSectionLeadInput!
 }
 
 input ProjectWhereInput {
@@ -996,9 +1984,33 @@ input ProjectWhereInput {
   product: ProductWhereInput
   status: Boolean
   status_not: Boolean
-  roles_every: ProjectRoleWhereInput
-  roles_some: ProjectRoleWhereInput
-  roles_none: ProjectRoleWhereInput
+  sectionLead: PersonWhereInput
+  teamLead: PersonWhereInput
+  projectManagers_every: PersonWhereInput
+  projectManagers_some: PersonWhereInput
+  projectManagers_none: PersonWhereInput
+  team_every: PersonWhereInput
+  team_some: PersonWhereInput
+  team_none: PersonWhereInput
+  meetings_every: MeetingWhereInput
+  meetings_some: MeetingWhereInput
+  meetings_none: MeetingWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ProjectWhereInput!]
   OR: [ProjectWhereInput!]
   NOT: [ProjectWhereInput!]
@@ -1009,6 +2021,12 @@ input ProjectWhereUniqueInput {
 }
 
 type Query {
+  meeting(where: MeetingWhereUniqueInput!): Meeting
+  meetings(where: MeetingWhereInput, orderBy: MeetingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meeting]!
+  meetingsConnection(where: MeetingWhereInput, orderBy: MeetingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MeetingConnection!
+  note(where: NoteWhereUniqueInput!): Note
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
+  notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
   person(where: PersonWhereUniqueInput!): Person
   persons(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person]!
   personsConnection(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PersonConnection!
@@ -1021,16 +2039,23 @@ type Query {
   project(where: ProjectWhereUniqueInput!): Project
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
-  projectRole(where: ProjectRoleWhereUniqueInput!): ProjectRole
-  projectRoles(where: ProjectRoleWhereInput, orderBy: ProjectRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ProjectRole]!
-  projectRolesConnection(where: ProjectRoleWhereInput, orderBy: ProjectRoleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectRoleConnection!
   node(id: ID!): Node
 }
 
+enum Role {
+  SL
+  TL
+  WEB
+  DS
+  UX
+  PM
+}
+
 type Subscription {
+  meeting(where: MeetingSubscriptionWhereInput): MeetingSubscriptionPayload
+  note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
   person(where: PersonSubscriptionWhereInput): PersonSubscriptionPayload
   product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
   program(where: ProgramSubscriptionWhereInput): ProgramSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
-  projectRole(where: ProjectRoleSubscriptionWhereInput): ProjectRoleSubscriptionPayload
 }
