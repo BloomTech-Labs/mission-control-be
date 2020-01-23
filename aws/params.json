@@ -9,7 +9,7 @@
   },
   {
     "ParameterKey": "ApplicationDomainNamespace",
-    "ParameterValue": "missionctrl.dev"
+    "ParameterValue": "mc.lambdaschool.com"
   },
   {
     "ParameterKey": "ApolloDockerImage",
