@@ -17,14 +17,6 @@ Parameters:
     Description: The DNS domain namespace for the application (e.g. mycoolapplication.com)
     AllowedPattern: ^[a-z0-9\-]*\.[a-z0-9\-]*$
 
-  ApolloServicePort:
-    Type: Number
-    Description: The port that the Apollo service will be listening on
-  
-  PrismaServicePort:
-    Type: Number
-    Description: The port that the Prisma service will be listening on
-
 Conditions:
   IsProductionEnvironment: !Equals [ !Ref EnvironmentName, production ]
 

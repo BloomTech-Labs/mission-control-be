@@ -9,7 +9,7 @@
   },
   {
     "ParameterKey": "ApplicationDomainNamespace",
-    "ParameterValue": "labsmc.net"
+    "ParameterValue": "missionctrl.dev"
   },
   {
     "ParameterKey": "ApolloDockerImage",

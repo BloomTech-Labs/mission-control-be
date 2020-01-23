@@ -64,21 +64,21 @@ local-prisma-token:
 # = Apollo targets ================================================
 # =================================================================
 
-apollo-docker-build: prisma-generate
+apollo-docker-build: env-APOLLO_CONTAINER_IMAGE prisma-generate 
 	@printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Building Apollo container image"																												&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 cd apollo && docker build -t lambdaschoollabs/missioncontrol:latest .
+	 cd apollo && docker build -t ${APOLLO_CONTAINER_IMAGE} .
 
-apollo-push: apollo-docker-build
+apollo-push: env-APOLLO_CONTAINER_IMAGE apollo-docker-build
 	@printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Pushing Apollo container image"																													&& \
-	 printf "%s\n"     "======================================================================================"	&& \
+	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 cd apollo && docker push lambdaschoollabs/missioncontrol:latest
+	 cd apollo && docker push ${APOLLO_CONTAINER_IMAGE}
 
 apollo-token: env-TEST_OAUTH_TOKEN_ENDPOINT env-TEST_OAUTH_CLIENT_ID env-TEST_OAUTH_CLIENT_SECRET
 	@echo
@@ -87,6 +87,22 @@ apollo-token: env-TEST_OAUTH_TOKEN_ENDPOINT env-TEST_OAUTH_CLIENT_ID env-TEST_OA
 		--url ${TEST_OAUTH_TOKEN_ENDPOINT}/v1/token \
 		--header 'content-type: application/x-www-form-urlencoded' \
 		--data 'grant_type=client_credentials&scope=groups' -u ${TEST_OAUTH_CLIENT_ID}:${TEST_OAUTH_CLIENT_SECRET}
+
+# =================================================================
+# Force an update of the Apollo service in AWS
+# =================================================================
+APOLLO_SERVICE_ARN_EXPORT := mission-control-stage-ApolloServiceArn
+APOLLO_SERVICE_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(APOLLO_SERVICE_ARN_EXPORT)`].Value' --output text)
+
+aws-apollo-update-service: aws-banner
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Updating the Apollo service"													   																&& \
+	 printf "%s"     "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"																																												&& \
+	 cd aws 																																																		&& \
+	 export APOLLO_SERVICE_ARN=$(APOLLO_SERVICE_ARN) && \
+	 aws ecs update-service --cluster mission-control-stage --service "$${APOLLO_SERVICE_ARN}" --force-new-deployment
 
 
 # =================================================================
@@ -134,6 +150,10 @@ aws-deploy-app-network: aws-banner
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Deploying CloudFormation stack $${AWS_STACK_NAME}"																			&& \
+	 printf "$(WARN_COLOR)"																																											&& \
+	 printf "%s\n"   "= Note: This will create a hosted zone for your domain. You may need to stop here and"		&& \
+	 printf "%s\n"   "=       update your domain registrar with the name servers for this hosted zone."					&& \
+	 printf "$(OK_COLOR)"																																												&& \
 	 printf "%s"     "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
 	 cd aws 																																																		&& \
@@ -153,10 +173,6 @@ aws-deploy-env-dns: aws-banner
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Deploying CloudFormation stack $${AWS_STACK_NAME}"																			&& \
-	 printf "$(WARN_COLOR)"																																											&& \
-	 printf "%s\n"   "= Note: This will create a hosted zone for your domain. You may need to stop here and"		&& \
-	 printf "%s\n"   "=       update your domain registrar with the name servers for this hosted zone."					&& \
-	 printf "$(OK_COLOR)"																																												&& \
 	 printf "%s"     "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
 	 cd aws 																																																		&& \
@@ -284,11 +300,10 @@ aws-deploy-env: aws-deploy-env-dns aws-deploy-env-certificate aws-deploy-env-net
 # Retrieves the Prisma secret for the AWS deployed Prisma management API
 # ===========================================================================
 PRISMA_MANAGEMENT_API_SECRET_ARN_EXPORT := mission-control-stage-PrismaManagementAPISecret
-PRISMA_MANAGEMENT_API_SECRET_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==\`$(PRISMA_MANAGEMENT_API_SECRET_ARN_EXPORT)\`].Value' --output text)
+PRISMA_MANAGEMENT_API_SECRET_ARN := $$(aws cloudformation list-exports --query "Exports[?Name=='$(PRISMA_MANAGEMENT_API_SECRET_ARN_EXPORT)'].Value" --output text)
 PRISMA_MANAGEMENT_API_SECRET := $$(aws secretsmanager get-secret-value --secret-id $(PRISMA_MANAGEMENT_API_SECRET_ARN) --query 'SecretString' --output text)
 
 aws-prisma-management-secret: aws-banner
-	@echo PRISMA_MANAGEMENT_API_SECRET_ARN: $(PRISMA_MANAGEMENT_API_SECRET_ARN)
 	@echo PRISMA_MANAGEMENT_API_SECRET: $(PRISMA_MANAGEMENT_API_SECRET)
 
 
@@ -296,34 +311,45 @@ aws-prisma-management-secret: aws-banner
 # Retrieves the Prisma secret for the AWS deployed service
 # ===========================================================================
 PRISMA_SERVICE_API_SECRET_ARN_EXPORT := mission-control-stage-PrismaServiceAPISecret
-PRISMA_SERVICE_API_SECRET_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(PRISMA_SERVICE_API_SECRET_ARN_EXPORT)`].Value' --output text)
+PRISMA_SERVICE_API_SECRET_ARN := $$(aws cloudformation list-exports --query "Exports[?Name=='$(PRISMA_SERVICE_API_SECRET_ARN_EXPORT)'].Value" --output text)
 PRISMA_SERVICE_API_SECRET := $$(aws secretsmanager get-secret-value --secret-id $(PRISMA_SERVICE_API_SECRET_ARN) --query 'SecretString' --output text)
 
 aws-prisma-service-secret: aws-banner
-	@echo PRISMA_SERVICE_API_SECRET_ARN: $(PRISMA_SERVICE_API_SECRET_ARN)
 	@echo PRISMA_SERVICE_API_SECRET: $(PRISMA_SERVICE_API_SECRET)
 
 
 # ===========================================================================
 # Gets a token for connecting to the AWS Prisma API
 # ===========================================================================
-aws-prisma-token: aws-banner
-	@cd prisma && \
-	export PRISMA_MANAGEMENT_API_SECRET='$(PRISMA_MANAGEMENT_API_SECRET)' && \
-	export PRISMA_SECRET='$(PRISMA_SERVICE_API_SECRET)' && \
-	export PRISMA_ENDPOINT="https://prisma-stage.use-mission-control.com/" && \
-	prisma token
+aws-prisma-token: aws-banner env-PRISMA_ENDPOINT #aws-prisma-service-secret aws-prisma-management-secret
+	@export PRISMA_MANAGEMENT_API_SECRET="$(PRISMA_MANAGEMENT_API_SECRET)"																			&& \
+	 export PRISMA_SECRET="$(PRISMA_SERVICE_API_SECRET)" 																												&& \
+	 export PRISMA_ENDPOINT='$(PRISMA_ENDPOINT)' 																																&& \
+	 printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Getting Prisma API token from $${PRISMA_ENDPOINT}"		   																&& \
+	 printf "%s"     "======================================================================================"		&& \
+	 printf "$(NO_COLOR)\n"																																											&& \
+	 printf "%s\n" "PRISMA_MANAGEMENT_API_SECRET: $${PRISMA_MANAGEMENT_API_SECRET}"															&& \
+	 printf "%s\n" "PRISMA_SECRET: $${PRISMA_SECRET}"																														&& \
+	 cd prisma && prisma token
 
 
 # ===========================================================================
 # Runs Prisma deploy against the AWS environment
 # ===========================================================================
-aws-prisma-deploy: aws-banner
-	@cd prisma && \
-	export PRISMA_MANAGEMENT_API_SECRET='$(PRISMA_MANAGEMENT_API_SECRET)' && \
-	export PRISMA_SECRET='$(PRISMA_SERVICE_API_SECRET)' && \
-	export PRISMA_ENDPOINT='https://prisma-stage.use-mission-control.com/' && \
-	prisma deploy
+aws-prisma-deploy: aws-banner env-PRISMA_ENDPOINT
+	@export PRISMA_MANAGEMENT_API_SECRET="$(PRISMA_MANAGEMENT_API_SECRET)"																			&& \
+	 export PRISMA_SECRET="$(PRISMA_SERVICE_API_SECRET)" 																												&& \
+	 export PRISMA_ENDPOINT='$(PRISMA_ENDPOINT)' 																																&& \
+	 printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Deploying Prisma datamodel to $${PRISMA_ENDPOINT}"		   																&& \
+	 printf "%s"     "======================================================================================"		&& \
+	 printf "$(NO_COLOR)\n"																																											&& \
+	 printf "%s\n" "PRISMA_MANAGEMENT_API_SECRET: $${PRISMA_MANAGEMENT_API_SECRET}"															&& \
+	 printf "%s\n" "PRISMA_SECRET: $${PRISMA_SECRET}"																														&& \
+	 cd prisma && prisma deploy
 
 
 # =================================================================
@@ -337,19 +363,3 @@ aws-prisma-update-service: aws-banner
 	echo PRISMA_SERVICE_ARN: $${PRISMA_SERVICE_ARN} && \
 	aws ecs update-service --cluster mission-control-stage --service "$${PRISMA_SERVICE_ARN}" --force-new-deployment
 
-
-# =================================================================
-# Force an update of the Apollo service
-# =================================================================
-APOLLO_SERVICE_ARN_EXPORT := mission-control-stage-ApolloServiceArn
-APOLLO_SERVICE_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(APOLLO_SERVICE_ARN_EXPORT)`].Value' --output text)
-
-aws-apollo-update-service: aws-banner
-	@printf "$(OK_COLOR)"																																												&& \
-	 printf "\n%s\n" "======================================================================================"		&& \
-	 printf "%s\n"   "= Updating the Apollo service"													   																&& \
-	 printf "%s"     "======================================================================================"		&& \
-	 printf "$(NO_COLOR)"																																												&& \
-	 cd aws 																																																		&& \
-	 export APOLLO_SERVICE_ARN=$(APOLLO_SERVICE_ARN) && \
-	 aws ecs update-service --cluster mission-control-stage --service "$${APOLLO_SERVICE_ARN}" --force-new-deployment
