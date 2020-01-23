@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Description: A very simple VPC for hosting an application
 
 Parameters:
@@ -11,7 +11,7 @@ Parameters:
     Type: String
     AllowedPattern: '((\d{1,3})\.){3}\d{1,3}/\d{1,2}'
     Default: 10.0.0.0/16
-  
+
   ApplicationDomainNamespace:
     Type: String
     Description: The DNS domain namespace for the application (e.g. mycoolapplication.com)
@@ -20,7 +20,7 @@ Parameters:
   ApolloServicePort:
     Type: Number
     Description: The port that the Apollo service will be listening on
-  
+
   PrismaServicePort:
     Type: Number
     Description: The port that the Prisma service will be listening on
@@ -48,7 +48,7 @@ Resources:
       ResourceType: VPC
       TrafficType: ALL
 
-  CloudTrailBucket: 
+  CloudTrailBucket:
     Type: AWS::S3::Bucket
     Properties:
       LifecycleConfiguration:
@@ -56,44 +56,40 @@ Resources:
           - Status: Enabled
             ExpirationInDays: 14
 
-  CloudTrailBucketPolicy: 
+  CloudTrailBucketPolicy:
     Type: AWS::S3::BucketPolicy
-    Properties: 
-      Bucket: 
+    Properties:
+      Bucket:
         Ref: CloudTrailBucket
-      PolicyDocument: 
-        Version: "2012-10-17"
-        Statement: 
-          - 
-            Sid: "AWSCloudTrailAclCheck"
-            Effect: "Allow"
-            Principal: 
-              Service: "cloudtrail.amazonaws.com"
-            Action: "s3:GetBucketAcl"
-            Resource: 
-              !Sub arn:aws:s3:::${CloudTrailBucket}
-          - 
-            Sid: "AWSCloudTrailWrite"
-            Effect: "Allow"
-            Principal: 
-              Service: "cloudtrail.amazonaws.com"
-            Action: "s3:PutObject"
-            Resource:
-              !Sub arn:aws:s3:::${CloudTrailBucket}/AWSLogs/${AWS::AccountId}/*
-            Condition: 
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: 'AWSCloudTrailAclCheck'
+            Effect: 'Allow'
+            Principal:
+              Service: 'cloudtrail.amazonaws.com'
+            Action: 's3:GetBucketAcl'
+            Resource: !Sub arn:aws:s3:::${CloudTrailBucket}
+          - Sid: 'AWSCloudTrailWrite'
+            Effect: 'Allow'
+            Principal:
+              Service: 'cloudtrail.amazonaws.com'
+            Action: 's3:PutObject'
+            Resource: !Sub arn:aws:s3:::${CloudTrailBucket}/AWSLogs/${AWS::AccountId}/*
+            Condition:
               StringEquals:
-                s3:x-amz-acl: "bucket-owner-full-control"
+                s3:x-amz-acl: 'bucket-owner-full-control'
 
   CloudTrailLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       RetentionInDays: 14
-      
-  CloudTrail: 
+
+  CloudTrail:
     Type: AWS::CloudTrail::Trail
-    DependsOn: 
+    DependsOn:
       - CloudTrailBucketPolicy
-    Properties: 
+    Properties:
       S3BucketName: !Ref CloudTrailBucket
       CloudWatchLogsLogGroupArn: !GetAtt CloudTrailLogGroup.Arn
       CloudWatchLogsRoleArn:
@@ -114,8 +110,8 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: "10.0.10.0/24"
-      AvailabilityZone: !Select 
+      CidrBlock: '10.0.10.0/24'
+      AvailabilityZone: !Select
         - 0
         - Fn::GetAZs: !Ref 'AWS::Region'
       Tags:
@@ -126,8 +122,8 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: "10.0.20.0/24"
-      AvailabilityZone: !Select 
+      CidrBlock: '10.0.20.0/24'
+      AvailabilityZone: !Select
         - 1
         - Fn::GetAZs: !Ref 'AWS::Region'
       Tags:
@@ -137,8 +133,8 @@ Resources:
   PublicSubnetNACL:
     Type: AWS::EC2::NetworkAcl
     Properties:
-        VpcId: !Ref VPC
-  
+      VpcId: !Ref VPC
+
   PublicSubnetNACLIngressHTTP:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
@@ -151,7 +147,7 @@ Resources:
       PortRange:
         From: 80
         To: 80
-  
+
   PublicSubnetNACLIngressHTTPS:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
@@ -237,14 +233,14 @@ Resources:
       Domain: vpc
 
   NATGateway:
-   Type: AWS::EC2::NatGateway
-   Properties:
+    Type: AWS::EC2::NatGateway
+    Properties:
       AllocationId: !GetAtt 'EIP.AllocationId'
       SubnetId: !Ref PublicSubnet01
 
   PrivateRouteTable:
     Type: AWS::EC2::RouteTable
-    Properties: 
+    Properties:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
@@ -261,8 +257,8 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: "10.0.30.0/24"
-      AvailabilityZone: !Select 
+      CidrBlock: '10.0.30.0/24'
+      AvailabilityZone: !Select
         - 0
         - Fn::GetAZs: !Ref 'AWS::Region'
       Tags:
@@ -279,8 +275,8 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: "10.0.40.0/24"
-      AvailabilityZone: !Select 
+      CidrBlock: '10.0.40.0/24'
+      AvailabilityZone: !Select
         - 1
         - Fn::GetAZs: !Ref 'AWS::Region'
       Tags:
@@ -296,8 +292,8 @@ Resources:
   PrivateSubnetNACL:
     Type: AWS::EC2::NetworkAcl
     Properties:
-        VpcId: !Ref VPC
-  
+      VpcId: !Ref VPC
+
   PrivateSubnetNACLEntryIngressFromVPC:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
@@ -310,7 +306,7 @@ Resources:
       PortRange:
         From: 0
         To: 65535
-  
+
   PrivateSubnetNACLEntryIngressEphemeralWithNAT:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
@@ -323,7 +319,7 @@ Resources:
       PortRange:
         From: 1024
         To: 65535
-  
+
   PrivateSubnetNACLEntryEgress:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
@@ -356,18 +352,18 @@ Resources:
       VpcId: !Ref VPC
       SecurityGroupIngress:
         - CidrIp: !GetAtt VPC.CidrBlock
-          IpProtocol: "tcp"
+          IpProtocol: 'tcp'
           FromPort: !Ref ApolloServicePort
           ToPort: !Ref ApolloServicePort
         - CidrIp: !GetAtt VPC.CidrBlock
-          IpProtocol: "tcp"
+          IpProtocol: 'tcp'
           FromPort: !Ref PrismaServicePort
           ToPort: !Ref PrismaServicePort
 
   ProductionHostedZone:
-    Type: "AWS::Route53::HostedZone"
+    Type: 'AWS::Route53::HostedZone'
     Properties:
-      HostedZoneConfig: 
+      HostedZoneConfig:
         Comment: !Sub Hosted zone for the production environment of ${ApplicationName}
       Name: !Ref ApplicationDomainNamespace
 
@@ -376,7 +372,6 @@ Resources:
     Properties:
       Name: !Sub private.${ApplicationDomainNamespace}
       Vpc: !Ref VPC
-
 
 Outputs:
   VPCID:
@@ -426,7 +421,7 @@ Outputs:
     Value: !Ref ProductionHostedZone
     Export:
       Name: !Sub ${ApplicationName}-production-HostedZone
-  
+
   ProductionPrivateNamespace:
     Description: Private namespace for the production environment
     Value: !Ref PrivateNamespace

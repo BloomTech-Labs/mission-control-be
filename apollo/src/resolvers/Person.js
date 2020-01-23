@@ -13,8 +13,22 @@ const manages = (parent, args, context) => {
   return res;
 };
 
-const leads = (parent, args, context) => {
-  const res = context.prisma.person({ id: parent.id }).manages();
+const sl = (parent, args, context) => {
+  const res = context.prisma.person({ id: parent.id }).sl();
+
+  return res;
+};
+
+const tl = (parent, args, context) => {
+  const res = context.prisma.person({ id: parent.id }).tl();
+
+  return res;
+};
+
+const notes = (parent, args, context) => {
+  const { email } = context.user;
+  const where = { meeting: { project: { projectManagers_some: { email } } } };
+  const res = context.prisma.notes({ where });
 
   return res;
 };
@@ -22,5 +36,7 @@ const leads = (parent, args, context) => {
 module.exports = {
   team,
   manages,
-  leads,
+  sl,
+  tl,
+  notes,
 };

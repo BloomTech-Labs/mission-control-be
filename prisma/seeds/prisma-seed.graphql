@@ -112,7 +112,7 @@ mutation {
       products: {
         create: [
           {
-            name: "Mission Control"
+            name: "Brew Plans"
             projects: {
               create: [
                 {
@@ -229,7 +229,7 @@ mutation {
             }
           }
           {
-            name: "Sauti - Databank"
+            name: "Cooking Recipe Source Control"
             projects: {
               create: [
                 {
@@ -251,7 +251,7 @@ mutation {
             }
           }
           {
-            name: "Omega 2020"
+            name: "Cryptolitic"
             projects: {
               create: [
                 {
@@ -270,7 +270,7 @@ mutation {
             }
           }
           {
-            name: "Quality Hub - Resume Q"
+            name: "Flashcards"
             projects: {
               create: [
                 {
@@ -289,7 +289,7 @@ mutation {
             }
           }
           {
-            name: "Hackaton Portal"
+            name: "Forest Fire Watch"
             projects: {
               create: [
                 {
@@ -308,7 +308,7 @@ mutation {
             }
           }
           {
-            name: "Student Art Collection"
+            name: "Hackathon Portal"
             projects: {
               create: [
                 {

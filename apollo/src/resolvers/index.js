@@ -9,6 +9,9 @@ const Program = require('./Program');
 const Product = require('./Product');
 const Project = require('./Project');
 const User = require('./User');
+const Meeting = require('./Meeting');
+const Note = require('./Note');
+const Person = require('./Person');
 
 const resolvers = {
   Query,
@@ -17,6 +20,9 @@ const resolvers = {
   Product,
   Project,
   User,
+  Meeting,
+  Note,
+  Person,
 };
 
 module.exports = resolvers;
