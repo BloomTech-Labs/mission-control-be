@@ -10,6 +10,9 @@ To get the server running locally:
 - Ensure you have configured your environment variables as seen below
 - Export environment variables by running `source sourceme.sh`
 - Run `docker-compose up --build`
+- Run `primsa deploy` to fire up the Prisma data layer
+- To reset the DB, run `prisma reset`
+- To run the seed, run `prisma seed`
 
 The Apollo instance is listining on port 8000, and an authenticated prisma playground with documentation regarding the exposed methods can be found on port 7000. To authenticate and view the prisma playground:
 
