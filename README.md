@@ -17,7 +17,7 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 - Copy the token and attach it to the HTTP headers inside the playground:
 ```
 {
-"authorization": {token}
+"authorization": "Bearer {token}"
 }
 ```
 
