@@ -5,7 +5,6 @@ type Program {
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
 }
-
 type Product {
   id: ID! @id
   name: String!
@@ -14,7 +13,6 @@ type Product {
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
 }
-
 type Project {
   id: ID! @id
   name: String!
@@ -24,27 +22,20 @@ type Project {
   teamLead: Person @relation(link: INLINE, name: "TeamLead")
   projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
-  meetings: [Meeting!]!
+  notes: [Note!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
-
-type Meeting {
-  id: ID! @id
-  title: String!
-  attendedBy: [Person!]!
-  project: Project!
-  notes: [Note!]!
-}
-
 type Note {
   id: ID! @id
-  title: String!
-  meeting: Meeting!
+  topic: String!
   content: String!
-  author: Person!
+  author: Person! @relation(name: "NoteAuthor")
+  attendedBy: [Person!]! @relation(name: "NoteAttendee")
+  project: Project!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
-
 enum Role {
   SL
   TL
@@ -53,14 +44,13 @@ enum Role {
   UX
   PM
 }
-
 type Person {
   id: ID! @id
   name: String!
   email: String! @unique
   role: Role!
-  notes: [Note!]!
-  meetings: [Meeting!]
+  authored: [Note!]! @relation(name: "NoteAuthor")
+  attended: [Note!]! @relation(name: "NoteAttendee")
   manages: [Project!]! @relation(name: "ProjectManager")
   team: Project @relation(name: "Team")
   sl: [Project!]! @relation(name: "SectionLead")

@@ -105,7 +105,8 @@ mutation {
     id
   }
 
-  # Create Program, Products, Projects
+  # Create Program, Products, Projects,
+
   createProgram(
     data: {
       name: "Lambda Labs"
@@ -136,215 +137,209 @@ mutation {
                       { email: "Parth@gmail.com" }
                     ]
                   }
-                  # meetings: {
-                  #   create: {
-                  #     data: {
-                  #       title: "Meeting One"
-                  #       attendedBy: {
-                  #         connect: [
-                  #           { email: "missioncontrolpm@gmail.com" }
-                  #           { email: "Emma@gmail.com" }
-                  #           { email: "Chance@gmail.com" }
-                  #           { email: "Coop@gmail.com" }
-                  #         ]
-                  #       }
-                  #     }
-                  #     notes: {
-                  #       create: {
-                  #         data: {
-                  #           title: "Good Note"
-                  #           content: "Really Important and good work"
-                  #           author: { connect: { email: "missioncontrolpm@gmail.com" } }
-                  #         }
-                  #       }
-                  #     }
-                  # }
-                  # }
-                }
+                  notes: {
+                    create: {
+                      topic: "Test" 
+                      content: "test content"
+                      author: {
+                        connect: {
+                          email: "missioncontrolpm@gmail.com"
+                        }
+                      }
+                      attendedBy: {
+                        connect: [
+                          { email: "missioncontrolstudent@gmail.com"}
+                          { email: "Chance@gmail.com" }
+                          { email: "Coop@gmail.com" }
+                        ]
+                      }
+                    }
+                  }  
+                } 
               ]
             }
           }
-          {
-            name: "City Data Comparison"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - City Data Comparison"
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  status: true
-                  teamLead: { connect: { email: "Alec@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Community Calendar"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Community Calendar"
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  teamLead: { connect: { email: "Aaron@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Connect Our Kids Social Worker"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Connect Our Kids Social Worker"
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  teamLead: { connect: { email: "Ami@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Cooking Recipe Source Control"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Sauti - Databank"
-                  status: true
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  teamLead: { connect: { email: "Nicholas@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Cryptolitic"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Omega 2020"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
-                  teamLead: { connect: { email: "Tony@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Flashcards"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Quality Hub - Resume Q"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
-                  teamLead: { connect: { email: "Roy@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Forest Fire Watch"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Hackathon Portal"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
-                  teamLead: { connect: { email: "Dakotah@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Hackathon Portal"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Student Art Collection"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
-                  teamLead: { connect: { email: "Tommy@gmail.com" } }
-                  status: true
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Well Done"
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Well Done"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
-                  teamLead: { connect: { email: "Kevin@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
+          # {
+          #   name: "City Data Comparison"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - City Data Comparison"
+          #         sectionLead: {
+          #           connect: { email: "missioncontrolsectionlead@gmail.com" }
+          #         }
+          #         status: true
+          #         teamLead: { connect: { email: "Alec@gmail.com" } }
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "missioncontrolpm@gmail.com" }
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
+          # {
+          #   name: "Community Calendar"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - Community Calendar"
+          #         sectionLead: {
+          #           connect: { email: "missioncontrolsectionlead@gmail.com" }
+          #         }
+          #         teamLead: { connect: { email: "Aaron@gmail.com" } }
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "missioncontrolpm@gmail.com" }
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
+          # {
+          #   name: "Connect Our Kids Social Worker"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - Connect Our Kids Social Worker"
+          #         sectionLead: {
+          #           connect: { email: "missioncontrolsectionlead@gmail.com" }
+          #         }
+          #         teamLead: { connect: { email: "Ami@gmail.com" } }
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "missioncontrolpm@gmail.com" }
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
+          # {
+          #   name: "Cooking Recipe Source Control"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - Sauti - Databank"
+          #         status: true
+          #         sectionLead: {
+          #           connect: { email: "missioncontrolsectionlead@gmail.com" }
+          #         }
+          #         teamLead: { connect: { email: "Nicholas@gmail.com" } }
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "missioncontrolpm@gmail.com" }
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
+          # {
+          #   name: "Cryptolitic"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - Omega 2020"
+          #         sectionLead: { connect: { email: "Levi@gmail.com" } }
+          #         teamLead: { connect: { email: "Tony@gmail.com" } }
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "missioncontrolpm@gmail.com" }
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
+          # {
+          #   name: "Flashcards"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - Quality Hub - Resume Q"
+          #         sectionLead: { connect: { email: "Levi@gmail.com" } }
+          #         teamLead: { connect: { email: "Roy@gmail.com" } }
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "missioncontrolpm@gmail.com" }
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
+          # {
+          #   name: "Forest Fire Watch"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - Hackathon Portal"
+          #         sectionLead: { connect: { email: "Levi@gmail.com" } }
+          #         teamLead: { connect: { email: "Dakotah@gmail.com" } }
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "missioncontrolpm@gmail.com" }
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
+          # {
+          #   name: "Hackathon Portal"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - Student Art Collection"
+          #         sectionLead: { connect: { email: "Levi@gmail.com" } }
+          #         teamLead: { connect: { email: "Tommy@gmail.com" } }
+          #         status: true
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "missioncontrolpm@gmail.com" }
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
+          # {
+          #   name: "Well Done"
+          #   projects: {
+          #     create: [
+          #       {
+          #         name: "Labs 19 - Well Done"
+          #         sectionLead: { connect: { email: "Levi@gmail.com" } }
+          #         teamLead: { connect: { email: "Kevin@gmail.com" } }
+          #         projectManagers: {
+          #           connect: [
+          #             { email: "Bernie@gmail.com" }
+          #             { email: "Parth@gmail.com" }
+          #           ]
+          #         }
+          #       }
+          #     ]
+          #   }
+          # }
         ]
       }
     }

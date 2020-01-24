@@ -62,11 +62,11 @@ type Project {
   start: DateTime!
   end: DateTime!
   product: Product!
-  projectNotes: [ProjectNote]!
+  Notes: [Note]!
   projectRoles: [ProjectRole]!
 }
 
-type ProjectNote {
+type Note {
   id: ID! @id
   project: Project!
   author: Person! @relation(name: "NoteAuthor")

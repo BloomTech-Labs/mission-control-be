@@ -74,6 +74,17 @@ const addProjectMember = (parent, args, context) => {
   return addMember;
 };
 
+
+const createNote = (parent, args, context) => {
+  const { id } = args;
+  const createNote = context.prisma.updateProject({
+    data: { project: { connect: { id } } },
+    where: { id },
+  });
+
+  return createNote;
+};
+
 module.exports = {
   createProgram,
   createProduct,
@@ -82,4 +93,5 @@ module.exports = {
   addProjectSectionLead,
   addProjectTeamLead,
   addProjectMember,
+  createNote,
 };

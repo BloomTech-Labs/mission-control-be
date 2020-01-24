@@ -8,6 +8,7 @@ const typeDefs = gql`
     projects: [Project!]!
     persons: [Person!]!
     me: User!
+    notes: [Note]
   }
 
   type Mutation {
@@ -18,6 +19,7 @@ const typeDefs = gql`
     addProjectSectionLead(id: ID!, email: String!): Person!
     addProjectTeamLead(id: ID!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
+    createNote(id: ID! ): Note
   }
 
   type Program {
@@ -35,6 +37,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     projects: [Project!]!
+    
   }
 
   type Project {
@@ -46,25 +49,9 @@ const typeDefs = gql`
     teamLead: Person
     projectManagers: [Person!]!
     team: [Person!]!
-    meetings: [Meeting!]!
+    notes: [Note]
     createdAt: String!
     updatedAt: String!
-  }
-
-  type Meeting {
-    id: ID!
-    title: String!
-    attendedBy: [Person!]!
-    project: Project!
-    notes: [Note!]!
-  }
-
-  type Note {
-    id: ID!
-    title: String!
-    content: String!
-    meeting: Meeting!
-    author: Person!
   }
 
   type Person {
@@ -72,8 +59,8 @@ const typeDefs = gql`
     name: String!
     email: String!
     role: Role!
-    notes: [Note!]!
     manages: [Project!]!
+    notes: [Note]
     team: Project
     sl: [Project!]!
     tl: Project
@@ -93,6 +80,16 @@ const typeDefs = gql`
     DS
     UX
     PM
+  }
+
+  type Note {
+    id: ID!
+    topic: String!
+    content: String!
+    author: Person!
+    attendedBy: [Person!]!
+    createdAt: String!
+    updatedAt: String!
   }
 `;
 

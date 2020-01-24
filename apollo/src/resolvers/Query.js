@@ -25,6 +25,11 @@ const persons = (parent, args, context) => {
 
 const me = (parent, args, context) => context.user;
 
+const notes = (parent, args, context) => {
+  const res = context.prisma.notes();
+  return res;
+};
+
 module.exports = {
   info,
   programs,
@@ -32,4 +37,5 @@ module.exports = {
   projects,
   persons,
   me,
+  notes,
 };
