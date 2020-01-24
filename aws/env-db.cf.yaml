@@ -5,10 +5,12 @@ Parameters:
   ApplicationName:
     Type: String
     Description: The name of the application 
+    AllowedPattern: ^[a-z0-9\-]*$
 
   EnvironmentName:
     Type: String
-    Description: The name of the application environment 
+    Description: The name of the application environment
+    AllowedPattern: ^[a-z0-9\-]*$
 
 Resources:
   DBInstanceCredentials:
@@ -70,11 +72,13 @@ Outputs:
     Value: !GetAtt DBInstance.Endpoint.Address
     Export:
       Name: !Sub ${ApplicationName}-${EnvironmentName}-DBAddress
+
   DBPort:
     Description: The port of the database listener
     Value: !GetAtt DBInstance.Endpoint.Port
     Export:
       Name: !Sub ${ApplicationName}-${EnvironmentName}-DBPort
+
   DBInstanceCredentials:
     Description: The secret containing the DB instance credentials
     Value: !Ref DBInstanceCredentials
