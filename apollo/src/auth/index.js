@@ -12,7 +12,16 @@ const O = new OktaJwtVerifier({
   },
 });
 
-const decodeToken = async token => {
+const decodeToken = async jwt => {
+  const match = jwt.match(/Bearer (.+)/);
+
+  if (!match) {
+    throw new Error('Invalid token');
+  }
+
+  // Yoinks out the 'Bearer ' prefix
+  const token = match[1];
+
   try {
     const result = await O.verifyAccessToken(token, AUD);
     const {
