@@ -101,6 +101,7 @@ out/
 dist/
 
 apollo/src/generated/
+apollo/src/schema/generated/
 
 # lockfiles
 yarn.lock
