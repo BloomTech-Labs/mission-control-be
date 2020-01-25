@@ -38,6 +38,27 @@ const createPerson = (parent, args, context) => {
   return person;
 };
 
+const createNote = (parent, args, context) => {
+  const { topic, content, attendedBy, rating, id } = args;
+  const note = {
+    topic,
+    content,
+    author: { connect: { email: context.user.email } },
+    attendedBy: {
+      connect: attendedBy.map(email => {
+        return { email };
+      }),
+    },
+    project: { connect: { id } },
+    rating,
+  };
+  console.log(note);
+
+  const createNote = context.prisma.createNote(note);
+
+  return createNote;
+};
+
 // Adds a Section Lead to a project, takes a string where email = person email
 // Takes a project ID where a project exists
 const addProjectSectionLead = (parent, args, context) => {
@@ -74,24 +95,13 @@ const addProjectMember = (parent, args, context) => {
   return addMember;
 };
 
-
-const createNote = (parent, args, context) => {
-  const { id } = args;
-  const createNote = context.prisma.updateProject({
-    data: { project: { connect: { id } } },
-    where: { id },
-  });
-
-  return createNote;
-};
-
 module.exports = {
   createProgram,
   createProduct,
   createProject,
   createPerson,
+  createNote,
   addProjectSectionLead,
   addProjectTeamLead,
   addProjectMember,
-  createNote,
 };
