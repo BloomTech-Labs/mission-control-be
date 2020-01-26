@@ -29,9 +29,7 @@ const decodeToken = async jwt => {
     } = result;
     return { id, claims, email };
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(err);
-    throw new Error('Invalid token');
+    throw new Error(err);
   }
 };
 

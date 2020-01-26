@@ -16,7 +16,6 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
-  meeting: (where?: MeetingWhereInput) => Promise<boolean>;
   note: (where?: NoteWhereInput) => Promise<boolean>;
   person: (where?: PersonWhereInput) => Promise<boolean>;
   product: (where?: ProductWhereInput) => Promise<boolean>;
@@ -43,25 +42,6 @@ export interface Prisma {
    * Queries
    */
 
-  meeting: (where: MeetingWhereUniqueInput) => MeetingNullablePromise;
-  meetings: (args?: {
-    where?: MeetingWhereInput;
-    orderBy?: MeetingOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<Meeting>;
-  meetingsConnection: (args?: {
-    where?: MeetingWhereInput;
-    orderBy?: MeetingOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => MeetingConnectionPromise;
   note: (where: NoteWhereUniqueInput) => NoteNullablePromise;
   notes: (args?: {
     where?: NoteWhereInput;
@@ -163,22 +143,6 @@ export interface Prisma {
    * Mutations
    */
 
-  createMeeting: (data: MeetingCreateInput) => MeetingPromise;
-  updateMeeting: (args: {
-    data: MeetingUpdateInput;
-    where: MeetingWhereUniqueInput;
-  }) => MeetingPromise;
-  updateManyMeetings: (args: {
-    data: MeetingUpdateManyMutationInput;
-    where?: MeetingWhereInput;
-  }) => BatchPayloadPromise;
-  upsertMeeting: (args: {
-    where: MeetingWhereUniqueInput;
-    create: MeetingCreateInput;
-    update: MeetingUpdateInput;
-  }) => MeetingPromise;
-  deleteMeeting: (where: MeetingWhereUniqueInput) => MeetingPromise;
-  deleteManyMeetings: (where?: MeetingWhereInput) => BatchPayloadPromise;
   createNote: (data: NoteCreateInput) => NotePromise;
   updateNote: (args: {
     data: NoteUpdateInput;
@@ -268,9 +232,6 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  meeting: (
-    where?: MeetingSubscriptionWhereInput
-  ) => MeetingSubscriptionPayloadSubscription;
   note: (
     where?: NoteSubscriptionWhereInput
   ) => NoteSubscriptionPayloadSubscription;
@@ -298,29 +259,17 @@ export interface ClientConstructor<T> {
 
 export type Role = "SL" | "TL" | "WEB" | "DS" | "UX" | "PM";
 
-export type PersonOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "email_ASC"
-  | "email_DESC"
-  | "role_ASC"
-  | "role_DESC";
-
 export type NoteOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "title_ASC"
-  | "title_DESC"
+  | "topic_ASC"
+  | "topic_DESC"
   | "content_ASC"
-  | "content_DESC";
-
-export type MeetingOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "title_ASC"
-  | "title_DESC";
+  | "content_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type ProjectOrderByInput =
   | "id_ASC"
@@ -344,6 +293,16 @@ export type ProductOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
+export type PersonOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "role_ASC"
+  | "role_DESC";
+
 export type ProgramOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -356,9 +315,78 @@ export type ProgramOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type MeetingWhereUniqueInput = AtLeastOne<{
+export type NoteWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
+
+export interface NoteWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  topic?: Maybe<String>;
+  topic_not?: Maybe<String>;
+  topic_in?: Maybe<String[] | String>;
+  topic_not_in?: Maybe<String[] | String>;
+  topic_lt?: Maybe<String>;
+  topic_lte?: Maybe<String>;
+  topic_gt?: Maybe<String>;
+  topic_gte?: Maybe<String>;
+  topic_contains?: Maybe<String>;
+  topic_not_contains?: Maybe<String>;
+  topic_starts_with?: Maybe<String>;
+  topic_not_starts_with?: Maybe<String>;
+  topic_ends_with?: Maybe<String>;
+  topic_not_ends_with?: Maybe<String>;
+  content?: Maybe<String>;
+  content_not?: Maybe<String>;
+  content_in?: Maybe<String[] | String>;
+  content_not_in?: Maybe<String[] | String>;
+  content_lt?: Maybe<String>;
+  content_lte?: Maybe<String>;
+  content_gt?: Maybe<String>;
+  content_gte?: Maybe<String>;
+  content_contains?: Maybe<String>;
+  content_not_contains?: Maybe<String>;
+  content_starts_with?: Maybe<String>;
+  content_not_starts_with?: Maybe<String>;
+  content_ends_with?: Maybe<String>;
+  content_not_ends_with?: Maybe<String>;
+  author?: Maybe<PersonWhereInput>;
+  attendedBy_every?: Maybe<PersonWhereInput>;
+  attendedBy_some?: Maybe<PersonWhereInput>;
+  attendedBy_none?: Maybe<PersonWhereInput>;
+  project?: Maybe<ProjectWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<NoteWhereInput[] | NoteWhereInput>;
+  OR?: Maybe<NoteWhereInput[] | NoteWhereInput>;
+  NOT?: Maybe<NoteWhereInput[] | NoteWhereInput>;
+}
 
 export interface PersonWhereInput {
   id?: Maybe<ID_Input>;
@@ -407,12 +435,12 @@ export interface PersonWhereInput {
   role_not?: Maybe<Role>;
   role_in?: Maybe<Role[] | Role>;
   role_not_in?: Maybe<Role[] | Role>;
-  notes_every?: Maybe<NoteWhereInput>;
-  notes_some?: Maybe<NoteWhereInput>;
-  notes_none?: Maybe<NoteWhereInput>;
-  meetings_every?: Maybe<MeetingWhereInput>;
-  meetings_some?: Maybe<MeetingWhereInput>;
-  meetings_none?: Maybe<MeetingWhereInput>;
+  authored_every?: Maybe<NoteWhereInput>;
+  authored_some?: Maybe<NoteWhereInput>;
+  authored_none?: Maybe<NoteWhereInput>;
+  attended_every?: Maybe<NoteWhereInput>;
+  attended_some?: Maybe<NoteWhereInput>;
+  attended_none?: Maybe<NoteWhereInput>;
   manages_every?: Maybe<ProjectWhereInput>;
   manages_some?: Maybe<ProjectWhereInput>;
   manages_none?: Maybe<ProjectWhereInput>;
@@ -424,97 +452,6 @@ export interface PersonWhereInput {
   AND?: Maybe<PersonWhereInput[] | PersonWhereInput>;
   OR?: Maybe<PersonWhereInput[] | PersonWhereInput>;
   NOT?: Maybe<PersonWhereInput[] | PersonWhereInput>;
-}
-
-export interface NoteWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  meeting?: Maybe<MeetingWhereInput>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  author?: Maybe<PersonWhereInput>;
-  AND?: Maybe<NoteWhereInput[] | NoteWhereInput>;
-  OR?: Maybe<NoteWhereInput[] | NoteWhereInput>;
-  NOT?: Maybe<NoteWhereInput[] | NoteWhereInput>;
-}
-
-export interface MeetingWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  attendedBy_every?: Maybe<PersonWhereInput>;
-  attendedBy_some?: Maybe<PersonWhereInput>;
-  attendedBy_none?: Maybe<PersonWhereInput>;
-  project?: Maybe<ProjectWhereInput>;
-  notes_every?: Maybe<NoteWhereInput>;
-  notes_some?: Maybe<NoteWhereInput>;
-  notes_none?: Maybe<NoteWhereInput>;
-  AND?: Maybe<MeetingWhereInput[] | MeetingWhereInput>;
-  OR?: Maybe<MeetingWhereInput[] | MeetingWhereInput>;
-  NOT?: Maybe<MeetingWhereInput[] | MeetingWhereInput>;
 }
 
 export interface ProjectWhereInput {
@@ -557,9 +494,9 @@ export interface ProjectWhereInput {
   team_every?: Maybe<PersonWhereInput>;
   team_some?: Maybe<PersonWhereInput>;
   team_none?: Maybe<PersonWhereInput>;
-  meetings_every?: Maybe<MeetingWhereInput>;
-  meetings_some?: Maybe<MeetingWhereInput>;
-  meetings_none?: Maybe<MeetingWhereInput>;
+  notes_every?: Maybe<NoteWhereInput>;
+  notes_some?: Maybe<NoteWhereInput>;
+  notes_none?: Maybe<NoteWhereInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -688,10 +625,6 @@ export interface ProgramWhereInput {
   NOT?: Maybe<ProgramWhereInput[] | ProgramWhereInput>;
 }
 
-export type NoteWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
 export type PersonWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
@@ -710,63 +643,53 @@ export type ProjectWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface MeetingCreateInput {
+export interface NoteCreateInput {
   id?: Maybe<ID_Input>;
-  title: String;
-  attendedBy?: Maybe<PersonCreateManyWithoutMeetingsInput>;
-  project: ProjectCreateOneWithoutMeetingsInput;
-  notes?: Maybe<NoteCreateManyWithoutMeetingInput>;
+  topic: String;
+  content: String;
+  author: PersonCreateOneWithoutAuthoredInput;
+  attendedBy?: Maybe<PersonCreateManyWithoutAttendedInput>;
+  project: ProjectCreateOneWithoutNotesInput;
 }
 
-export interface PersonCreateManyWithoutMeetingsInput {
-  create?: Maybe<
-    PersonCreateWithoutMeetingsInput[] | PersonCreateWithoutMeetingsInput
-  >;
-  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+export interface PersonCreateOneWithoutAuthoredInput {
+  create?: Maybe<PersonCreateWithoutAuthoredInput>;
+  connect?: Maybe<PersonWhereUniqueInput>;
 }
 
-export interface PersonCreateWithoutMeetingsInput {
+export interface PersonCreateWithoutAuthoredInput {
   id?: Maybe<ID_Input>;
   name: String;
   email: String;
   role: Role;
-  notes?: Maybe<NoteCreateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteCreateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
   sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
   tl?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
 }
 
-export interface NoteCreateManyWithoutAuthorInput {
-  create?: Maybe<NoteCreateWithoutAuthorInput[] | NoteCreateWithoutAuthorInput>;
+export interface NoteCreateManyWithoutAttendedByInput {
+  create?: Maybe<
+    NoteCreateWithoutAttendedByInput[] | NoteCreateWithoutAttendedByInput
+  >;
   connect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
 }
 
-export interface NoteCreateWithoutAuthorInput {
+export interface NoteCreateWithoutAttendedByInput {
   id?: Maybe<ID_Input>;
-  title: String;
-  meeting: MeetingCreateOneWithoutNotesInput;
+  topic: String;
   content: String;
+  author: PersonCreateOneWithoutAuthoredInput;
+  project: ProjectCreateOneWithoutNotesInput;
 }
 
-export interface MeetingCreateOneWithoutNotesInput {
-  create?: Maybe<MeetingCreateWithoutNotesInput>;
-  connect?: Maybe<MeetingWhereUniqueInput>;
-}
-
-export interface MeetingCreateWithoutNotesInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-  attendedBy?: Maybe<PersonCreateManyWithoutMeetingsInput>;
-  project: ProjectCreateOneWithoutMeetingsInput;
-}
-
-export interface ProjectCreateOneWithoutMeetingsInput {
-  create?: Maybe<ProjectCreateWithoutMeetingsInput>;
+export interface ProjectCreateOneWithoutNotesInput {
+  create?: Maybe<ProjectCreateWithoutNotesInput>;
   connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ProjectCreateWithoutMeetingsInput {
+export interface ProjectCreateWithoutNotesInput {
   id?: Maybe<ID_Input>;
   name: String;
   product: ProductCreateOneWithoutProjectsInput;
@@ -808,52 +731,39 @@ export interface PersonCreateWithoutSlInput {
   name: String;
   email: String;
   role: Role;
-  notes?: Maybe<NoteCreateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteCreateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteCreateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
   tl?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
 }
 
-export interface MeetingCreateManyWithoutAttendedByInput {
-  create?: Maybe<
-    MeetingCreateWithoutAttendedByInput[] | MeetingCreateWithoutAttendedByInput
-  >;
-  connect?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
-}
-
-export interface MeetingCreateWithoutAttendedByInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-  project: ProjectCreateOneWithoutMeetingsInput;
-  notes?: Maybe<NoteCreateManyWithoutMeetingInput>;
-}
-
-export interface NoteCreateManyWithoutMeetingInput {
-  create?: Maybe<
-    NoteCreateWithoutMeetingInput[] | NoteCreateWithoutMeetingInput
-  >;
+export interface NoteCreateManyWithoutAuthorInput {
+  create?: Maybe<NoteCreateWithoutAuthorInput[] | NoteCreateWithoutAuthorInput>;
   connect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
 }
 
-export interface NoteCreateWithoutMeetingInput {
+export interface NoteCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
-  title: String;
+  topic: String;
   content: String;
-  author: PersonCreateOneWithoutNotesInput;
+  attendedBy?: Maybe<PersonCreateManyWithoutAttendedInput>;
+  project: ProjectCreateOneWithoutNotesInput;
 }
 
-export interface PersonCreateOneWithoutNotesInput {
-  create?: Maybe<PersonCreateWithoutNotesInput>;
-  connect?: Maybe<PersonWhereUniqueInput>;
+export interface PersonCreateManyWithoutAttendedInput {
+  create?: Maybe<
+    PersonCreateWithoutAttendedInput[] | PersonCreateWithoutAttendedInput
+  >;
+  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
 }
 
-export interface PersonCreateWithoutNotesInput {
+export interface PersonCreateWithoutAttendedInput {
   id?: Maybe<ID_Input>;
   name: String;
   email: String;
   role: Role;
-  meetings?: Maybe<MeetingCreateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteCreateManyWithoutAuthorInput>;
   manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
   sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
@@ -876,7 +786,7 @@ export interface ProjectCreateWithoutProjectManagersInput {
   sectionLead?: Maybe<PersonCreateOneWithoutSlInput>;
   teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutProjectInput>;
+  notes?: Maybe<NoteCreateManyWithoutProjectInput>;
 }
 
 export interface PersonCreateOneWithoutTlInput {
@@ -889,8 +799,8 @@ export interface PersonCreateWithoutTlInput {
   name: String;
   email: String;
   role: Role;
-  notes?: Maybe<NoteCreateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteCreateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteCreateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
   sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
@@ -909,7 +819,7 @@ export interface ProjectCreateWithoutTeamInput {
   sectionLead?: Maybe<PersonCreateOneWithoutSlInput>;
   teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
   projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutProjectInput>;
+  notes?: Maybe<NoteCreateManyWithoutProjectInput>;
 }
 
 export interface PersonCreateManyWithoutManagesInput {
@@ -924,8 +834,8 @@ export interface PersonCreateWithoutManagesInput {
   name: String;
   email: String;
   role: Role;
-  notes?: Maybe<NoteCreateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteCreateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteCreateManyWithoutAttendedByInput>;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
   sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
   tl?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
@@ -947,7 +857,7 @@ export interface ProjectCreateWithoutSectionLeadInput {
   teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
   projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutProjectInput>;
+  notes?: Maybe<NoteCreateManyWithoutProjectInput>;
 }
 
 export interface PersonCreateManyWithoutTeamInput {
@@ -960,8 +870,8 @@ export interface PersonCreateWithoutTeamInput {
   name: String;
   email: String;
   role: Role;
-  notes?: Maybe<NoteCreateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteCreateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteCreateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
   sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
   tl?: Maybe<ProjectCreateOneWithoutTeamLeadInput>;
@@ -980,82 +890,65 @@ export interface ProjectCreateWithoutTeamLeadInput {
   sectionLead?: Maybe<PersonCreateOneWithoutSlInput>;
   projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutProjectInput>;
+  notes?: Maybe<NoteCreateManyWithoutProjectInput>;
 }
 
-export interface MeetingCreateManyWithoutProjectInput {
+export interface NoteCreateManyWithoutProjectInput {
   create?: Maybe<
-    MeetingCreateWithoutProjectInput[] | MeetingCreateWithoutProjectInput
+    NoteCreateWithoutProjectInput[] | NoteCreateWithoutProjectInput
   >;
-  connect?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
+  connect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
 }
 
-export interface MeetingCreateWithoutProjectInput {
+export interface NoteCreateWithoutProjectInput {
   id?: Maybe<ID_Input>;
-  title: String;
-  attendedBy?: Maybe<PersonCreateManyWithoutMeetingsInput>;
-  notes?: Maybe<NoteCreateManyWithoutMeetingInput>;
+  topic: String;
+  content: String;
+  author: PersonCreateOneWithoutAuthoredInput;
+  attendedBy?: Maybe<PersonCreateManyWithoutAttendedInput>;
 }
 
-export interface MeetingUpdateInput {
-  title?: Maybe<String>;
-  attendedBy?: Maybe<PersonUpdateManyWithoutMeetingsInput>;
-  project?: Maybe<ProjectUpdateOneRequiredWithoutMeetingsInput>;
-  notes?: Maybe<NoteUpdateManyWithoutMeetingInput>;
+export interface NoteUpdateInput {
+  topic?: Maybe<String>;
+  content?: Maybe<String>;
+  author?: Maybe<PersonUpdateOneRequiredWithoutAuthoredInput>;
+  attendedBy?: Maybe<PersonUpdateManyWithoutAttendedInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutNotesInput>;
 }
 
-export interface PersonUpdateManyWithoutMeetingsInput {
-  create?: Maybe<
-    PersonCreateWithoutMeetingsInput[] | PersonCreateWithoutMeetingsInput
-  >;
-  delete?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  set?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  disconnect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
-  update?: Maybe<
-    | PersonUpdateWithWhereUniqueWithoutMeetingsInput[]
-    | PersonUpdateWithWhereUniqueWithoutMeetingsInput
-  >;
-  upsert?: Maybe<
-    | PersonUpsertWithWhereUniqueWithoutMeetingsInput[]
-    | PersonUpsertWithWhereUniqueWithoutMeetingsInput
-  >;
-  deleteMany?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
-  updateMany?: Maybe<
-    | PersonUpdateManyWithWhereNestedInput[]
-    | PersonUpdateManyWithWhereNestedInput
-  >;
+export interface PersonUpdateOneRequiredWithoutAuthoredInput {
+  create?: Maybe<PersonCreateWithoutAuthoredInput>;
+  update?: Maybe<PersonUpdateWithoutAuthoredDataInput>;
+  upsert?: Maybe<PersonUpsertWithoutAuthoredInput>;
+  connect?: Maybe<PersonWhereUniqueInput>;
 }
 
-export interface PersonUpdateWithWhereUniqueWithoutMeetingsInput {
-  where: PersonWhereUniqueInput;
-  data: PersonUpdateWithoutMeetingsDataInput;
-}
-
-export interface PersonUpdateWithoutMeetingsDataInput {
+export interface PersonUpdateWithoutAuthoredDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
-  notes?: Maybe<NoteUpdateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteUpdateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
   sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
   tl?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
 }
 
-export interface NoteUpdateManyWithoutAuthorInput {
-  create?: Maybe<NoteCreateWithoutAuthorInput[] | NoteCreateWithoutAuthorInput>;
+export interface NoteUpdateManyWithoutAttendedByInput {
+  create?: Maybe<
+    NoteCreateWithoutAttendedByInput[] | NoteCreateWithoutAttendedByInput
+  >;
   delete?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   connect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   set?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   disconnect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   update?: Maybe<
-    | NoteUpdateWithWhereUniqueWithoutAuthorInput[]
-    | NoteUpdateWithWhereUniqueWithoutAuthorInput
+    | NoteUpdateWithWhereUniqueWithoutAttendedByInput[]
+    | NoteUpdateWithWhereUniqueWithoutAttendedByInput
   >;
   upsert?: Maybe<
-    | NoteUpsertWithWhereUniqueWithoutAuthorInput[]
-    | NoteUpsertWithWhereUniqueWithoutAuthorInput
+    | NoteUpsertWithWhereUniqueWithoutAttendedByInput[]
+    | NoteUpsertWithWhereUniqueWithoutAttendedByInput
   >;
   deleteMany?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
   updateMany?: Maybe<
@@ -1063,38 +956,26 @@ export interface NoteUpdateManyWithoutAuthorInput {
   >;
 }
 
-export interface NoteUpdateWithWhereUniqueWithoutAuthorInput {
+export interface NoteUpdateWithWhereUniqueWithoutAttendedByInput {
   where: NoteWhereUniqueInput;
-  data: NoteUpdateWithoutAuthorDataInput;
+  data: NoteUpdateWithoutAttendedByDataInput;
 }
 
-export interface NoteUpdateWithoutAuthorDataInput {
-  title?: Maybe<String>;
-  meeting?: Maybe<MeetingUpdateOneRequiredWithoutNotesInput>;
+export interface NoteUpdateWithoutAttendedByDataInput {
+  topic?: Maybe<String>;
   content?: Maybe<String>;
+  author?: Maybe<PersonUpdateOneRequiredWithoutAuthoredInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutNotesInput>;
 }
 
-export interface MeetingUpdateOneRequiredWithoutNotesInput {
-  create?: Maybe<MeetingCreateWithoutNotesInput>;
-  update?: Maybe<MeetingUpdateWithoutNotesDataInput>;
-  upsert?: Maybe<MeetingUpsertWithoutNotesInput>;
-  connect?: Maybe<MeetingWhereUniqueInput>;
-}
-
-export interface MeetingUpdateWithoutNotesDataInput {
-  title?: Maybe<String>;
-  attendedBy?: Maybe<PersonUpdateManyWithoutMeetingsInput>;
-  project?: Maybe<ProjectUpdateOneRequiredWithoutMeetingsInput>;
-}
-
-export interface ProjectUpdateOneRequiredWithoutMeetingsInput {
-  create?: Maybe<ProjectCreateWithoutMeetingsInput>;
-  update?: Maybe<ProjectUpdateWithoutMeetingsDataInput>;
-  upsert?: Maybe<ProjectUpsertWithoutMeetingsInput>;
+export interface ProjectUpdateOneRequiredWithoutNotesInput {
+  create?: Maybe<ProjectCreateWithoutNotesInput>;
+  update?: Maybe<ProjectUpdateWithoutNotesDataInput>;
+  upsert?: Maybe<ProjectUpsertWithoutNotesInput>;
   connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ProjectUpdateWithoutMeetingsDataInput {
+export interface ProjectUpdateWithoutNotesDataInput {
   name?: Maybe<String>;
   product?: Maybe<ProductUpdateOneRequiredWithoutProjectsInput>;
   status?: Maybe<Boolean>;
@@ -1150,62 +1031,26 @@ export interface PersonUpdateWithoutSlDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
-  notes?: Maybe<NoteUpdateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteUpdateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteUpdateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
   tl?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
 }
 
-export interface MeetingUpdateManyWithoutAttendedByInput {
-  create?: Maybe<
-    MeetingCreateWithoutAttendedByInput[] | MeetingCreateWithoutAttendedByInput
-  >;
-  delete?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
-  connect?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
-  set?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
-  disconnect?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
-  update?: Maybe<
-    | MeetingUpdateWithWhereUniqueWithoutAttendedByInput[]
-    | MeetingUpdateWithWhereUniqueWithoutAttendedByInput
-  >;
-  upsert?: Maybe<
-    | MeetingUpsertWithWhereUniqueWithoutAttendedByInput[]
-    | MeetingUpsertWithWhereUniqueWithoutAttendedByInput
-  >;
-  deleteMany?: Maybe<MeetingScalarWhereInput[] | MeetingScalarWhereInput>;
-  updateMany?: Maybe<
-    | MeetingUpdateManyWithWhereNestedInput[]
-    | MeetingUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface MeetingUpdateWithWhereUniqueWithoutAttendedByInput {
-  where: MeetingWhereUniqueInput;
-  data: MeetingUpdateWithoutAttendedByDataInput;
-}
-
-export interface MeetingUpdateWithoutAttendedByDataInput {
-  title?: Maybe<String>;
-  project?: Maybe<ProjectUpdateOneRequiredWithoutMeetingsInput>;
-  notes?: Maybe<NoteUpdateManyWithoutMeetingInput>;
-}
-
-export interface NoteUpdateManyWithoutMeetingInput {
-  create?: Maybe<
-    NoteCreateWithoutMeetingInput[] | NoteCreateWithoutMeetingInput
-  >;
+export interface NoteUpdateManyWithoutAuthorInput {
+  create?: Maybe<NoteCreateWithoutAuthorInput[] | NoteCreateWithoutAuthorInput>;
   delete?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   connect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   set?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   disconnect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   update?: Maybe<
-    | NoteUpdateWithWhereUniqueWithoutMeetingInput[]
-    | NoteUpdateWithWhereUniqueWithoutMeetingInput
+    | NoteUpdateWithWhereUniqueWithoutAuthorInput[]
+    | NoteUpdateWithWhereUniqueWithoutAuthorInput
   >;
   upsert?: Maybe<
-    | NoteUpsertWithWhereUniqueWithoutMeetingInput[]
-    | NoteUpsertWithWhereUniqueWithoutMeetingInput
+    | NoteUpsertWithWhereUniqueWithoutAuthorInput[]
+    | NoteUpsertWithWhereUniqueWithoutAuthorInput
   >;
   deleteMany?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
   updateMany?: Maybe<
@@ -1213,29 +1058,51 @@ export interface NoteUpdateManyWithoutMeetingInput {
   >;
 }
 
-export interface NoteUpdateWithWhereUniqueWithoutMeetingInput {
+export interface NoteUpdateWithWhereUniqueWithoutAuthorInput {
   where: NoteWhereUniqueInput;
-  data: NoteUpdateWithoutMeetingDataInput;
+  data: NoteUpdateWithoutAuthorDataInput;
 }
 
-export interface NoteUpdateWithoutMeetingDataInput {
-  title?: Maybe<String>;
+export interface NoteUpdateWithoutAuthorDataInput {
+  topic?: Maybe<String>;
   content?: Maybe<String>;
-  author?: Maybe<PersonUpdateOneRequiredWithoutNotesInput>;
+  attendedBy?: Maybe<PersonUpdateManyWithoutAttendedInput>;
+  project?: Maybe<ProjectUpdateOneRequiredWithoutNotesInput>;
 }
 
-export interface PersonUpdateOneRequiredWithoutNotesInput {
-  create?: Maybe<PersonCreateWithoutNotesInput>;
-  update?: Maybe<PersonUpdateWithoutNotesDataInput>;
-  upsert?: Maybe<PersonUpsertWithoutNotesInput>;
-  connect?: Maybe<PersonWhereUniqueInput>;
+export interface PersonUpdateManyWithoutAttendedInput {
+  create?: Maybe<
+    PersonCreateWithoutAttendedInput[] | PersonCreateWithoutAttendedInput
+  >;
+  delete?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  connect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  set?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  disconnect?: Maybe<PersonWhereUniqueInput[] | PersonWhereUniqueInput>;
+  update?: Maybe<
+    | PersonUpdateWithWhereUniqueWithoutAttendedInput[]
+    | PersonUpdateWithWhereUniqueWithoutAttendedInput
+  >;
+  upsert?: Maybe<
+    | PersonUpsertWithWhereUniqueWithoutAttendedInput[]
+    | PersonUpsertWithWhereUniqueWithoutAttendedInput
+  >;
+  deleteMany?: Maybe<PersonScalarWhereInput[] | PersonScalarWhereInput>;
+  updateMany?: Maybe<
+    | PersonUpdateManyWithWhereNestedInput[]
+    | PersonUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface PersonUpdateWithoutNotesDataInput {
+export interface PersonUpdateWithWhereUniqueWithoutAttendedInput {
+  where: PersonWhereUniqueInput;
+  data: PersonUpdateWithoutAttendedDataInput;
+}
+
+export interface PersonUpdateWithoutAttendedDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
-  meetings?: Maybe<MeetingUpdateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteUpdateManyWithoutAuthorInput>;
   manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
   sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
@@ -1278,7 +1145,7 @@ export interface ProjectUpdateWithoutProjectManagersDataInput {
   sectionLead?: Maybe<PersonUpdateOneWithoutSlInput>;
   teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutProjectInput>;
+  notes?: Maybe<NoteUpdateManyWithoutProjectInput>;
 }
 
 export interface PersonUpdateOneWithoutTlInput {
@@ -1294,8 +1161,8 @@ export interface PersonUpdateWithoutTlDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
-  notes?: Maybe<NoteUpdateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteUpdateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteUpdateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
   sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
@@ -1317,7 +1184,7 @@ export interface ProjectUpdateWithoutTeamDataInput {
   sectionLead?: Maybe<PersonUpdateOneWithoutSlInput>;
   teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
   projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutProjectInput>;
+  notes?: Maybe<NoteUpdateManyWithoutProjectInput>;
 }
 
 export interface PersonUpdateManyWithoutManagesInput {
@@ -1352,8 +1219,8 @@ export interface PersonUpdateWithoutManagesDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
-  notes?: Maybe<NoteUpdateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteUpdateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteUpdateManyWithoutAttendedByInput>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
   sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
   tl?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
@@ -1395,7 +1262,7 @@ export interface ProjectUpdateWithoutSectionLeadDataInput {
   teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
   projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutProjectInput>;
+  notes?: Maybe<NoteUpdateManyWithoutProjectInput>;
 }
 
 export interface PersonUpdateManyWithoutTeamInput {
@@ -1428,8 +1295,8 @@ export interface PersonUpdateWithoutTeamDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
-  notes?: Maybe<NoteUpdateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteUpdateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteUpdateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
   sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
   tl?: Maybe<ProjectUpdateOneWithoutTeamLeadInput>;
@@ -1451,50 +1318,50 @@ export interface ProjectUpdateWithoutTeamLeadDataInput {
   sectionLead?: Maybe<PersonUpdateOneWithoutSlInput>;
   projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutProjectInput>;
+  notes?: Maybe<NoteUpdateManyWithoutProjectInput>;
 }
 
-export interface MeetingUpdateManyWithoutProjectInput {
+export interface NoteUpdateManyWithoutProjectInput {
   create?: Maybe<
-    MeetingCreateWithoutProjectInput[] | MeetingCreateWithoutProjectInput
+    NoteCreateWithoutProjectInput[] | NoteCreateWithoutProjectInput
   >;
-  delete?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
-  connect?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
-  set?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
-  disconnect?: Maybe<MeetingWhereUniqueInput[] | MeetingWhereUniqueInput>;
+  delete?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
+  connect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
+  set?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
+  disconnect?: Maybe<NoteWhereUniqueInput[] | NoteWhereUniqueInput>;
   update?: Maybe<
-    | MeetingUpdateWithWhereUniqueWithoutProjectInput[]
-    | MeetingUpdateWithWhereUniqueWithoutProjectInput
+    | NoteUpdateWithWhereUniqueWithoutProjectInput[]
+    | NoteUpdateWithWhereUniqueWithoutProjectInput
   >;
   upsert?: Maybe<
-    | MeetingUpsertWithWhereUniqueWithoutProjectInput[]
-    | MeetingUpsertWithWhereUniqueWithoutProjectInput
+    | NoteUpsertWithWhereUniqueWithoutProjectInput[]
+    | NoteUpsertWithWhereUniqueWithoutProjectInput
   >;
-  deleteMany?: Maybe<MeetingScalarWhereInput[] | MeetingScalarWhereInput>;
+  deleteMany?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
   updateMany?: Maybe<
-    | MeetingUpdateManyWithWhereNestedInput[]
-    | MeetingUpdateManyWithWhereNestedInput
+    NoteUpdateManyWithWhereNestedInput[] | NoteUpdateManyWithWhereNestedInput
   >;
 }
 
-export interface MeetingUpdateWithWhereUniqueWithoutProjectInput {
-  where: MeetingWhereUniqueInput;
-  data: MeetingUpdateWithoutProjectDataInput;
+export interface NoteUpdateWithWhereUniqueWithoutProjectInput {
+  where: NoteWhereUniqueInput;
+  data: NoteUpdateWithoutProjectDataInput;
 }
 
-export interface MeetingUpdateWithoutProjectDataInput {
-  title?: Maybe<String>;
-  attendedBy?: Maybe<PersonUpdateManyWithoutMeetingsInput>;
-  notes?: Maybe<NoteUpdateManyWithoutMeetingInput>;
+export interface NoteUpdateWithoutProjectDataInput {
+  topic?: Maybe<String>;
+  content?: Maybe<String>;
+  author?: Maybe<PersonUpdateOneRequiredWithoutAuthoredInput>;
+  attendedBy?: Maybe<PersonUpdateManyWithoutAttendedInput>;
 }
 
-export interface MeetingUpsertWithWhereUniqueWithoutProjectInput {
-  where: MeetingWhereUniqueInput;
-  update: MeetingUpdateWithoutProjectDataInput;
-  create: MeetingCreateWithoutProjectInput;
+export interface NoteUpsertWithWhereUniqueWithoutProjectInput {
+  where: NoteWhereUniqueInput;
+  update: NoteUpdateWithoutProjectDataInput;
+  create: NoteCreateWithoutProjectInput;
 }
 
-export interface MeetingScalarWhereInput {
+export interface NoteScalarWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -1509,32 +1376,63 @@ export interface MeetingScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  AND?: Maybe<MeetingScalarWhereInput[] | MeetingScalarWhereInput>;
-  OR?: Maybe<MeetingScalarWhereInput[] | MeetingScalarWhereInput>;
-  NOT?: Maybe<MeetingScalarWhereInput[] | MeetingScalarWhereInput>;
+  topic?: Maybe<String>;
+  topic_not?: Maybe<String>;
+  topic_in?: Maybe<String[] | String>;
+  topic_not_in?: Maybe<String[] | String>;
+  topic_lt?: Maybe<String>;
+  topic_lte?: Maybe<String>;
+  topic_gt?: Maybe<String>;
+  topic_gte?: Maybe<String>;
+  topic_contains?: Maybe<String>;
+  topic_not_contains?: Maybe<String>;
+  topic_starts_with?: Maybe<String>;
+  topic_not_starts_with?: Maybe<String>;
+  topic_ends_with?: Maybe<String>;
+  topic_not_ends_with?: Maybe<String>;
+  content?: Maybe<String>;
+  content_not?: Maybe<String>;
+  content_in?: Maybe<String[] | String>;
+  content_not_in?: Maybe<String[] | String>;
+  content_lt?: Maybe<String>;
+  content_lte?: Maybe<String>;
+  content_gt?: Maybe<String>;
+  content_gte?: Maybe<String>;
+  content_contains?: Maybe<String>;
+  content_not_contains?: Maybe<String>;
+  content_starts_with?: Maybe<String>;
+  content_not_starts_with?: Maybe<String>;
+  content_ends_with?: Maybe<String>;
+  content_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
+  OR?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
+  NOT?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
 }
 
-export interface MeetingUpdateManyWithWhereNestedInput {
-  where: MeetingScalarWhereInput;
-  data: MeetingUpdateManyDataInput;
+export interface NoteUpdateManyWithWhereNestedInput {
+  where: NoteScalarWhereInput;
+  data: NoteUpdateManyDataInput;
 }
 
-export interface MeetingUpdateManyDataInput {
-  title?: Maybe<String>;
+export interface NoteUpdateManyDataInput {
+  topic?: Maybe<String>;
+  content?: Maybe<String>;
 }
 
 export interface ProjectUpsertWithoutTeamLeadInput {
@@ -1701,94 +1599,10 @@ export interface ProjectUpsertWithWhereUniqueWithoutProjectManagersInput {
   create: ProjectCreateWithoutProjectManagersInput;
 }
 
-export interface PersonUpsertWithoutNotesInput {
-  update: PersonUpdateWithoutNotesDataInput;
-  create: PersonCreateWithoutNotesInput;
-}
-
-export interface NoteUpsertWithWhereUniqueWithoutMeetingInput {
-  where: NoteWhereUniqueInput;
-  update: NoteUpdateWithoutMeetingDataInput;
-  create: NoteCreateWithoutMeetingInput;
-}
-
-export interface NoteScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  AND?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
-  OR?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
-  NOT?: Maybe<NoteScalarWhereInput[] | NoteScalarWhereInput>;
-}
-
-export interface NoteUpdateManyWithWhereNestedInput {
-  where: NoteScalarWhereInput;
-  data: NoteUpdateManyDataInput;
-}
-
-export interface NoteUpdateManyDataInput {
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-}
-
-export interface MeetingUpsertWithWhereUniqueWithoutAttendedByInput {
-  where: MeetingWhereUniqueInput;
-  update: MeetingUpdateWithoutAttendedByDataInput;
-  create: MeetingCreateWithoutAttendedByInput;
-}
-
-export interface PersonUpsertWithoutSlInput {
-  update: PersonUpdateWithoutSlDataInput;
-  create: PersonCreateWithoutSlInput;
-}
-
-export interface ProjectUpsertWithoutMeetingsInput {
-  update: ProjectUpdateWithoutMeetingsDataInput;
-  create: ProjectCreateWithoutMeetingsInput;
-}
-
-export interface MeetingUpsertWithoutNotesInput {
-  update: MeetingUpdateWithoutNotesDataInput;
-  create: MeetingCreateWithoutNotesInput;
+export interface PersonUpsertWithWhereUniqueWithoutAttendedInput {
+  where: PersonWhereUniqueInput;
+  update: PersonUpdateWithoutAttendedDataInput;
+  create: PersonCreateWithoutAttendedInput;
 }
 
 export interface NoteUpsertWithWhereUniqueWithoutAuthorInput {
@@ -1797,33 +1611,29 @@ export interface NoteUpsertWithWhereUniqueWithoutAuthorInput {
   create: NoteCreateWithoutAuthorInput;
 }
 
-export interface PersonUpsertWithWhereUniqueWithoutMeetingsInput {
-  where: PersonWhereUniqueInput;
-  update: PersonUpdateWithoutMeetingsDataInput;
-  create: PersonCreateWithoutMeetingsInput;
+export interface PersonUpsertWithoutSlInput {
+  update: PersonUpdateWithoutSlDataInput;
+  create: PersonCreateWithoutSlInput;
 }
 
-export interface MeetingUpdateManyMutationInput {
-  title?: Maybe<String>;
+export interface ProjectUpsertWithoutNotesInput {
+  update: ProjectUpdateWithoutNotesDataInput;
+  create: ProjectCreateWithoutNotesInput;
 }
 
-export interface NoteCreateInput {
-  id?: Maybe<ID_Input>;
-  title: String;
-  meeting: MeetingCreateOneWithoutNotesInput;
-  content: String;
-  author: PersonCreateOneWithoutNotesInput;
+export interface NoteUpsertWithWhereUniqueWithoutAttendedByInput {
+  where: NoteWhereUniqueInput;
+  update: NoteUpdateWithoutAttendedByDataInput;
+  create: NoteCreateWithoutAttendedByInput;
 }
 
-export interface NoteUpdateInput {
-  title?: Maybe<String>;
-  meeting?: Maybe<MeetingUpdateOneRequiredWithoutNotesInput>;
-  content?: Maybe<String>;
-  author?: Maybe<PersonUpdateOneRequiredWithoutNotesInput>;
+export interface PersonUpsertWithoutAuthoredInput {
+  update: PersonUpdateWithoutAuthoredDataInput;
+  create: PersonCreateWithoutAuthoredInput;
 }
 
 export interface NoteUpdateManyMutationInput {
-  title?: Maybe<String>;
+  topic?: Maybe<String>;
   content?: Maybe<String>;
 }
 
@@ -1832,8 +1642,8 @@ export interface PersonCreateInput {
   name: String;
   email: String;
   role: Role;
-  notes?: Maybe<NoteCreateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteCreateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteCreateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectCreateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectCreateOneWithoutTeamInput>;
   sl?: Maybe<ProjectCreateManyWithoutSectionLeadInput>;
@@ -1844,8 +1654,8 @@ export interface PersonUpdateInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   role?: Maybe<Role>;
-  notes?: Maybe<NoteUpdateManyWithoutAuthorInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutAttendedByInput>;
+  authored?: Maybe<NoteUpdateManyWithoutAuthorInput>;
+  attended?: Maybe<NoteUpdateManyWithoutAttendedByInput>;
   manages?: Maybe<ProjectUpdateManyWithoutProjectManagersInput>;
   team?: Maybe<ProjectUpdateOneWithoutTeamInput>;
   sl?: Maybe<ProjectUpdateManyWithoutSectionLeadInput>;
@@ -1880,7 +1690,7 @@ export interface ProjectCreateWithoutProductInput {
   teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
   projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutProjectInput>;
+  notes?: Maybe<NoteCreateManyWithoutProjectInput>;
 }
 
 export interface ProductUpdateInput {
@@ -1924,7 +1734,7 @@ export interface ProjectUpdateWithoutProductDataInput {
   teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
   projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutProjectInput>;
+  notes?: Maybe<NoteUpdateManyWithoutProjectInput>;
 }
 
 export interface ProjectUpsertWithWhereUniqueWithoutProductInput {
@@ -2072,7 +1882,7 @@ export interface ProjectCreateInput {
   teamLead?: Maybe<PersonCreateOneWithoutTlInput>;
   projectManagers?: Maybe<PersonCreateManyWithoutManagesInput>;
   team?: Maybe<PersonCreateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingCreateManyWithoutProjectInput>;
+  notes?: Maybe<NoteCreateManyWithoutProjectInput>;
 }
 
 export interface ProjectUpdateInput {
@@ -2083,23 +1893,12 @@ export interface ProjectUpdateInput {
   teamLead?: Maybe<PersonUpdateOneWithoutTlInput>;
   projectManagers?: Maybe<PersonUpdateManyWithoutManagesInput>;
   team?: Maybe<PersonUpdateManyWithoutTeamInput>;
-  meetings?: Maybe<MeetingUpdateManyWithoutProjectInput>;
+  notes?: Maybe<NoteUpdateManyWithoutProjectInput>;
 }
 
 export interface ProjectUpdateManyMutationInput {
   name?: Maybe<String>;
   status?: Maybe<Boolean>;
-}
-
-export interface MeetingSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<MeetingWhereInput>;
-  AND?: Maybe<MeetingSubscriptionWhereInput[] | MeetingSubscriptionWhereInput>;
-  OR?: Maybe<MeetingSubscriptionWhereInput[] | MeetingSubscriptionWhereInput>;
-  NOT?: Maybe<MeetingSubscriptionWhereInput[] | MeetingSubscriptionWhereInput>;
 }
 
 export interface NoteSubscriptionWhereInput {
@@ -2161,14 +1960,19 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface Meeting {
+export interface Note {
   id: ID_Output;
-  title: String;
+  topic: String;
+  content: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
-export interface MeetingPromise extends Promise<Meeting>, Fragmentable {
+export interface NotePromise extends Promise<Note>, Fragmentable {
   id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
+  topic: () => Promise<String>;
+  content: () => Promise<String>;
+  author: <T = PersonPromise>() => T;
   attendedBy: <T = FragmentableArray<Person>>(args?: {
     where?: PersonWhereInput;
     orderBy?: PersonOrderByInput;
@@ -2179,22 +1983,17 @@ export interface MeetingPromise extends Promise<Meeting>, Fragmentable {
     last?: Int;
   }) => T;
   project: <T = ProjectPromise>() => T;
-  notes: <T = FragmentableArray<Note>>(args?: {
-    where?: NoteWhereInput;
-    orderBy?: NoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface MeetingSubscription
-  extends Promise<AsyncIterator<Meeting>>,
+export interface NoteSubscription
+  extends Promise<AsyncIterator<Note>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
+  topic: () => Promise<AsyncIterator<String>>;
+  content: () => Promise<AsyncIterator<String>>;
+  author: <T = PersonSubscription>() => T;
   attendedBy: <T = Promise<AsyncIterator<PersonSubscription>>>(args?: {
     where?: PersonWhereInput;
     orderBy?: PersonOrderByInput;
@@ -2205,22 +2004,17 @@ export interface MeetingSubscription
     last?: Int;
   }) => T;
   project: <T = ProjectSubscription>() => T;
-  notes: <T = Promise<AsyncIterator<NoteSubscription>>>(args?: {
-    where?: NoteWhereInput;
-    orderBy?: NoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface MeetingNullablePromise
-  extends Promise<Meeting | null>,
+export interface NoteNullablePromise
+  extends Promise<Note | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
+  topic: () => Promise<String>;
+  content: () => Promise<String>;
+  author: <T = PersonPromise>() => T;
   attendedBy: <T = FragmentableArray<Person>>(args?: {
     where?: PersonWhereInput;
     orderBy?: PersonOrderByInput;
@@ -2231,15 +2025,8 @@ export interface MeetingNullablePromise
     last?: Int;
   }) => T;
   project: <T = ProjectPromise>() => T;
-  notes: <T = FragmentableArray<Note>>(args?: {
-    where?: NoteWhereInput;
-    orderBy?: NoteOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface Person {
@@ -2254,7 +2041,7 @@ export interface PersonPromise extends Promise<Person>, Fragmentable {
   name: () => Promise<String>;
   email: () => Promise<String>;
   role: () => Promise<Role>;
-  notes: <T = FragmentableArray<Note>>(args?: {
+  authored: <T = FragmentableArray<Note>>(args?: {
     where?: NoteWhereInput;
     orderBy?: NoteOrderByInput;
     skip?: Int;
@@ -2263,9 +2050,9 @@ export interface PersonPromise extends Promise<Person>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  meetings: <T = FragmentableArray<Meeting>>(args?: {
-    where?: MeetingWhereInput;
-    orderBy?: MeetingOrderByInput;
+  attended: <T = FragmentableArray<Note>>(args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2301,7 +2088,7 @@ export interface PersonSubscription
   name: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   role: () => Promise<AsyncIterator<Role>>;
-  notes: <T = Promise<AsyncIterator<NoteSubscription>>>(args?: {
+  authored: <T = Promise<AsyncIterator<NoteSubscription>>>(args?: {
     where?: NoteWhereInput;
     orderBy?: NoteOrderByInput;
     skip?: Int;
@@ -2310,9 +2097,9 @@ export interface PersonSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  meetings: <T = Promise<AsyncIterator<MeetingSubscription>>>(args?: {
-    where?: MeetingWhereInput;
-    orderBy?: MeetingOrderByInput;
+  attended: <T = Promise<AsyncIterator<NoteSubscription>>>(args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2348,7 +2135,7 @@ export interface PersonNullablePromise
   name: () => Promise<String>;
   email: () => Promise<String>;
   role: () => Promise<Role>;
-  notes: <T = FragmentableArray<Note>>(args?: {
+  authored: <T = FragmentableArray<Note>>(args?: {
     where?: NoteWhereInput;
     orderBy?: NoteOrderByInput;
     skip?: Int;
@@ -2357,9 +2144,9 @@ export interface PersonNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  meetings: <T = FragmentableArray<Meeting>>(args?: {
-    where?: MeetingWhereInput;
-    orderBy?: MeetingOrderByInput;
+  attended: <T = FragmentableArray<Note>>(args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2386,40 +2173,6 @@ export interface PersonNullablePromise
     last?: Int;
   }) => T;
   tl: <T = ProjectPromise>() => T;
-}
-
-export interface Note {
-  id: ID_Output;
-  title: String;
-  content: String;
-}
-
-export interface NotePromise extends Promise<Note>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  meeting: <T = MeetingPromise>() => T;
-  content: () => Promise<String>;
-  author: <T = PersonPromise>() => T;
-}
-
-export interface NoteSubscription
-  extends Promise<AsyncIterator<Note>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  meeting: <T = MeetingSubscription>() => T;
-  content: () => Promise<AsyncIterator<String>>;
-  author: <T = PersonSubscription>() => T;
-}
-
-export interface NoteNullablePromise
-  extends Promise<Note | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  meeting: <T = MeetingPromise>() => T;
-  content: () => Promise<String>;
-  author: <T = PersonPromise>() => T;
 }
 
 export interface Project {
@@ -2455,9 +2208,9 @@ export interface ProjectPromise extends Promise<Project>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  meetings: <T = FragmentableArray<Meeting>>(args?: {
-    where?: MeetingWhereInput;
-    orderBy?: MeetingOrderByInput;
+  notes: <T = FragmentableArray<Note>>(args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2495,9 +2248,9 @@ export interface ProjectSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  meetings: <T = Promise<AsyncIterator<MeetingSubscription>>>(args?: {
-    where?: MeetingWhereInput;
-    orderBy?: MeetingOrderByInput;
+  notes: <T = Promise<AsyncIterator<NoteSubscription>>>(args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2535,9 +2288,9 @@ export interface ProjectNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  meetings: <T = FragmentableArray<Meeting>>(args?: {
-    where?: MeetingWhereInput;
-    orderBy?: MeetingOrderByInput;
+  notes: <T = FragmentableArray<Note>>(args?: {
+    where?: NoteWhereInput;
+    orderBy?: NoteOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2669,25 +2422,25 @@ export interface ProgramNullablePromise
   }) => T;
 }
 
-export interface MeetingConnection {
+export interface NoteConnection {
   pageInfo: PageInfo;
-  edges: MeetingEdge[];
+  edges: NoteEdge[];
 }
 
-export interface MeetingConnectionPromise
-  extends Promise<MeetingConnection>,
+export interface NoteConnectionPromise
+  extends Promise<NoteConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<MeetingEdge>>() => T;
-  aggregate: <T = AggregateMeetingPromise>() => T;
+  edges: <T = FragmentableArray<NoteEdge>>() => T;
+  aggregate: <T = AggregateNotePromise>() => T;
 }
 
-export interface MeetingConnectionSubscription
-  extends Promise<AsyncIterator<MeetingConnection>>,
+export interface NoteConnectionSubscription
+  extends Promise<AsyncIterator<NoteConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<MeetingEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateMeetingSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<NoteEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateNoteSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -2711,60 +2464,6 @@ export interface PageInfoSubscription
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
   endCursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface MeetingEdge {
-  node: Meeting;
-  cursor: String;
-}
-
-export interface MeetingEdgePromise extends Promise<MeetingEdge>, Fragmentable {
-  node: <T = MeetingPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface MeetingEdgeSubscription
-  extends Promise<AsyncIterator<MeetingEdge>>,
-    Fragmentable {
-  node: <T = MeetingSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateMeeting {
-  count: Int;
-}
-
-export interface AggregateMeetingPromise
-  extends Promise<AggregateMeeting>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateMeetingSubscription
-  extends Promise<AsyncIterator<AggregateMeeting>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface NoteConnection {
-  pageInfo: PageInfo;
-  edges: NoteEdge[];
-}
-
-export interface NoteConnectionPromise
-  extends Promise<NoteConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<NoteEdge>>() => T;
-  aggregate: <T = AggregateNotePromise>() => T;
-}
-
-export interface NoteConnectionSubscription
-  extends Promise<AsyncIterator<NoteConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<NoteEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateNoteSubscription>() => T;
 }
 
 export interface NoteEdge {
@@ -3032,50 +2731,6 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface MeetingSubscriptionPayload {
-  mutation: MutationType;
-  node: Meeting;
-  updatedFields: String[];
-  previousValues: MeetingPreviousValues;
-}
-
-export interface MeetingSubscriptionPayloadPromise
-  extends Promise<MeetingSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = MeetingPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = MeetingPreviousValuesPromise>() => T;
-}
-
-export interface MeetingSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<MeetingSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = MeetingSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = MeetingPreviousValuesSubscription>() => T;
-}
-
-export interface MeetingPreviousValues {
-  id: ID_Output;
-  title: String;
-}
-
-export interface MeetingPreviousValuesPromise
-  extends Promise<MeetingPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-}
-
-export interface MeetingPreviousValuesSubscription
-  extends Promise<AsyncIterator<MeetingPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-}
-
 export interface NoteSubscriptionPayload {
   mutation: MutationType;
   node: Note;
@@ -3103,24 +2758,30 @@ export interface NoteSubscriptionPayloadSubscription
 
 export interface NotePreviousValues {
   id: ID_Output;
-  title: String;
+  topic: String;
   content: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface NotePreviousValuesPromise
   extends Promise<NotePreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
+  topic: () => Promise<String>;
   content: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface NotePreviousValuesSubscription
   extends Promise<AsyncIterator<NotePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
+  topic: () => Promise<AsyncIterator<String>>;
   content: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface PersonSubscriptionPayload {
@@ -3374,10 +3035,6 @@ export const models: Model[] = [
   },
   {
     name: "Project",
-    embedded: false
-  },
-  {
-    name: "Meeting",
     embedded: false
   },
   {

@@ -18,6 +18,7 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 
 - Run `prisma token`
 - Copy the token and attach it to the HTTP headers inside the playground:
+
 ```
 {
 "authorization": "Bearer {token}"
@@ -45,53 +46,54 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 #### Prisma Data Model
 
 ```graphql
-server/prisma/datamodel.prisma
-
 type Program {
-  id: ID! @id
-  name: String! @unique
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  id: ID!
+  name: String!
+  createdAt: String!
+  updatedAt: String!
   products: [Product!]!
 }
 
 type Product {
-  id: ID! @id
+  id: ID!
   name: String!
   program: Program!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  createdAt: String!
+  updatedAt: String!
   projects: [Project!]!
 }
 
 type Project {
-  id: ID! @id
+  id: ID!
   name: String!
   product: Product!
-  status: Boolean @default(value: false)
-  sectionLead: Person @relation(link: INLINE, name: "SectionLead")
-  teamLead: Person @relation(link: INLINE, name: "TeamLead")
-  projectManagers: [Person!]! @relation(name: "ProjectManager")
-  team: [Person!]! @relation(name: "Team")
-  meetings: [Meeting!]!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  status: Boolean!
+  sectionLead: Person
+  teamLead: Person
+  projectManagers: [Person!]!
+  team: [Person!]!
+  notes: [Note]
+  createdAt: String!
+  updatedAt: String!
 }
 
-type Meeting {
-  id: ID! @id
-  title: String!
-  attendedBy: [Person!]!
-  project: Project!
-  notes: [Note!]!
+type Person {
+  id: ID!
+  name: String!
+  email: String!
+  role: Role!
+  manages: [Project!]!
+  notes: [Note]
+  team: Project
+  sl: [Project!]!
+  tl: Project
 }
 
-type Note {
-  id: ID! @id
-  title: String!
-  meeting: Meeting!
-  content: String!
-  author: Person!
+type User {
+  id: ID!
+  email: String!
+  claims: [String!]!
+  projects: [Project!]!
 }
 
 enum Role {
@@ -103,17 +105,14 @@ enum Role {
   PM
 }
 
-type Person {
-  id: ID! @id
-  name: String!
-  email: String! @unique
-  role: Role!
-  notes: [Note!]!
-  meetings: [Meeting!]
-  manages: [Project!]! @relation(name: "ProjectManager")
-  team: Project @relation(name: "Team")
-  sl: [Project!]! @relation(name: "SectionLead")
-  tl: Project @relation(name: "TeamLead")
+type Note {
+  id: ID!
+  topic: String!
+  content: String!
+  author: Person!
+  attendedBy: [Person!]!
+  createdAt: String!
+  updatedAt: String!
 }
 ```
 
@@ -128,10 +127,9 @@ const context = async ({ req }) => {
     const user = await decodeToken(authorization);
     return { ...req, user, prisma };
   }
-  throw new Error('A valid token _must_ be provided!')
+  throw new Error('A valid token _must_ be provided!');
 };
 ```
-
 
 ## Environment Variables
 
@@ -139,16 +137,15 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-* OAUTH_TOKEN_ENDPOINT
-* OAUTH_CLIENT_ID
-* APPLICATION_NAME
-* ENVIRONMENT_NAME
-* TEST_OAUTH_CLIENT_ID
-* TEST_OAUTH_CLIENT_SECRET
-* PRISMA_MANAGEMENT_API_SECRET
-* PRISMA_ENDPOINT
-* PRISMA_SECRET
-
+- OAUTH_TOKEN_ENDPOINT
+- OAUTH_CLIENT_ID
+- APPLICATION_NAME
+- ENVIRONMENT_NAME
+- TEST_OAUTH_CLIENT_ID
+- TEST_OAUTH_CLIENT_SECRET
+- PRISMA_MANAGEMENT_API_SECRET
+- PRISMA_ENDPOINT
+- PRISMA_SECRET
 
 ## Contributing
 
@@ -158,11 +155,12 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 ### Issue/Bug Request
 
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 

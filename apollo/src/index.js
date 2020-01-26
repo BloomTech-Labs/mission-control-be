@@ -14,5 +14,4 @@ const context = require('./context');
 
   const { url } = await server.listen(PORT);
   // eslint-disable-next-line no-console
-  console.log(url);
 })();

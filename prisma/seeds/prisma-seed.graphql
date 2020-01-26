@@ -105,7 +105,8 @@ mutation {
     id
   }
 
-  # Create Program, Products, Projects
+  # Create Program, Products, Projects,
+
   createProgram(
     data: {
       name: "Lambda Labs"
@@ -136,30 +137,52 @@ mutation {
                       { email: "Parth@gmail.com" }
                     ]
                   }
-                  # meetings: {
-                  #   create: {
-                  #     data: {
-                  #       title: "Meeting One"
-                  #       attendedBy: {
-                  #         connect: [
-                  #           { email: "missioncontrolpm@gmail.com" }
-                  #           { email: "Emma@gmail.com" }
-                  #           { email: "Chance@gmail.com" }
-                  #           { email: "Coop@gmail.com" }
-                  #         ]
-                  #       }
-                  #     }
-                  #     notes: {
-                  #       create: {
-                  #         data: {
-                  #           title: "Good Note"
-                  #           content: "Really Important and good work"
-                  #           author: { connect: { email: "missioncontrolpm@gmail.com" } }
-                  #         }
-                  #       }
-                  #     }
-                  # }
-                  # }
+                  notes: {
+                    create: [
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -182,6 +205,52 @@ mutation {
                       { email: "Parth@gmail.com" }
                     ]
                   }
+                  notes: {
+                    create: [
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -192,6 +261,52 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Community Calendar"
+                  notes: {
+                    create: [
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                      {
+                        topic: "General Product Discussion"
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                        attendedBy: {
+                          connect: [
+                            { email: "missioncontrolstudent@gmail.com" }
+                            { email: "Chance@gmail.com" }
+                            { email: "Coop@gmail.com" }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                   sectionLead: {
                     connect: { email: "missioncontrolsectionlead@gmail.com" }
                   }
