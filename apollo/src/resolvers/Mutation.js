@@ -62,9 +62,16 @@ const createNote = (parent, args, context) => {
   return createNote;
 };
 
+//Takes in the same args are create note AND a specific note ID
+// uses note id to pull attendees to remove them and then pushes new data
+const updateNote =  async (parent, args, context) => {
+  const {topic, content, attendedBy, rating, id } = args
 
-const updateNote = (parent, args, context) => {
-  const {topic, content, attendedBy, rating, id, oldAttendees } = args
+  //pulls the attendee data on the note where: id
+  const oldAttendees = await context.prisma.note({id}).attendedBy()
+
+  // reshapes the attendee data to match expected structure
+  const emails = oldAttendees.map(({email}) => ({email}))
 
   const updateNote = context.prisma.updateNote({
     data: {
@@ -74,11 +81,12 @@ const updateNote = (parent, args, context) => {
       // This attendedBy only ADDS the new emails, 
       // it does not replace existing email connections
         attendedBy: {
-          diconnect: attendedBy.forEach(email => email),
+          // cleares the attendedBy field so it can be refill with new inputs
+          disconnect: emails,
           connect: attendedBy.map(email => {
             return { email };
           })
-      }
+        }
     },
     where: {
       id
