@@ -89,7 +89,6 @@ const updateNote =  async (parent, args, context) => {
       id
     }
   }).then(note => {
-    console.log(note)
     return context.prisma.updateNote({
       data: {
         attendedBy: {

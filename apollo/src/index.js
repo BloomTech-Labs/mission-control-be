@@ -13,4 +13,5 @@ const context = require('./context');
 
   const { url } = await server.listen(process.env.PORT);
   // eslint-disable-next-line no-console
+  console.log(`=========Running on port ${process.env.PORT}=========`)
 })();
