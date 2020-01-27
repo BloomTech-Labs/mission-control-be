@@ -73,24 +73,33 @@ const updateNote =  async (parent, args, context) => {
   // reshapes the attendee data to match expected structure
   const emails = oldAttendees.map(({email}) => ({email}))
 
+  const newAttendees = attendedBy.map(email => ({email}))
+
   const updateNote = context.prisma.updateNote({
     data: {
       topic,
       rating,
       content,
-      // This attendedBy only ADDS the new emails, 
-      // it does not replace existing email connections
-        attendedBy: {
-          // cleares the attendedBy field so it can be refill with new inputs
-          disconnect: emails,
-          connect: attendedBy.map(email => {
-            return { email };
-          })
-        }
+      attendedBy: {
+        // cleares the attendedBy field so it can be refill with new inputs
+        disconnect: emails
+      },
     },
     where: {
       id
     }
+  }).then(note => {
+    return context.prisma.updateNote({
+      data: {
+        attendedBy: {
+          // Adds in the new Attendees.
+          connect: newAttendees
+        }
+      },
+      where: {
+        id
+      }
+    })
   })
 
   return updateNote
