@@ -1,0 +1,4 @@
+.SILENT:
+
+install:
+	./setup.sh
