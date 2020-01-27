@@ -8,7 +8,8 @@ const typeDefs = gql`
     projects: [Project!]!
     persons: [Person!]!
     me: User!
-    notes: [Note]
+    notes: [Note!]!
+    note(id: ID!): Note!
   }
 
   type Mutation {
@@ -25,6 +26,14 @@ const typeDefs = gql`
       attendedBy: [String!]!
       id: ID!
       rating: Int!
+    ): Note!
+    updateNote(
+      topic: String
+      content: String
+      attendedBy: [String]
+      oldAttendees: [String]
+      id: ID!
+      rating: Int
     ): Note!
   }
 
