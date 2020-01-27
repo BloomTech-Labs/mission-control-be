@@ -38,6 +38,10 @@ const createPerson = (parent, args, context) => {
   return person;
 };
 
+
+// Create a new Note , takes strings for topic, content/int for rating
+// and takes email strings for attendedBy and Author
+// ID input will have to be a project ID
 const createNote = (parent, args, context) => {
   const { topic, content, attendedBy, rating, id } = args;
   const note = {
@@ -52,12 +56,37 @@ const createNote = (parent, args, context) => {
     project: { connect: { id } },
     rating,
   };
-  console.log(note);
 
   const createNote = context.prisma.createNote(note);
 
   return createNote;
 };
+
+
+const updateNote = (parent, args, context) => {
+  const {topic, content, attendedBy, rating, id, oldAttendees } = args
+
+  const updateNote = context.prisma.updateNote({
+    data: {
+      topic,
+      rating,
+      content,
+      // This attendedBy only ADDS the new emails, 
+      // it does not replace existing email connections
+        attendedBy: {
+          diconnect: attendedBy.forEach(email => email),
+          connect: attendedBy.map(email => {
+            return { email };
+          })
+      }
+    },
+    where: {
+      id
+    }
+  })
+
+  return updateNote
+}
 
 // Adds a Section Lead to a project, takes a string where email = person email
 // Takes a project ID where a project exists
@@ -104,4 +133,5 @@ module.exports = {
   addProjectSectionLead,
   addProjectTeamLead,
   addProjectMember,
+  updateNote
 };
