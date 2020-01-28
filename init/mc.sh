@@ -1,15 +1,37 @@
 #!/bin/bash
 
-containers() {
-	echo -e "\nRunning Mission Control backend"
-	cd ../ && \
-	echo -e "\nSourcing .env"
-	source sourceme.sh && \
-	echo -e "\nStarting container..."
-	docker-compose up --build -d
-	echo
+yarn_or_npm() {
+		if [[ ! $(which yarn) ]] && [[ ! $(yarn --version &> /dev/null) ]]; then
+			npm i
+		else
+			yarn
+		fi
 }
 
+containers() {
+	echo -e "\nRunning Mission Control containers..."
+	cd ../apollo && yarn_or_npm && \
+		cd ../ && source sourceme.sh && \
+		echo -e "Starting Containers..."
+		docker-compose up --build -d && \
+			echo
+			echo -e "\nFinishing up..."
+			sleep 5
+}
+
+install_cli() {
+	read -r -p "Install Prisma CLI globally? [y/N] " answer
+	if [[ "$answer" != y ]] && [[ "$answer" != Y ]]; then
+		echo -e "\nSkipping Prisma installation"
+	else
+		if [[ ! $(which yarn) ]] && [[ ! $(yarn --version &> /dev/null) ]]; then
+			echo -e "\nNow installing..."
+			sudo npm i -g prisma
+		else
+			sudo yarn global add prisma
+		fi
+	fi
+}
 
 run_mc() {
 	read -r -p "Start Mission Control container? [y/N] " answer
@@ -31,12 +53,13 @@ run_mc() {
 			else
 				prisma reset --force && prisma seed
 				echo
-				echo -e "\nApollo Server listening on port 8000"
+				echo -e "Apollo Server listening on port 8000"
 				echo -e "Prisma listening on port 7000"
-				echo -e "Happy hacking from Labs 19 <3\n"
+				echo -e "\nHappy hacking from Labs 19 <3\n"
 			fi
 		fi
 	fi
 }
 
+install_cli
 run_mc
