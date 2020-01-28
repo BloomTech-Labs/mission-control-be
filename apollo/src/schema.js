@@ -6,6 +6,7 @@ const typeDefs = gql`
     programs: [Program!]!
     products: [Product!]!
     projects: [Project!]!
+    project(id: ID!): Project!
     persons: [Person!]!
     me: User!
     notes: [Note!]!
