@@ -1,4 +1,3 @@
-
 const author = (parent, args, context) => {
   const res = context.prisma.note({ id: parent.id }).author();
   return res;
@@ -9,7 +8,13 @@ const attendedBy = (parent, args, context) => {
   return res;
 };
 
+const project = ({ id }, args, context) => {
+  const res = context.prisma.note({ id }).project();
+  return res;
+};
+
 module.exports = {
   author,
-  attendedBy
+  attendedBy,
+  project,
 };
