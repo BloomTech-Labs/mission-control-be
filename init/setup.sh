@@ -1,7 +1,7 @@
 #!/bin/bash
 
 confirm() {
-	read -r -p "Proceed with setup? for "$2" [y/N] " answer
+	read -r -p "Proceed with setup for $2? [y/N] " answer
 	if [[ "$answer" != y ]] && [[ "$answer" != Y ]]; then
 		echo "Cancelling setup"
 		echo "Now exiting"
@@ -27,19 +27,19 @@ select opt in "${options[@]}"
 do
 	case $opt in
 		"Configure for MacOS")
-			confirm "mac" "MacOS"
+			confirm "mac" 'MacOS'
 			break
 			;;
 		"Configure for Ubuntu / Debian / CentOS / Fedora")
-			confirm "linux"
+			confirm "linux" 'Linux'
 			break
 			;;
 		"Configure for Arch")
-			confirm "arch" "Arch"
+			confirm "arch" 'Arch'
 			break
 			;;
 		"Deploy Mission Control")
-			confirm "mc" "Mission Control"
+			confirm "mc" 'Mission Control'
 			break
 			;;
 		"Exit")

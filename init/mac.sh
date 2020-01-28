@@ -1,16 +1,16 @@
 #!/bin/bash
 
+declare -a packages=(
+	"docker"
+	"docker-compose"
+)
+
 install_packages() {
 	read -r -p "\nInstall Docker & docker-compose? [y/N] " answer
 	if [[ "$answer" != y ]] && [[ "$answer" != Y ]]; then
 		echo -e "\nSkipping Docker systemctl setup...\n"
 	else
 		echo -e "\nInstalling Docker for MacOS..."
-
-		declare -a packages=(
-			"docker"
-			"docker-compose"
-		)
 
 		brew install ${packages[@]}
 		brew cask install docker

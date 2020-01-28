@@ -1,16 +1,16 @@
 #!/bin/bash
 
+declare -a packages=(
+"docker"
+"docker-compose"
+)
+
 install_packages() {
 	read -r -p "Install Docker? [y/N] " answer
 	if [[ "$answer" != y ]] && [[ "$answer" != Y ]]; then
 		echo -e "\nSkipping Docker Install..."
 	else
 		echo -e "\nInstalling required packages for Arch..."
-
-		declare -a packages=(
-		"docker"
-		"docker-compose"
-		)
 
 	sudo pacman -Syu ${packages[@]}
 
