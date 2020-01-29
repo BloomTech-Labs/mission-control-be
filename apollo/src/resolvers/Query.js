@@ -38,7 +38,8 @@ const note = (parent, args, context) => {
 };
 
 const notes = (parent, args, context) => {
-  const res = context.prisma.notes();
+  const { orderBy } = args;
+  const res = context.prisma.notes({ orderBy });
   return res;
 };
 

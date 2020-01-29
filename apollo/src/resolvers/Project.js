@@ -30,7 +30,8 @@ const projectManagers = (parent, args, context) => {
 };
 
 const notes = (parent, args, context) => {
-  const res = context.prisma.project({ id: parent.id }).notes();
+  const { orderBy } = args;
+  const res = context.prisma.notes({ orderBy });
 
   return res;
 };
@@ -41,5 +42,5 @@ module.exports = {
   sectionLead,
   team,
   projectManagers,
-  notes, 
+  notes,
 };
