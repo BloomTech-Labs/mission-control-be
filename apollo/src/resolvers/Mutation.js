@@ -38,7 +38,6 @@ const createPerson = (parent, args, context) => {
   return person;
 };
 
-
 // Create a new Note , takes strings for topic, content/int for rating
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
@@ -64,46 +63,54 @@ const createNote = (parent, args, context) => {
 
 //Takes in the same args are create note AND a specific note ID
 // uses note id to pull attendees to remove them and then pushes new data
-const updateNote =  async (parent, args, context) => {
-  const {topic, content, attendedBy, rating, id } = args
+const updateNote = async (parent, args, context) => {
+  const { topic, content, attendedBy, rating, id } = args;
 
   //pulls the attendee data on the note where: id
-  const oldAttendees = await context.prisma.note({id}).attendedBy()
+  const oldAttendees = await context.prisma.note({ id }).attendedBy();
 
   // reshapes the attendee data to match expected structure
-  const emails = oldAttendees.map(({email}) => ({email}))
+  const emails = oldAttendees.map(({ email }) => ({ email }));
 
-  const newAttendees = attendedBy.map(email => ({email}))
+  const newAttendees = attendedBy.map(email => ({ email }));
 
-  const updateNote = context.prisma.updateNote({
-    data: {
-      topic,
-      rating,
-      content,
-      attendedBy: {
-        // cleares the attendedBy field so it can be refill with new inputs
-        disconnect: emails
-      },
-    },
-    where: {
-      id
-    }
-  }).then(note => {
-    return context.prisma.updateNote({
+  const updateNote = context.prisma
+    .updateNote({
       data: {
+        topic,
+        rating,
+        content,
         attendedBy: {
-          // Adds in the new Attendees.
-          connect: newAttendees
-        }
+          // cleares the attendedBy field so it can be refill with new inputs
+          disconnect: emails,
+        },
       },
       where: {
-        id
-      }
+        id,
+      },
     })
-  })
+    .then(note => {
+      return context.prisma.updateNote({
+        data: {
+          attendedBy: {
+            // Adds in the new Attendees.
+            connect: newAttendees,
+          },
+        },
+        where: {
+          id,
+        },
+      });
+    });
 
-  return updateNote
-}
+  return updateNote;
+};
+
+const deleteNote = (_, args, context) => {
+  const { id } = args;
+  const res = context.prisma.deleteNote({ id });
+  return res;
+};
 
 // Adds a Section Lead to a project, takes a string where email = person email
 // Takes a project ID where a project exists
@@ -147,8 +154,9 @@ module.exports = {
   createProject,
   createPerson,
   createNote,
+  deleteNote,
   addProjectSectionLead,
   addProjectTeamLead,
   addProjectMember,
-  updateNote
+  updateNote,
 };

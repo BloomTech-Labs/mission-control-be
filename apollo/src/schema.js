@@ -36,6 +36,7 @@ const typeDefs = gql`
       id: ID!
       rating: Int
     ): Note!
+    deleteNote(id: ID!): Note!
   }
 
   type Program {
