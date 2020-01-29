@@ -182,9 +182,10 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "bernie.durfee@lambdaschool.com" }
+                            { email: "jess.martin@lambdaschool.com" }
+                            { email: "ryan.hamblin@lambdaschool.com" }
                           ]
                         }
                       }
@@ -197,9 +198,11 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "bernie.durfee@lambdaschool.com" }
+                            { email: "parth.shah@lambdaschool.com" }
+                            { email: "jess.martin@lambdaschool.com" }
+                            { email: "ryan.hamblin@lambdaschool.com" }
                           ]
                         }
                       }
@@ -212,9 +215,12 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "bernie.durfee@lambdaschool.com" }
+                            { email: "parth.shah@lambdaschool.com" }
+                            { email: "elizabeth.lin@lambdaschool.com" }
+                            { email: "jess.martin@lambdaschool.com" }
+                            { email: "ryan.hamblin@lambdaschool.com" }
                           ]
                         }
                       }
@@ -256,9 +262,11 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "bernie.durfee@lambdaschool.com" }
+                            { email: "parth.shah@lambdaschool.com" }
+                            { email: "elizabeth.lin@lambdaschool.com" }
+                            { email: "jess.martin@lambdaschool.com" }
                           ]
                         }
                       }
@@ -271,9 +279,9 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "jess.martin@lambdaschool.com" }
+                            { email: "ryan.hamblin@lambdaschool.com" }
                           ]
                         }
                       }
@@ -286,9 +294,10 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "elizabeth.lin@lambdaschool.com" }
+                            { email: "jess.martin@lambdaschool.com" }
+                            { email: "ryan.hamblin@lambdaschool.com" }
                           ]
                         }
                       }
@@ -315,9 +324,12 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "bernie.durfee@lambdaschool.com" }
+                            { email: "parth.shah@lambdaschool.com" }
+                            { email: "elizabeth.lin@lambdaschool.com" }
+                            { email: "jess.martin@lambdaschool.com" }
+                            { email: "ryan.hamblin@lambdaschool.com" }
                           ]
                         }
                       }
@@ -330,9 +342,12 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "bernie.durfee@lambdaschool.com" }
+                            { email: "parth.shah@lambdaschool.com" }
+                            { email: "elizabeth.lin@lambdaschool.com" }
+                            { email: "jess.martin@lambdaschool.com" }
+                            { email: "ryan.hamblin@lambdaschool.com" }
                           ]
                         }
                       }
@@ -345,9 +360,10 @@ mutation {
                         }
                         attendedBy: {
                           connect: [
-                            { email: "missioncontrolstudent@gmail.com" }
-                            { email: "Chance@gmail.com" }
-                            { email: "Coop@gmail.com" }
+                            { email: "missioncontrolpm@gmail.com" }
+                            { email: "parth.shah@lambdaschool.com" }
+                            { email: "elizabeth.lin@lambdaschool.com" }
+                            { email: "ryan.hamblin@lambdaschool.com" }
                           ]
                         }
                       }
