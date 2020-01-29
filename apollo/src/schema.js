@@ -9,7 +9,7 @@ const typeDefs = gql`
     project(id: ID!): Project!
     persons: [Person!]!
     me: User!
-    notes: [Note!]!
+    notes(orderBy: NoteOrderByInput): [Note!]!
     note(id: ID!): Note!
   }
 
@@ -64,7 +64,7 @@ const typeDefs = gql`
     teamLead: Person
     projectManagers: [Person!]!
     team: [Person!]!
-    notes: [Note]
+    notes(orderBy: NoteOrderByInput): [Note]
     createdAt: String!
     updatedAt: String!
   }
@@ -107,6 +107,21 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     rating: Int!
+  }
+
+  enum NoteOrderByInput {
+    id_ASC
+    id_DESC
+    topic_ASC
+    topic_DESC
+    content_ASC
+    content_DESC
+    rating_ASC
+    rating_DESC
+    createdAt_ASC
+    createdAt_DESC
+    updatedAt_ASC
+    updatedAt_DESC
   }
 `;
 
