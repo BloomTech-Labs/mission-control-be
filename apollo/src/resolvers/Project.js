@@ -30,8 +30,9 @@ const projectManagers = (parent, args, context) => {
 };
 
 const notes = (parent, args, context) => {
+  const { id } = parent;
   const { orderBy } = args;
-  const res = context.prisma.notes({ orderBy });
+  const res = context.prisma.project({ id }).notes({ orderBy });
 
   return res;
 };
