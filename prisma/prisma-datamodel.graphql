@@ -33,6 +33,7 @@ type Note {
   author: Person! @relation(name: "NoteAuthor")
   attendedBy: [Person!]! @relation(name: "NoteAttendee")
   project: Project!
+  rating: Int!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }

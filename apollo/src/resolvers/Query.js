@@ -18,12 +18,24 @@ const projects = (parent, args, context) => {
   return res;
 };
 
+const project = (parent, args, context) => {
+  const { id } = args;
+  const res = context.prisma.project({ id });
+  return res;
+};
+
 const persons = (parent, args, context) => {
   const res = context.prisma.persons();
   return res;
 };
 
 const me = (parent, args, context) => context.user;
+
+const note = (parent, args, context) => {
+  const { id } = args;
+  const res = context.prisma.note({ id });
+  return res;
+};
 
 const notes = (parent, args, context) => {
   const res = context.prisma.notes();
@@ -35,7 +47,9 @@ module.exports = {
   programs,
   products,
   projects,
+  project,
   persons,
   me,
+  note,
   notes,
 };

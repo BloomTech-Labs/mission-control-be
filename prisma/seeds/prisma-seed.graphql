@@ -66,17 +66,48 @@ mutation {
 
   ## Create PMs
   pm0: createPerson(
-    data: { name: "Jess", email: "missioncontrolpm@gmail.com", role: PM }
+    data: { name: "Dev", email: "missioncontrolpm@gmail.com", role: PM }
   ) {
     id
   }
   pm1: createPerson(
-    data: { name: "Parth", email: "Parth@gmail.com", role: PM }
+    data: { name: "Parth Shah", email: "parth.shah@lambdaschool.com", role: PM }
   ) {
     id
   }
   pm2: createPerson(
-    data: { name: "Bernie", email: "Bernie@gmail.com", role: PM }
+    data: {
+      name: "Bernie Durfee"
+      email: "bernie.durfee@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+  pm3: createPerson(
+    data: {
+      name: "Jess Martin"
+      email: "jess.martin@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+  pm4: createPerson(
+    data: {
+      name: "Elizabeth Lin"
+      email: "elizabeth.lin@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+  pm5: createPerson(
+    data: {
+      name: "Ryan Hamblin"
+      email: "ryan.hamblin@lambdaschool.com"
+      role: PM
+    }
   ) {
     id
   }
@@ -113,7 +144,7 @@ mutation {
       products: {
         create: [
           {
-            name: "Brew Plans"
+            name: "Mission Control"
             projects: {
               create: [
                 {
@@ -133,14 +164,18 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                   notes: {
                     create: [
                       {
                         topic: "General Product Discussion"
+                        rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
@@ -155,7 +190,8 @@ mutation {
                       }
                       {
                         topic: "General Product Discussion"
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        rating: 2
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
                         }
@@ -169,7 +205,8 @@ mutation {
                       }
                       {
                         topic: "General Product Discussion"
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
+                        rating: 2
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
                         }
@@ -201,14 +238,18 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                   notes: {
                     create: [
                       {
                         topic: "General Product Discussion"
+                        rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
@@ -223,6 +264,7 @@ mutation {
                       }
                       {
                         topic: "General Product Discussion"
+                        rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
@@ -237,6 +279,7 @@ mutation {
                       }
                       {
                         topic: "General Product Discussion"
+                        rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
@@ -265,6 +308,7 @@ mutation {
                     create: [
                       {
                         topic: "General Product Discussion"
+                        rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
@@ -279,6 +323,7 @@ mutation {
                       }
                       {
                         topic: "General Product Discussion"
+                        rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
@@ -293,6 +338,7 @@ mutation {
                       }
                       {
                         topic: "General Product Discussion"
+                        rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
@@ -314,8 +360,11 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                 }
@@ -335,8 +384,11 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                 }
@@ -357,8 +409,11 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                 }
@@ -376,8 +431,11 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                 }
@@ -395,8 +453,11 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                 }
@@ -414,8 +475,11 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                 }
@@ -434,8 +498,11 @@ mutation {
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
                     ]
                   }
                 }
@@ -452,8 +519,8 @@ mutation {
                   teamLead: { connect: { email: "Kevin@gmail.com" } }
                   projectManagers: {
                     connect: [
-                      { email: "Bernie@gmail.com" }
-                      { email: "Parth@gmail.com" }
+                      { email: "bernie.durfee@lambdaschool.com" }
+                      { email: "parth.shah@lambdaschool.com" }
                     ]
                   }
                 }
