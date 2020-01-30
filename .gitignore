@@ -1,6 +1,6 @@
 # Logs
-logs
-*.log
+**/logs
+**/*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -36,7 +36,7 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
+**/node_modules
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -64,8 +64,8 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
-.env.test
+**/.env
+**/.env*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -80,11 +80,7 @@ typings/
 .cache/
 public
 
-# vuepress build output
-.vuepress/dist
 
-# Serverless directories
-.serverless/
 
 # FuseBox cache
 .fusebox/
@@ -109,3 +105,8 @@ package-lock.json
 apollo/schema/generated/prisma.graphql
 apollo/src/generated/prisma-client/index.d.ts
 apollo/src/generated/prisma-client/prisma-schema.js
+**/.vscode
+**/out
+**/build
+**/dist
+**/generated
