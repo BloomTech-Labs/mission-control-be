@@ -38,9 +38,10 @@ init: clean
 # =================================================================
 
 prisma-generate:
-	@echo
-	@echo Generating Prisma schema
-	@cd prisma && prisma generate
+	@export $$(cat .env | xargs)			&& \
+	 echo															&& \
+	 echo Generating Prisma schema		&& \
+	 cd prisma && prisma generate
 
 local-prisma-deploy:
 	@echo
