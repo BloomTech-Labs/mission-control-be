@@ -44,58 +44,60 @@ prisma-generate:
 	 cd prisma && prisma generate
 
 local-prisma-deploy:
-	@echo
-	@echo Deploying Prisma schema
-	@cd prisma && prisma deploy
+	@export $$(cat .env | xargs)			&& \
+	 echo															&& \
+	 echo Deploying Prisma schema			&& \
+	 cd prisma && prisma deploy
+
+local-prisma-reseed:
+	@export $$(cat .env | xargs)			&& \
+	 echo															&& \
+	 echo Deploying Prisma schema			&& \
+	 cd prisma 												&& \
+	 prisma reset --force							&& \
+	 prisma seed
 
 local-prisma-token:
-	@echo
-	@echo Generating Prisma token
-	@cd prisma && prisma token
+	@export $$(cat .env | xargs)			&& \
+	 echo															&& \
+	 echo Generating Prisma token			&& \
+	 cd prisma && prisma token
 
 
 # =================================================================
 # = Apollo targets ================================================
 # =================================================================
 
-apollo-docker-build: env-APOLLO_CONTAINER_IMAGE prisma-generate 
-	@printf "$(OK_COLOR)"																																												&& \
+apollo-docker-build: prisma-generate 
+	@export $$(cat .env | xargs)																																								&& \
+	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
-	 printf "%s\n"   "= Building Apollo container image"																												&& \
+	 printf "%s\n"   "= Building Apollo container image: $${APOLLO_CONTAINER_IMAGE}"														&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 cd apollo && docker build -t ${APOLLO_CONTAINER_IMAGE} .
+	 cd apollo && docker build -t $${APOLLO_CONTAINER_IMAGE} .
 
-apollo-push: env-APOLLO_CONTAINER_IMAGE apollo-docker-build
-	@printf "$(OK_COLOR)"																																												&& \
+apollo-push: apollo-docker-build
+	@export $$(cat .env | xargs)																																								&& \
+	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
-	 printf "%s\n"   "= Pushing Apollo container image"																													&& \
+	 printf "%s\n"   "= Pushing Apollo container image: $${APOLLO_CONTAINER_IMAGE}"															&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 cd apollo && docker push ${APOLLO_CONTAINER_IMAGE}
+	 cd apollo && docker push $${APOLLO_CONTAINER_IMAGE}
 
-apollo-token: env-TEST_OAUTH_TOKEN_ENDPOINT env-TEST_OAUTH_CLIENT_ID env-TEST_OAUTH_CLIENT_SECRET
-	@echo
-	@echo Generating token that can be used for Apollo
-	@curl --request POST \
-		--url ${TEST_OAUTH_TOKEN_ENDPOINT}/v1/token \
-		--header 'content-type: application/x-www-form-urlencoded' \
-		--data 'grant_type=client_credentials&scope=groups' -u ${TEST_OAUTH_CLIENT_ID}:${TEST_OAUTH_CLIENT_SECRET}
-
-# =================================================================
-# Force an update of the Apollo service in AWS
-# =================================================================
-APOLLO_SERVICE_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-ApolloServiceArn
-APOLLO_SERVICE_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(APOLLO_SERVICE_ARN_EXPORT)`].Value' --output text)
-
-aws-apollo-update-service: aws-env-banner
-	@printf "$(OK_COLOR)"																																												&& \
+apollo-token:
+	@export $$(cat .env | xargs)																																								&& \
+	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
-	 printf "%s\n"   "= Updating the Apollo service"													   																&& \
-	 printf "%s"     "======================================================================================"		&& \
+	 printf "%s\n"   "= Grabbing token from: $${OAUTH_TOKEN_ENDPOINT}"																					&& \
+	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 export APOLLO_SERVICE_ARN=$(APOLLO_SERVICE_ARN) 																														&& \
-	 aws ecs update-service --cluster $(APPLICATION_NAME)-$(ENVIRONMENT_NAME) --service "$${APOLLO_SERVICE_ARN}" --force-new-deployment
+	 curl --request POST 																																													 \
+		    --url $${OAUTH_TOKEN_ENDPOINT}/v1/token 																																 \
+		    --header 'content-type: application/x-www-form-urlencoded' 																							 \
+		    --data 'grant_type=client_credentials&scope=groups'																											 \
+				-u $${TEST_OAUTH_CLIENT_ID}:$${TEST_OAUTH_CLIENT_SECRET}
 
 
 # =================================================================
@@ -364,8 +366,26 @@ aws-prisma-deploy: aws-env-banner
 	 cd prisma && prisma deploy
 
 
+# ===========================================================================
+# Runs Prisma seed against the AWS environment
+# ===========================================================================
+aws-prisma-reseed: aws-env-banner
+	@export $$(cat aws.$(APPLICATION_NAME) | xargs)																															&& \
+	 export $$(cat aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | xargs)																					&& \
+	 export PRISMA_MANAGEMENT_API_SECRET="$(PRISMA_MANAGEMENT_API_SECRET)"																			&& \
+	 export PRISMA_SECRET="$(PRISMA_SERVICE_API_SECRET)" 																												&& \
+	 printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Seeding $${PRISMA_ENDPOINT}"		   																											&& \
+	 printf "%s"     "======================================================================================"		&& \
+	 printf "$(NO_COLOR)\n"																																											&& \
+	 printf "%s\n" "PRISMA_MANAGEMENT_API_SECRET: $${PRISMA_MANAGEMENT_API_SECRET}"															&& \
+	 printf "%s\n" "PRISMA_SECRET: $${PRISMA_SECRET}"																														&& \
+	 cd prisma && prisma reset --force && prisma seed
+
+
 # =================================================================
-# Force an update of the Prisma service
+# Force an update of the Prisma service in AWS
 # =================================================================
 PRISMA_SERVICE_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-PrismaServiceArn
 PRISMA_SERVICE_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(PRISMA_SERVICE_ARN_EXPORT)`].Value' --output text)
@@ -375,3 +395,17 @@ aws-prisma-update-service: aws-env-banner
 	 echo PRISMA_SERVICE_ARN: $${PRISMA_SERVICE_ARN} && \
 	 aws ecs update-service --cluster $(APPLICATION_NAME)-$(ENVIRONMENT_NAME) --service "$${PRISMA_SERVICE_ARN}" --force-new-deployment
 
+# =================================================================
+# Force an update of the Apollo service in AWS
+# =================================================================
+APOLLO_SERVICE_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-ApolloServiceArn
+APOLLO_SERVICE_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(APOLLO_SERVICE_ARN_EXPORT)`].Value' --output text)
+
+aws-apollo-update-service: aws-env-banner
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Updating the Apollo service"													   																&& \
+	 printf "%s"     "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"																																												&& \
+	 export APOLLO_SERVICE_ARN=$(APOLLO_SERVICE_ARN) 																														&& \
+	 aws ecs update-service --cluster $(APPLICATION_NAME)-$(ENVIRONMENT_NAME) --service "$${APOLLO_SERVICE_ARN}" --force-new-deployment
