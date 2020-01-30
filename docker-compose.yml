@@ -4,10 +4,10 @@ services:
   apollo:
     build:
       context: ./apollo
-      dockerfile: Dockerfile.dev
-    command: nodemon src/index.js
+      dockerfile: Dockerfile
+    command: sh -c "npm install -g nodemon && nodemon src/index.js"
     volumes:
-      - ./apollo:/app
+      - ./apollo/src:/app/src
     ports:
       - '${APOLLO_LISTEN_PORT:-8000}:${APOLLO_LISTEN_PORT:-8000}'
     environment:
@@ -20,7 +20,7 @@ services:
       PRISMA_SECRET: ${PRISMA_SECRET:?You must specify PRISMA_SECRET}
 
       OAUTH_TOKEN_ENDPOINT: ${OAUTH_TOKEN_ENDPOINT:?You must specify OAUTH_TOKEN_ENDPOINT}
-      OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:?You must specify 0AUTH_CLIENT_ID}
+      OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:?You must specify OAUTH_CLIENT_ID}
 
   # The Prisma service
   prisma:
