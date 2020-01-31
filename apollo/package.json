@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@okta/jwt-verifier": "^1.0.0",
+    "@sendgrid/mail": "^6.5.1",
     "apollo-server": "^2.9.14",
     "dotenv": "^8.2.0",
     "graphql": "^14.5.8",

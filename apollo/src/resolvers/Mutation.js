@@ -1,3 +1,8 @@
+// createNote sends an email to project managers
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 // Mutations must be defined explicitly in the type definition
 // inside of the graphql schema to be valid.
 // See schema.js in src for examples
@@ -41,8 +46,8 @@ const createPerson = (parent, args, context) => {
 // Create a new Note , takes strings for topic, content/int for rating
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
-const createNote = (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id } = args;
+const createNote = async (parent, args, context) => {
+  const { topic, content, attendedBy, rating, id, notification } = args;
   const note = {
     topic,
     content,
@@ -56,17 +61,45 @@ const createNote = (parent, args, context) => {
     rating,
   };
 
-  const createNote = context.prisma.createNote(note);
+  const newNote = await context.prisma.createNote(note);
 
-  return createNote;
+  if (notification) {
+    const noteProject = await context.prisma.project({ id });
+    const noteProjectManagers = await context.prisma
+      .project({ id })
+      .projectManagers();
+    const noteAuthor = await context.prisma.note({ id: newNote.id }).author();
+
+    // missioncontrolpm will receive all updates in staging/development
+    const recipients =
+      process.env.ENVIRONMENT_NAME === 'production'
+        ? Array.from(noteProjectManagers, ({ email }) => email)
+        : 'missioncontrolpm@gmail.com';
+
+    const emailAlert = {
+      to: recipients,
+      from: 'missioncontrol@lambdaschool.com',
+      subject: `${noteAuthor.name} has posted a note in ${noteProject.name}`,
+      text: 'Mission Control',
+      html: `<p>${content}<p>`,
+    };
+
+    try {
+      sgMail.send(emailAlert);
+    } catch (error) {
+      throw Error(error);
+    }
+  }
+
+  return newNote;
 };
 
-//Takes in the same args are create note AND a specific note ID
+// Takes in the same args are create note AND a specific note ID
 // uses note id to pull attendees to remove them and then pushes new data
 const updateNote = async (parent, args, context) => {
   const { topic, content, attendedBy, rating, id } = args;
 
-  //pulls the attendee data on the note where: id
+  // pulls the attendee data on the note where: id
   const oldAttendees = await context.prisma.note({ id }).attendedBy();
 
   // reshapes the attendee data to match expected structure
@@ -74,7 +107,7 @@ const updateNote = async (parent, args, context) => {
 
   const newAttendees = attendedBy.map(email => ({ email }));
 
-  const updateNote = context.prisma
+  const updatedNote = context.prisma
     .updateNote({
       data: {
         topic,
@@ -89,7 +122,7 @@ const updateNote = async (parent, args, context) => {
         id,
       },
     })
-    .then(note => {
+    .then(() => {
       return context.prisma.updateNote({
         data: {
           attendedBy: {
@@ -103,7 +136,7 @@ const updateNote = async (parent, args, context) => {
       });
     });
 
-  return updateNote;
+  return updatedNote;
 };
 
 const deleteNote = (_, args, context) => {
