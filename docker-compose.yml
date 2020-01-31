@@ -22,6 +22,8 @@ services:
       OAUTH_TOKEN_ENDPOINT: ${OAUTH_TOKEN_ENDPOINT:?You must specify OAUTH_TOKEN_ENDPOINT}
       OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:?You must specify OAUTH_CLIENT_ID}
 
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY:?You must specify SENDGRID_API_KEY}
+
   # The Prisma service
   prisma:
     image: prismagraphql/prisma:1.34
