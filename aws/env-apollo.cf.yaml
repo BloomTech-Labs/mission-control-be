@@ -37,6 +37,9 @@ Parameters:
     Type: String
     Description: The ID of this OAuth client
 
+Conditions:
+  IsProductionEnvironment: !Equals [ !Ref EnvironmentName, production ]
+  
 Resources:
   LogGroup:
     Type: 'AWS::Logs::LogGroup'
@@ -82,7 +85,11 @@ Resources:
             - Name: GRAPHQL_API_PATH
               Value: /
             - Name: PRISMA_ENDPOINT
-              Value: !Sub "http://prisma.private.${EnvironmentName}.${ApplicationDomainNamespace}:${PrismaServicePort}"
+              Value:
+                Fn::If:
+                  - IsProductionEnvironment
+                  - !Sub "http://prisma.private.${ApplicationDomainNamespace}:${PrismaServicePort}"
+                  - !Sub "http://prisma.private.${EnvironmentName}.${ApplicationDomainNamespace}:${PrismaServicePort}"
             - Name: PRISMA_SECRET
               Value:
                 Fn::Sub:
