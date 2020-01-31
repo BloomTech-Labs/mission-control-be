@@ -27,6 +27,7 @@ const typeDefs = gql`
       attendedBy: [String!]!
       id: ID!
       rating: Int!
+      notification: Boolean
     ): Note!
     updateNote(
       topic: String
