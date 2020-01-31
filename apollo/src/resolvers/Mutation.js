@@ -70,15 +70,25 @@ const createNote = async (parent, args, context) => {
       .projectManagers();
     const noteAuthor = await context.prisma.note({ id: newNote.id }).author();
 
+    // missioncontrolpm will receive all updates in staging/development
+    const recipients =
+      process.env.ENVIRONMENT_NAME === 'production'
+        ? Array.from(noteProjectManagers, ({ email }) => email)
+        : 'missioncontrolpm@gmail.com';
+
     const emailAlert = {
-      // to: Array.from(noteProjectManagers, ({ email }) => email),
-      to: ['kevin.afable@gmail.com', 'missioncontrolpm@gmail.com'],
+      to: recipients,
       from: 'missioncontrol@lambdaschool.com',
       subject: `${noteAuthor.name} has posted a note in ${noteProject.name}`,
       text: 'Mission Control',
       html: `<p>${content}<p>`,
     };
-    console.log('email alert', emailAlert);
+
+    try {
+      sgMail.send(emailAlert);
+    } catch (error) {
+      throw Error(error);
+    }
   }
 
   return newNote;
