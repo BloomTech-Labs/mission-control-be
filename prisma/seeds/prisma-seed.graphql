@@ -66,7 +66,7 @@ mutation {
 
   ## Create PMs
   pm0: createPerson(
-    data: { name: "Dev", email: "missioncontrolpm@gmail.com", role: PM }
+    data: { name: "Dev Team", email: "missioncontrolpm@gmail.com", role: PM }
   ) {
     id
   }
@@ -111,6 +111,72 @@ mutation {
   ) {
     id
   }
+  pm6: createPerson(
+    data: { name: "Jam Dimic", email: "jam.dimic@lambdaschool.com", role: PM }
+  ) {
+    id
+  }
+  pm7: createPerson(
+    data: {
+      name: "Ryan Holdaway"
+      email: "ryan.holdaway@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+  pm8: createPerson(
+    data: {
+      name: "Alice Karsevar"
+      email: "alice.karsevar@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+  pm9: createPerson(
+    data: { name: "Edd Burke", email: "edd.burke@lambdaschool.com", role: PM }
+  ) {
+    id
+  }
+  pm10: createPerson(
+    data: {
+      name: "David Monson"
+      email: "david.monson@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+  pm11: createPerson(
+    data: {
+      name: "Julia Richert"
+      email: "julia.richert@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+  pm18: createPerson(
+    data: {
+      name: "Alex Parker"
+      email: "alex.parker@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+  pm19: createPerson(
+    data: {
+      name: "John Muchiri"
+      email: "john.muchiri@lambdaschool.com"
+      role: PM
+    }
+  ) {
+    id
+  }
+
+  
 
   ## Create Web Developers
 
@@ -120,6 +186,40 @@ mutation {
       email: "missioncontrolstudent@gmail.com"
       role: WEB
     }
+  ) {
+    id
+  }
+  web1: createPerson(
+    data: { name: "Kevin Afable", email: "kevin.afable@gmail.com", role: WEB }
+  ) {
+    id
+  }
+  web2: createPerson(
+    data: {
+      name: "Nicholas Gebhart"
+      email: "nicholas.gebhart@gmail.com"
+      role: WEB
+    }
+  ) {
+    id
+  }
+  web3: createPerson(
+    data: { name: "Dakotah Huey", email: "hueydakotah@gmail.com", role: WEB }
+  ) {
+    id
+  }
+  web4: createPerson(
+    data: { name: "Tony Kovar", email: "tonykovar@gmail.com", role: WEB }
+  ) {
+    id
+  }
+  web5: createPerson(
+    data: { name: "Tommy Coleman", email: "tommycoleman87@gmail.com", role: WEB }
+  ) {
+    id
+  }
+  web6: createPerson(
+    data: { name: "Roy Wakumelo", email: "roywakumelojr@gmail.com", role: WEB }
   ) {
     id
   }
@@ -153,12 +253,15 @@ mutation {
                     connect: { email: "missioncontrolsectionlead@gmail.com" }
                   }
                   status: true
-                  teamLead: { connect: { email: "Megan@gmail.com" } }
+                  teamLead: { connect: { email: "tommycoleman87@gmail.com" } }
                   team: {
                     connect: [
+                      { email: "kevin.afable@gmail.com" }
+                      { email: "nicholas.gebhart@gmail.com" }
+                      { email: "hueydakotah@gmail.com" }
+                      { email: "tonykovar@gmail.com" }
+                      { email: "roywakumelojr@gmail.com" }
                       { email: "missioncontrolstudent@gmail.com" }
-                      { email: "Chance@gmail.com" }
-                      { email: "Coop@gmail.com" }
                     ]
                   }
                   projectManagers: {
@@ -169,6 +272,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                   notes: {
@@ -249,6 +360,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                   notes: {
@@ -381,6 +500,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
@@ -405,6 +532,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
@@ -430,6 +565,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
@@ -452,6 +595,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
@@ -474,6 +625,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
@@ -496,6 +655,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
@@ -519,6 +686,14 @@ mutation {
                       { email: "elizabeth.lin@lambdaschool.com" }
                       { email: "jess.martin@lambdaschool.com" }
                       { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
@@ -535,8 +710,20 @@ mutation {
                   teamLead: { connect: { email: "Kevin@gmail.com" } }
                   projectManagers: {
                     connect: [
+                      { email: "missioncontrolpm@gmail.com" }
                       { email: "bernie.durfee@lambdaschool.com" }
                       { email: "parth.shah@lambdaschool.com" }
+                      { email: "elizabeth.lin@lambdaschool.com" }
+                      { email: "jess.martin@lambdaschool.com" }
+                      { email: "ryan.hamblin@lambdaschool.com" }
+                      { email: "jam.dimic@lambdaschool.com" }
+                      { email: "alex.parker@lambdaschool.com" }
+                      { email: "john.muchiri@lambdaschool.com" }
+                      { email: "ryan.holdaway@lambdaschool.com" }
+                      { email: "alice.karsevar@lambdaschool.com" }
+                      { email: "edd.burke@lambdaschool.com" }
+                      { email: "david.monson@lambdaschool.com" }
+                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
