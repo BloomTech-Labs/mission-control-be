@@ -141,8 +141,11 @@ const updateNote = async (parent, args, context) => {
 
 const deleteNote = (_, args, context) => {
   const { id } = args;
-  const res = context.prisma.deleteNote({ id });
-  return res;
+  if (context.user.email === context.prisma.note({ id }.author().email)) {
+    const res = context.prisma.deleteNote({ id });
+    return res;
+  }
+  throw new Error('Only the author can delete this note.');
 };
 
 // Adds a Section Lead to a project, takes a string where email = person email
