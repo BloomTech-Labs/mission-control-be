@@ -139,9 +139,10 @@ const updateNote = async (parent, args, context) => {
   return updatedNote;
 };
 
-const deleteNote = (_, args, context) => {
+const deleteNote = async (_, args, context) => {
   const { id } = args;
-  if (context.user.email === context.prisma.note({ id }.author().email)) {
+  const author = await context.prisma.note({ id }).author();
+  if (context.user.email === author.email) {
     const res = context.prisma.deleteNote({ id });
     return res;
   }
