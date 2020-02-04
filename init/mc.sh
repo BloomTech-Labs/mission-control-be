@@ -11,7 +11,7 @@ yarn_or_npm() {
 containers() {
 	echo -e "\nRunning Mission Control containers..."
 	cd ../apollo && yarn_or_npm && \
-		cd ../ && source sourceme.sh && \
+		cd ../init && source source.sh && \
 		echo -e "Starting Containers..."
 		docker-compose up --build -d && \
 			echo
