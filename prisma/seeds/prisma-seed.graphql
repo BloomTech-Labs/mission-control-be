@@ -268,12 +268,18 @@ mutation {
       name: "Dev Student"
       email: "missioncontrolstudent@gmail.com"
       role: WEB
+      avatar: "https://ca.slack-edge.com/T4JUEB3ME-USLACKBOT-sv41d8cd98f0-512"
     }
   ) {
     id
   }
   web1: createPerson(
-    data: { name: "Kevin Afable", email: "kevin.afable@gmail.com", role: WEB }
+    data: {
+      name: "Kevin Afable"
+      email: "kevin.afable@gmail.com"
+      role: WEB
+      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULJ1MK9GT-17419b760e18-512"
+    }
   ) {
     id
   }
@@ -282,17 +288,28 @@ mutation {
       name: "Nicholas Gebhart"
       email: "nicholas.gebhart@gmail.com"
       role: WEB
+      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXHMK9PY-013dd2da8dd8-512"
     }
   ) {
     id
   }
   web3: createPerson(
-    data: { name: "Dakotah Huey", email: "hueydakotah@gmail.com", role: WEB }
+    data: {
+      name: "Dakotah Huey"
+      email: "hueydakotah@gmail.com"
+      role: WEB
+      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULP6AEAF3-7aa2e18de5a8-512"
+    }
   ) {
     id
   }
   web4: createPerson(
-    data: { name: "Tony Kovar", email: "tonykovar@gmail.com", role: WEB }
+    data: {
+      name: "Tony Kovar"
+      email: "tonykovar@gmail.com"
+      role: WEB
+      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXJ07DJS-d95403332534-512"
+    }
   ) {
     id
   }
@@ -306,7 +323,12 @@ mutation {
     id
   }
   web6: createPerson(
-    data: { name: "Roy Wakumelo", email: "roywakumelojr@gmail.com", role: WEB }
+    data: {
+      name: "Roy Wakumelo"
+      email: "roywakumelojr@gmail.com"
+      role: WEB
+      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXALGWPR-90c177b51aa7-512"
+    }
   ) {
     id
   }
