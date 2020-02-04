@@ -372,7 +372,7 @@ mutation {
                   notes: {
                     create: [
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
@@ -388,7 +388,7 @@ mutation {
                         }
                       }
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident."
                         author: {
@@ -405,7 +405,7 @@ mutation {
                         }
                       }
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore."
                         author: {
@@ -460,7 +460,7 @@ mutation {
                   notes: {
                     create: [
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
@@ -477,7 +477,7 @@ mutation {
                         }
                       }
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
@@ -492,7 +492,7 @@ mutation {
                         }
                       }
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
@@ -522,7 +522,7 @@ mutation {
                   notes: {
                     create: [
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
@@ -540,7 +540,7 @@ mutation {
                         }
                       }
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
@@ -558,7 +558,7 @@ mutation {
                         }
                       }
                       {
-                        topic: "General Product Discussion"
+                        topic: "General Discussion"
                         rating: 2
                         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
                         author: {
