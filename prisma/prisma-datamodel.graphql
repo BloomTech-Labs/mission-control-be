@@ -56,4 +56,5 @@ type Person {
   team: Project @relation(name: "Team")
   sl: [Project!]! @relation(name: "SectionLead")
   tl: Project @relation(name: "TeamLead")
+  avatar: String
 }
