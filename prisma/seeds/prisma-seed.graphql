@@ -672,7 +672,9 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Omega 2020"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "levi.simpson@lambdaschool.com" }
+                  }
                   teamLead: { connect: { email: "Tony@gmail.com" } }
                   projectManagers: {
                     connect: [
@@ -702,7 +704,9 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Quality Hub - Resume Q"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "levi.simpson@lambdaschool.com" }
+                  }
                   teamLead: { connect: { email: "Roy@gmail.com" } }
                   projectManagers: {
                     connect: [
@@ -732,7 +736,9 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Hackathon Portal"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "levi.simpson@lambdaschool.com" }
+                  }
                   teamLead: { connect: { email: "Dakotah@gmail.com" } }
                   projectManagers: {
                     connect: [
@@ -762,7 +768,9 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Student Art Collection"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "levi.simpson@lambdaschool.com" }
+                  }
                   teamLead: { connect: { email: "Tommy@gmail.com" } }
                   status: true
                   projectManagers: {
@@ -793,7 +801,9 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Well Done"
-                  sectionLead: { connect: { email: "Levi@gmail.com" } }
+                  sectionLead: {
+                    connect: { email: "levi.simpson@lambdaschool.com" }
+                  }
                   teamLead: { connect: { email: "Kevin@gmail.com" } }
                   projectManagers: {
                     connect: [
