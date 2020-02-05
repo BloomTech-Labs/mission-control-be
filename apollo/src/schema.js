@@ -85,6 +85,7 @@ const typeDefs = gql`
     team: Project
     sl: [Project!]!
     tl: Project
+    avatar: String
   }
 
   type User {
