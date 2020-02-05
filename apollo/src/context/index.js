@@ -4,6 +4,7 @@ const decodeToken = require('../auth');
 // Create context object to pass request, user and prisma client
 // into all resolvers. Throws error if requests are not authenticated.
 const context = async ({ req, connection }) => {
+  // Connections are wide open ATM
   if (connection) {
     const {
       context: { authorization },
@@ -15,7 +16,6 @@ const context = async ({ req, connection }) => {
     }
     return {
       ...connection,
-      user: { id: 'fsd', email: 'missioncontrolpm@gmail.com' },
       prisma,
     };
   }
@@ -28,12 +28,10 @@ const context = async ({ req, connection }) => {
     }
     return {
       ...req,
-      user: { id: 'fsd', email: 'missioncontrolpm@gmail.com' },
       prisma,
     };
   }
   return {
-    user: { id: 'fsd', email: 'missioncontrolpm@gmail.com' },
     prisma,
   };
 };
