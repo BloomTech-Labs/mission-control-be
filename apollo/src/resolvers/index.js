@@ -3,7 +3,6 @@
 // your resolvers but not seeing anything print to stdout, this is
 // the most likely culprit
 
-const Subscription = require('./Subscription');
 const Query = require('./Query');
 const Mutation = require('./Mutation');
 const Program = require('./Program');
@@ -14,7 +13,6 @@ const Person = require('./Person');
 const Note = require('./Note');
 
 const resolvers = {
-  Subscription,
   Query,
   Mutation,
   Program,
