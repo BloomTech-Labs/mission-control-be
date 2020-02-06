@@ -1,0 +1,12 @@
+EnvironmentName=production
+
+ApolloDockerImage=lambdaschoollabs/missioncontrol:latest
+ApolloServicePort=8000
+PRISMA_ENDPOINT=https://prisma.missionctrl.dev
+
+PrismaServicePort=8000
+OAuthTokenEndpoint=https://dev-173777.okta.com/oauth2/default
+OAuthClientID=0oa23ze1sdfwtoKNQ357
+
+
+APOLLO_CONTAINER_IMAGE=lambdaschoollabs/missioncontrol:latest

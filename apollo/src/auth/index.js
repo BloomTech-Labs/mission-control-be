@@ -12,8 +12,8 @@ const O = new OktaJwtVerifier({
   },
 });
 
-const decodeToken = async req => {
-  const match = req.match(/Bearer (.+)/);
+const decodeToken = async jwt => {
+  const match = jwt.match(/Bearer (.+)/);
 
   if (!match) {
     throw new Error('Invalid token');
@@ -33,13 +33,4 @@ const decodeToken = async req => {
   }
 };
 
-// Construct a context object for a specific authorization server.
-// Should eventually accept more than just OKTA as an auth provider.
-const constructOktaContext = async accessToken => {
-  const token = `Bearer ${accessToken}`;
-  const { id, email, claims } = await decodeToken(token);
-  const user = { id, claims, email };
-  return user;
-};
-
-module.exports = constructOktaContext;
+module.exports = decodeToken;

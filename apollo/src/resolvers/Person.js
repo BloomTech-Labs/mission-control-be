@@ -25,18 +25,10 @@ const tl = (parent, args, context) => {
   return res;
 };
 
-const notes = (parent, args, context) => {
-  const { email } = context.user;
-  const where = { meeting: { project: { projectManagers_some: { email } } } };
-  const res = context.prisma.notes({ where });
-
-  return res;
-};
 
 module.exports = {
   team,
   manages,
   sl,
   tl,
-  notes,
 };

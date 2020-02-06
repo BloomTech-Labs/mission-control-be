@@ -7,8 +7,23 @@
 To get the server running locally:
 
 - Clone this repo
-- **yarn** to install all required dependencies
-- **yarn server** to start the local server
+- Ensure you have configured your environment variables as seen below
+- Export environment variables by running `source sourceme.sh`
+- Run `docker-compose up --build`
+- Run `primsa deploy` to fire up the Prisma data layer
+- To reset the DB, run `prisma reset`
+- To run the seed, run `prisma seed`
+
+The Apollo instance is listining on port 8000, and an authenticated prisma playground with documentation regarding the exposed methods can be found on port 7000. To authenticate and view the prisma playground:
+
+- Run `prisma token`
+- Copy the token and attach it to the HTTP headers inside the playground:
+
+```
+{
+"authorization": "Bearer {token}"
+}
+```
 
 ### Apollo Server
 
@@ -31,154 +46,90 @@ To get the server running locally:
 #### Prisma Data Model
 
 ```graphql
-server/prisma/datamodel.prisma
-
-type User {
-  id: ID! @id
-  name: String!
-}
-
 type Program {
-  id: ID! @id
+  id: ID!
   name: String!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  products: [Product]!
+  createdAt: String!
+  updatedAt: String!
+  products: [Product!]!
 }
 
 type Product {
-  id: ID! @id
+  id: ID!
   name: String!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  projects: [Project]!
+  program: Program!
+  createdAt: String!
+  updatedAt: String!
+  projects: [Project!]!
 }
 
 type Project {
-  id: ID! @id
+  id: ID!
   name: String!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  start: DateTime!
-  end: DateTime!
   product: Product!
-  projectNotes: [ProjectNote]!
-  projectRoles: [ProjectRole]!
-}
-
-type ProjectNote {
-  id: ID! @id
-  project: Project!
-  author: Person! @relation(name: "NoteAuthor")
-  title: String!
-  content: String!
-  attendees: [Person] @relation(name: "MeetingAttendee")
-  performanceRating: Rating!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-enum Rating {
-  LOW
-  MEDIUM
-  HIGH
-}
-
-type Role {
-  id: ID! @id
-  title: String!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type ProjectRole {
-  id: ID! @id
-  person: Person!
-  project: Project!
-  role: Role!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type ProductRole {
-  id: ID! @id
-  person: Person!
-  product: Product!
-  role: Role!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-}
-
-type ProgramRole {
-  id: ID! @id
-  person: Person!
-  program: Program!
-  role: Role!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  status: Boolean!
+  sectionLead: Person
+  teamLead: Person
+  projectManagers: [Person!]!
+  team: [Person!]!
+  notes: [Note]
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Person {
-  id: ID! @id
-  firstName: String!
-  lastName: String!
-  timeZone: TimeZone!
-  program: Program!
+  id: ID!
+  name: String!
   email: String!
-  githubId: String!
-  slackId: String!
-  avatarURL: String!
+  role: Role!
+  manages: [Project!]!
+  notes: [Note]
+  team: Project
+  sl: [Project!]!
+  tl: Project
 }
 
-enum TimeZone {
-  PST
-  CST
-  EST
+type User {
+  id: ID!
+  email: String!
+  claims: [String!]!
+  projects: [Project!]!
+}
+
+enum Role {
+  SL
+  TL
+  WEB
+  DS
+  UX
+  PM
+}
+
+type Note {
+  id: ID!
+  topic: String!
+  content: String!
+  author: Person!
+  attendedBy: [Person!]!
+  createdAt: String!
+  updatedAt: String!
 }
 ```
 
 ### Authentication Services
 
-- Currently, the application only supports OKTA as an authentication service, but is written such that you may implement an authentication solution and implement the logic to decode the token inside of the middleware directory to attach a user object to the Apollo context object:
+- Currently, Mission Control only features support for OKTA authentication services, but should work with other providers in theory. Once the client makes a request of the API, a decoded user object is attached to context that holds information about the user's email and claims.
 
 ```javascript
-  const context = async ({ req }) => {
-    const { authorization } = req.headers;
-    if (authorization) {
-      const { type, accessToken } = JSON.parse(authorization);
-      switch (type) {
-        case 'OKTA': {
-          const contextObject = await constructOktaContext(
-            accessToken,
-            'Everyone',
-            prisma,
-            req,
-          );
-          return contextObject;
-        }
-      case 'OTHER_AUTH_SERVICE': {
-         // do something...
-        }
-      }
-     default:
-    }
-    return {
-      ...req,
-    };
-  };
+const context = async ({ req }) => {
+  const { authorization } = req.headers;
+  if (authorization) {
+    const user = await decodeToken(authorization);
+    return { ...req, user, prisma };
+  }
+  throw new Error('A valid token _must_ be provided!');
+};
 ```
-
-- The purpose of attaching the user object to context is to pluck out the authenticated user ID and provide an authorization solution for protected data.
-- The authorization headers come from the client-side containing a string such that it can be parsed to reveal an object of the following shape:
-
-```javascript
-{
- "token": {auth token, string},
- "type": {authentication service identifier, string}
-}
-```
-
-
 
 ## Environment Variables
 
@@ -186,9 +137,15 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-* OKTA_ISSUER_URL={OKTA issuer URI}
-* OKTA_CLIENT_ID={OKTA client ID}
-
+- OAUTH_TOKEN_ENDPOINT
+- OAUTH_CLIENT_ID
+- APPLICATION_NAME
+- ENVIRONMENT_NAME
+- TEST_OAUTH_CLIENT_ID
+- TEST_OAUTH_CLIENT_SECRET
+- PRISMA_MANAGEMENT_API_SECRET
+- PRISMA_ENDPOINT
+- PRISMA_SECRET
 
 ## Contributing
 
@@ -198,11 +155,12 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 ### Issue/Bug Request
 
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 

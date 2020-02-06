@@ -1,13 +1,20 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
+  type Subscription {
+    newNote: Note
+  }
+
   type Query {
     info: String!
     programs: [Program!]!
     products: [Product!]!
     projects: [Project!]!
+    project(id: ID!): Project!
     persons: [Person!]!
     me: User!
+    notes(orderBy: NoteOrderByInput): [Note!]!
+    note(id: ID!): Note!
   }
 
   type Mutation {
@@ -18,6 +25,23 @@ const typeDefs = gql`
     addProjectSectionLead(id: ID!, email: String!): Person!
     addProjectTeamLead(id: ID!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
+    createNote(
+      topic: String!
+      content: String!
+      attendedBy: [String!]!
+      id: ID!
+      rating: Int!
+      notification: Boolean
+    ): Note!
+    updateNote(
+      topic: String
+      content: String
+      attendedBy: [String]
+      oldAttendees: [String]
+      id: ID!
+      rating: Int
+    ): Note!
+    deleteNote(id: ID!): Note!
   }
 
   type Program {
@@ -46,25 +70,9 @@ const typeDefs = gql`
     teamLead: Person
     projectManagers: [Person!]!
     team: [Person!]!
-    meetings: [Meeting!]!
+    notes(orderBy: NoteOrderByInput): [Note]
     createdAt: String!
     updatedAt: String!
-  }
-
-  type Meeting {
-    id: ID!
-    title: String!
-    attendedBy: [Person!]!
-    project: Project!
-    notes: [Note!]!
-  }
-
-  type Note {
-    id: ID!
-    title: String!
-    content: String!
-    meeting: Meeting!
-    author: Person!
   }
 
   type Person {
@@ -72,11 +80,12 @@ const typeDefs = gql`
     name: String!
     email: String!
     role: Role!
-    notes: [Note!]!
     manages: [Project!]!
+    notes: [Note]
     team: Project
     sl: [Project!]!
     tl: Project
+    avatar: String
   }
 
   type User {
@@ -93,6 +102,33 @@ const typeDefs = gql`
     DS
     UX
     PM
+  }
+
+  type Note {
+    id: ID!
+    topic: String!
+    content: String!
+    author: Person!
+    project: Project!
+    attendedBy: [Person!]!
+    createdAt: String!
+    updatedAt: String!
+    rating: Int!
+  }
+
+  enum NoteOrderByInput {
+    id_ASC
+    id_DESC
+    topic_ASC
+    topic_DESC
+    content_ASC
+    content_DESC
+    rating_ASC
+    rating_DESC
+    createdAt_ASC
+    createdAt_DESC
+    updatedAt_ASC
+    updatedAt_DESC
   }
 `;
 
