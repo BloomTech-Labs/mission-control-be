@@ -15,5 +15,8 @@
     "start": "docker-compose up --build",
     "generate": "prisma generate",
     "deploy": "prisma deploy"
+  },
+  "dependencies": {
+    "apollo-client": "^2.6.8"
   }
 }
