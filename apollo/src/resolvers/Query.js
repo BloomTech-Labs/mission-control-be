@@ -1,5 +1,7 @@
 // Queries must be defined to return fields of the same type
 // See the Query field in the type definitions for examples
+const CodeClimateAPI = require("../datasources/codeclimate")
+const axios = require("axios")
 
 const info = () => `Hello World`;
 
@@ -43,6 +45,22 @@ const notes = (parent, args, context) => {
   return res;
 };
 
+const codeclimate = async (parent, args, context) => {
+  try {
+    const { id } = args;
+    const res = await axios.get(`https://api.codeclimate.com/v1/repos/${id}`)
+    const repoId = res.data.data.id
+    const snapShot = res.data.data.relationships.latest_default_branch_snapshot.data.id
+    const res2 = await axios.get(`https://api.codeclimate.com/v1/repos/${repoId}/snapshots/${snapShot}`)
+    return { grade: res2.data.data.attributes.ratings[0].letter, id:repoId }
+  }
+
+  catch (e) {
+    console.log(e)
+    throw new Error(e)
+  }
+}
+
 module.exports = {
   info,
   programs,
@@ -53,4 +71,5 @@ module.exports = {
   me,
   note,
   notes,
+  codeclimate
 };

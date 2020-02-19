@@ -11,6 +11,7 @@ const typeDefs = gql`
     me: User!
     notes(orderBy: NoteOrderByInput): [Note!]!
     note(id: ID!): Note!
+    codeclimate(id: ID!): CodeClimate
   }
 
   type Mutation {
@@ -110,6 +111,11 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     rating: Int!
+  }
+
+  type CodeClimate {
+    id: ID!
+    grade: String!
   }
 
   enum NoteOrderByInput {
