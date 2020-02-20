@@ -10,7 +10,8 @@ const dataSources = require('./datasources');
     resolvers,
     typeDefs,
     context,
-    dataSources,
+    dataSources, // Adds our CodeClimateAPI class to our server.
+    // ↑↑ All dataSources are attached to the context object
     cors: true,
   });
 
