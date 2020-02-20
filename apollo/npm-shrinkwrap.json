@@ -621,6 +621,29 @@
         "apollo-server-env": "^2.4.3"
       }
     },
+    "apollo-datasource-rest": {
+      "version": "0.7.0",
+      "resolved": "https://registry.npmjs.org/apollo-datasource-rest/-/apollo-datasource-rest-0.7.0.tgz",
+      "integrity": "sha512-lAYgm2GyUxnpKcZvReyCvNrQ8asEGy9yr9UB7xyFSCwdhgt8hvx92eYUD4z1KgRp8yOrainIOQxFkh8/SvPt6A==",
+      "requires": {
+        "apollo-datasource": "^0.7.0",
+        "apollo-server-caching": "^0.5.1",
+        "apollo-server-env": "^2.4.3",
+        "apollo-server-errors": "^2.3.4",
+        "http-cache-semantics": "^4.0.0"
+      },
+      "dependencies": {
+        "apollo-datasource": {
+          "version": "0.7.0",
+          "resolved": "https://registry.npmjs.org/apollo-datasource/-/apollo-datasource-0.7.0.tgz",
+          "integrity": "sha512-Yja12BgNQhzuFGG/5Nw2MQe0hkuQy2+9er09HxeEyAf2rUDIPnhPrn1MDoZTB8MU7UGfjwITC+1ofzKkkrZobA==",
+          "requires": {
+            "apollo-server-caching": "^0.5.1",
+            "apollo-server-env": "^2.4.3"
+          }
+        }
+      }
+    },
     "apollo-engine-reporting": {
       "version": "1.4.14",
       "resolved": "https://registry.npmjs.org/apollo-engine-reporting/-/apollo-engine-reporting-1.4.14.tgz",
@@ -2299,6 +2322,11 @@
       "resolved": "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-2.8.5.tgz",
       "integrity": "sha512-kssjab8CvdXfcXMXVcvsXum4Hwdq9XGtRD3TteMEvEbq0LXyiNQr6AprqKqfeaDXze7SxWvRxdpwE6ku7ikLkg==",
       "dev": true
+    },
+    "http-cache-semantics": {
+      "version": "4.0.4",
+      "resolved": "https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-4.0.4.tgz",
+      "integrity": "sha512-Z2EICWNJou7Tr9Bd2M2UqDJq3A9F2ePG9w3lIpjoyuSyXFP9QbniJVu3XQYytuw5ebmG7dXSXO9PgAjJG8DDKA=="
     },
     "http-errors": {
       "version": "1.7.3",
