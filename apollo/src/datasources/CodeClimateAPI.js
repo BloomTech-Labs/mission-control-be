@@ -1,18 +1,15 @@
-const { RESTDataSource } = require("apollo-datasource-rest")
+const { RESTDataSource } = require('apollo-datasource-rest');
 
 class CodeClimateAPI extends RESTDataSource {
   constructor() {
-    super()
-    this.baseURL = 'https://api.codeclimate.com/v1/'
+    super();
+    this.baseURL = 'https://api.codeclimate.com/v1/';
+    this.getRepobyGHSlug = this.getRepobyGHSlug.bind(this)
   }
 
-    getGrade = async repoId => {
-        const response = await this.get(`repos/${repoId}`)
-        console.log(response)
-        return response
-    }
+  getRepobyGHSlug(slug) {
+    return this.get(`repos?github_slug=${slug}`);
+  } 
 }
-
-
 
 module.exports = CodeClimateAPI;
