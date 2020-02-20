@@ -1,6 +1,5 @@
 // Queries must be defined to return fields of the same type
 // See the Query field in the type definitions for examples
-const CodeClimateAPI = require("../datasources/CodeClimateAPI")
 
 const info = () => `Hello World`;
 
@@ -45,29 +44,29 @@ const notes = (parent, args, context) => {
 };
 
 const codeclimate = async (parent, args, context) => {
-  const CodeClimateConnection = new CodeClimateAPI();
+
+  // Pulling our specific codeClimate class out of our context object
+  // To see how the dataSources are connected to the context obj, check out "../index.js"
+  const CodeClimateConnection = context.dataSources.codeClimateAPI;
   try {
-    const { slug } = args;
-    // const res = await axios.get(
-    //   `https://api.codeclimate.com/v1/repos?github_slug=${slug}`,
-    // );
+    const { slug } = args; // Pulling our slug out of arguments
     const res = await CodeClimateConnection.getRepobyGHSlug(slug);
-    const repoId = res.data.data[0].id;
-    const snapShot = res.data.data[0].relationships.latest_default_branch_snapshot.data.id;
 
+    // Getting the RepoId and the SnapshotId from our response
+    const repoId = res.data[0].id;
+    const snapShot = res.data[0].relationships.latest_default_branch_snapshot.data.id;
+
+    // This part doesnt work, but this is what would save the repo id in the database
     const {CCRepoIds} = await context.prisma.project({ id: "ck6bhpaw200dh078919sckrag" });
-
     const newArr = [...CCRepoIds, repoId]
-
     context.prisma.updateProject({
       data: { CCRepoIds: newArr },
       where: { id: 'ck6bhpaw200dh078919sckrag' },
     });
 
-    const res2 = await axios.get(
-      `https://api.codeclimate.com/v1/repos/${repoId}/snapshots/${snapShot}`,
-    );
-    return { grade: res2.data.data.attributes.ratings[0].letter, id: repoId };
+    // With the repoId and the snapshotId, we can get the grade of the CC repo
+    const res2 = await CodeClimateConnection.getSnapshot(repoId, snapShot)
+    return { grade: res2.data.attributes.ratings[0].letter, id: repoId };
   } catch (e) {
     console.log(e);
     throw new Error(e);
