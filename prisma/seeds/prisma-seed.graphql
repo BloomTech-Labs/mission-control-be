@@ -361,7 +361,7 @@ mutation {
                   sectionLead: {
                     connect: { email: "missioncontrolsectionlead@gmail.com" }
                   }
-                  status: true
+                  state: true
                   teamLead: { connect: { email: "tommycoleman87@gmail.com" } }
                   team: {
                     connect: [
@@ -459,7 +459,7 @@ mutation {
                   sectionLead: {
                     connect: { email: "missioncontrolsectionlead@gmail.com" }
                   }
-                  status: true
+                  state: true
                   teamLead: { connect: { email: "Alec@gmail.com" } }
                   projectManagers: {
                     connect: [
@@ -661,7 +661,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Sauti - Databank"
-                  status: true
+                  state: true
                   sectionLead: {
                     connect: { email: "missioncontrolsectionlead@gmail.com" }
                   }
@@ -794,7 +794,7 @@ mutation {
                     connect: { email: "levi.simpson@lambdaschool.com" }
                   }
                   teamLead: { connect: { email: "Tommy@gmail.com" } }
-                  status: true
+                  state: true
                   projectManagers: {
                     connect: [
                       { email: "missioncontrolpm@gmail.com" }
