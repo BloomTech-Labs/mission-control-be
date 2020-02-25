@@ -56,14 +56,6 @@ enum Role {
   UX
   PM
 }
-enum Color {
-  Red
-  Orange
-  Yellow
-  Green
-  Blue
-  Violet
-}
 type Person {
   id: ID! @id
   name: String!
@@ -80,5 +72,5 @@ type Person {
 type Label {
   id: ID! @id
   name: String!
-  color: Color!
+  color: String!
 }
