@@ -18,8 +18,6 @@ type Project {
   name: String!
   product: Product!
   status: Boolean @default(value: false)
-  sectionLead: Person @relation(link: INLINE, name: "SectionLead")
-  teamLead: Person @relation(link: INLINE, name: "TeamLead")
   projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
@@ -31,19 +29,10 @@ type Note {
   topic: String!
   content: String!
   author: Person! @relation(name: "NoteAuthor")
-  attendedBy: [Person!]! @relation(name: "NoteAttendee")
+  private: Boolean! @default(value: false)
   project: Project!
-  rating: Int!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-}
-enum Role {
-  SL
-  TL
-  WEB
-  DS
-  UX
-  PM
 }
 type Person {
   id: ID! @id
@@ -51,10 +40,12 @@ type Person {
   email: String! @unique
   role: Role!
   authored: [Note!]! @relation(name: "NoteAuthor")
-  attended: [Note!]! @relation(name: "NoteAttendee")
-  manages: [Project!]! @relation(name: "ProjectManager")
-  team: Project @relation(name: "Team")
-  sl: [Project!]! @relation(name: "SectionLead")
-  tl: Project @relation(name: "TeamLead")
   avatar: String
+  projects: [Project!]!
+}
+type Role {
+  id: ID! @id
+  name: String!
+  privateNote: Boolean! @default(value: false)
+  viewProducts: Boolean! @default(value: false)
 }
