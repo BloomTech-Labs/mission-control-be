@@ -18,7 +18,7 @@ type Project {
   name: String!
   product: Product!
   status: Boolean @default(value: false)
-  projectManagers: [Person!]! @relation(name: "ProjectManager")
+  projectManagers: [Person!]! @relation(name: "Manages")
   team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
   createdAt: DateTime! @createdAt
@@ -41,7 +41,7 @@ type Person {
   role: Role!
   authored: [Note!]! @relation(name: "NoteAuthor")
   avatar: String
-  projects: [Project!]!
+  projects: [Project!]! @relation(name: "Manages")
 }
 type Role {
   id: ID! @id
