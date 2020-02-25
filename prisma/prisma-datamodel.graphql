@@ -1,6 +1,8 @@
 type Program {
   id: ID! @id
   name: String! @unique
+  CCOrgId: String
+  CCToken: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
@@ -24,8 +26,15 @@ type Project {
   team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
   CCRepoIds: [String] @scalarList(strategy: RELATION)
+  repositories: [Repository]! @relation(name:"CCRepos")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+}
+type Repository {
+  id: ID! @id
+  name: String!
+  CCId: String! @unique
+  project: Project @relation(name:"CCRepos")
 }
 type Note {
   id: ID! @id

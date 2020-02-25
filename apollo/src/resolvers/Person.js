@@ -25,7 +25,6 @@ const tl = (parent, args, context) => {
   return res;
 };
 
-
 module.exports = {
   team,
   manages,
