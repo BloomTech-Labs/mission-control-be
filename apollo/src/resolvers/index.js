@@ -12,6 +12,7 @@ const User = require('./User');
 const Person = require('./Person');
 const Note = require('./Note');
 
+
 const resolvers = {
   Query,
   Mutation,

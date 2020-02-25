@@ -19,7 +19,7 @@ const typeDefs = gql`
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
-    createLabel(name: String!, id: ID!, color: String!): Label!
+    createLabel(name: String!, color: String!): Label!
     createPerson(name: String!, email: String!, role: String!): Person!
     addProjectSectionLead(id: ID!, email: String!): Person!
     addProjectTeamLead(id: ID!, email: String!): Person!
@@ -108,14 +108,6 @@ const typeDefs = gql`
     PM
   }
 
-  enum Color {
-    Red
-    Orange
-    Yellow
-    Green
-    Blue
-    Violet
-  }
 
   type Note {
     id: ID!
@@ -132,7 +124,7 @@ const typeDefs = gql`
   type Label {
     id: ID!
     name: String!
-    color: Color!
+    color: String!
   }
 
   enum NoteOrderByInput {
