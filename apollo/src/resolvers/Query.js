@@ -29,6 +29,11 @@ const persons = (parent, args, context) => {
   return res;
 };
 
+const repositories = (parent, args, context) => {
+  const res = context.prisma.repositories();
+  return res;
+};
+
 const me = (parent, args, context) => context.user;
 
 const note = (parent, args, context) => {
@@ -44,7 +49,6 @@ const notes = (parent, args, context) => {
 };
 
 const codeclimate = async (parent, args, context) => {
-
   // Pulling our specific codeClimate class out of our context object
   // To see how the dataSources are connected to the context obj, check out "../index.js"
   const CodeClimateConnection = context.dataSources.codeClimateAPI;
@@ -54,18 +58,21 @@ const codeclimate = async (parent, args, context) => {
 
     // Getting the RepoId and the SnapshotId from our response
     const repoId = res.data[0].id;
-    const snapShot = res.data[0].relationships.latest_default_branch_snapshot.data.id;
+    const snapShot =
+      res.data[0].relationships.latest_default_branch_snapshot.data.id;
 
     // This part doesnt work, but this is what would save the repo id in the database
-    const {CCRepoIds} = await context.prisma.project({ id: "ck6bhpaw200dh078919sckrag" });
-    const newArr = [...CCRepoIds, repoId]
-    context.prisma.updateProject({
-      data: { CCRepoIds: newArr },
-      where: { id: 'ck6bhpaw200dh078919sckrag' },
-    });
+    // const { CCRepoIds } = await context.prisma.project({
+    //   id: 'ck6bhpaw200dh078919sckrag',
+    // });
+    // const newArr = [...CCRepoIds, repoId];
+    // context.prisma.updateProject({
+    //   data: { CCRepoIds: newArr },
+    //   where: { id: 'ck6bhpaw200dh078919sckrag' },
+    // });
 
     // With the repoId and the snapshotId, we can get the grade of the CC repo
-    const res2 = await CodeClimateConnection.getSnapshot(repoId, snapShot)
+    const res2 = await CodeClimateConnection.getSnapshot(repoId, snapShot);
     return { grade: res2.data.attributes.ratings[0].letter, id: repoId };
   } catch (e) {
     console.log(e);
@@ -84,4 +91,5 @@ module.exports = {
   note,
   notes,
   codeclimate,
+  repositories,
 };
