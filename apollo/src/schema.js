@@ -62,8 +62,6 @@ const typeDefs = gql`
     name: String!
     product: Product!
     status: Boolean!
-    sectionLead: Person
-    teamLead: Person
     projectManagers: [Person!]!
     team: [Person!]!
     notes(orderBy: NoteOrderByInput): [Note]
@@ -76,12 +74,9 @@ const typeDefs = gql`
     name: String!
     email: String!
     role: Role!
-    manages: [Project!]!
-    notes: [Note]
-    team: Project
-    sl: [Project!]!
-    tl: Project
+    authored: [Note!]!
     avatar: String
+    projects: [Project!]!
   }
 
   type User {
@@ -91,13 +86,11 @@ const typeDefs = gql`
     projects: [Project!]!
   }
 
-  enum Role {
-    SL
-    TL
-    WEB
-    DS
-    UX
-    PM
+  type Role {
+    id: ID!
+    name: String!
+    privateNote: Boolean!
+    viewProducts: Boolean!
   }
 
   type Note {
@@ -105,11 +98,10 @@ const typeDefs = gql`
     topic: String!
     content: String!
     author: Person!
+    private: Boolean!
     project: Project!
-    attendedBy: [Person!]!
     createdAt: String!
     updatedAt: String!
-    rating: Int!
   }
 
   enum NoteOrderByInput {
