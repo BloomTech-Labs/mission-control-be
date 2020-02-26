@@ -29,6 +29,11 @@ const persons = (parent, args, context) => {
   return res;
 };
 
+const repositories = (parent, args, context) => {
+  const res = context.prisma.repositories();
+  return res;
+};
+
 const me = (parent, args, context) => context.user;
 
 const note = (parent, args, context) => {
@@ -48,8 +53,8 @@ const codeclimate = async (parent, args, context) => {
   // To see how the dataSources are connected to the context obj, check out "../index.js"
   const CodeClimateConnection = context.dataSources.codeClimateAPI;
   try {
-    const { slug } = args; // Pulling our slug out of arguments
-    const res = await CodeClimateConnection.getRepobyGHSlug(slug);
+    const { id } = args; // Pulling our slug out of arguments
+    const res = await CodeClimateConnection.getRepobyID(id);
 
     // Getting the RepoId and the SnapshotId from our response
     const repoId = res.data[0].id;
@@ -86,4 +91,5 @@ module.exports = {
   note,
   notes,
   codeclimate,
+  repositories,
 };
