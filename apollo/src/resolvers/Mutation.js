@@ -38,11 +38,31 @@ const createProject = (parent, args, context) => {
 const createLabel = (parent, args, context) => {
   const label = context.prisma.createLabel({
     name: args.name,
-    color: args.color
+    color: args.color,
   });
 
   return label;
-}
+};
+
+//Update Label
+
+const updateLabel = async (parent, args, context) => {
+  const { name, color, id } = args;
+  const updatedLabel = await context.prisma.updateLabel({
+    data: { name, color },
+    where: { id },
+  });
+
+  return updatedLabel;
+};
+
+//Delete a Label
+
+const deleteLabel = async (parent, args, context) => {
+  const { id } = args;
+  const deletedLabel = await context.prisma.deleteLabel({ id });
+  return deletedLabel;
+};
 
 // Create a new person, takes two strings and a role enum
 // NOTE: email field is @unique, for enum see type defs
@@ -207,4 +227,6 @@ module.exports = {
   addProjectTeamLead,
   addProjectMember,
   updateNote,
+  updateLabel,
+  deleteLabel,
 };

@@ -20,6 +20,8 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!): Label!
+    updateLabel(id: ID!, name: String, color: String): Label!
+    deleteLabel(id: ID!): Label
     createPerson(name: String!, email: String!, role: String!): Person!
     addProjectSectionLead(id: ID!, email: String!): Person!
     addProjectTeamLead(id: ID!, email: String!): Person!
@@ -107,7 +109,6 @@ const typeDefs = gql`
     UX
     PM
   }
-
 
   type Note {
     id: ID!
