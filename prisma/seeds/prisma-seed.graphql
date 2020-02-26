@@ -1,49 +1,144 @@
 mutation {
-	# Create roles ===========================================================================
-	manager: createRole(data: { name: "Manager", privateNote: true, viewProducts: true }) {
-		id
-	}
-	teamMember: createRole(data: { name: "Team Member", privateNote: false, viewProducts: false }) {
-		id
-	}
-	# Create people ==========================================================================
+  # Create roles ==========================================================
+  manager: createRole(
+    data: { id: 1, name: "Manager", privateNote: true, viewProducts: true }
+  ) {
+    id
+  }
 
-	richardLawson: createPerson(
-		data: {
-			name: "Richard Lawson"
-			email: "RichardLawson12@domain.com"
-			role: { create: { name: "Manager", privateNote: true, viewProducts: true } }
-			authored: { create: [] }
-			avatar: "https://i.kym-cdn.com/photos/images/original/001/384/545/7b9.jpg"
-			projects: { create: [] }
-		}
-	) {
-		id
-	}
-	# Create Program, Products, Projects ==================================================================
-	createProgram(
-		data: {
-			name: "Lambda Labs"
-			products: {
-				create: [
-					{
-						name: "Mission Control"
-						projects: {
-							create: [
-								{
-									name: "Labs 21 - Team Richard"
-									projectManagers: { connect: [{ email: "RichardLawson12@domain.com" }] }
-									status: true
-									team: { connect: [] }
-									notes: { create: [] }
-								}
-							]
-						}
-					}
-				]
-			}
-		}
-	) {
-		id
-	}
+  member: createRole(
+    data: { id: 2, name: "Member", privateNote: false, viewProducts: false }
+  ) {
+    id
+  }
+
+  # Create people =========================================================
+
+  richardLawson: createPerson(
+    data: {
+      id: 1
+      name: "Richard Lawson"
+      email: "missioncontrolpm@gmail.com"
+      avatar: ""
+      role: { connect: { id: 1 } }
+    }
+  ) {
+    id
+  }
+
+  aaronSoler: createPerson(
+    data: {
+      id: 2
+      name: "Aaron Soler"
+      email: "missioncontrolstudent@gmail.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
+    id
+  }
+
+  russHacker: createPerson(
+    data: {
+      id: 3
+      name: "Russ Hacker"
+      email: "RussHacker@domain.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
+    id
+  }
+
+  robinWarden: createPerson(
+    data: {
+      id: 4
+      name: "Robin Warden"
+      email: "RobinWarden@domain.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
+    id
+  }
+
+  calebAllard: createPerson(
+    data: {
+      id: 5
+      name: "Caleb Allard"
+      email: "CalebAllard@domain.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
+    id
+  }
+
+  euihyeokLee: createPerson(
+    data: {
+      id: 6
+      name: "Euihyeok Lee"
+      email: "EuihyeokLee@domain.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
+    id
+  }
+
+  labs21: createProgram(
+    data: {
+      id: 1
+      name: "Lambda Labs"
+      products: {
+        create: [
+          {
+            id: 1
+            name: "Mission Control"
+            projects: {
+              create: [
+                {
+                  name: "Team Richard"
+                  status: true
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
+                  team: {
+                    connect: [
+                      { email: "missioncontrolstudent@gmail.com" }
+                      { email: "RussHacker@domain.com" }
+                      { email: "RobinWarden@domain.com" }
+                      { email: "CalebAllard@domain.com" }
+                      { email: "EuihyeokLee@domain.com" }
+                    ]
+                  }
+                  notes: {
+                    create: [
+                      {
+                        topic: "Cats are cool"
+                        content: "This is a note about the project on cats"
+                        private: false
+                        author: {
+                          connect: { email: "missioncontrolpm@gmail.com" }
+                        }
+                      }
+                      {
+                        topic: "Cats are bad"
+                        content: "Dont show this note to the team"
+                        private: true
+                        author: { connect: { email: "RussHacker@domain.com" } }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+          { id: 2, name: "External Integrations" }
+        ]
+      }
+    }
+  ) {
+    id
+  }
 }
