@@ -53,8 +53,8 @@ const codeclimate = async (parent, args, context) => {
   // To see how the dataSources are connected to the context obj, check out "../index.js"
   const CodeClimateConnection = context.dataSources.codeClimateAPI;
   try {
-    const { id } = args; // Pulling our slug out of arguments
-    const res = await CodeClimateConnection.getRepobyID(id);
+    const { slug } = args; // Pulling our slug out of arguments
+    const res = await CodeClimateConnection.getRepobyGHSlug(slug);
 
     // Getting the RepoId and the SnapshotId from our response
     const repoId = res.data[0].id;
@@ -62,14 +62,14 @@ const codeclimate = async (parent, args, context) => {
       res.data[0].relationships.latest_default_branch_snapshot.data.id;
 
     // This part doesnt work, but this is what would save the repo id in the database
-    const { CCRepoIds } = await context.prisma.project({
-      id: 'ck6bhpaw200dh078919sckrag',
-    });
-    const newArr = [...CCRepoIds, repoId];
-    context.prisma.updateProject({
-      data: { CCRepoIds: newArr },
-      where: { id: 'ck6bhpaw200dh078919sckrag' },
-    });
+    // const { CCRepoIds } = await context.prisma.project({
+    //   id: 'ck6bhpaw200dh078919sckrag',
+    // });
+    // const newArr = [...CCRepoIds, repoId];
+    // context.prisma.updateProject({
+    //   data: { CCRepoIds: newArr },
+    //   where: { id: 'ck6bhpaw200dh078919sckrag' },
+    // });
 
     // With the repoId and the snapshotId, we can get the grade of the CC repo
     const res2 = await CodeClimateConnection.getSnapshot(repoId, snapShot);
