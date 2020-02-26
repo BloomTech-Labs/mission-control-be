@@ -9,8 +9,7 @@ class CodeClimateAPI extends RESTDataSource {
 
   // REMEMBER: You must JSON.parse() the data returned from these requests.
 
-  getRepobyID = async repoId =>
-    JSON.parse(await this.get(`repos/${repoId}`));
+  getRepobyID = async repoId => JSON.parse(await this.get(`repos/${repoId}`));
 
   getRepobyGHSlug = async slug =>
     JSON.parse(await this.get(`repos?github_slug=${slug}`));
