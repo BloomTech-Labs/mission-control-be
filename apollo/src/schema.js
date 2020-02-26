@@ -12,7 +12,6 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput): [Note!]!
     note(id: ID!): Note!
     codeclimate(slug: String!): CodeClimate
-    repositories: [Repository!]!
   }
 
   type Mutation {
@@ -70,16 +69,8 @@ const typeDefs = gql`
     team: [Person!]!
     notes(orderBy: NoteOrderByInput): [Note]
     CCRepoIds: [String]
-    repositories: [Repository]!
     createdAt: String!
     updatedAt: String!
-  }
-
-  type Repository {
-    id: ID!
-    name: String!
-    CCId: String!
-    project: Project
   }
 
   type Person {
