@@ -29,6 +29,7 @@
     "dotenv": "^8.2.0",
     "graphql": "^14.5.8",
     "node-fetch": "^2.6.0",
+    "graphql-import": "^1.0.0-beta.2",
     "prisma-client-lib": "^1.34.10"
   }
 }

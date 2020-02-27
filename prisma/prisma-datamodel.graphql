@@ -14,12 +14,14 @@ type Product {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
+  productStatus: Label @relation(name: "ProductStatus")
+  productHealth: Label @relation(name: "ProductHealth")
+  state: Boolean @default(value: false)
 }
 type Project {
   id: ID! @id
   name: String!
   product: Product!
-  status: Boolean @default(value: false)
   sectionLead: Person @relation(link: INLINE, name: "SectionLead")
   teamLead: Person @relation(link: INLINE, name: "TeamLead")
   projectManagers: [Person!]! @relation(name: "ProjectManager")
@@ -29,6 +31,9 @@ type Project {
   repositories: [Repository]! @relation(name:"CCRepos")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  projectStatus: Label @relation(name: "ProjectStatus")
+  projectHealth: Label @relation(name: "ProjectHealth")
+  state: Boolean @default(value: false)
 }
 type Repository {
   id: ID! @id
@@ -67,4 +72,9 @@ type Person {
   sl: [Project!]! @relation(name: "SectionLead")
   tl: Project @relation(name: "TeamLead")
   avatar: String
+}
+type Label {
+  id: ID! @id
+  name: String!
+  color: String!
 }

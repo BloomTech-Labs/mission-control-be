@@ -34,6 +34,16 @@ const createProject = (parent, args, context) => {
   return program;
 };
 
+//Create a new label
+const createLabel = (parent, args, context) => {
+  const label = context.prisma.createLabel({
+    name: args.name,
+    color: args.color
+  });
+
+  return label;
+}
+
 // Create a new person, takes two strings and a role enum
 // NOTE: email field is @unique, for enum see type defs
 const createPerson = (parent, args, context) => {
@@ -189,6 +199,7 @@ module.exports = {
   createProgram,
   createProduct,
   createProject,
+  createLabel,
   createPerson,
   createNote,
   deleteNote,
