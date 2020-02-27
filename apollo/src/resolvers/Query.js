@@ -71,6 +71,7 @@ const codeclimateSnapshot = async (parent, args, context) => {
     const repoId = res.data[0].id;
     const snapShot =
       res.data[0].relationships.latest_default_branch_snapshot.data.id;
+    const name = res.data[0].attributes.human_name;
     
     // This part doesnt work, but this is what would save the repo id in the database
     // const { CCRepoIds } = await context.prisma.project({
@@ -83,14 +84,16 @@ const codeclimateSnapshot = async (parent, args, context) => {
     // });
 
     // With the repoId and the snapshotId, we can get the grade of the CC repo
-    const snapShotResponse = await CodeClimateConnection.getSnapshot(repoId, snapShot);
-    
+    let snapShotResponse = await CodeClimateConnection.getSnapshot(repoId, snapShot);
+    snapShotResponse = {...snapShotResponse, name: name}
     return snapShotResponse;
   } catch (e) {
     console.log(e);
     throw new Error(e);
   }
 };
+
+
 
 module.exports = {
   info,

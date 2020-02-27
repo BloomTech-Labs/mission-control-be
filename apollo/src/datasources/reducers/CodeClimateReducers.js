@@ -21,7 +21,6 @@ const snapshotReducer = (project) => {
     // console.log(project)
     return {
         id: project.id,
-        name: "Name goes here",
         grade: project.attributes.ratings.length ? project.attributes.ratings[0].letter : 'This is not the grade you are looking for'
     }
 }
