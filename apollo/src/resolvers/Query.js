@@ -59,7 +59,7 @@ const notes = (parent, args, context) => {
   return res;
 };
 
-const codeclimate = async (parent, args, context) => {
+const codeclimateSnapshot = async (parent, args, context) => {
   // Pulling our specific codeClimate class out of our context object
   // To see how the dataSources are connected to the context obj, check out "../index.js"
   const CodeClimateConnection = context.dataSources.codeClimateAPI;
@@ -71,7 +71,7 @@ const codeclimate = async (parent, args, context) => {
     const repoId = res.data[0].id;
     const snapShot =
       res.data[0].relationships.latest_default_branch_snapshot.data.id;
-
+    
     // This part doesnt work, but this is what would save the repo id in the database
     // const { CCRepoIds } = await context.prisma.project({
     //   id: 'ck6bhpaw200dh078919sckrag',
@@ -83,8 +83,9 @@ const codeclimate = async (parent, args, context) => {
     // });
 
     // With the repoId and the snapshotId, we can get the grade of the CC repo
-    const res2 = await CodeClimateConnection.getSnapshot(repoId, snapShot);
-    return { grade: res2.data.attributes.ratings[0].letter, id: repoId };
+    const snapShotResponse = await CodeClimateConnection.getSnapshot(repoId, snapShot);
+    
+    return snapShotResponse;
   } catch (e) {
     console.log(e);
     throw new Error(e);
@@ -103,6 +104,6 @@ module.exports = {
   me,
   note,
   notes,
-  codeclimate,
+  codeclimateSnapshot,
   repositories,
 };

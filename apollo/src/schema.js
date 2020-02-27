@@ -13,7 +13,7 @@ const typeDefs = gql`
     me: User!
     notes(orderBy: NoteOrderByInput): [Note!]!
     note(id: ID!): Note!
-    codeclimate(slug: String!): CodeClimate
+    codeclimateSnapshot(slug: String!): CodeClimateSnapshot
     repositories: [Repository!]!
   }
 
@@ -132,9 +132,10 @@ const typeDefs = gql`
     rating: Int!
   }
 
-  type CodeClimate {
+  type CodeClimateSnapshot {
     id: ID!
     grade: String!
+    name: String!
   }
   type Label {
     id: ID!

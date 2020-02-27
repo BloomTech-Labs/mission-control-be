@@ -20,8 +20,55 @@ class CodeClimateAPI extends RESTDataSource {
   getRepobyGHSlug = async slug =>
     JSON.parse(await this.get(`repos?github_slug=${slug}`));
 
-  getSnapshot = async (repoId, snapshotId) =>
-    JSON.parse(await this.get(`repos/${repoId}/snapshots/${snapshotId}`));
+  getSnapshot = async (repoId, snapshotId) => {
+    const res = JSON.parse(await this.get(`repos/${repoId}/snapshots/${snapshotId}`));
+    // console.log('Context:', this.context.prisma)
+    return snapshotReducer(res.data)
+    
+  }
+    
+
+  async getAllOrgs() {
+    // console.log('getAllRepos')
+    const query = `orgs`
+    const res = JSON.parse(await this.get(query));
+    // console.log('query response:', res.data)
+    return Array.isArray(res.data)
+      ? 
+        // console.log('****response.data:', orgsArray)
+        res.data.map(org => orgsReducer(org))
+      
+      : [];  //return empty array if not
+  }
+
+  async getAllRepos( {orgId: orgArg} ) {
+      // console.log('repos')
+      console.log(orgArg)
+      const query = `orgs/${orgArg}/repos`
+      const res = JSON.parse(await this.get(query))
+      // console.log(res)
+      return Array.isArray(res.data)
+      ? 
+          // console.log('****response.data:', orgsArray)
+          res.data.map(repo => repoReducer(repo))
+      
+      : [];  //return empty array if not
+  }
+
+  // async getSnapshot( {projectId: projectArg, snapshotId: snapshotArg} ) {
+  //     // console.log('repos')
+  //     console.log('Project', projectArg, 'snapshot', snapshotArg)
+  //     const query = `repos/${projectArg}/snapshots/${snapshotArg}`
+  //     const res = JSON.parse(await this.get(query))
+  //     // console.log(res)
+  //     return (res.data)
+  //     ? 
+  //         // console.log('****response.data:', orgsArray)
+  //         console.log('CCapi:', this.context)
+  //         // snapshotReducer(res.data, this.context)
+      
+  //     : [];  //return empty array if not
+  // }
 
   //1. move CodeClimate API calls OUT OF Query resolver into CodeClimateAPI Class
   //2. refactor server calls?
