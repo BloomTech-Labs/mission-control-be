@@ -1,8 +1,7 @@
 type Program {
   id: ID! @id
   name: String! @unique
-  CCOrgId: String
-  CCToken: String
+  Cctoken: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
@@ -17,6 +16,7 @@ type Product {
   productStatus: Label @relation(name: "ProductStatus")
   productHealth: Label @relation(name: "ProductHealth")
   state: Boolean @default(value: false)
+  Ccrepos: [Ccrepo]! @relation(name:"CCRepos")
 }
 type Project {
   id: ID! @id
@@ -27,19 +27,17 @@ type Project {
   projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
-  CCRepoIds: [String] @scalarList(strategy: RELATION)
-  repositories: [Repository]! @relation(name:"CCRepos")
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projectStatus: Label @relation(name: "ProjectStatus")
   projectHealth: Label @relation(name: "ProjectHealth")
   state: Boolean @default(value: false)
 }
-type Repository {
+type Ccrepo {
   id: ID! @id
   name: String!
   CCId: String! @unique
-  project: Project @relation(name:"CCRepos")
+  product: Product! @relation(name:"CCRepos")
 }
 type Note {
   id: ID! @id

@@ -350,10 +350,12 @@ mutation {
   createProgram(
     data: {
       name: "Lambda Labs" #org
-      CCOrgId: "5e4db0998c9f1d014c0007f6"
-      CCToken: "a8bd69e0e7cafd98a0581184ae71ffbf13b53cd8"
+      Cctoken: "a8bd69e0e7cafd98a0581184ae71ffbf13b53cd8"
       products: {
-        repositories: {
+        create: [
+          {
+            name: "Mission Control"
+            Ccrepos: {
                     create:[
                       {
                         name: "mission-control-fe"
@@ -365,13 +367,10 @@ mutation {
                       }
                     ]
                   }
-        create: [
-          {
-            name: "Mission Control"
             projects: {
               create: [
                 {
-                  name: "Labs 19 - Mission Control - External Integrations"
+                  name: "Labs 21 - Mission Control - External Integrations"
                   sectionLead: {
                     connect: { email: "missioncontrolsectionlead@gmail.com" }
                   }

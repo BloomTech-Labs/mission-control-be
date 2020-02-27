@@ -40,8 +40,14 @@ const persons = (parent, args, context) => {
   return res;
 };
 
-const repositories = (parent, args, context) => {
-  const res = context.prisma.repositories();
+const CCRepos = (parent, args, context) => {
+  const res = context.prisma.ccrepoes();
+  return res;
+};
+
+const CCRepo = (parent, args, context) => {
+  const { id, name } = args;
+  const res = context.prisma.ccrepo({ id, name });
   return res;
 };
 
@@ -125,5 +131,6 @@ module.exports = {
   note,
   notes,
   codeclimateSnapshot,
-  repositories,
+  CCRepos,
+  CCRepo,
 };

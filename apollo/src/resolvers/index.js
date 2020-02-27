@@ -11,7 +11,7 @@ const Project = require('./Project');
 const User = require('./User');
 const Person = require('./Person');
 const Note = require('./Note');
-const Repository = require('./Repository')
+const CCRepo = require('./CCRepos')
 
 
 const resolvers = {
@@ -23,7 +23,7 @@ const resolvers = {
   User,
   Person,
   Note,
-  Repository,
+  CCRepo,
 };
 
 module.exports = resolvers;

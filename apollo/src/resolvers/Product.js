@@ -3,7 +3,7 @@
 
 const program = (parent, args, context) => {
   const res = context.prisma.product({ id: parent.id }).program();
-  
+
   return res;
 };
 
@@ -25,9 +25,16 @@ const productHealth = (parent, args, context) => {
   return res;
 }
 
+const CCRepos = (parent, args, context) => {
+  const res = context.prisma.product({ id: parent.id }).ccrepoes();
+
+  return res;
+};
+
 module.exports = {
   program,
   projects,
   productStatus,
-  productHealth
+  productHealth,
+  CCRepos,
 };

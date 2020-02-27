@@ -14,7 +14,8 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput): [Note!]!
     note(id: ID!): Note!
     codeclimateSnapshot(slug: String!): CodeClimateSnapshot
-    repositories: [Repository!]!
+    CCRepos: [CCRepo]!
+    CCRepo(id: ID, name: String): CCRepo!
   }
 
   type Mutation {
@@ -63,7 +64,7 @@ const typeDefs = gql`
     productStatus: Label
     productHealth: Label
     productState: Boolean
-    CCRepos: [CCRepository]!
+    CCRepos: [CCRepo]!
   }
 
   type Project {
@@ -83,11 +84,11 @@ const typeDefs = gql`
     projectState: Boolean
   }
 
-  type CCRepository {
+  type CCRepo{
     id: ID!
     name: String!
-    CCRepoId: String!
-    project: Project
+    CCId: String!
+    product: Product!
   }
 
   type Person {
@@ -95,12 +96,12 @@ const typeDefs = gql`
     name: String!
     email: String!
     role: Role!
-    manages: [Project!]!
     notes: [Note]
     team: Project
     sl: [Project!]!
     tl: Project
     avatar: String
+    manages: [Project!]!
   }
 
   type User {
@@ -118,7 +119,6 @@ const typeDefs = gql`
     UX
     PM
   }
-
 
   type Note {
     id: ID!
