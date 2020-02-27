@@ -25,17 +25,11 @@ type Project {
   projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
-  CCRepoIds: [CCRepo]
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projectStatus: Label @relation(name: "ProjectStatus")
   projectHealth: Label @relation(name: "ProjectHealth")
   state: Boolean @default(value: false)
-}
-type CCRepo {
-  id: ID! @id
-  name: String!
-  repoId: String!
 }
 type Note {
   id: ID! @id
