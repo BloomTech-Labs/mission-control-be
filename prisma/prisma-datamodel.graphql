@@ -41,7 +41,8 @@ type Person {
   role: Role!
   authored: [Note!]! @relation(name: "NoteAuthor")
   avatar: String
-  projects: [Project!]! @relation(name: "Manages")
+  manages: [Project!]! @relation(name: "Manages")
+  projects: [Project!]! @relation(name: "Team")
 }
 type Role {
   id: ID! @id

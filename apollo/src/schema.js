@@ -23,20 +23,17 @@ const typeDefs = gql`
     addProjectManager(id: ID!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
     createNote(
+      id: ID!
       topic: String!
       content: String!
-      attendedBy: [String!]!
-      id: ID!
-      rating: Int!
+      private: Boolean!
       notification: Boolean
     ): Note!
     updateNote(
+      id: ID!
       topic: String
       content: String
-      attendedBy: [String]
-      oldAttendees: [String]
-      id: ID!
-      rating: Int
+      private: Boolean
     ): Note!
     deleteNote(id: ID!): Note!
   }
@@ -77,6 +74,7 @@ const typeDefs = gql`
     role: Role!
     authored: [Note!]!
     avatar: String
+    manages: [Project!]!
     projects: [Project!]!
   }
 

@@ -47,18 +47,13 @@ const createPerson = (parent, args, context) => {
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
 const createNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id, notification } = args;
+  const { id, topic, content, private, notification } = args;
   const note = {
     topic,
     content,
     author: { connect: { email: context.user.email } },
-    attendedBy: {
-      connect: attendedBy.map(email => {
-        return { email };
-      }),
-    },
+    private,
     project: { connect: { id } },
-    rating,
   };
 
   const newNote = await context.prisma.createNote(note);
@@ -97,43 +92,26 @@ const createNote = async (parent, args, context) => {
 // Takes in the same args are create note AND a specific note ID
 // uses note id to pull attendees to remove them and then pushes new data
 const updateNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id } = args;
+  const { id, topic, content, private } = args;
 
   // pulls the attendee data on the note where: id
-  const oldAttendees = await context.prisma.note({ id }).attendedBy();
+  // const oldAttendees = await context.prisma.note({ id }).attendedBy();
 
   // reshapes the attendee data to match expected structure
-  const emails = oldAttendees.map(({ email }) => ({ email }));
+  // const emails = oldAttendees.map(({ email }) => ({ email }));
 
-  const newAttendees = attendedBy.map(email => ({ email }));
+  // const newAttendees = attendedBy.map(email => ({ email }));
 
   const updatedNote = context.prisma
     .updateNote({
       data: {
         topic,
-        rating,
         content,
-        attendedBy: {
-          // cleares the attendedBy field so it can be refill with new inputs
-          disconnect: emails,
-        },
+        private,
       },
       where: {
         id,
       },
-    })
-    .then(() => {
-      return context.prisma.updateNote({
-        data: {
-          attendedBy: {
-            // Adds in the new Attendees.
-            connect: newAttendees,
-          },
-        },
-        where: {
-          id,
-        },
-      });
     });
 
   return updatedNote;
@@ -204,8 +182,8 @@ module.exports = {
   createPerson,
   createNote,
   deleteNote,
-  addProjectSectionLead,
-  addProjectTeamLead,
+  // addProjectSectionLead,
+  // addProjectTeamLead,
   addProjectManager,
   addProjectMember,
   updateNote,
