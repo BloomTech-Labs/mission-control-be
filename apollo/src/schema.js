@@ -18,8 +18,9 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createPerson(name: String!, email: String!, role: String!): Person!
-    addProjectSectionLead(id: ID!, email: String!): Person!
-    addProjectTeamLead(id: ID!, email: String!): Person!
+    # addProjectSectionLead(id: ID!, email: String!): Person!
+    # addProjectTeamLead(id: ID!, email: String!): Person!
+    addProjectManager(id: ID!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
     createNote(
       topic: String!

@@ -3,10 +3,11 @@ const author = (parent, args, context) => {
   return res;
 };
 
-const attendedBy = (parent, args, context) => {
-  const res = context.prisma.note({ id: parent.id }).attendedBy();
-  return res;
-};
+// DEPRECATED CODE
+// const attendedBy = (parent, args, context) => {
+//   const res = context.prisma.note({ id: parent.id }).attendedBy();
+//   return res;
+// };
 
 const project = ({ id }, args, context) => {
   const res = context.prisma.note({ id }).project();
@@ -15,6 +16,6 @@ const project = ({ id }, args, context) => {
 
 module.exports = {
   author,
-  attendedBy,
+  // attendedBy,
   project,
 };
