@@ -63,6 +63,7 @@ const typeDefs = gql`
     productStatus: Label
     productHealth: Label
     productState: Boolean
+    CCRepos: [CCRepository]!
   }
 
   type Project {
@@ -75,7 +76,6 @@ const typeDefs = gql`
     team: [Person!]!
     notes(orderBy: NoteOrderByInput): [Note]
     CCRepoIds: [String]
-    repositories: [Repository]!
     createdAt: String!
     updatedAt: String!
     projectStatus: Label
@@ -83,10 +83,10 @@ const typeDefs = gql`
     projectState: Boolean
   }
 
-  type Repository {
+  type CCRepository {
     id: ID!
     name: String!
-    CCId: String!
+    CCRepoId: String!
     project: Project
   }
 
