@@ -41,9 +41,9 @@ class CodeClimateAPI extends RESTDataSource {
       : [];  //return empty array if not
   }
 
-  async getAllRepos( {orgId: orgArg} ) {
+  async getAllRepos( {productName: productArg} ) {
       // console.log('repos')
-      console.log(orgArg)
+      console.log(productArg)
       const query = `orgs/${orgArg}/repos`
       const res = JSON.parse(await this.get(query))
       // console.log(res)

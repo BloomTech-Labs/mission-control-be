@@ -93,7 +93,24 @@ const codeclimateSnapshot = async (parent, args, context) => {
   }
 };
 
+const codeclimateRepository = async (parent, args, context) => {
+  const CodeClimateConnection = context.dataSources.codeClimateAPI;
 
+  const productId = context.prisma.products.repositories
+
+  try{
+    const { slug } = args; // Pulling our slug out of arguments
+    const res = await CodeClimateConnection.getAllRepos( {} );
+
+
+
+    return
+  } catch (e) {
+    console.log(e);
+    throw new Error(e);
+  }
+
+}
 
 module.exports = {
   info,
