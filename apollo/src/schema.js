@@ -21,7 +21,7 @@ const typeDefs = gql`
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!): Label!
     updateLabel(id: ID!, name: String, color: String): Label!
-    deleteLabel(id: ID!): Label
+    deleteLabel(id: ID!): Label!
     createPerson(name: String!, email: String!, role: String!): Person!
     addProjectSectionLead(id: ID!, email: String!): Person!
     addProjectTeamLead(id: ID!, email: String!): Person!
@@ -76,7 +76,7 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput): [Note]
     createdAt: String!
     updatedAt: String!
-    projectStatus: Label
+    projectStatus: [Label!]!
     projectHealth: Label
     projectState: Boolean
   }
@@ -124,6 +124,8 @@ const typeDefs = gql`
 
   type Label {
     id: ID!
+    createdAt: String!
+    updatedAt: String!
     name: String!
     color: String!
   }
