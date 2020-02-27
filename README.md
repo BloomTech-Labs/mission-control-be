@@ -9,6 +9,8 @@ To get the server running locally:
 - Clone this repo
 - Ensure you have configured your environment variables as seen below
 - Export environment variables by running `source sourceme.sh`
+- Follow the instructions in `README.md` in the `/init` folder for your platform
+- Run `prisma generate` to add the schema to Apollo
 - Run `docker-compose up --build`
 - Run `primsa deploy` to fire up the Prisma data layer
 - To reset the DB, run `prisma reset`
