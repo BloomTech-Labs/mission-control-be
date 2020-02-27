@@ -7,6 +7,8 @@ const typeDefs = gql`
     products: [Product!]!
     projects: [Project!]!
     project(id: ID!): Project!
+    labels: [Label!]!
+    label(id: ID!): Label!
     persons: [Person!]!
     me: User!
     notes(orderBy: NoteOrderByInput): [Note!]!
@@ -17,6 +19,7 @@ const typeDefs = gql`
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
+    createLabel(name: String!, color: String!): Label!
     createPerson(name: String!, email: String!, role: String!): Person!
     addProjectSectionLead(id: ID!, email: String!): Person!
     addProjectTeamLead(id: ID!, email: String!): Person!
@@ -55,13 +58,15 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     projects: [Project!]!
+    productStatus: Label
+    productHealth: Label
+    productState: Boolean
   }
 
   type Project {
     id: ID!
     name: String!
     product: Product!
-    status: Boolean!
     sectionLead: Person
     teamLead: Person
     projectManagers: [Person!]!
@@ -69,6 +74,9 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput): [Note]
     createdAt: String!
     updatedAt: String!
+    projectStatus: Label
+    projectHealth: Label
+    projectState: Boolean
   }
 
   type Person {
@@ -100,6 +108,7 @@ const typeDefs = gql`
     PM
   }
 
+
   type Note {
     id: ID!
     topic: String!
@@ -110,6 +119,12 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     rating: Int!
+  }
+
+  type Label {
+    id: ID!
+    name: String!
+    color: String!
   }
 
   enum NoteOrderByInput {
