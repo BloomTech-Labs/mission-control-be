@@ -1,4 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+const { orgsReducer, repoReducer, snapshotReducer } = require('./reducers/CodeClimateReducers')
 
 // Better than axios? Due to having caching of data, and making sure requests aren't duplicated.
 class CodeClimateAPI extends RESTDataSource {
