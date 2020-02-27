@@ -44,9 +44,6 @@ class CodeClimateAPI extends RESTDataSource {
       id:
       name:
       CCId:
-      project:{
-        //how much and what do we want to show or bring back to front end.
-      }
     }
   }
   */
