@@ -76,7 +76,7 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput): [Note]
     createdAt: String!
     updatedAt: String!
-    projectStatus: [Label!]!
+    projectStatus: [Label]
     projectHealth: Label
     projectState: Boolean
   }
