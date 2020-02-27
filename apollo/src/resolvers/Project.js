@@ -37,7 +37,17 @@ const notes = (parent, args, context) => {
   return res;
 };
 
+const projectStatus = (parent, args, context) => {
+  const res = context.prisma.project({ id: parent.id }).projectStatus();
 
+  return res;
+}
+
+const projectHealth = (parent, args, context) => {
+  const res = context.prisma.project({ id: parent.id }).projectHealth();
+
+  return res;
+}
 
 module.exports = {
   product,
@@ -46,4 +56,6 @@ module.exports = {
   team,
   projectManagers,
   notes,
+  projectStatus,
+  projectHealth,
 };

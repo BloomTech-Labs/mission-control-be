@@ -114,6 +114,12 @@ type Note {
   createdAt: String!
   updatedAt: String!
 }
+
+type Label {
+  id: ID!
+  name: String!
+  color: String!
+}
 ```
 
 ### Authentication Services
