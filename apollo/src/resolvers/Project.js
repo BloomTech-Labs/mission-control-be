@@ -37,11 +37,7 @@ const notes = (parent, args, context) => {
   return res;
 };
 
-const repositories = (parent, args, context) => {
-  const res = context.prisma.project({ id: parent.id }).repositories();
 
-  return res;
-};
 
 module.exports = {
   product,
@@ -50,5 +46,4 @@ module.exports = {
   team,
   projectManagers,
   notes,
-  repositories,
 };

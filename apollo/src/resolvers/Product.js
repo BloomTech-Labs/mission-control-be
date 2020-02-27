@@ -13,7 +13,14 @@ const projects = (parent, args, context) => {
   return res;
 };
 
+const CCRepos = (parent, args, context) => {
+  const res = context.prisma.product({ id: parent.id }).ccrepoes();
+
+  return res;
+};
+
 module.exports = {
   program,
   projects,
+  CCRepos,
 };
