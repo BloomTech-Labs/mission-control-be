@@ -17,9 +17,7 @@ const typeDefs = gql`
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
-    createPerson(name: String!, email: String!, role: String!): Person!
-    addProjectSectionLead(id: ID!, email: String!): Person!
-    addProjectTeamLead(id: ID!, email: String!): Person!
+    createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
     createNote(
       topic: String!
@@ -62,8 +60,6 @@ const typeDefs = gql`
     name: String!
     product: Product!
     status: Boolean!
-    sectionLead: Person
-    teamLead: Person
     projectManagers: [Person!]!
     team: [Person!]!
     notes(orderBy: NoteOrderByInput): [Note]
@@ -75,12 +71,9 @@ const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
-    role: Role!
     manages: [Project!]!
     notes: [Note]
     team: Project
-    sl: [Project!]!
-    tl: Project
     avatar: String
   }
 
@@ -89,15 +82,6 @@ const typeDefs = gql`
     email: String!
     claims: [String!]!
     projects: [Project!]!
-  }
-
-  enum Role {
-    SL
-    TL
-    WEB
-    DS
-    UX
-    PM
   }
 
   type Note {
