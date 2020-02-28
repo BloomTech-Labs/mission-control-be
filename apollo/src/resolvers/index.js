@@ -13,7 +13,6 @@ const Person = require('./Person');
 const Note = require('./Note');
 const CCRepo = require('./CCRepos')
 
-
 const resolvers = {
   Query,
   Mutation,

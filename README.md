@@ -9,6 +9,8 @@ To get the server running locally:
 - Clone this repo
 - Ensure you have configured your environment variables as seen below
 - Export environment variables by running `source sourceme.sh`
+- Follow the instructions in `README.md` in the `/init` folder for your platform
+- Run `prisma generate` to add the schema to Apollo
 - Run `docker-compose up --build`
 - Run `primsa deploy` to fire up the Prisma data layer
 - To reset the DB, run `prisma reset`
@@ -136,6 +138,23 @@ const context = async ({ req }) => {
   throw new Error('A valid token _must_ be provided!');
 };
 ```
+
+## Back-End Testing
+
+To run tests, cd into the apollo directory and run 'npm i' on your terminal to download the depedencies. Run 'npm test' to run tests.
+
+You need to reset your prisma first in order to run the tests. The commands are as follows:
+-prisma delete
+-prisma generate
+-prisma deploy
+
+To set up a testing environment,
+-Import the file-system(fs) reader
+-Import mockServer from graphql-tools
+-Set variable name equal to the contents fs reads from the generated prisma.graphql file. - Example: const schema = fs.readFileSync('./schema/generated/prisma.graphql', 'utf8');
+-Pass the above variable name into your mockServer as a parameter.
+-Example: const MyServer = mockServer(schema);
+-Run tests
 
 ## Environment Variables
 

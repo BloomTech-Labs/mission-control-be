@@ -73,6 +73,8 @@ type Person {
 }
 type Label {
   id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
   color: String!
 }
