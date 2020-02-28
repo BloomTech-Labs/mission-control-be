@@ -1,5 +1,4 @@
 const orgsReducer = (org) => {
-
     return {
         id: org.id,
         name: org.attributes.name,
@@ -8,7 +7,6 @@ const orgsReducer = (org) => {
 }
 
 const repoReducer = (repo) => {
-    // console.log(repo)
     return {
         id: repo.id,
         name: repo.attributes.human_name,
@@ -18,7 +16,6 @@ const repoReducer = (repo) => {
 }
 
 const snapshotReducer = (project) => {
-    // console.log(project)
     return {
         id: project.id,
         grade: project.attributes.ratings.length ? project.attributes.ratings[0].letter : 'This is not the grade you are looking for'
