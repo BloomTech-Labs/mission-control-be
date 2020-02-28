@@ -139,7 +139,12 @@ const context = async ({ req }) => {
 
 ## Back-End Testing
 
-To run tests, cd into the apollo directory and run 'npm test' on your terminal.
+To run tests, cd into the apollo directory and run 'npm i' on your terminal to download the depedencies. Run 'npm test' to run tests.
+
+You need to reset your prisma first in order to run the tests. The commands are as follows:
+-prisma delete
+-prisma generate
+-prisma deploy
 
 To set up a testing environment,
 -Import the file-system(fs) reader

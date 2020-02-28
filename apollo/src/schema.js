@@ -60,7 +60,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     projects: [Project!]!
-    productStatus: Label
+    productStatus: [Label]
     productHealth: Label
     productState: Boolean
   }
