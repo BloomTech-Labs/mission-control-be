@@ -41,7 +41,7 @@ const persons = (parent, args, context) => {
 };
 
 const CCRepos = (parent, args, context) => {
-  const res = context.prisma.ccrepoes();
+  const res = context.prisma.ccrepos();
   return res;
 };
 

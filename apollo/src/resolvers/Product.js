@@ -26,7 +26,7 @@ const productHealth = (parent, args, context) => {
 }
 
 const CCRepos = (parent, args, context) => {
-  const res = context.prisma.product({ id: parent.id }).ccrepoes();
+  const res = context.prisma.product({ id: parent.id }).ccrepos();
 
   return res;
 };
