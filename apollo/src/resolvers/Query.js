@@ -65,7 +65,7 @@ const notes = (parent, args, context) => {
   return res;
 };
 
-const codeclimateSnapshot = async (parent, args, context) => {
+const CodeClimateSnapshot = async (parent, args, context) => {
   const CodeClimateConnection = context.dataSources.codeClimateAPI;
   try {
     const { slug } = args;
@@ -84,6 +84,7 @@ const codeclimateSnapshot = async (parent, args, context) => {
   }
 };
 
+
 module.exports = {
   info,
   programs,
@@ -96,7 +97,7 @@ module.exports = {
   me,
   note,
   notes,
-  codeclimateSnapshot,
+  CodeClimateSnapshot,
   CCRepos,
   CCRepo,
 };
