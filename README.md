@@ -137,6 +137,23 @@ const context = async ({ req }) => {
 };
 ```
 
+## Back-End Testing
+
+To run tests, cd into the apollo directory and run 'npm i' on your terminal to download the depedencies. Run 'npm test' to run tests.
+
+You need to reset your prisma first in order to run the tests. The commands are as follows:
+-prisma delete
+-prisma generate
+-prisma deploy
+
+To set up a testing environment,
+-Import the file-system(fs) reader
+-Import mockServer from graphql-tools
+-Set variable name equal to the contents fs reads from the generated prisma.graphql file. - Example: const schema = fs.readFileSync('./schema/generated/prisma.graphql', 'utf8');
+-Pass the above variable name into your mockServer as a parameter.
+-Example: const MyServer = mockServer(schema);
+-Run tests
+
 ## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
