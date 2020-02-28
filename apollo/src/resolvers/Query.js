@@ -40,6 +40,17 @@ const persons = (parent, args, context) => {
   return res;
 };
 
+const CCRepos = (parent, args, context) => {
+  const res = context.prisma.ccrepoes();
+  return res;
+};
+
+const CCRepo = (parent, args, context) => {
+  const { id, name } = args;
+  const res = context.prisma.ccrepo({ id, name });
+  return res;
+};
+
 const me = (parent, args, context) => context.user;
 
 const note = (parent, args, context) => {
@@ -54,6 +65,26 @@ const notes = (parent, args, context) => {
   return res;
 };
 
+const CodeClimateSnapshot = async (parent, args, context) => {
+  const CodeClimateConnection = context.dataSources.codeClimateAPI;
+  try {
+    const { slug } = args;
+    const res = await CodeClimateConnection.getRepobyGHSlug(slug);
+    const repoId = res.data[0].id;
+    const snapShot =
+      res.data[0].relationships.latest_default_branch_snapshot.data.id;
+    const name = res.data[0].attributes.human_name;
+    
+    let snapShotResponse = await CodeClimateConnection.getSnapshot(repoId, snapShot);
+    snapShotResponse = {...snapShotResponse, name: name}
+    return snapShotResponse;
+  } catch (e) {
+    console.log(e);
+    throw new Error(e);
+  }
+};
+
+
 module.exports = {
   info,
   programs,
@@ -66,4 +97,7 @@ module.exports = {
   me,
   note,
   notes,
+  CodeClimateSnapshot,
+  CCRepos,
+  CCRepo,
 };

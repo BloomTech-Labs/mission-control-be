@@ -13,6 +13,9 @@ const typeDefs = gql`
     me: User!
     notes(orderBy: NoteOrderByInput): [Note!]!
     note(id: ID!): Note!
+    CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
+    CCRepos: [CCRepo]!
+    CCRepo(id: ID, name: String): CCRepo!
   }
 
   type Mutation {
@@ -63,6 +66,8 @@ const typeDefs = gql`
     productStatus: [Label]
     productHealth: Label
     productState: Boolean
+    CCRepos: [CCRepo]!
+    grades: [CodeClimateSnapshot!]
   }
 
   type Project {
@@ -74,6 +79,7 @@ const typeDefs = gql`
     projectManagers: [Person!]!
     team: [Person!]!
     notes(orderBy: NoteOrderByInput): [Note]
+    CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
     projectStatus: [Label]
@@ -81,17 +87,24 @@ const typeDefs = gql`
     projectState: Boolean
   }
 
+  type CCRepo{
+    id: ID!
+    name: String!
+    CCId: String!
+    product: Product!
+  }
+
   type Person {
     id: ID!
     name: String!
     email: String!
     role: Role!
-    manages: [Project!]!
     notes: [Note]
     team: Project
     sl: [Project!]!
     tl: Project
     avatar: String
+    manages: [Project!]!
   }
 
   type User {
@@ -120,6 +133,12 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     rating: Int!
+  }
+
+  type CodeClimateSnapshot {
+    id: ID!
+    grade: String!
+    name: String!
   }
 
   type Label {
