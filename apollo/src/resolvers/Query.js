@@ -27,13 +27,13 @@ const project = (parent, args, context) => {
 const labels = (parent, args, context) => {
   const res = context.prisma.labels();
   return res;
-}
+};
 
 const label = (parent, args, context) => {
   const { id } = args;
   const res = context.prisma.label({ id });
   return res;
-}
+};
 
 const persons = (parent, args, context) => {
   const res = context.prisma.persons();
@@ -65,59 +65,6 @@ const notes = (parent, args, context) => {
   return res;
 };
 
-const codeclimateSnapshot = async (parent, args, context) => {
-  // Pulling our specific codeClimate class out of our context object
-  // To see how the dataSources are connected to the context obj, check out "../index.js"
-  const CodeClimateConnection = context.dataSources.codeClimateAPI;
-  try {
-    const { slug } = args; // Pulling our slug out of arguments
-    const res = await CodeClimateConnection.getRepobyGHSlug(slug);
-
-    // Getting the RepoId and the SnapshotId from our response
-    const repoId = res.data[0].id;
-    const snapShot =
-      res.data[0].relationships.latest_default_branch_snapshot.data.id;
-    const name = res.data[0].attributes.human_name;
-    
-    // This part doesnt work, but this is what would save the repo id in the database
-    // const { CCRepoIds } = await context.prisma.project({
-    //   id: 'ck6bhpaw200dh078919sckrag',
-    // });
-    // const newArr = [...CCRepoIds, repoId];
-    // context.prisma.updateProject({
-    //   data: { CCRepoIds: newArr },
-    //   where: { id: 'ck6bhpaw200dh078919sckrag' },
-    // });
-
-    // With the repoId and the snapshotId, we can get the grade of the CC repo
-    let snapShotResponse = await CodeClimateConnection.getSnapshot(repoId, snapShot);
-    snapShotResponse = {...snapShotResponse, name: name}
-    return snapShotResponse;
-  } catch (e) {
-    console.log(e);
-    throw new Error(e);
-  }
-};
-
-const codeclimateRepository = async (parent, args, context) => {
-  const CodeClimateConnection = context.dataSources.codeClimateAPI;
-
-  const productId = context.prisma.products.repositories
-
-  try{
-    const { slug } = args; // Pulling our slug out of arguments
-    const res = await CodeClimateConnection.getAllRepos( {} );
-
-
-
-    return
-  } catch (e) {
-    console.log(e);
-    throw new Error(e);
-  }
-
-}
-
 module.exports = {
   info,
   programs,
@@ -130,7 +77,6 @@ module.exports = {
   me,
   note,
   notes,
-  codeclimateSnapshot,
   CCRepos,
   CCRepo,
 };

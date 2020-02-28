@@ -13,7 +13,6 @@ const typeDefs = gql`
     me: User!
     notes(orderBy: NoteOrderByInput): [Note!]!
     note(id: ID!): Note!
-    codeclimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
     CCRepo(id: ID, name: String): CCRepo!
   }
