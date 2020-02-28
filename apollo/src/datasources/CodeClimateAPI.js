@@ -22,7 +22,7 @@ class CodeClimateAPI extends RESTDataSource {
 
   getSnapshot = async (repoId, snapshotId) => {
     const res = JSON.parse(await this.get(`repos/${repoId}/snapshots/${snapshotId}`));
-    console.log('Context:', this.context.prisma)
+    // console.log('Context:', this.context.prisma)
     return snapshotReducer(res.data)
     
   }

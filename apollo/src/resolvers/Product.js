@@ -26,10 +26,28 @@ const productHealth = (parent, args, context) => {
 }
 
 const CCRepos = (parent, args, context) => {
-  const res = context.prisma.product({ id: parent.id }).ccrepos();
+  const res = context.prisma.product({ id: parent.id }).Ccrepos();
 
   return res;
 };
+
+const grades = async (parent, args, context) => {
+  const ccapi = context.dataSources.codeClimateAPI
+  const repos = await context.prisma.product({ id: parent.id }).Ccrepos();
+  try {
+        return repos.map(async repo => {
+        const ccRepo = await ccapi.getRepobyID(repo.CCId)
+        const snapShotID = ccRepo.data.relationships.latest_default_branch_snapshot.data.id
+        const ccSnapshot = await ccapi.getSnapshot(repo.CCId, snapShotID)
+        // console.log(ccSnapshot)
+        const name = ccRepo.data.attributes.human_name
+        return {...ccSnapshot, name: name}
+    })
+  }
+  catch (error) {
+    throw new Error(error)
+  }
+}
 
 module.exports = {
   program,
@@ -37,4 +55,5 @@ module.exports = {
   productStatus,
   productHealth,
   CCRepos,
+  grades
 };

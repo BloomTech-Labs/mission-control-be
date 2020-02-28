@@ -65,6 +65,7 @@ const typeDefs = gql`
     productHealth: Label
     productState: Boolean
     CCRepos: [CCRepo]!
+    grades: [CodeClimateSnapshot!]
   }
 
   type Project {
@@ -137,6 +138,7 @@ const typeDefs = gql`
     grade: String!
     name: String!
   }
+
   type Label {
     id: ID!
     name: String!
