@@ -34,7 +34,7 @@ const createProject = (parent, args, context) => {
   return program;
 };
 
-//Create a new label, needs name and color.
+// Create a new label, needs name and color.
 const createLabel = (parent, args, context) => {
   const label = context.prisma.createLabel({
     name: args.name,
@@ -46,7 +46,7 @@ const createLabel = (parent, args, context) => {
 
 const createColumn = (parent, args, context) => {
   const column = context.prisma.createColumn({
-    name: args.name
+    name: args.name,
   });
 
   return column;
@@ -64,7 +64,7 @@ const updateLabel = async (parent, args, context) => {
   return updatedLabel;
 };
 
-//Delete a Label, takes id of label to delete it.
+// Delete a Label, takes id of label to delete it.
 
 const deleteLabel = async (parent, args, context) => {
   const { id } = args;
@@ -75,8 +75,8 @@ const deleteLabel = async (parent, args, context) => {
 // Create a new person, takes two strings and a role enum
 // NOTE: email field is @unique, for enum see type defs
 const createPerson = (parent, args, context) => {
-  const { name, email, role } = args;
-  const person = context.prisma.createPerson({ name, email, role });
+  const { name, email } = args;
+  const person = context.prisma.createPerson({ name, email });
 
   return person;
 };
@@ -187,30 +187,6 @@ const deleteNote = async (_, args, context) => {
   throw new Error('Only the author can delete this note.');
 };
 
-// Adds a Section Lead to a project, takes a string where email = person email
-// Takes a project ID where a project exists
-const addProjectSectionLead = (parent, args, context) => {
-  const { id, email } = args;
-  const addSectionLead = context.prisma.updateProject({
-    data: { sectionLead: { connect: { email } } },
-    where: { id },
-  });
-
-  return addSectionLead;
-};
-
-// Adds a Team Lead to a project, takes a string where email = person email
-// Takes a project ID where a project exists
-const addProjectTeamLead = (parent, args, context) => {
-  const { id, email } = args;
-  const addTeamLead = context.prisma.updateProject({
-    data: { teamLead: { connect: { email } } },
-    where: { id },
-  });
-
-  return addTeamLead;
-};
-
 // Adds a new member to a project, takes a string where email = person email
 // Takes a project ID where a project exists
 const addProjectMember = (parent, args, context) => {
@@ -223,9 +199,7 @@ const addProjectMember = (parent, args, context) => {
   return addMember;
 };
 
-const addColumnInstance = (parent, args, context) => {
-  
-}
+const addColumnInstance = (parent, args, context) => {};
 
 module.exports = {
   createProgram,
@@ -236,8 +210,6 @@ module.exports = {
   createPerson,
   createNote,
   deleteNote,
-  addProjectSectionLead,
-  addProjectTeamLead,
   addProjectMember,
   updateNote,
   updateLabel,

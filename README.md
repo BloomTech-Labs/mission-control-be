@@ -63,48 +63,31 @@ type Product {
   createdAt: String!
   updatedAt: String!
   projects: [Project!]!
+  productStatus: Label
+  productHealth: Label
+  state: Boolean
 }
 
 type Project {
   id: ID!
   name: String!
   product: Product!
-  status: Boolean!
-  sectionLead: Person
-  teamLead: Person
+  status: Boolean
   projectManagers: [Person!]!
   team: [Person!]!
-  notes: [Note]
+  notes: [Note!]!
   createdAt: String!
   updatedAt: String!
+  projectStatus: Label
+  projectHealth: Label
+  state: Boolean
 }
 
-type Person {
-  id: ID!
+type Ccrepo {
+  id: ID! @id
   name: String!
-  email: String!
-  role: Role!
-  manages: [Project!]!
-  notes: [Note]
-  team: Project
-  sl: [Project!]!
-  tl: Project
-}
-
-type User {
-  id: ID!
-  email: String!
-  claims: [String!]!
-  projects: [Project!]!
-}
-
-enum Role {
-  SL
-  TL
-  WEB
-  DS
-  UX
-  PM
+  CCId: String! @unique
+  product: Product! @relation(name:"CCRepos")
 }
 
 type Note {
@@ -113,12 +96,26 @@ type Note {
   content: String!
   author: Person!
   attendedBy: [Person!]!
+  rating: Int!
   createdAt: String!
   updatedAt: String!
 }
 
+type Person {
+  id: ID!
+  name: String!
+  email: String!
+  authored: [Note!]!
+  attended: [Note!]!
+  manages: [Project!]!
+  team: Project
+  avatar: String
+}
+
 type Label {
   id: ID!
+  createdAt: String!
+  updatedAt: String!
   name: String!
   color: String!
 }

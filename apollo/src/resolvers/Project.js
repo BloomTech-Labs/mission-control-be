@@ -7,16 +7,6 @@ const product = (parent, args, context) => {
   return res;
 };
 
-const teamLead = (parent, args, context) => {
-  const res = context.prisma.project({ id: parent.id }).teamLead();
-
-  return res;
-};
-const sectionLead = (parent, args, context) => {
-  const res = context.prisma.project({ id: parent.id }).sectionLead();
-
-  return res;
-};
 const team = (parent, args, context) => {
   const res = context.prisma.project({ id: parent.id }).team();
 
@@ -41,18 +31,16 @@ const projectStatus = (parent, args, context) => {
   const res = context.prisma.project({ id: parent.id }).projectStatus();
 
   return res;
-}
+};
 
 const projectHealth = (parent, args, context) => {
   const res = context.prisma.project({ id: parent.id }).projectHealth();
 
   return res;
-}
+};
 
 module.exports = {
   product,
-  teamLead,
-  sectionLead,
   team,
   projectManagers,
   notes,

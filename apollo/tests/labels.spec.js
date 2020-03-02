@@ -1,10 +1,11 @@
 const fs = require('fs');
 const { mockServer } = require('graphql-tools');
+
 const schema = fs.readFileSync('./schema/generated/prisma.graphql', 'utf8');
 
 const MyServer = mockServer(schema);
 
-//Queries if there is a label
+// Queries if there is a label
 describe('Label', () => {
   it('label query is there', async () => {
     const server = MyServer;
@@ -22,7 +23,7 @@ describe('Label', () => {
   });
 });
 
-//Adds a label mutation
+// Adds a label mutation
 
 describe('Add Label', () => {
   it('adds a label query', async () => {
