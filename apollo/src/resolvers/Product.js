@@ -39,9 +39,10 @@ const grades = async (parent, args, context) => {
         const ccRepo = await ccapi.getRepobyID(repo.CCId)
         const snapShotID = ccRepo.data.relationships.latest_default_branch_snapshot.data.id
         const ccSnapshot = await ccapi.getSnapshot(repo.CCId, snapShotID)
-        // console.log(ccSnapshot)
+        console.log(ccRepo.data.links.self)
         const name = ccRepo.data.attributes.human_name
-        return {...ccSnapshot, name: name}
+        const link = ccRepo.data.links.self
+        return {...ccSnapshot, name: name, link: link}
     })
   }
   catch (error) {
