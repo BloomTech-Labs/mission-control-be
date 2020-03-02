@@ -34,7 +34,7 @@ const createProject = (parent, args, context) => {
   return program;
 };
 
-//Create a new label, needs name and color.
+// Create a new label, needs name and color.
 const createLabel = (parent, args, context) => {
   const label = context.prisma.createLabel({
     name: args.name,
@@ -44,7 +44,7 @@ const createLabel = (parent, args, context) => {
   return label;
 };
 
-//Update Label. Id is required, and name and color are optional.
+// Update Label. Id is required, and name and color are optional.
 
 const updateLabel = async (parent, args, context) => {
   const { name, color, id } = args;
@@ -56,7 +56,7 @@ const updateLabel = async (parent, args, context) => {
   return updatedLabel;
 };
 
-//Delete a Label, takes id of label to delete it.
+// Delete a Label, takes id of label to delete it.
 
 const deleteLabel = async (parent, args, context) => {
   const { id } = args;
