@@ -1,7 +1,6 @@
 type Program {
   id: ID! @id
   name: String! @unique
-  Cctoken: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
@@ -16,7 +15,6 @@ type Product {
   productStatus: Label @relation(name: "ProductStatus")
   productHealth: Label @relation(name: "ProductHealth")
   state: Boolean @default(value: false)
-  Ccrepos: [Ccrepo]! @relation(name:"CCRepos")
 }
 type Project {
   id: ID! @id
@@ -31,12 +29,6 @@ type Project {
   projectStatus: Label @relation(name: "ProjectStatus")
   projectHealth: Label @relation(name: "ProjectHealth")
   state: Boolean @default(value: false)
-}
-type Ccrepo {
-  id: ID! @id
-  name: String!
-  CCId: String! @unique
-  product: Product! @relation(name:"CCRepos")
 }
 type Note {
   id: ID! @id

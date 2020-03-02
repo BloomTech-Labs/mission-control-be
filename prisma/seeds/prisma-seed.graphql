@@ -315,17 +315,10 @@ mutation {
   createProgram(
     data: {
       name: "Lambda Labs" #org
-      Cctoken: "a8bd69e0e7cafd98a0581184ae71ffbf13b53cd8"
       products: {
         create: [
           {
             name: "Mission Control"
-            Ccrepos: {
-              create: [
-                { name: "mission-control-fe", CCId: "5dcc15026300a40f000062a6" }
-                { name: "mission-control-be", CCId: "5dcc150b234ac30e83009498" }
-              ]
-            }
             projects: {
               create: [
                 {
