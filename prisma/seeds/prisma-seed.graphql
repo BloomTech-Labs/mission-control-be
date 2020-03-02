@@ -1,10 +1,10 @@
 mutation {
   # Create section leads
+
   sl1: createPerson(
     data: {
       name: "Ronny Alvarado"
       email: "missioncontrolsectionlead@gmail.com"
-      role: SL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UE60KE0CU-a447a0d2fb96-512"
     }
   ) {
@@ -14,7 +14,6 @@ mutation {
     data: {
       name: "Levi Simpson"
       email: "levi.simpson@lambdaschool.com"
-      role: SL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UDCJB03RD-0e87fb5029cc-512"
     }
   ) {
@@ -27,7 +26,6 @@ mutation {
     data: {
       name: "Megan M"
       email: "Megan@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UFADUTRK3-6c6b98e08992-512"
     }
   ) {
@@ -37,7 +35,6 @@ mutation {
     data: {
       name: "Alec B"
       email: "Alec@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULVFQMFFF-4eca5dc57b80-512"
     }
   ) {
@@ -47,7 +44,6 @@ mutation {
     data: {
       name: "Aaron C"
       email: "Aaron@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULJ1PJTNE-ef06ddd83880-512"
     }
   ) {
@@ -57,7 +53,6 @@ mutation {
     data: {
       name: "Ami S"
       email: "Ami@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UDTA6SESD-f9033663ba71-512"
     }
   ) {
@@ -67,7 +62,6 @@ mutation {
     data: {
       name: "Nicholas G"
       email: "Nicholas@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXHMK9PY-013dd2da8dd8-512"
     }
   ) {
@@ -77,7 +71,6 @@ mutation {
     data: {
       name: "Tony K"
       email: "Tony@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXJ07DJS-d95403332534-24"
     }
   ) {
@@ -87,7 +80,6 @@ mutation {
     data: {
       name: "Roy W"
       email: "Roy@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXALGWPR-90c177b51aa7-512"
     }
   ) {
@@ -97,7 +89,6 @@ mutation {
     data: {
       name: "Dakotah H"
       email: "Dakotah@gmail.com"
-      role: TL
       avatar: "https://avatars1.githubusercontent.com/u/50816478?s=460&v=4"
     }
   ) {
@@ -107,7 +98,6 @@ mutation {
     data: {
       name: "Tommy C"
       email: "Tommy@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UHXNFRBFE-b1accb251340-512"
     }
   ) {
@@ -117,7 +107,6 @@ mutation {
     data: {
       name: "Kevin A"
       email: "Kevin@gmail.com"
-      role: TL
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULJ1MK9GT-17419b760e18-512"
     }
   ) {
@@ -125,11 +114,11 @@ mutation {
   }
 
   ## Create PMs
+
   pm0: createPerson(
     data: {
       name: "Dev Team"
       email: "missioncontrolpm@gmail.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-USLACKBOT-sv41d8cd98f0-512"
     }
   ) {
@@ -139,7 +128,6 @@ mutation {
     data: {
       name: "Parth Shah"
       email: "parth.shah@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UQ8RC9QG3-5a7f8584c858-72"
     }
   ) {
@@ -149,7 +137,6 @@ mutation {
     data: {
       name: "Bernie Durfee"
       email: "bernie.durfee@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULLS6HX6G-22adeea32d11-72"
     }
   ) {
@@ -159,7 +146,6 @@ mutation {
     data: {
       name: "Jess Martin"
       email: "jess.martin@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UJVKYLMED-1fa60e08d02b-512"
     }
   ) {
@@ -169,7 +155,6 @@ mutation {
     data: {
       name: "Elizabeth Lin"
       email: "elizabeth.lin@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULGD0FZ5L-52e54f3a2c96-512"
     }
   ) {
@@ -179,7 +164,6 @@ mutation {
     data: {
       name: "Ryan Hamblin"
       email: "ryan.hamblin@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-U5SF97A1Z-3e40fb644cb0-512"
     }
   ) {
@@ -189,7 +173,6 @@ mutation {
     data: {
       name: "Jam Dimic"
       email: "jam.dimic@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UP41N4TPB-d4ebc331c94c-48"
     }
   ) {
@@ -199,7 +182,6 @@ mutation {
     data: {
       name: "Ryan Holdaway"
       email: "ryan.holdaway@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-U9E7020TX-4e37d09c9c61-512"
     }
   ) {
@@ -209,14 +191,13 @@ mutation {
     data: {
       name: "Alice Karsevar"
       email: "alice.karsevar@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UGYKPV3PA-72c12c38e387-512"
     }
   ) {
     id
   }
   pm9: createPerson(
-    data: { name: "Edd Burke", email: "edd.burke@lambdaschool.com", role: PM }
+    data: { name: "Edd Burke", email: "edd.burke@lambdaschool.com" }
   ) {
     id
   }
@@ -224,7 +205,6 @@ mutation {
     data: {
       name: "David Monson"
       email: "david.monson@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UKW1FTYER-35b20bbc2498-48"
     }
   ) {
@@ -234,7 +214,6 @@ mutation {
     data: {
       name: "Julia Richert"
       email: "julia.richert@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UQM09F9H6-0a01e95783be-512"
     }
   ) {
@@ -244,7 +223,6 @@ mutation {
     data: {
       name: "Alex Parker"
       email: "alex.parker@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULENDNJ0M-620667813bf9-48"
     }
   ) {
@@ -254,7 +232,6 @@ mutation {
     data: {
       name: "John Muchiri"
       email: "john.muchiri@lambdaschool.com"
-      role: PM
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-UNR4BBPCZ-989d676f6026-48"
     }
   ) {
@@ -267,7 +244,6 @@ mutation {
     data: {
       name: "Dev Student"
       email: "missioncontrolstudent@gmail.com"
-      role: WEB
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-USLACKBOT-sv41d8cd98f0-512"
     }
   ) {
@@ -277,7 +253,6 @@ mutation {
     data: {
       name: "Kevin Afable"
       email: "kevin.afable@gmail.com"
-      role: WEB
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULJ1MK9GT-17419b760e18-512"
     }
   ) {
@@ -287,7 +262,6 @@ mutation {
     data: {
       name: "Nicholas Gebhart"
       email: "nicholas.gebhart@gmail.com"
-      role: WEB
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXHMK9PY-013dd2da8dd8-512"
     }
   ) {
@@ -297,7 +271,6 @@ mutation {
     data: {
       name: "Dakotah Huey"
       email: "hueydakotah@gmail.com"
-      role: WEB
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULP6AEAF3-7aa2e18de5a8-512"
     }
   ) {
@@ -307,18 +280,13 @@ mutation {
     data: {
       name: "Tony Kovar"
       email: "tonykovar@gmail.com"
-      role: WEB
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXJ07DJS-d95403332534-512"
     }
   ) {
     id
   }
   web5: createPerson(
-    data: {
-      name: "Tommy Coleman"
-      email: "tommycoleman87@gmail.com"
-      role: WEB
-    }
+    data: { name: "Tommy Coleman", email: "tommycoleman87@gmail.com" }
   ) {
     id
   }
@@ -326,22 +294,19 @@ mutation {
     data: {
       name: "Roy Wakumelo"
       email: "roywakumelojr@gmail.com"
-      role: WEB
       avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXALGWPR-90c177b51aa7-512"
     }
   ) {
     id
   }
 
-  ux0: createPerson(
-    data: { name: "Chance", email: "Chance@gmail.com", role: UX }
-  ) {
+  ux0: createPerson(data: { name: "Chance", email: "Chance@gmail.com" }) {
     id
   }
 
   ## Create DS
 
-  ds0: createPerson(data: { name: "Coop", email: "Coop@gmail.com", role: DS }) {
+  ds0: createPerson(data: { name: "Coop", email: "Coop@gmail.com" }) {
     id
   }
 
@@ -356,26 +321,16 @@ mutation {
           {
             name: "Mission Control"
             Ccrepos: {
-                    create:[
-                      {
-                        name: "mission-control-fe"
-                        CCId: "5dcc15026300a40f000062a6"
-                      }
-                      {
-                        name: "mission-control-be"
-                        CCId: "5dcc150b234ac30e83009498"
-                      }
-                    ]
-                  }
+              create: [
+                { name: "mission-control-fe", CCId: "5dcc15026300a40f000062a6" }
+                { name: "mission-control-be", CCId: "5dcc150b234ac30e83009498" }
+              ]
+            }
             projects: {
               create: [
                 {
-                  name: "Labs 21 - Mission Control - External Integrations"
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  state: true
-                  teamLead: { connect: { email: "tommycoleman87@gmail.com" } }
+                  name: "Labs 19 - Mission Control"
+                  status: false
                   team: {
                     connect: [
                       { email: "kevin.afable@gmail.com" }
@@ -457,565 +412,6 @@ mutation {
                           ]
                         }
                       }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "City Data Comparison"
-             Ccrepos: {
-                    create:[
-                      {
-                        name: "city-data-comparison-fe"
-                        CCId: "5e3656bc8e5407014c002901"
-                      }
-                      {
-                        name: "city-data-comparison-be"
-                        CCId: "5e3656bc6753ac014c002328"
-                      }
-                      {
-                        name: "city-data-comparison-ds"
-                        CCId: "5e3656bc35ad7201a2001e5f"
-                      }
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - City Data Comparison"
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  state: true
-                  teamLead: { connect: { email: "Alec@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
-                  }
-                  notes: {
-                    create: [
-                      {
-                        topic: "General Discussion"
-                        rating: 2
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
-                        author: {
-                          connect: { email: "missioncontrolpm@gmail.com" }
-                        }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "bernie.durfee@lambdaschool.com" }
-                            { email: "parth.shah@lambdaschool.com" }
-                            { email: "elizabeth.lin@lambdaschool.com" }
-                            { email: "jess.martin@lambdaschool.com" }
-                          ]
-                        }
-                      }
-                      {
-                        topic: "General Discussion"
-                        rating: 2
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
-                        author: {
-                          connect: { email: "missioncontrolpm@gmail.com" }
-                        }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "jess.martin@lambdaschool.com" }
-                            { email: "ryan.hamblin@lambdaschool.com" }
-                          ]
-                        }
-                      }
-                      {
-                        topic: "General Discussion"
-                        rating: 2
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
-                        author: {
-                          connect: { email: "missioncontrolpm@gmail.com" }
-                        }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "elizabeth.lin@lambdaschool.com" }
-                            { email: "jess.martin@lambdaschool.com" }
-                            { email: "ryan.hamblin@lambdaschool.com" }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Community Calendar"
-           Ccrepos: {
-                    create:[
-                      {
-                        name: "community-calendar-fe"
-                        CCId: "5e3656bd8e54070177001ec5"
-                      }
-                      {
-                        name: "community-calendar-be"
-                        CCId: "5e3656bd1b60ce01a10020bc"
-                      }
-                      {
-                        name: "community-calendar-ios"
-                        CCId: "5e3656bfcc446c01b700194d"
-                      }
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Community Calendar"
-                  notes: {
-                    create: [
-                      {
-                        topic: "General Discussion"
-                        rating: 2
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
-                        author: {
-                          connect: { email: "missioncontrolpm@gmail.com" }
-                        }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "bernie.durfee@lambdaschool.com" }
-                            { email: "parth.shah@lambdaschool.com" }
-                            { email: "elizabeth.lin@lambdaschool.com" }
-                            { email: "jess.martin@lambdaschool.com" }
-                            { email: "ryan.hamblin@lambdaschool.com" }
-                          ]
-                        }
-                      }
-                      {
-                        topic: "General Discussion"
-                        rating: 2
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
-                        author: {
-                          connect: { email: "missioncontrolpm@gmail.com" }
-                        }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "bernie.durfee@lambdaschool.com" }
-                            { email: "parth.shah@lambdaschool.com" }
-                            { email: "elizabeth.lin@lambdaschool.com" }
-                            { email: "jess.martin@lambdaschool.com" }
-                            { email: "ryan.hamblin@lambdaschool.com" }
-                          ]
-                        }
-                      }
-                      {
-                        topic: "General Discussion"
-                        rating: 2
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto reiciendis id facilis culpa, ipsa nulla dolores temporibus adipisci repellendus! Ad soluta magnam officiis accusantium illum ea repellendus dignissimos consequatur aut sint atque deserunt harum explicabo, maxime voluptatibus cum enim velit provident. Accusamus alias accusantium, reiciendis fuga, voluptas recusandae quam temporibus aspernatur consequatur tempore labore. Explicabo dolor tenetur magni omnis vel deleniti, quisquam facilis! Excepturi recusandae suscipit nemo aspernatur debitis deserunt hic, tempore error possimus deleniti facilis, eveniet exercitationem cumque reprehenderit corporis illum officia expedita nam iusto. Dignissimos vitae officia nam illo reiciendis possimus impedit quisquam modi. Molestias, eligendi. Assumenda, ab."
-                        author: {
-                          connect: { email: "missioncontrolpm@gmail.com" }
-                        }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "parth.shah@lambdaschool.com" }
-                            { email: "elizabeth.lin@lambdaschool.com" }
-                            { email: "ryan.hamblin@lambdaschool.com" }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  teamLead: { connect: { email: "Aaron@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Connect Our Kids Social Worker"
-             Ccrepos: {
-                    create:[
-                      {
-                        name: "connect-our-kids-impact-fe"
-                        CCId: "5dcc1503b1c7b80f7d00a28c"
-                      }
-                      {
-                        name: "connect-our-kids-impact-be"
-                        CCId: "5dcc1503b1c7b80ecc00974c"
-                      }
-        
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Connect Our Kids Social Worker"
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  teamLead: { connect: { email: "Ami@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Sauti Databank"
-                Ccrepos: {
-                    create:[
-                      {
-                        name: "sauti-databank-fe"
-                        CCId: "5e3656bdad83610164001c33"
-                      }
-                      {
-                        name: "sauti-databank-be"
-                        CCId: "5e3656bd8e540701a1001c20"
-                      }
-        
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Sauti - Databank"
-                  
-                  state: true
-                  sectionLead: {
-                    connect: { email: "missioncontrolsectionlead@gmail.com" }
-                  }
-                  teamLead: { connect: { email: "Nicholas@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Omega 2020"
-             Ccrepos: {
-                    create:[
-                      {
-                        name: "omega2020-fe"
-                        CCId: "5e3656bccc446c0163001566"
-                      }
-                      {
-                        name: "omega2020-be"
-                        CCId: "5e3656bc35ad72018d001fb0"
-                      }
-                      {
-                        name: "omega2020-ds"
-                        CCId: "5e3656bdcc446c014d002007"
-                      }
-        
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Omega 2020"
-                  sectionLead: {
-                    connect: { email: "levi.simpson@lambdaschool.com" }
-                  }
-                  teamLead: { connect: { email: "Tony@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Quality Hub"
-              Ccrepos: {
-                    create:[
-                      {
-                        name: "quality-hub-core-fe"
-                        CCId: "5dcc14feb1c7b80f020081d5"
-                      }
-                      {
-                        name: "quality-hub-core-be"
-                        CCId: "5dcc1505234ac30f97008afc"
-                      }
-                      {
-                        name: "quality-hub-resume-be"
-                        CCId: "5e3656becc446c0163001572"
-                      }
-                      {
-                        name: "quality-hub-gateway-be"
-                        CCId: "5dcc1502b1c7b80f020081db"
-                      }
-                       {
-                        name: "quality-hub-rtc-server"
-                        CCId: "5e3656baad8361014e0018d9"
-                      }
-        
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Quality Hub - Resume Q"
-                  sectionLead: {
-                    connect: { email: "levi.simpson@lambdaschool.com" }
-                  }
-                  teamLead: { connect: { email: "Roy@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Hackathon Portal"
-                Ccrepos: {
-                    create:[
-                      {
-                        name: "hackathon-portal-fe"
-                        CCId: "5e3656bdad836101a3001d75"
-                      }
-                      {
-                        name: "hackathon-portal-be"
-                        CCId: "5e3656bc35ad7201a2001e65"
-                      }
-                      {
-                        name: "hackathon-portal-android"
-                        CCId: "5e3656be35ad720178001b7d"
-                      }
-        
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Hackathon Portal"
-                  sectionLead: {
-                    connect: { email: "levi.simpson@lambdaschool.com" }
-                  }
-                  teamLead: { connect: { email: "Dakotah@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Student Art Collection"
-            Ccrepos: {
-                    create:[
-                      {
-                        name: "student-art-collection-fe"
-                        CCId: "5e321c52805c9d0168002bc6"
-                      }
-                      {
-                        name: "student-art-collection-be"
-                        CCId: "5e321cc5fa4623014c003f53"
-                      }
-                      {
-                        name: "student-art-collection-android"
-                        CCId: "5e321d2bfc9fd901a100774f"
-                      }
-                      {
-                        name: "student-art-collection-iOS"
-                        CCId: "5e321d0243e65a01b8002515"
-                      }
-        
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Student Art Collection"
-                  sectionLead: {
-                    connect: { email: "levi.simpson@lambdaschool.com" }
-                  }
-                  teamLead: { connect: { email: "Tommy@gmail.com" } }
-                  state: true
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-          {
-            name: "Well Done"
-             Ccrepos: {
-                    create:[
-                      {
-                        name: "well-done-fe"
-                        CCId: "5e3656bf8e54070177001ecb"
-                      }
-                      {
-                        name: "well-done-be"
-                        CCId: "5e3656be8e540701b60016ae"
-                      }
-                      {
-                        name: "well-done-android2"
-                        CCId: "5e3656bf6753ac01770019a0"
-                      }
-                      {
-                        name: "WellDoneMobile"
-                        CCId: "5e3656be35ad720178001b83"
-                      }
-        
-                    ]
-                  }
-            projects: {
-              create: [
-                {
-                  name: "Labs 19 - Well Done"
-                  sectionLead: {
-                    connect: { email: "levi.simpson@lambdaschool.com" }
-                  }
-                  teamLead: { connect: { email: "Kevin@gmail.com" } }
-                  projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
                     ]
                   }
                 }
