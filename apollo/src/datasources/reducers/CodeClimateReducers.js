@@ -18,7 +18,7 @@ const repoReducer = (repo) => {
 const snapshotReducer = (project) => {
     return {
         id: project.id,
-        grade: project.attributes.ratings.length ? project.attributes.ratings[0].letter : 'This is not the grade you are looking for'
+        grade: project.attributes.ratings.length ? project.attributes.ratings[0].letter : 'N'
     }
 }
 
