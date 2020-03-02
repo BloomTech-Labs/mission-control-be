@@ -83,6 +83,13 @@ type Project {
   state: Boolean
 }
 
+type Ccrepo {
+  id: ID! @id
+  name: String!
+  CCId: String! @unique
+  product: Product! @relation(name:"CCRepos")
+}
+
 type Note {
   id: ID!
   topic: String!
