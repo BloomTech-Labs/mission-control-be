@@ -329,7 +329,7 @@ mutation {
             projects: {
               create: [
                 {
-                  name: "Labs 21 - Mission Control - External Integrations"
+                  name: "Labs 19 - Mission Control"
                   state: true
                   team: {
                     connect: [
