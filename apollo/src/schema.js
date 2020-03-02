@@ -28,9 +28,7 @@ const typeDefs = gql`
     createColumn(name: String!, labels: String): Column!
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!): Label!
-    createPerson(name: String!, email: String!, role: String!): Person!
-    addProjectSectionLead(id: ID!, email: String!): Person!
-    addProjectTeamLead(id: ID!, email: String!): Person!
+    createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
     createNote(
       topic: String!
@@ -76,8 +74,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     product: Product!
-    sectionLead: Person
-    teamLead: Person
+    status: Boolean!
     projectManagers: [Person!]!
     team: [Person!]!
     notes(orderBy: NoteOrderByInput): [Note]
@@ -88,7 +85,7 @@ const typeDefs = gql`
     projectActive: Boolean
   }
 
-  type CCRepo{
+  type CCRepo {
     id: ID!
     name: String!
     CCId: String!
@@ -99,13 +96,10 @@ const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
-    role: Role!
+    manages: [Project!]!
     notes: [Note]
     team: Project
-    sl: [Project!]!
-    tl: Project
     avatar: String
-    manages: [Project!]!
   }
 
   type User {
@@ -113,15 +107,6 @@ const typeDefs = gql`
     email: String!
     claims: [String!]!
     projects: [Project!]!
-  }
-
-  enum Role {
-    SL
-    TL
-    WEB
-    DS
-    UX
-    PM
   }
 
   type Note {
