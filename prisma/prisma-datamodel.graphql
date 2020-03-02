@@ -29,9 +29,8 @@ type Project {
   notes: [Note!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  projectStatus: Label @relation(name: "ProjectStatus")
-  projectHealth: Label @relation(name: "ProjectHealth")
-  state: Boolean @default(value: false)
+  projectColumns: [Column]
+  projectActive: Boolean @default(value: false)
 }
 type Ccrepo {
   id: ID! @id
@@ -77,4 +76,12 @@ type Label {
   updatedAt: DateTime! @updatedAt
   name: String!
   color: String!
+  column: Column
+}
+type Column {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updateAt: DateTime! @updatedAt
+  name: String!
+  labels: [Label]
 }

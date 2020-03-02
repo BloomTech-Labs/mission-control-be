@@ -44,6 +44,14 @@ const createLabel = (parent, args, context) => {
   return label;
 };
 
+const createColumn = (parent, args, context) => {
+  const column = context.prisma.createColumn({
+    name: args.name
+  });
+
+  return column;
+};
+
 //Update Label. Id is required, and name and color are optional.
 
 const updateLabel = async (parent, args, context) => {
@@ -215,11 +223,16 @@ const addProjectMember = (parent, args, context) => {
   return addMember;
 };
 
+const addColumnInstance = (parent, args, context) => {
+  
+}
+
 module.exports = {
   createProgram,
   createProduct,
   createProject,
   createLabel,
+  createColumn,
   createPerson,
   createNote,
   deleteNote,
