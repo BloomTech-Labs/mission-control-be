@@ -7,6 +7,8 @@ const typeDefs = gql`
     products: [Product!]!
     projects: [Project!]!
     project(id: ID!): Project!
+    columns: [Column!]!
+    column(idL: ID!): Column!
     labels: [Label!]!
     label(id: ID!): Label!
     persons: [Person!]!
@@ -22,7 +24,8 @@ const typeDefs = gql`
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
-    createLabel(name: String!, color: String!): Label!
+    createLabel(name: String!, color: String!, column: String): Label!
+    createColumn(name: String!, labels: String): Column!
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!): Label!
     createPerson(name: String!, email: String!, role: String!): Person!
@@ -163,6 +166,20 @@ const typeDefs = gql`
     createdAt_DESC
     updatedAt_ASC
     updatedAt_DESC
+  }
+
+  type Column {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    name: String
+  }
+
+  type Column_Instance {
+    id: ID!
+    column_id: String
+    project_id: String
+    label_id: String
   }
 `;
 
