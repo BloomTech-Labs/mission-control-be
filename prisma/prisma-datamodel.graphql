@@ -78,3 +78,15 @@ type Label {
   name: String!
   color: String!
 }
+type Column {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updateAt: DateTime! @updatedAt
+  name: String!
+}
+type Column_Instance {
+  id: ID! @id
+  column_id: Column
+  project_id: Project
+  label_id: Label
+}
