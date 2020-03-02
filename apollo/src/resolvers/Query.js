@@ -70,13 +70,15 @@ const CodeClimateSnapshot = async (parent, args, context) => {
   try {
     const { slug } = args;
     const res = await CodeClimateConnection.getRepobyGHSlug(slug);
+    console.log(res.data[0].links.self)
+    const link = res.data[0].links.self
     const repoId = res.data[0].id;
     const snapShot =
       res.data[0].relationships.latest_default_branch_snapshot.data.id;
     const name = res.data[0].attributes.human_name;
     
     let snapShotResponse = await CodeClimateConnection.getSnapshot(repoId, snapShot);
-    snapShotResponse = {...snapShotResponse, name: name}
+    snapShotResponse = {...snapShotResponse, name: name, link: link}
     return snapShotResponse;
   } catch (e) {
     console.log(e);

@@ -139,6 +139,7 @@ const typeDefs = gql`
     id: ID!
     grade: String!
     name: String!
+    link: String!
   }
 
   type Label {
