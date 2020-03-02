@@ -99,7 +99,6 @@ const typeDefs = gql`
     notes: [Note]
     team: Project
     avatar: String
-    manages: [Project!]!
   }
 
   type User {
