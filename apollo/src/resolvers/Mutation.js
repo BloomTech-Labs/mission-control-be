@@ -211,6 +211,16 @@ const addColumnToProject = (parent, args, context) => {
   return addColumn
 };
 
+const addLabelToColumn = (parent, args, context) => {
+  const {id, name } = args;
+  const addLabel = context.prisma.updateColumn({
+    data: { labels: { connect: { id } } },
+    where: { name }
+  });
+
+  return addLabel
+};
+
 module.exports = {
   createProgram,
   createProduct,
@@ -224,5 +234,6 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
-  addColumnToProject
+  addColumnToProject,
+  addLabelToColumn
 };

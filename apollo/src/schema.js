@@ -7,10 +7,10 @@ const typeDefs = gql`
     products: [Product!]!
     projects: [Project!]!
     project(id: ID!): Project!
-    columns: [Column!]!
-    column(idL: ID!): Column!
-    labels: [Label!]!
-    label(id: ID!): Label!
+    columns: [Column]
+    column(id: ID!): Column
+    labels: [Label]
+    label(id: ID!): Label
     persons: [Person!]!
     me: User!
     notes(orderBy: NoteOrderByInput): [Note!]!
@@ -48,6 +48,7 @@ const typeDefs = gql`
     ): Note!
     deleteNote(id: ID!): Note!
     addColumnToProject(id: ID!, name: String!): Project!
+    addLabelToColumn(id: ID!, name: String!): Column!
   }
 
   type Program {
@@ -81,7 +82,7 @@ const typeDefs = gql`
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
-    projectColumns: [Column]!
+    projectColumns: [Column]
     projectActive: Boolean
   }
 
@@ -157,7 +158,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     name: String
-    labels: [Label]!
+    labels: [Label]
   }
 `;
 
