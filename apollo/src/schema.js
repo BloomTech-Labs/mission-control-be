@@ -49,6 +49,7 @@ const typeDefs = gql`
       rating: Int
     ): Note!
     deleteNote(id: ID!): Note!
+    addColumnToProject(id: ID!, name: String!): Project!
   }
 
   type Program {
@@ -66,9 +67,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     projects: [Project!]!
-    productStatus: [Label]
-    productHealth: Label
-    productState: Boolean
+    productActive: Boolean
     CCRepos: [CCRepo]!
     grades: [CodeClimateSnapshot!]
   }
@@ -85,9 +84,8 @@ const typeDefs = gql`
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
-    projectStatus: [Label]
-    projectHealth: Label
-    projectState: Boolean
+    projectColumns: [Column]!
+    projectActive: Boolean
   }
 
   type CCRepo{
@@ -151,6 +149,7 @@ const typeDefs = gql`
     updatedAt: String!
     name: String!
     color: String!
+    column: Column
   }
 
   enum NoteOrderByInput {
@@ -173,13 +172,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     name: String
-  }
-
-  type Column_Instance {
-    id: ID!
-    column_id: String
-    project_id: String
-    label_id: String
+    labels: [Label]!
   }
 `;
 

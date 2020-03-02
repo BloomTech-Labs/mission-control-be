@@ -222,9 +222,21 @@ const addProjectMember = (parent, args, context) => {
 
   return addMember;
 };
+//Adds a column to a project, takes a string where name = column name
+//Takes a project ID where a project exists
 
-const addColumnInstance = (parent, args, context) => {
-  
+const addColumnToProject = (parent, args, context) => {
+  const { id, name } = args;
+  const addColumn = context.prisma.updateProject({
+    data: { projectColumn: { connect: { name } } },
+    where: { id }
+  });
+
+  return addColumn
+};
+
+const addLabelToColumn = (parent, args, context) => {
+
 }
 
 module.exports = {
@@ -242,4 +254,5 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
+  addColumnToProject
 };

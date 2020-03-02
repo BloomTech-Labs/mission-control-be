@@ -13,9 +13,7 @@ type Product {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
-  productStatus: Label @relation(name: "ProductStatus")
-  productHealth: Label @relation(name: "ProductHealth")
-  state: Boolean @default(value: false)
+  ProductActive: Boolean @default(value: false)
   Ccrepos: [Ccrepo]! @relation(name:"CCRepos")
 }
 type Project {
@@ -29,7 +27,7 @@ type Project {
   notes: [Note!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  projectColumns: [Column]
+  projectColumns: [Column]!
   projectActive: Boolean @default(value: false)
 }
 type Ccrepo {
@@ -82,6 +80,6 @@ type Column {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updateAt: DateTime! @updatedAt
-  name: String!
-  labels: [Label]
+  name: String! @unique
+  labels: [Label]!
 }
