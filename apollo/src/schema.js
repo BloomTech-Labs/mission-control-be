@@ -87,7 +87,7 @@ const typeDefs = gql`
     projectState: Boolean
   }
 
-  type CCRepo{
+  type CCRepo {
     id: ID!
     name: String!
     CCId: String!
