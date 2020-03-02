@@ -204,16 +204,12 @@ const addProjectMember = (parent, args, context) => {
 const addColumnToProject = (parent, args, context) => {
   const { id, name } = args;
   const addColumn = context.prisma.updateProject({
-    data: { projectColumn: { connect: { name } } },
+    data: { projectColumns: { connect: { name } } },
     where: { id }
   });
 
   return addColumn
 };
-
-const addLabelToColumn = (parent, args, context) => {
-
-}
 
 module.exports = {
   createProgram,
