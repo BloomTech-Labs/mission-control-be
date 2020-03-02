@@ -45,5 +45,5 @@ module.exports = {
   projectManagers,
   notes,
   projectStatus,
-  projectHealth
+  projectHealth,
 };
