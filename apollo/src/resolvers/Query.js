@@ -70,7 +70,6 @@ const CodeClimateSnapshot = async (parent, args, context) => {
   try {
     const { slug } = args;
     const res = await CodeClimateConnection.getRepobyGHSlug(slug);
-    console.log(res.data[0].links.self)
     const link = res.data[0].links.self
     const repoId = res.data[0].id;
     const snapShot =
