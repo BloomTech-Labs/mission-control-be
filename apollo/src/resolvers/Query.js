@@ -60,9 +60,15 @@ const note = (parent, args, context) => {
 };
 
 const notes = (parent, args, context) => {
-  const { orderBy } = args;
+  const { orderBy, privatePerm } = args;
   const res = context.prisma.notes({ orderBy });
-  return res;
+  const where = { privateNote: false }
+  const resPublic = context.prisma.notes({ where })
+  if(privatePerm) {
+    return res
+  } else {
+    return resPublic
+  }
 };
 
 const CodeClimateSnapshot = async (parent, args, context) => {

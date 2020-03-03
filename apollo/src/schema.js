@@ -13,7 +13,7 @@ const typeDefs = gql`
     roles: [Role!]!
     role(id: ID!): Role!
     me: User!
-    notes(orderBy: NoteOrderByInput): [Note!]!
+    notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note!]!
     note(id: ID!): Note!
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
@@ -121,6 +121,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     rating: Int!
+    privateNote: Boolean!
   }
 
   type CodeClimateSnapshot {
