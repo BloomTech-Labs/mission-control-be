@@ -63,9 +63,7 @@ type Product {
   createdAt: String!
   updatedAt: String!
   projects: [Project!]!
-  productStatus: Label
-  productHealth: Label
-  state: Boolean
+  productActive: Boolean
 }
 
 type Project {
@@ -78,9 +76,8 @@ type Project {
   notes: [Note!]!
   createdAt: String!
   updatedAt: String!
-  projectStatus: Label
-  projectHealth: Label
-  state: Boolean
+  projectColumns: [Column!]!
+  projectActive: Boolean
 }
 
 type Note {
@@ -111,6 +108,16 @@ type Label {
   updatedAt: String!
   name: String!
   color: String!
+  column: Column!
+}
+
+type Column {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  name: String!
+  addedTo: Project!
+  labels: [Label!]!
 }
 ```
 

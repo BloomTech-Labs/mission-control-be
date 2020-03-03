@@ -26,7 +26,7 @@ type Project {
   notes: [Note!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  projectColumns: [Column!] @relation(name: "ProjectColumn")
+  projectColumns: [Column!]! @relation(name: "ProjectColumn")
   projectActive: Boolean @default(value: false)
 }
 type Ccrepo {
@@ -69,6 +69,6 @@ type Column {
   createdAt: DateTime! @createdAt
   updateAt: DateTime! @updatedAt
   name: String! @unique
-  addedTo: [Project!] @relation(name: "ProjectColumn")
+  addedTo: Project! @relation(name: "ProjectColumn")
   labels: [Label!]!
 }
