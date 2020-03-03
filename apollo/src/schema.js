@@ -7,10 +7,10 @@ const typeDefs = gql`
     products: [Product!]!
     projects: [Project!]!
     project(id: ID!): Project!
-    columns: [Column!]!
-    column(idL: ID!): Column!
-    labels: [Label!]!
-    label(id: ID!): Label!
+    columns: [Column]
+    column(id: ID!): Column
+    labels: [Label]
+    label(id: ID!): Label
     persons: [Person!]!
     me: User!
     notes(orderBy: NoteOrderByInput): [Note!]!
@@ -24,7 +24,7 @@ const typeDefs = gql`
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
-    createLabel(name: String!, color: String!, column: String): Label!
+    createLabel(name: String!, color: String!, id: ID!): Label!
     createColumn(name: String!, labels: String): Column!
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!): Label!
@@ -47,6 +47,8 @@ const typeDefs = gql`
       rating: Int
     ): Note!
     deleteNote(id: ID!): Note!
+    addColumnToProject(id: ID!, name: String!): Project!
+    addLabelToColumn(id: ID!, name: String!): Column!
   }
 
   type Program {
@@ -64,9 +66,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     projects: [Project!]!
-    productStatus: [Label]
-    productHealth: Label
-    productState: Boolean
+    productActive: Boolean
     CCRepos: [CCRepo]!
     grades: [CodeClimateSnapshot!]
   }
@@ -82,9 +82,8 @@ const typeDefs = gql`
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
-    projectStatus: [Label]
-    projectHealth: Label
-    projectState: Boolean
+    projectColumns: [Column!]!
+    projectActive: Boolean
   }
 
   type CCRepo {
@@ -136,6 +135,7 @@ const typeDefs = gql`
     updatedAt: String!
     name: String!
     color: String!
+    column: Column!
   }
 
   enum NoteOrderByInput {
@@ -158,13 +158,8 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     name: String
-  }
-
-  type Column_Instance {
-    id: ID!
-    column_id: String
-    project_id: String
-    label_id: String
+    addedTo: [Project]
+    labels: [Label!]!
   }
 `;
 

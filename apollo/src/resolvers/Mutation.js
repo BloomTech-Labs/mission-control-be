@@ -39,6 +39,7 @@ const createLabel = (parent, args, context) => {
   const label = context.prisma.createLabel({
     name: args.name,
     color: args.color,
+    column: { connect: { id: args.id } },
   });
 
   return label;
@@ -198,8 +199,28 @@ const addProjectMember = (parent, args, context) => {
 
   return addMember;
 };
+//Adds a column to a project, takes a string where name = column name
+//Takes a project ID where a project exists
 
-const addColumnInstance = (parent, args, context) => {};
+const addColumnToProject = (parent, args, context) => {
+  const { id, name } = args;
+  const addColumn = context.prisma.updateProject({
+    data: { addedTo: { connect: { name } } },
+    where: { id },
+  });
+
+  return addColumn;
+};
+
+const addLabelToColumn = (parent, args, context) => {
+  const { id, name } = args;
+  const addLabel = context.prisma.updateColumn({
+    data: { labels: { connect: { id } } },
+    where: { name },
+  });
+
+  return addLabel;
+};
 
 module.exports = {
   createProgram,
@@ -214,4 +235,6 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
+  addColumnToProject,
+  addLabelToColumn,
 };
