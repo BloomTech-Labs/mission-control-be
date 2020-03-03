@@ -5,6 +5,7 @@ type Program {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
+  columns: [Column!]!
 }
 type Product {
   id: ID! @id
@@ -67,6 +68,16 @@ type Label {
   color: String!
   column: Column!
 }
+
+type Column {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String
+  program: Program!
+  labels: [Label!]!
+}
+
 type Role {
   id: ID! @id
   name: String!
