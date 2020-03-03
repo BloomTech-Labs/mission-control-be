@@ -39,6 +39,7 @@ const createLabel = (parent, args, context) => {
   const label = context.prisma.createLabel({
     name: args.name,
     color: args.color,
+    column: { connect: { id:args.id}}
   });
 
   return label;

@@ -24,7 +24,7 @@ const typeDefs = gql`
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
-    createLabel(name: String!, color: String!, column: String): Label!
+    createLabel(name: String!, color: String!, id: ID!): Label!
     createColumn(name: String!, labels: String): Column!
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!): Label!
@@ -82,7 +82,7 @@ const typeDefs = gql`
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
-    projectColumns: [Column]
+    projectColumns: [Column!]!
     projectActive: Boolean
   }
 
@@ -135,7 +135,7 @@ const typeDefs = gql`
     updatedAt: String!
     name: String!
     color: String!
-    column: Column
+    column: Column!
   }
 
   enum NoteOrderByInput {
@@ -159,7 +159,7 @@ const typeDefs = gql`
     updatedAt: String!
     name: String
     addedTo: [Project]
-    labels: [Label]
+    labels: [Label!]!
   }
 `;
 

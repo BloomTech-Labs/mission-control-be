@@ -62,7 +62,7 @@ type Label {
   updatedAt: DateTime! @updatedAt
   name: String!
   color: String!
-  column: Column
+  column: Column!
 }
 type Column {
   id: ID! @id
@@ -70,5 +70,5 @@ type Column {
   updateAt: DateTime! @updatedAt
   name: String! @unique
   addedTo: [Project!] @relation(name: "ProjectColumn")
-  labels: [Label!]
+  labels: [Label!]!
 }
