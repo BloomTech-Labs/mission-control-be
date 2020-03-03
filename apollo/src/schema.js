@@ -10,6 +10,8 @@ const typeDefs = gql`
     labels: [Label!]!
     label(id: ID!): Label!
     persons: [Person!]!
+    roles: [Role!]!
+    role(id: ID!): Role!
     me: User!
     notes(orderBy: NoteOrderByInput): [Note!]!
     note(id: ID!): Note!
@@ -95,6 +97,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
+    role: Role!
     manages: [Project!]!
     notes: [Note]
     team: Project
@@ -133,6 +136,13 @@ const typeDefs = gql`
     updatedAt: String!
     name: String!
     color: String!
+  }
+
+  type Role {
+    id: ID!
+    name: String!
+    privateNote: Boolean!
+    viewProducts: Boolean!
   }
 
   enum NoteOrderByInput {
