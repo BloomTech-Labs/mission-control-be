@@ -13,8 +13,10 @@ type Product {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
-  ProductActive: Boolean @default(value: false)
-  Ccrepos: [Ccrepo]! @relation(name:"CCRepos")
+  productStatus: Label @relation(name: "ProductStatus")
+  productHealth: Label @relation(name: "ProductHealth")
+  state: Boolean @default(value: false)
+  Ccrepos: [Ccrepo]! @relation(name: "CCRepos")
 }
 type Project {
   id: ID! @id
@@ -33,7 +35,7 @@ type Ccrepo {
   id: ID! @id
   name: String!
   CCId: String! @unique
-  product: Product! @relation(name:"CCRepos")
+  product: Product! @relation(name: "CCRepos")
 }
 type Note {
   id: ID! @id
@@ -50,6 +52,7 @@ type Person {
   id: ID! @id
   name: String!
   email: String! @unique
+  role: Role!
   authored: [Note!]! @relation(name: "NoteAuthor")
   attended: [Note!]! @relation(name: "NoteAttendee")
   manages: [Project!]! @relation(name: "ProjectManager")
@@ -64,11 +67,9 @@ type Label {
   color: String!
   column: Column!
 }
-type Column {
+type Role {
   id: ID! @id
-  createdAt: DateTime! @createdAt
-  updateAt: DateTime! @updatedAt
-  name: String! @unique
-  addedTo: Project! @relation(name: "ProjectColumn")
-  labels: [Label!]!
+  name: String!
+  privateNote: Boolean! @default(value: false)
+  viewProducts: Boolean! @default(value: false)
 }
