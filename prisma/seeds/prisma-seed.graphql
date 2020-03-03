@@ -108,8 +108,18 @@ mutation {
                 {
                   name: "Labs 19 - Mission Control"
                   status: false
-                  team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  team: {
+                    connect: [
+                      { email: "missioncontrolstudent@gmail.com" }
+                      { email: "RussHacker@domain.com" }
+                      { email: "RobinWarden@domain.com" }
+                      { email: "CalebAllard@domain.com" }
+                      { email: "EuihyeokLee@domain.com" }
+                    ]
+                  }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                   notes: {
                     create: [
                       {
@@ -176,7 +186,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
@@ -207,7 +216,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
@@ -234,7 +242,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
@@ -255,7 +262,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
@@ -277,7 +283,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
@@ -316,7 +321,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
@@ -347,7 +351,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
@@ -382,7 +385,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
@@ -405,7 +407,6 @@ mutation {
                   status: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
-                  notes: { create: [] }
                 }
               ]
             }
