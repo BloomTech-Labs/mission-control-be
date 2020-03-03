@@ -27,13 +27,13 @@ const project = (parent, args, context) => {
 const labels = (parent, args, context) => {
   const res = context.prisma.labels();
   return res;
-}
+};
 
 const label = (parent, args, context) => {
   const { id } = args;
   const res = context.prisma.label({ id });
   return res;
-}
+};
 
 const persons = (parent, args, context) => {
   const res = context.prisma.persons();
@@ -70,21 +70,23 @@ const CodeClimateSnapshot = async (parent, args, context) => {
   try {
     const { slug } = args;
     const res = await CodeClimateConnection.getRepobyGHSlug(slug);
-    const link = res.data[0].links.self
+    const link = res.data[0].links.self;
     const repoId = res.data[0].id;
     const snapShot =
       res.data[0].relationships.latest_default_branch_snapshot.data.id;
     const name = res.data[0].attributes.human_name;
-    
-    let snapShotResponse = await CodeClimateConnection.getSnapshot(repoId, snapShot);
-    snapShotResponse = {...snapShotResponse, name: name, link: link}
+
+    let snapShotResponse = await CodeClimateConnection.getSnapshot(
+      repoId,
+      snapShot,
+    );
+    snapShotResponse = { ...snapShotResponse, name, link };
     return snapShotResponse;
   } catch (e) {
     console.log(e);
     throw new Error(e);
   }
 };
-
 
 module.exports = {
   info,

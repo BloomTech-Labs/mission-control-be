@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "server": "nodemon src/index.js ",
-    "test": "jest --watchAll --runInBand"
+    "test": "jest --watchAll --runInBand",
+    "eslint": "eslint --fix ./src"
   },
   "jest": {
     "collectCoverageFrom": [

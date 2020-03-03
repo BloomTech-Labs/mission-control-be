@@ -107,7 +107,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Mission Control"
-                  status: false
+                  state: true
                   team: {
                     connect: [
                       { email: "missioncontrolstudent@gmail.com" }
@@ -155,12 +155,6 @@ mutation {
               ]
             }
           }
-          #
-          #
-          #
-          #
-          #
-          # City Data Comparison =============================================================================================
           {
             name: "City Data Comparison"
             Ccrepos: {
@@ -190,7 +184,6 @@ mutation {
               ]
             }
           }
-          # Community Calendar =============================================================================================
           {
             name: "Community Calendar"
             Ccrepos: {
@@ -220,7 +213,6 @@ mutation {
               ]
             }
           }
-          # Connect Our Kids Social Worker =============================================================================================
           {
             name: "Connect Our Kids Social Worker"
             Ccrepos: {
@@ -246,7 +238,6 @@ mutation {
               ]
             }
           }
-          # Sauti Databank =============================================================================================
           {
             name: "Sauti Databank"
             Ccrepos: {
@@ -266,7 +257,6 @@ mutation {
               ]
             }
           }
-          # Omega 2020 =============================================================================================
           {
             name: "Omega 2020"
             Ccrepos: {
@@ -287,7 +277,6 @@ mutation {
               ]
             }
           }
-          # Quality Hub =============================================================================================
           {
             name: "Quality Hub"
             Ccrepos: {
@@ -325,7 +314,6 @@ mutation {
               ]
             }
           }
-          # Hackathon Portal =============================================================================================
           {
             name: "Hackathon Portal"
             Ccrepos: {
@@ -355,7 +343,6 @@ mutation {
               ]
             }
           }
-          # Student Art Collection =============================================================================================
           {
             name: "Student Art Collection"
             Ccrepos: {
@@ -389,7 +376,6 @@ mutation {
               ]
             }
           }
-          # Well Done =============================================================================================
           {
             name: "Well Done"
             Ccrepos: {
