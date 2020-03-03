@@ -204,7 +204,7 @@ const addProjectMember = (parent, args, context) => {
 const addColumnToProject = (parent, args, context) => {
   const { id, name } = args;
   const addColumn = context.prisma.updateProject({
-    data: { projectColumns: { connect: { name } } },
+    data: { addedTo: { connect: { name } } },
     where: { id }
   });
 

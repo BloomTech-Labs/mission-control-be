@@ -158,6 +158,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     name: String
+    addedTo: [Project]
     labels: [Label]
   }
 `;
