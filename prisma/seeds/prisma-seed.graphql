@@ -1,312 +1,88 @@
 mutation {
-  # Create section leads
-
-  sl1: createPerson(
-    data: {
-      name: "Ronny Alvarado"
-      email: "missioncontrolsectionlead@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UE60KE0CU-a447a0d2fb96-512"
-    }
-  ) {
-    id
-  }
-  sl2: createPerson(
-    data: {
-      name: "Levi Simpson"
-      email: "levi.simpson@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UDCJB03RD-0e87fb5029cc-512"
-    }
+  # Create roles ==========================================================
+  manager: createRole(
+    data: { id: 1, name: "Manager", privateNote: true, viewProducts: true }
   ) {
     id
   }
 
-  #Create team leads
-
-  tl1: createPerson(
-    data: {
-      name: "Megan M"
-      email: "Megan@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UFADUTRK3-6c6b98e08992-512"
-    }
-  ) {
-    id
-  }
-  tl2: createPerson(
-    data: {
-      name: "Alec B"
-      email: "Alec@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULVFQMFFF-4eca5dc57b80-512"
-    }
-  ) {
-    id
-  }
-  tl3: createPerson(
-    data: {
-      name: "Aaron C"
-      email: "Aaron@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULJ1PJTNE-ef06ddd83880-512"
-    }
-  ) {
-    id
-  }
-  tl4: createPerson(
-    data: {
-      name: "Ami S"
-      email: "Ami@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UDTA6SESD-f9033663ba71-512"
-    }
-  ) {
-    id
-  }
-  tl5: createPerson(
-    data: {
-      name: "Nicholas G"
-      email: "Nicholas@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXHMK9PY-013dd2da8dd8-512"
-    }
-  ) {
-    id
-  }
-  tl6: createPerson(
-    data: {
-      name: "Tony K"
-      email: "Tony@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXJ07DJS-d95403332534-24"
-    }
-  ) {
-    id
-  }
-  tl7: createPerson(
-    data: {
-      name: "Roy W"
-      email: "Roy@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXALGWPR-90c177b51aa7-512"
-    }
-  ) {
-    id
-  }
-  tl8: createPerson(
-    data: {
-      name: "Dakotah H"
-      email: "Dakotah@gmail.com"
-      avatar: "https://avatars1.githubusercontent.com/u/50816478?s=460&v=4"
-    }
-  ) {
-    id
-  }
-  tl9: createPerson(
-    data: {
-      name: "Tommy C"
-      email: "Tommy@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UHXNFRBFE-b1accb251340-512"
-    }
-  ) {
-    id
-  }
-  tl10: createPerson(
-    data: {
-      name: "Kevin A"
-      email: "Kevin@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULJ1MK9GT-17419b760e18-512"
-    }
+  member: createRole(
+    data: { id: 2, name: "Member", privateNote: false, viewProducts: false }
   ) {
     id
   }
 
-  ## Create PMs
+  # Create people =========================================================
 
-  pm0: createPerson(
+  richardLawson: createPerson(
     data: {
-      name: "Dev Team"
+      id: 1
+      name: "Richard Lawson"
       email: "missioncontrolpm@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-USLACKBOT-sv41d8cd98f0-512"
-    }
-  ) {
-    id
-  }
-  pm1: createPerson(
-    data: {
-      name: "Parth Shah"
-      email: "parth.shah@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UQ8RC9QG3-5a7f8584c858-72"
-    }
-  ) {
-    id
-  }
-  pm2: createPerson(
-    data: {
-      name: "Bernie Durfee"
-      email: "bernie.durfee@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULLS6HX6G-22adeea32d11-72"
-    }
-  ) {
-    id
-  }
-  pm3: createPerson(
-    data: {
-      name: "Jess Martin"
-      email: "jess.martin@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UJVKYLMED-1fa60e08d02b-512"
-    }
-  ) {
-    id
-  }
-  pm4: createPerson(
-    data: {
-      name: "Elizabeth Lin"
-      email: "elizabeth.lin@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULGD0FZ5L-52e54f3a2c96-512"
-    }
-  ) {
-    id
-  }
-  pm5: createPerson(
-    data: {
-      name: "Ryan Hamblin"
-      email: "ryan.hamblin@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-U5SF97A1Z-3e40fb644cb0-512"
-    }
-  ) {
-    id
-  }
-  pm6: createPerson(
-    data: {
-      name: "Jam Dimic"
-      email: "jam.dimic@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UP41N4TPB-d4ebc331c94c-48"
-    }
-  ) {
-    id
-  }
-  pm7: createPerson(
-    data: {
-      name: "Ryan Holdaway"
-      email: "ryan.holdaway@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-U9E7020TX-4e37d09c9c61-512"
-    }
-  ) {
-    id
-  }
-  pm8: createPerson(
-    data: {
-      name: "Alice Karsevar"
-      email: "alice.karsevar@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UGYKPV3PA-72c12c38e387-512"
-    }
-  ) {
-    id
-  }
-  pm9: createPerson(
-    data: { name: "Edd Burke", email: "edd.burke@lambdaschool.com" }
-  ) {
-    id
-  }
-  pm10: createPerson(
-    data: {
-      name: "David Monson"
-      email: "david.monson@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UKW1FTYER-35b20bbc2498-48"
-    }
-  ) {
-    id
-  }
-  pm11: createPerson(
-    data: {
-      name: "Julia Richert"
-      email: "julia.richert@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UQM09F9H6-0a01e95783be-512"
-    }
-  ) {
-    id
-  }
-  pm18: createPerson(
-    data: {
-      name: "Alex Parker"
-      email: "alex.parker@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULENDNJ0M-620667813bf9-48"
-    }
-  ) {
-    id
-  }
-  pm19: createPerson(
-    data: {
-      name: "John Muchiri"
-      email: "john.muchiri@lambdaschool.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-UNR4BBPCZ-989d676f6026-48"
+      avatar: ""
+      role: { connect: { id: 1 } }
     }
   ) {
     id
   }
 
-  ## Create Web Developers
-
-  web0: createPerson(
+  aaronSoler: createPerson(
     data: {
-      name: "Dev Student"
+      id: 2
+      name: "Aaron Soler"
       email: "missioncontrolstudent@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-USLACKBOT-sv41d8cd98f0-512"
-    }
-  ) {
-    id
-  }
-  web1: createPerson(
-    data: {
-      name: "Kevin Afable"
-      email: "kevin.afable@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULJ1MK9GT-17419b760e18-512"
-    }
-  ) {
-    id
-  }
-  web2: createPerson(
-    data: {
-      name: "Nicholas Gebhart"
-      email: "nicholas.gebhart@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXHMK9PY-013dd2da8dd8-512"
-    }
-  ) {
-    id
-  }
-  web3: createPerson(
-    data: {
-      name: "Dakotah Huey"
-      email: "hueydakotah@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULP6AEAF3-7aa2e18de5a8-512"
-    }
-  ) {
-    id
-  }
-  web4: createPerson(
-    data: {
-      name: "Tony Kovar"
-      email: "tonykovar@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXJ07DJS-d95403332534-512"
-    }
-  ) {
-    id
-  }
-  web5: createPerson(
-    data: { name: "Tommy Coleman", email: "tommycoleman87@gmail.com" }
-  ) {
-    id
-  }
-  web6: createPerson(
-    data: {
-      name: "Roy Wakumelo"
-      email: "roywakumelojr@gmail.com"
-      avatar: "https://ca.slack-edge.com/T4JUEB3ME-ULXALGWPR-90c177b51aa7-512"
+      avatar: ""
+      role: { connect: { id: 2 } }
     }
   ) {
     id
   }
 
-  ux0: createPerson(data: { name: "Chance", email: "Chance@gmail.com" }) {
+  russHacker: createPerson(
+    data: {
+      id: 3
+      name: "Russ Hacker"
+      email: "RussHacker@domain.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
     id
   }
 
-  ## Create DS
+  robinWarden: createPerson(
+    data: {
+      id: 4
+      name: "Robin Warden"
+      email: "RobinWarden@domain.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
+    id
+  }
 
-  ds0: createPerson(data: { name: "Coop", email: "Coop@gmail.com" }) {
+  calebAllard: createPerson(
+    data: {
+      id: 5
+      name: "Caleb Allard"
+      email: "CalebAllard@domain.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
+    id
+  }
+
+  euihyeokLee: createPerson(
+    data: {
+      id: 6
+      name: "Euihyeok Lee"
+      email: "EuihyeokLee@domain.com"
+      avatar: ""
+      role: { connect: { id: 2 } }
+    }
+  ) {
     id
   }
 
@@ -318,6 +94,7 @@ mutation {
       Cctoken: "a8bd69e0e7cafd98a0581184ae71ffbf13b53cd8"
       products: {
         create: [
+          # Mission Control =============================================================================================
           {
             name: "Mission Control"
             Ccrepos: {
@@ -330,34 +107,18 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Mission Control"
-                  status: false
+                  state: true
                   team: {
                     connect: [
-                      { email: "kevin.afable@gmail.com" }
-                      { email: "nicholas.gebhart@gmail.com" }
-                      { email: "hueydakotah@gmail.com" }
-                      { email: "tonykovar@gmail.com" }
-                      { email: "roywakumelojr@gmail.com" }
                       { email: "missioncontrolstudent@gmail.com" }
+                      { email: "RussHacker@domain.com" }
+                      { email: "RobinWarden@domain.com" }
+                      { email: "CalebAllard@domain.com" }
+                      { email: "EuihyeokLee@domain.com" }
                     ]
                   }
                   projectManagers: {
-                    connect: [
-                      { email: "missioncontrolpm@gmail.com" }
-                      { email: "bernie.durfee@lambdaschool.com" }
-                      { email: "parth.shah@lambdaschool.com" }
-                      { email: "elizabeth.lin@lambdaschool.com" }
-                      { email: "jess.martin@lambdaschool.com" }
-                      { email: "ryan.hamblin@lambdaschool.com" }
-                      { email: "jam.dimic@lambdaschool.com" }
-                      { email: "alex.parker@lambdaschool.com" }
-                      { email: "john.muchiri@lambdaschool.com" }
-                      { email: "ryan.holdaway@lambdaschool.com" }
-                      { email: "alice.karsevar@lambdaschool.com" }
-                      { email: "edd.burke@lambdaschool.com" }
-                      { email: "david.monson@lambdaschool.com" }
-                      { email: "julia.richert@lambdaschool.com" }
-                    ]
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
                   }
                   notes: {
                     create: [
@@ -368,14 +129,7 @@ mutation {
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
                         }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "bernie.durfee@lambdaschool.com" }
-                            { email: "jess.martin@lambdaschool.com" }
-                            { email: "ryan.hamblin@lambdaschool.com" }
-                          ]
-                        }
+                        attendedBy: { connect: [] }
                       }
                       {
                         topic: "General Discussion"
@@ -384,15 +138,7 @@ mutation {
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
                         }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "bernie.durfee@lambdaschool.com" }
-                            { email: "parth.shah@lambdaschool.com" }
-                            { email: "jess.martin@lambdaschool.com" }
-                            { email: "ryan.hamblin@lambdaschool.com" }
-                          ]
-                        }
+                        attendedBy: { connect: [] }
                       }
                       {
                         topic: "General Discussion"
@@ -401,19 +147,252 @@ mutation {
                         author: {
                           connect: { email: "missioncontrolpm@gmail.com" }
                         }
-                        attendedBy: {
-                          connect: [
-                            { email: "missioncontrolpm@gmail.com" }
-                            { email: "bernie.durfee@lambdaschool.com" }
-                            { email: "parth.shah@lambdaschool.com" }
-                            { email: "elizabeth.lin@lambdaschool.com" }
-                            { email: "jess.martin@lambdaschool.com" }
-                            { email: "ryan.hamblin@lambdaschool.com" }
-                          ]
-                        }
+                        attendedBy: { connect: [] }
                       }
                     ]
                   }
+                }
+              ]
+            }
+          }
+          {
+            name: "City Data Comparison"
+            Ccrepos: {
+              create: [
+                {
+                  name: "city-data-comparison-fe"
+                  CCId: "5e3656bc8e5407014c002901"
+                }
+                {
+                  name: "city-data-comparison-be"
+                  CCId: "5e3656bc6753ac014c002328"
+                }
+                {
+                  name: "city-data-comparison-ds"
+                  CCId: "5e3656bc35ad7201a2001e5f"
+                }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - City Data Comparison"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
+                }
+              ]
+            }
+          }
+          {
+            name: "Community Calendar"
+            Ccrepos: {
+              create: [
+                {
+                  name: "community-calendar-fe"
+                  CCId: "5e3656bd8e54070177001ec5"
+                }
+                {
+                  name: "community-calendar-be"
+                  CCId: "5e3656bd1b60ce01a10020bc"
+                }
+                {
+                  name: "community-calendar-ios"
+                  CCId: "5e3656bfcc446c01b700194d"
+                }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Community Calendar"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
+                }
+              ]
+            }
+          }
+          {
+            name: "Connect Our Kids Social Worker"
+            Ccrepos: {
+              create: [
+                {
+                  name: "connect-our-kids-impact-fe"
+                  CCId: "5dcc1503b1c7b80f7d00a28c"
+                }
+                {
+                  name: "connect-our-kids-impact-be"
+                  CCId: "5dcc1503b1c7b80ecc00974c"
+                }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Connect Our Kids Social Worker"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
+                }
+              ]
+            }
+          }
+          {
+            name: "Sauti Databank"
+            Ccrepos: {
+              create: [
+                { name: "sauti-databank-fe", CCId: "5e3656bdad83610164001c33" }
+                { name: "sauti-databank-be", CCId: "5e3656bd8e540701a1001c20" }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Sauti Databank"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
+                }
+              ]
+            }
+          }
+          {
+            name: "Omega 2020"
+            Ccrepos: {
+              create: [
+                { name: "omega2020-fe", CCId: "5e3656bccc446c0163001566" }
+                { name: "omega2020-be", CCId: "5e3656bc35ad72018d001fb0" }
+                { name: "omega2020-ds", CCId: "5e3656bdcc446c014d002007" }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Omega 2020"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
+                }
+              ]
+            }
+          }
+          {
+            name: "Quality Hub"
+            Ccrepos: {
+              create: [
+                {
+                  name: "quality-hub-core-fe"
+                  CCId: "5dcc14feb1c7b80f020081d5"
+                }
+                {
+                  name: "quality-hub-core-be"
+                  CCId: "5dcc1505234ac30f97008afc"
+                }
+                {
+                  name: "quality-hub-resume-be"
+                  CCId: "5e3656becc446c0163001572"
+                }
+                {
+                  name: "quality-hub-gateway-be"
+                  CCId: "5dcc1502b1c7b80f020081db"
+                }
+                {
+                  name: "quality-hub-rtc-server"
+                  CCId: "5e3656baad8361014e0018d9"
+                }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Quality Hub"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
+                }
+              ]
+            }
+          }
+          {
+            name: "Hackathon Portal"
+            Ccrepos: {
+              create: [
+                {
+                  name: "hackathon-portal-fe"
+                  CCId: "5e3656bdad836101a3001d75"
+                }
+                {
+                  name: "hackathon-portal-be"
+                  CCId: "5e3656bc35ad7201a2001e65"
+                }
+                {
+                  name: "hackathon-portal-android"
+                  CCId: "5e3656be35ad720178001b7d"
+                }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Hackathon Portal"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
+                }
+              ]
+            }
+          }
+          {
+            name: "Student Art Collection"
+            Ccrepos: {
+              create: [
+                {
+                  name: "student-art-collection-fe"
+                  CCId: "5e321c52805c9d0168002bc6"
+                }
+                {
+                  name: "student-art-collection-be"
+                  CCId: "5e321cc5fa4623014c003f53"
+                }
+                {
+                  name: "student-art-collection-android"
+                  CCId: "5e321d2bfc9fd901a100774f"
+                }
+                {
+                  name: "student-art-collection-iOS"
+                  CCId: "5e321d0243e65a01b8002515"
+                }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Student Art Collection"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
+                }
+              ]
+            }
+          }
+          {
+            name: "Well Done"
+            Ccrepos: {
+              create: [
+                { name: "well-done-fe", CCId: "5e3656bf8e54070177001ecb" }
+                { name: "well-done-be", CCId: "5e3656be8e540701b60016ae" }
+                { name: "well-done-android2", CCId: "5e3656bf6753ac01770019a0" }
+                { name: "WellDoneMobile", CCId: "5e3656be35ad720178001b83" }
+              ]
+            }
+            projects: {
+              create: [
+                {
+                  name: "Labs 19 - Well Done"
+                  status: false
+                  team: { connect: [] }
+                  projectManagers: { connect: [] }
                 }
               ]
             }
