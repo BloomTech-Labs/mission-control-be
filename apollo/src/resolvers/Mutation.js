@@ -65,12 +65,31 @@ const updateLabel = async (parent, args, context) => {
   return updatedLabel;
 };
 
+//Update Column
+
+const updateColumn = async (parent, args, context) => {
+  const { name, id } = args;
+  const updatedColumn = await context.prisma.updateColumn({
+    data: { name },
+    where: { id },
+  });
+
+  return updatedColumn;
+};
+
 // Delete a Label, takes id of label to delete it.
 
 const deleteLabel = async (parent, args, context) => {
   const { id } = args;
   const deletedLabel = await context.prisma.deleteLabel({ id });
   return deletedLabel;
+};
+
+//Delete Column
+const deleteColumn = async (parent, args, context) => {
+  const { id } = args;
+  const deletedColumn = await context.prisma.deleteColumn({ id });
+  return deletedColumn;
 };
 
 // Create a new person, takes two strings and a role enum
@@ -237,4 +256,6 @@ module.exports = {
   deleteLabel,
   addColumnToProject,
   addLabelToColumn,
+  updateColumn,
+  deleteColumn,
 };
