@@ -10,6 +10,7 @@ const typeDefs = gql`
     labels: [Label!]!
     label(id: ID!): Label!
     persons: [Person!]!
+    person(email: String!): Person!
     roles: [Role!]!
     role(id: ID!): Role!
     me: User!
@@ -109,6 +110,7 @@ const typeDefs = gql`
     email: String!
     claims: [String!]!
     projects: [Project!]!
+    role: Role!
   }
 
   type Note {

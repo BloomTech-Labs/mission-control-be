@@ -16,7 +16,7 @@ mutation {
 
   richardLawson: createPerson(
     data: {
-      id: 1
+      id: "00u2lczuo5qNrXpTl357"
       name: "Richard Lawson"
       email: "missioncontrolpm@gmail.com"
       avatar: ""

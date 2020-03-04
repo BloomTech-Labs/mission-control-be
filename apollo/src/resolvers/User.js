@@ -12,6 +12,12 @@ const projects = (_, _args, { user: { email }, prisma }) => {
   return res;
 };
 
+const role = (parent, args, context) => {
+  const res = context.prisma.user({ id: parent.id }).role();
+  return res;
+};
+
 module.exports = {
   projects,
+  role,
 };

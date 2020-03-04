@@ -40,6 +40,12 @@ const persons = (parent, args, context) => {
   return res;
 };
 
+const person = (parent, args, context) => {
+  const { email } = args;
+  const res = context.prisma.person({ email });
+  return res;
+};
+
 const CCRepos = (parent, args, context) => {
   const res = context.prisma.ccrepoes();
   return res;
@@ -103,6 +109,7 @@ module.exports = {
   labels,
   label,
   persons,
+  person,
   me,
   note,
   notes,
