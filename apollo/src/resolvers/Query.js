@@ -51,6 +51,16 @@ const CCRepo = (parent, args, context) => {
   return res;
 };
 
+const GHRepos = (parents, args, context) => {
+  const res = context.prisma.ghrepos();
+  return res;
+};
+
+const GHRepo = (parent, args, context) => {
+  const { id, name } = args;
+  const res = context.p
+}
+
 const me = (parent, args, context) => context.user;
 
 const note = (parent, args, context) => {
@@ -88,6 +98,17 @@ const CodeClimateSnapshot = async (parent, args, context) => {
   }
 };
 
+const GithubRepos =  async (parent, args, context) => {
+  const GithubConnection = context.dataSources.gitHubAPI;
+  try {
+    const res = await GithubConnection.getReposByOrg();
+    console.log(res, "suh dude pp popoo");
+  }
+  catch(err) {
+    console.log(err)
+  }
+};
+
 module.exports = {
   info,
   programs,
@@ -103,4 +124,5 @@ module.exports = {
   CodeClimateSnapshot,
   CCRepos,
   CCRepo,
+  GithubRepos
 };

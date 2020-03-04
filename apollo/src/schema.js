@@ -16,6 +16,9 @@ const typeDefs = gql`
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
     CCRepo(id: ID, name: String): CCRepo!
+    GHRepos: [GHRepo]!
+    GHRepo(id: ID, name: String, owner: String, login: String): GHRepo!
+    GithubRepos: GithubRepos!
   }
 
   type Mutation {
@@ -91,6 +94,13 @@ const typeDefs = gql`
     product: Product!
   }
 
+  type GHRepo {
+    id: ID!
+    name: String!
+    owner: String!
+    login: String!
+  }
+
   type Person {
     id: ID!
     name: String!
@@ -125,6 +135,11 @@ const typeDefs = gql`
     grade: String!
     name: String!
     link: String!
+  }
+
+  type GithubRepos {
+    id: ID!
+    name: String!
   }
 
   type Label {
