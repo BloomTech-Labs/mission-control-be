@@ -9,6 +9,7 @@ class CodeClimateAPI extends RESTDataSource {
   }
 
   willSendRequest(request) {
+
     request.headers.set('Authorization', this.token);
   }
 

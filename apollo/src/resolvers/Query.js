@@ -102,7 +102,7 @@ const GithubRepos =  async (parent, args, context) => {
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getReposByOrg();
-    console.log(res, "suh dude pp popoo");
+   
   }
   catch(err) {
     console.log(err)
