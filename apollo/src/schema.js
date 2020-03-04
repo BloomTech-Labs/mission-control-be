@@ -10,8 +10,11 @@ const typeDefs = gql`
     labels: [Label!]!
     label(id: ID!): Label!
     persons: [Person!]!
+    person(email: String!): Person!
+    roles: [Role!]!
+    role(id: ID!): Role!
     me: User!
-    notes(orderBy: NoteOrderByInput): [Note!]!
+    notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note!]!
     note(id: ID!): Note!
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
@@ -105,6 +108,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
+    role: Role!
     manages: [Project!]!
     notes: [Note]
     team: Project
@@ -116,6 +120,7 @@ const typeDefs = gql`
     email: String!
     claims: [String!]!
     projects: [Project!]!
+    role: Role!
   }
 
   type Note {
@@ -128,6 +133,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     rating: Int!
+    privateNote: Boolean!
   }
 
   type CodeClimateSnapshot {
@@ -148,6 +154,13 @@ const typeDefs = gql`
     updatedAt: String!
     name: String!
     color: String!
+  }
+
+  type Role {
+    id: ID!
+    name: String!
+    privateNote: Boolean!
+    viewProducts: Boolean!
   }
 
   enum NoteOrderByInput {
