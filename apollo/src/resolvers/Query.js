@@ -116,6 +116,9 @@ const GithubRepos =  async (parent, args, context) => {
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getReposByOrg(dynamicQuery);
+    // console.log(res);
+    return res
+    
   }
   catch(err) {
     console.log(err)

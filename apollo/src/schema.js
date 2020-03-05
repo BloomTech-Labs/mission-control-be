@@ -20,8 +20,8 @@ const typeDefs = gql`
     CCRepos: [CCRepo]!
     CCRepo(id: ID, name: String): CCRepo!
     GHRepos: [GHRepo]!
-    GHRepo(id: ID, name: String, owner: String, login: String): GHRepo!
-    GithubRepos(search: String!, org: String!): GithubRepos!
+    GHRepo(id: ID, name: String, owner: String, login: String): GHRepo
+    GithubRepos(search: String, org: String): [GHRepo!]!
   }
 
   type Mutation {
@@ -98,10 +98,10 @@ const typeDefs = gql`
   }
 
   type GHRepo {
-    id: ID!
+    id: ID!  
     name: String!
     owner: String!
-    login: String!
+    ownerId: String!
   }
 
   type Person {
@@ -146,6 +146,9 @@ const typeDefs = gql`
   type GithubRepos {
     id: ID!
     name: String!
+    owner: String!
+    ownerId: String!
+
   }
 
   type Label {
