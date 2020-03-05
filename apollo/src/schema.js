@@ -19,7 +19,7 @@ const typeDefs = gql`
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
     CCRepo(id: ID!, name: String!): CCRepo!
-    GithubRepos(search: String!, org: String!): [GHRepo!]!
+    GithubRepos(search: String!, org: String): [GHRepo!]!
   }
 
   type Mutation {

@@ -100,11 +100,13 @@ const CodeClimateSnapshot = async (parent, args, context) => {
 };
 
 const GithubRepos = async (parent, args, context) => {
-  const { search } = args;
-  const grams = await context.prisma.programs();
-  const org = grams[0].name;
-  console.log(org);
-  const dynamicQuery = `${search} org:${org}`;
+  const { search, org } = args;
+  let name;
+  if (!org) {
+    const grams = await context.prisma.programs();
+    name = grams[0].name;
+  } else name = org;
+  const dynamicQuery = `${search} org:${name}`;
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getReposByOrg(dynamicQuery);
