@@ -21,3 +21,24 @@ describe('Column', () => {
     expect(errors).not.toBeTruthy();
   });
 });
+
+describe('Column', () => {
+  it('Column can be updated', async () => {
+    const server = MyServer;
+
+    const mutation = `
+    mutation {
+      createColumn(
+        data: 
+        {name:"Status 1",  program: { create: {name: "Labs 22"}}}){
+        name
+        id
+      }
+    }
+    `;
+
+    await expect(server.query(mutation)).toBeTruthy();
+    const { errors } = await server.query(mutation);
+    expect(errors).not.toBeTruthy();
+  });
+});

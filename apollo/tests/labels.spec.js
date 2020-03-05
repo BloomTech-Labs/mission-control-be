@@ -31,8 +31,14 @@ describe('Add Label', () => {
 
     const mutation = `
     mutation {
-      createLabel(data: {name:"Levin", color: "red", 
-      column:{create: {name: "Mission Control"}}}){
+      createLabel(
+        data: 
+        {name:"Levin", color: "red", 
+      column: { create: {name: "Mission Control", 
+      program: { create: {name: "Labs 21"}}
+    }}
+  })
+  {
         name
         color
         id

@@ -81,7 +81,6 @@ const typeDefs = gql`
     id: ID!
     name: String!
     product: Product!
-    status: Boolean!
     projectManagers: [Person!]!
     team: [Person!]!
     notes(orderBy: NoteOrderByInput): [Note]

@@ -55,6 +55,7 @@ type Program {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
+  columns: [Column!]!
 }
 type Product {
   id: ID! @id
@@ -63,20 +64,20 @@ type Product {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
-  productActive: Boolean
+  productActive: Boolean @default(value: false)
+  Ccrepos: [Ccrepo]! @relation(name: "CCRepos")
 }
 type Project {
   id: ID! @id
   name: String!
   product: Product!
-  status: Boolean @default(value: false)
   projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
-  createdAt: String!
-  updatedAt: String!
-  projectColumns: [Column!]!
-  projectActive: Boolean
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  projectColumns: [Column!]! @relation(name: "ProjectColumn")
+  projectActive: Boolean @default(value: false)
 }
 type Ccrepo {
   id: ID! @id
@@ -115,13 +116,12 @@ type Label {
   color: String!
   column: Column!
 }
-
 type Column {
-  id: ID!
-  createdAt: String!
-  updatedAt: String!
-  name: String!
-  addedTo: Project!
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String
+  program: Program!
   labels: [Label!]!
 }
 type Role {
@@ -130,6 +130,8 @@ type Role {
   privateNote: Boolean! @default(value: false)
   viewProducts: Boolean! @default(value: false)
 }
+
+
 ```
 
 ### Authentication Services

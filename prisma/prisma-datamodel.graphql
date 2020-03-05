@@ -21,7 +21,6 @@ type Project {
   id: ID! @id
   name: String!
   product: Product!
-  status: Boolean @default(value: false)
   projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
