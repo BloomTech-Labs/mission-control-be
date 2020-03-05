@@ -68,13 +68,12 @@ const note = (parent, args, context) => {
 const notes = (parent, args, context) => {
   const { orderBy, privatePerm } = args;
   const res = context.prisma.notes({ orderBy });
-  const where = { privateNote: false }
-  const resPublic = context.prisma.notes({ where })
-  if(privatePerm) {
-    return res
-  } else {
-    return resPublic
+  const where = { privateNote: false };
+  const resPublic = context.prisma.notes({ where });
+  if (privatePerm) {
+    return res;
   }
+  return resPublic;
 };
 
 const CodeClimateSnapshot = async (parent, args, context) => {
@@ -100,6 +99,24 @@ const CodeClimateSnapshot = async (parent, args, context) => {
   }
 };
 
+const GithubRepos = async (parent, args, context) => {
+  const { search, org } = args;
+  let name;
+  if (!org) {
+    const grams = await context.prisma.programs();
+    name = grams[0].name;
+  } else name = org;
+  const dynamicQuery = `${search} org:${name}`;
+  const GithubConnection = context.dataSources.gitHubAPI;
+  try {
+    const res = await GithubConnection.getReposByOrg(dynamicQuery);
+    return res;
+  } catch (e) {
+    console.log(e);
+    throw new Error(e);
+  }
+};
+
 module.exports = {
   info,
   programs,
@@ -116,4 +133,5 @@ module.exports = {
   CodeClimateSnapshot,
   CCRepos,
   CCRepo,
+  GithubRepos,
 };
