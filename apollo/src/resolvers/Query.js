@@ -111,10 +111,11 @@ const CodeClimateSnapshot = async (parent, args, context) => {
 };
 
 const GithubRepos =  async (parent, args, context) => {
+  const {search, org} = args
+  const dynamicQuery = search + " org:" + org
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
-    const res = await GithubConnection.getReposByOrg();
-   
+    const res = await GithubConnection.getReposByOrg(dynamicQuery);
   }
   catch(err) {
     console.log(err)

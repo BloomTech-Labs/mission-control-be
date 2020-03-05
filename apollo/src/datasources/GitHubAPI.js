@@ -2,13 +2,17 @@ const { GraphQLDataSource } = require('apollo-datasource-graphql');
 const { gql } = require('apollo-server');
 
 const REPOSBYORG = gql`
-    query{
-        search(query:"mission org:Lambda-School-Labs", type: REPOSITORY, first: 100) {
+    query Github($dynamicQuery: String!){
+        search(query: $dynamicQuery , type: REPOSITORY, first: 100) {
             edges{
                 node{
                     ... on Repository{
                         name
-                    isFork
+                        id
+                        owner{
+                            id
+                            login
+                        }
                     }
                 }
             }
@@ -27,7 +31,7 @@ const TEST = gql`
 
 class GitHubAPI extends GraphQLDataSource{
         baseURL = 'https://api.github.com/graphql';
-        token = 'bearer 7b257815bbc6b263d0ea6a9175b52847fe888524';
+        token = 'bearer 547f23ba9d02cc653f0e8938d3f27e68c8d30a80';
 
     willSendRequest(request) {
 
@@ -40,10 +44,16 @@ class GitHubAPI extends GraphQLDataSource{
     }
 
 
-    async getReposByOrg () {
+    async getReposByOrg(dynamicQuery) {
+        console.log(dynamicQuery);
         try {
-            const res = await this.query(REPOSBYORG);
+            const res = await this.query(REPOSBYORG, {
+                variables: {
+                    dynamicQuery
+                },
+              });
             console.log(res.data.search.edges);
+            // console.log(res.data.search.edges[0].node.owner.login)
         }
         catch(err){
             console.log(err, "I am the error.");
