@@ -57,16 +57,16 @@ const CCRepo = (parent, args, context) => {
   return res;
 };
 
-const GHRepos = (parents, args, context) => {
-  const res = context.prisma.ghrepos();
-  return res;
-};
+// const GHRepos = (parents, args, context) => {
+//   const res = context.prisma.ghrepos();
+//   return res;
+// };
 
-const GHRepo = (parent, args, context) => {
-  const { id, name } = args;
-  const res = context.prisma.ghrepo({ id, name });
-  return res;
-};
+// const GHRepo = (parent, args, context) => {
+//   const { id, name } = args;
+//   const res = context.prisma.ghrepo({ id, name });
+//   return res;
+// };
 
 const me = (parent, args, context) => context.user;
 
@@ -111,7 +111,10 @@ const CodeClimateSnapshot = async (parent, args, context) => {
 };
 
 const GithubRepos = async (parent, args, context) => {
-  const { search, org } = args;
+  const { search } = args;
+  const grams = await context.prisma.programs();
+  const org = grams[0].name;
+  console.log(org);
   const dynamicQuery = `${search} org:${org}`;
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
@@ -140,6 +143,4 @@ module.exports = {
   CCRepos,
   CCRepo,
   GithubRepos,
-  GHRepos,
-  GHRepo,
 };

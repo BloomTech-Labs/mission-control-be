@@ -19,8 +19,6 @@ const typeDefs = gql`
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
     CCRepo(id: ID!, name: String!): CCRepo!
-    GHRepos: [GHRepo]!
-    GHRepo(id: ID!, name: String!): GHRepo!
     GithubRepos(search: String!, org: String!): [GHRepo!]!
   }
 
@@ -141,13 +139,6 @@ const typeDefs = gql`
     grade: String!
     name: String!
     link: String!
-  }
-
-  type GithubRepos {
-    id: ID!
-    name: String!
-    owner: String!
-    ownerId: String!
   }
 
   type Label {
