@@ -49,70 +49,68 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 
 ```graphql
 type Program {
-  id: ID!
-  name: String!
-  createdAt: String!
-  updatedAt: String!
+  id: ID! @id
+  name: String! @unique
+  Cctoken: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   products: [Product!]!
 }
-
 type Product {
-  id: ID!
+  id: ID! @id
   name: String!
   program: Program!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   projects: [Project!]!
   productActive: Boolean
 }
-
 type Project {
-  id: ID!
+  id: ID! @id
   name: String!
   product: Product!
-  status: Boolean
-  projectManagers: [Person!]!
-  team: [Person!]!
+  status: Boolean @default(value: false)
+  projectManagers: [Person!]! @relation(name: "ProjectManager")
+  team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
   createdAt: String!
   updatedAt: String!
   projectColumns: [Column!]!
   projectActive: Boolean
 }
-
 type Ccrepo {
   id: ID! @id
   name: String!
   CCId: String! @unique
-  product: Product! @relation(name:"CCRepos")
+  product: Product! @relation(name: "CCRepos")
 }
-
 type Note {
-  id: ID!
+  id: ID! @id
   topic: String!
   content: String!
-  author: Person!
-  attendedBy: [Person!]!
+  author: Person! @relation(name: "NoteAuthor")
+  attendedBy: [Person!]! @relation(name: "NoteAttendee")
+  project: Project!
   rating: Int!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  privateNote: Boolean! @default(value: false)
 }
-
 type Person {
-  id: ID!
+  id: ID! @id
   name: String!
-  email: String!
-  authored: [Note!]!
-  attended: [Note!]!
-  manages: [Project!]!
-  team: Project
+  email: String! @unique
+  role: Role!
+  authored: [Note!]! @relation(name: "NoteAuthor")
+  attended: [Note!]! @relation(name: "NoteAttendee")
+  manages: [Project!]! @relation(name: "ProjectManager")
+  team: Project @relation(name: "Team")
   avatar: String
 }
-
 type Label {
-  id: ID!
-  createdAt: String!
-  updatedAt: String!
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   name: String!
   color: String!
   column: Column!
@@ -125,6 +123,12 @@ type Column {
   name: String!
   addedTo: Project!
   labels: [Label!]!
+}
+type Role {
+  id: ID! @id
+  name: String!
+  privateNote: Boolean! @default(value: false)
+  viewProducts: Boolean! @default(value: false)
 }
 ```
 

@@ -51,6 +51,12 @@ const persons = (parent, args, context) => {
   return res;
 };
 
+const person = (parent, args, context) => {
+  const { email } = args;
+  const res = context.prisma.person({ email });
+  return res;
+};
+
 const CCRepos = (parent, args, context) => {
   const res = context.prisma.ccrepoes();
   return res;
@@ -71,9 +77,15 @@ const note = (parent, args, context) => {
 };
 
 const notes = (parent, args, context) => {
-  const { orderBy } = args;
+  const { orderBy, privatePerm } = args;
   const res = context.prisma.notes({ orderBy });
-  return res;
+  const where = { privateNote: false }
+  const resPublic = context.prisma.notes({ where })
+  if(privatePerm) {
+    return res
+  } else {
+    return resPublic
+  }
 };
 
 const CodeClimateSnapshot = async (parent, args, context) => {
@@ -110,6 +122,7 @@ module.exports = {
   labels,
   label,
   persons,
+  person,
   me,
   note,
   notes,

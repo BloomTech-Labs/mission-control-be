@@ -46,6 +46,7 @@ type Note {
   rating: Int!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  privateNote: Boolean! @default(value: false)
 }
 type Person {
   id: ID! @id
