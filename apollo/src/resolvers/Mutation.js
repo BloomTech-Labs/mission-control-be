@@ -9,7 +9,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
-  const program = context.prisma.createProgram({ name: args.name });
+  const program = context.prisma.createProgram({
+    name: args.name,
+  });
 
   return program;
 };
@@ -48,6 +50,7 @@ const createLabel = (parent, args, context) => {
 const createColumn = (parent, args, context) => {
   const column = context.prisma.createColumn({
     name: args.name,
+    program: { connect: { id: args.id } },
   });
 
   return column;

@@ -161,10 +161,12 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     name: String
-    addedTo: [Project]
+    program: Program!
     labels: [Label!]!
     program: Program!
   }
 `;
 
 module.exports = typeDefs;
+
+// // addedTo: [Project]
