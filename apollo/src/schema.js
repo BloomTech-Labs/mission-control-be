@@ -21,7 +21,7 @@ const typeDefs = gql`
     CCRepo(id: ID, name: String): CCRepo!
     GHRepos: [GHRepo]!
     GHRepo(id: ID, name: String, owner: String, login: String): GHRepo!
-    GithubRepos(search: String, org: String): [GHRepo!]!
+    GithubRepos(search: String!, org: String!): [GHRepo!]!
   }
 
   type Mutation {
