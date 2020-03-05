@@ -14,7 +14,8 @@
   "scripts": {
     "start": "docker-compose up --build",
     "generate": "prisma generate",
-    "deploy": "prisma deploy"
+    "deploy": "prisma deploy",
+    "reseed": "prisma delete && prisma generate && prisma deploy"
   },
   "dependencies": {
     "apollo-client": "^2.6.8",

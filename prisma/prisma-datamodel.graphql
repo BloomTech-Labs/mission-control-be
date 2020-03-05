@@ -5,6 +5,7 @@ type Program {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
+  columns: [Column!]!
 }
 type Product {
   id: ID! @id
@@ -13,7 +14,7 @@ type Product {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
-  ProductActive: Boolean @default(value: false)
+  productActive: Boolean @default(value: false)
   Ccrepos: [Ccrepo]! @relation(name: "CCRepos")
 }
 type Project {
