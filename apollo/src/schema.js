@@ -78,7 +78,7 @@ const typeDefs = gql`
     status: Boolean!
     projectManagers: [Person!]!
     team: [Person!]!
-    notes(orderBy: NoteOrderByInput): [Note]
+    notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note]
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
