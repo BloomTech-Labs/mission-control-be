@@ -47,6 +47,7 @@ const createLabel = (parent, args, context) => {
   return label;
 };
 
+//Create a new Column, needs Program ID and name
 const createColumn = (parent, args, context) => {
   const column = context.prisma.createColumn({
     name: args.name,

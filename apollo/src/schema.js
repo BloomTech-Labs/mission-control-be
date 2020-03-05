@@ -187,5 +187,3 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
-
-// // addedTo: [Project]
