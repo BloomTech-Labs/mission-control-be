@@ -18,9 +18,9 @@ const typeDefs = gql`
     note(id: ID!): Note!
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
-    CCRepo(id: ID, name: String): CCRepo!
+    CCRepo(id: ID!, name: String!): CCRepo!
     GHRepos: [GHRepo]!
-    GHRepo(id: ID, name: String, owner: String, login: String): GHRepo!
+    GHRepo(id: ID!, name: String!): GHRepo!
     GithubRepos(search: String!, org: String!): [GHRepo!]!
   }
 
