@@ -57,17 +57,6 @@ const CCRepo = (parent, args, context) => {
   return res;
 };
 
-// const GHRepos = (parents, args, context) => {
-//   const res = context.prisma.ghrepos();
-//   return res;
-// };
-
-// const GHRepo = (parent, args, context) => {
-//   const { id, name } = args;
-//   const res = context.prisma.ghrepo({ id, name });
-//   return res;
-// };
-
 const me = (parent, args, context) => context.user;
 
 const note = (parent, args, context) => {
