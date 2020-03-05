@@ -64,8 +64,9 @@ const GHRepos = (parents, args, context) => {
 
 const GHRepo = (parent, args, context) => {
   const { id, name } = args;
-  const res = context.p
-}
+  const res = context.prisma.ghrepo({ id, name });
+  return res;
+};
 
 const me = (parent, args, context) => context.user;
 
@@ -78,13 +79,12 @@ const note = (parent, args, context) => {
 const notes = (parent, args, context) => {
   const { orderBy, privatePerm } = args;
   const res = context.prisma.notes({ orderBy });
-  const where = { privateNote: false }
-  const resPublic = context.prisma.notes({ where })
-  if(privatePerm) {
-    return res
-  } else {
-    return resPublic
+  const where = { privateNote: false };
+  const resPublic = context.prisma.notes({ where });
+  if (privatePerm) {
+    return res;
   }
+  return resPublic;
 };
 
 const CodeClimateSnapshot = async (parent, args, context) => {
@@ -110,18 +110,16 @@ const CodeClimateSnapshot = async (parent, args, context) => {
   }
 };
 
-const GithubRepos =  async (parent, args, context) => {
-  const {search, org} = args
-  const dynamicQuery = search + " org:" + org
+const GithubRepos = async (parent, args, context) => {
+  const { search, org } = args;
+  const dynamicQuery = `${search} org:${org}`;
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getReposByOrg(dynamicQuery);
-    // console.log(res);
-    return res
-    
-  }
-  catch(err) {
-    console.log(err)
+    return res;
+  } catch (e) {
+    console.log(e);
+    throw new Error(e);
   }
 };
 
@@ -141,5 +139,7 @@ module.exports = {
   CodeClimateSnapshot,
   CCRepos,
   CCRepo,
-  GithubRepos
+  GithubRepos,
+  GHRepos,
+  GHRepo,
 };

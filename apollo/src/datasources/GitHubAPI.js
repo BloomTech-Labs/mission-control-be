@@ -1,6 +1,5 @@
 const { GraphQLDataSource } = require('apollo-datasource-graphql');
 const { gql } = require('apollo-server');
-
 const { repoByOrgReducer } = require('./reducers/GitHubReducer');
 
 const REPOSBYORG = gql`
@@ -22,18 +21,9 @@ const REPOSBYORG = gql`
   }
 `;
 
-const TEST = gql`
-  query {
-    viewer {
-      login
-    }
-  }
-`;
-// make mission and org dynamic--later
-
 class GitHubAPI extends GraphQLDataSource {
   baseURL = 'https://api.github.com/graphql';
-  token = 'bearer 547f23ba9d02cc653f0e8938d3f27e68c8d30a80';
+  token = 'bearer 547f23ba9d02cc653f0e8938d3f27e68c8d30a80'; //token needs to be updated to Lambda-School-Labs token
 
   willSendRequest(request) {
     if (!request.headers) {
@@ -53,9 +43,8 @@ class GitHubAPI extends GraphQLDataSource {
       return res.data.search.edges.map(repo => (
         repoByOrgReducer(repo)
       ));
-
     } catch (err) {
-      console.log(err, 'I am the error.');
+      console.log('getReposByOrg ERROR:', err);
     }
   }
 }

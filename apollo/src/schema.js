@@ -20,7 +20,7 @@ const typeDefs = gql`
     CCRepos: [CCRepo]!
     CCRepo(id: ID, name: String): CCRepo!
     GHRepos: [GHRepo]!
-    GHRepo(id: ID, name: String, owner: String, login: String): GHRepo
+    GHRepo(id: ID, name: String, owner: String, login: String): GHRepo!
     GithubRepos(search: String, org: String): [GHRepo!]!
   }
 
@@ -98,7 +98,7 @@ const typeDefs = gql`
   }
 
   type GHRepo {
-    id: ID!  
+    id: ID!
     name: String!
     owner: String!
     ownerId: String!
@@ -148,7 +148,6 @@ const typeDefs = gql`
     name: String!
     owner: String!
     ownerId: String!
-
   }
 
   type Label {
