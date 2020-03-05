@@ -35,14 +35,15 @@
   "dependencies": {
     "@okta/jwt-verifier": "^1.0.0",
     "@sendgrid/mail": "^6.5.1",
+    "apollo-datasource-graphql": "^1.3.2",
     "apollo-datasource-rest": "^0.7.0",
     "apollo-server": "^2.9.14",
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
     "graphql": "^14.5.8",
-    "node-fetch": "^2.6.0",
     "graphql-import": "^1.0.0-beta.2",
     "graphql-tools": "^4.0.7",
+    "node-fetch": "^2.6.0",
     "prisma-client-lib": "^1.34.10"
   }
 }

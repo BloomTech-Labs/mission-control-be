@@ -18,7 +18,5 @@
     "reseed": "prisma delete && prisma generate && prisma deploy"
   },
   "dependencies": {
-    "apollo-client": "^2.6.8",
-    "apollo-datasource-rest": "^0.7.0"
   }
 }

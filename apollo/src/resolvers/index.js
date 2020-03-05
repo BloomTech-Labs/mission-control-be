@@ -14,6 +14,7 @@ const Note = require('./Note');
 const CCRepo = require('./CCRepos');
 const Label = require('./Label');
 const Column = require('./Columns');
+const GHRepo = require('./GHRepos');
 
 const resolvers = {
   Query,
@@ -27,6 +28,7 @@ const resolvers = {
   CCRepo,
   Label,
   Column,
+  GHRepo,
 };
 
 module.exports = resolvers;

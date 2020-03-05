@@ -20,7 +20,8 @@ const typeDefs = gql`
     note(id: ID!): Note!
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
-    CCRepo(id: ID, name: String): CCRepo!
+    CCRepo(id: ID!, name: String!): CCRepo!
+    GithubRepos(search: String!, org: String): [GHRepo!]!
   }
 
   type Mutation {
@@ -83,7 +84,7 @@ const typeDefs = gql`
     product: Product!
     projectManagers: [Person!]!
     team: [Person!]!
-    notes(orderBy: NoteOrderByInput): [Note]
+    notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note]
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
@@ -96,6 +97,13 @@ const typeDefs = gql`
     name: String!
     CCId: String!
     product: Product!
+  }
+
+  type GHRepo {
+    id: ID!
+    name: String!
+    owner: String!
+    ownerId: String!
   }
 
   type Person {

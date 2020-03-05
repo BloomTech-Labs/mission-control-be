@@ -7,7 +7,7 @@ const projects = (_, _args, { user: { email }, prisma }) => {
       { team_some: { email_in: email } },
     ],
   };
-  const res = prisma.projects({where});
+  const res = prisma.projects({ where });
 
   return res;
 };

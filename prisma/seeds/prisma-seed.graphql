@@ -90,7 +90,7 @@ mutation {
 
   createProgram(
     data: {
-      name: "Lambda Labs" #org
+      name: "Lambda-School-Labs" #org
       Cctoken: "a8bd69e0e7cafd98a0581184ae71ffbf13b53cd8"
       products: {
         create: [
