@@ -28,12 +28,12 @@ const createProduct = (parent, args, context) => {
 
 // Create a new project, takes a string and a product ID
 const createProject = (parent, args, context) => {
-  const program = context.prisma.createProject({
+  const project = context.prisma.createProject({
     name: args.name,
     product: { connect: { id: args.id } },
   });
 
-  return program;
+  return project;
 };
 
 // Create a new label, needs name and color.

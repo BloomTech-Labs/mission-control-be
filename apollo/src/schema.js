@@ -7,8 +7,8 @@ const typeDefs = gql`
     products: [Product!]!
     projects: [Project!]!
     project(id: ID!): Project!
-    columns: [Column]
-    column(id: ID!): Column
+    columns: [Column!]!
+    column(id: ID!): Column!
     labels: [Label]
     label(id: ID!): Label
     persons: [Person!]!
@@ -161,7 +161,6 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     name: String
-    program: Program!
     labels: [Label!]!
     program: Program!
   }
