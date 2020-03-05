@@ -21,6 +21,30 @@ const REPOSBYORG = gql`
   }
 `;
 
+const SPARKLINE = gql`
+  query{
+    repository(owner: "Lambda-School-Labs", name: "mission-control-be"){
+      defaultBranchRef{
+        name
+        target {
+          ... on Commit {
+            history(first: 100){
+              nodes{
+                oid
+                message
+                additions
+                deletions
+                changedFiles
+                committedDate
+              }
+            }
+          }
+        }
+      } 
+    }
+  }
+`
+
 class GitHubAPI extends GraphQLDataSource {
   baseURL = 'https://api.github.com/graphql';
   token = 'bearer cdf9e6076522e639c93c493448b1f02bb403b94b'; //token needs to be updated to Lambda-School-Labs token
