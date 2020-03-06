@@ -143,6 +143,19 @@ const SparkyDate = async (parent, args, context) => {
   }
 };
 
+const GithubPulse = async (parent, args, context) => {
+  const { owner, name } = args;
+  const GithubConnection = context.dataSources.gitHubAPI;
+  try {
+    const res = await GithubConnection.getPulse(owner, name);
+    console.log("GithubPulse", res);
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   info,
   programs,
@@ -162,4 +175,5 @@ module.exports = {
   GithubRepos,
   SparkyBoy,
   SparkyDate,
+  GithubPulse
 };

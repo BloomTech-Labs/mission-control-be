@@ -75,7 +75,6 @@ class GitHubAPI extends GraphQLDataSource {
           name
         }
       });
-
       console.log("getPulse res", res);
     } catch (err) {
       console.log('getPulse ERROR', err);

@@ -69,7 +69,7 @@ const SPARKLINE_BY_DATE = gql`
 
 const PULSE = gql`
   query Github($owner: String!, $name: String!) {
-    repository(owner: "Lambda-School-Labs", name: "mission-control-be"){
+    repository(owner: $owner, name: $name){
       id
       issues(first: 100){
         totalCount
