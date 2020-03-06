@@ -18,4 +18,17 @@ const sparklineReducer = spark => {
   };
 };
 
+
+const issueReducer = issue => {
+  return {
+
+  }
+}
+
+const prReducer = pr => {
+  return {
+    
+  }
+}
+
 module.exports = { repoByOrgReducer, sparklineReducer };
