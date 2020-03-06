@@ -122,7 +122,6 @@ const SparkyBoy = async (parent, args, context) => {
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getSparkline(owner, name);
-    console.log("SparkyBoy", res);
     return res;
   } catch (err) {
     console.log(err);
@@ -135,7 +134,6 @@ const SparkyDate = async (parent, args, context) => {
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getSparkline(owner, name, until);
-    console.log("SparkyDate", res);
     return res;
   } catch (err) {
     console.log(err);
