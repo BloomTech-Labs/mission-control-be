@@ -20,10 +20,15 @@ const sparklineReducer = spark => {
 
 
 const issueReducer = issue => {
+  console.log(issue.node)
+  const closed = issue.node.filter(count => count === "CLOSED");
+  const open = issue.node.filter(count => count === "OPEN");
   return {
-
-  }
-}
+    issueCount: issue.totalCount,
+    closedIssues: closed,
+    openIssues: open
+  };
+};
 
 const prReducer = pr => {
   return {
