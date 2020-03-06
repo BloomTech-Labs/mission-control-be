@@ -77,22 +77,18 @@ class GitHubAPI extends GraphQLDataSource {
       });
 
       const issues = issueReducer(res.data.repository.issues)
-
-      console.log(issues)
       
       const PRs = prReducer(res.data.repository.pullRequests)
 
-      console.log(PRs)
-
       return {
         id: res.data.repository.id,
-        issueCount: res.data.repository.issues.totalCount,
-        closedIssues: closedIssues.length,
-        openIssues: openIssues.length,
-        prCount: res.data.repository.pullRequests.totalCount,
-        closedPRs: closedPRs.length,
-        openPRs: openPRs.length,
-        mergedPRs: mergedPRs.length
+        issueCount: issues.issueCount,
+        closedIssues: issues.closedIssues,
+        openIssues: issues.openIssues,
+        prCount: PRs.prCount,
+        closedPRs: PRs.closedPRs,
+        openPRs: PRs.openPRs,
+        mergedPRs: PRs.mergedPRs
       }
     } catch (err) {
       console.log('getPulse ERROR', err);

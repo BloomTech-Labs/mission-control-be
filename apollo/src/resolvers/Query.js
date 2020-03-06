@@ -148,7 +148,6 @@ const GithubPulse = async (parent, args, context) => {
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getPulse(owner, name);
-    console.log("GithubPulse", res);
     return res;
   } catch (err) {
     console.log(err);
