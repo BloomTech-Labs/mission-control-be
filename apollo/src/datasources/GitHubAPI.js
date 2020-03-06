@@ -101,6 +101,8 @@ class GitHubAPI extends GraphQLDataSource {
       console.log('getReposByOrg ERROR:', err);
     }
   }
+
+  //use queries here, map over response and send to reducer
 }
 
 module.exports = GitHubAPI;
