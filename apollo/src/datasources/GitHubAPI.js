@@ -30,9 +30,14 @@ class GitHubAPI extends GraphQLDataSource {
     }
   }
 
-  async getSparkline() {
+  async getSparkline(owner, name) {
     try {
-      const res = await this.query(SPARKLINE);
+      const res = await this.query(SPARKLINE, {
+        variables: {
+          owner,
+          name
+        }
+      });
 
       const lineofspark = res.data.repository.defaultBranchRef.target.history.nodes;
       return lineofspark.map(spark => (

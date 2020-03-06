@@ -21,8 +21,8 @@ const REPOS_BY_ORG = gql`
 
 //Query for sparkline data points, need to set to dynamic arguments
 const SPARKLINE = gql`
-  query{
-    repository(owner: "Lambda-School-Labs", name: "mission-control-be"){ 
+  query Github($owner: String!, $name: String!){
+    repository(owner: $owner, name: $name){ 
       defaultBranchRef{
         name
         target {

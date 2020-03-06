@@ -20,7 +20,7 @@ const typeDefs = gql`
     CCRepos: [CCRepo]!
     CCRepo(id: ID!, name: String!): CCRepo!
     GithubRepos(search: String!, org: String): [GHRepo!]!
-    SparkyBoy: [Sparkline]!
+    SparkyBoy(owner: String!, name: String!): [Sparkline]!
   }
 
   type Mutation {

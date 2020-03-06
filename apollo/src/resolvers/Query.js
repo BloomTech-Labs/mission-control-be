@@ -118,9 +118,10 @@ const GithubRepos = async (parent, args, context) => {
 };
 
 const SparkyBoy = async (parent, args, context) => {
+  const { owner, name } = args;
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
-    const res = await GithubConnection.getSparkline();
+    const res = await GithubConnection.getSparkline(owner, name);
     console.log("Sparkyboy", res);
     return res;
   } catch (err) {
