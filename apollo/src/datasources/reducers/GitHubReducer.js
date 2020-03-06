@@ -19,21 +19,26 @@ const sparklineReducer = spark => {
 };
 
 
-const issueReducer = issue => {
-  console.log(issue.node)
-  const closed = issue.node.filter(count => count === "CLOSED");
-  const open = issue.node.filter(count => count === "OPEN");
+const issueReducer = (data) => {
+  const closedIssues = data.edges.filter(closed => closed.node.state === "CLOSED");
+  const openIssues = data.edges.filter(open => open.node.state === "OPEN");
   return {
-    issueCount: issue.totalCount,
-    closedIssues: closed,
-    openIssues: open
+    issueCount: data.totalCount,
+    closedIssues: closedIssues.length,
+    openIssues: openIssues.length
   };
 };
 
-const prReducer = pr => {
+const prReducer = (data) => {
+  const closedPRs = data.edges.filter(closed => closed.node.state === "CLOSED");
+  const openPRs = data.edges.filter(open => open.node.state === "OPEN");
+  const mergedPRs = data.edges.filter(merged => merged.node.state === "MERGED");
   return {
-    
-  }
-}
+    prCount: data.totalCount,
+    closedPRs: closedPRs.length,
+    openPRs: openPRs.length,
+    mergedPRs: mergedPRs.length
+  };
+};
 
 module.exports = { repoByOrgReducer, sparklineReducer, issueReducer, prReducer };

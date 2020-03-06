@@ -76,15 +76,13 @@ class GitHubAPI extends GraphQLDataSource {
         }
       });
 
-      const closedIssues = res.data.repository.issues.edges.filter(closed => closed.node.state === "CLOSED");
+      const issues = issueReducer(res.data.repository.issues)
 
-      const openIssues = res.data.repository.issues.edges.filter(open => open.node.state === "OPEN");
+      console.log(issues)
       
-      const closedPRs = res.data.repository.pullRequests.edges.filter(closed => closed.node.state === "CLOSED");
+      const PRs = prReducer(res.data.repository.pullRequests)
 
-      const openPRs = res.data.repository.pullRequests.edges.filter(open => open.node.state === "OPEN");
-
-      const mergedPRs = res.data.repository.pullRequests.edges.filter(merged => merged.node.state === "MERGED");
+      console.log(PRs)
 
       return {
         id: res.data.repository.id,
