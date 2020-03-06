@@ -31,4 +31,4 @@ const prReducer = pr => {
   }
 }
 
-module.exports = { repoByOrgReducer, sparklineReducer };
+module.exports = { repoByOrgReducer, sparklineReducer, issueReducer, prReducer };
