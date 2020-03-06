@@ -70,6 +70,7 @@ const SPARKLINE_BY_DATE = gql`
 const PULSE = gql`
   query Github($owner: String!, $name: String!) {
     repository(owner: "Lambda-School-Labs", name: "mission-control-be"){
+      id
       issues(first: 100){
         totalCount
         edges{
