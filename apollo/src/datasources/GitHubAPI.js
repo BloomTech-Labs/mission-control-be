@@ -1,6 +1,6 @@
 const { GraphQLDataSource } = require('apollo-datasource-graphql');
 const { repoByOrgReducer, sparklineReducer } = require('./reducers/GitHubReducer');
-const { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE } = require('./queries/GitHubQueries');
+const { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE, PULSE } = require('./queries/GitHubQueries');
 
 
 class GitHubAPI extends GraphQLDataSource {
