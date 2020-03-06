@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server');
 
-const REPOSBYORG = gql`
+const REPOS_BY_ORG = gql`
   query Github($dynamicQuery: String!) {
     search(query: $dynamicQuery, type: REPOSITORY, first: 15) {
       edges {
@@ -72,4 +72,4 @@ const SPARKLINE_BY_DATE = gql`
   }
 `;
 
-module.exports = { REPOSBYORG, SPARKLINE, SPARKLINE_BY_DATE };
+module.exports = { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE };

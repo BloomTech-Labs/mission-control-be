@@ -1,6 +1,6 @@
 const { GraphQLDataSource } = require('apollo-datasource-graphql');
 const { repoByOrgReducer } = require('./reducers/GitHubReducer');
-const { REPOSBYORG } = require('./queries/GitHubQueries');
+const { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE } = require('./queries/GitHubQueries');
 
 
 class GitHubAPI extends GraphQLDataSource {
@@ -17,7 +17,7 @@ class GitHubAPI extends GraphQLDataSource {
 
   async getReposByOrg(dynamicQuery) {
     try {
-      const res = await this.query(REPOSBYORG, {
+      const res = await this.query(REPOS_BY_ORG, {
         variables: {
           dynamicQuery,
         },
