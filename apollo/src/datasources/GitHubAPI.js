@@ -48,6 +48,24 @@ class GitHubAPI extends GraphQLDataSource {
     }
   }
 
+  async getSparklineByDate(owner, name, until) {
+    try {
+      const res = await this.query(SPARKLINE_BY_DATE, {
+        variables: {
+          owner,
+          name,
+          until
+        }
+      });
+
+      const lineofspark = res.data.repository.defaultBranchRef.target.history.nodes;
+      return lineofspark.map(spark => (
+        sparklineReducer(spark)
+      ));
+    } catch (err) {
+      console.log('getSparklineByDate ERROR:', err);
+    }
+  }
 }
 
 module.exports = GitHubAPI;
