@@ -22,7 +22,7 @@ const typeDefs = gql`
     GithubRepos(search: String!, org: String): [GHRepo!]!
     SparkyBoy(owner: String!, name: String!): [Sparkline!]!
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
-    GithubPulse(owner: String!, name: String!): [Pulse!]!
+    GithubPulse(owner: String!, name: String!): Pulse!
   }
 
   type Mutation {

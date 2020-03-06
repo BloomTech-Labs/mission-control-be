@@ -86,7 +86,16 @@ class GitHubAPI extends GraphQLDataSource {
 
       const mergedPRs = res.data.repository.pullRequests.edges.filter(merged => merged.node.state === "MERGED");
 
-      console.log(closedIssues.length, openIssues.length, closedPRs.length, openPRs.length, mergedPRs.length);
+      return {
+        id: res.data.repository.id,
+        issueCount: res.data.repository.issues.totalCount,
+        closedIssues: closedIssues.length,
+        openIssues: openIssues.length,
+        prCount: res.data.repository.pullRequests.totalCount,
+        closedPRs: closedPRs.length,
+        openPRs: openPRs.length,
+        mergedPRs: mergedPRs.length
+      }
     } catch (err) {
       console.log('getPulse ERROR', err);
     }
