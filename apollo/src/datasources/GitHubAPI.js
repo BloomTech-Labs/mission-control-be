@@ -30,6 +30,22 @@ class GitHubAPI extends GraphQLDataSource {
     }
   }
 
+  async getSparkline(dynamicQuery) {
+    try {
+      const res = await this.query(SPARKLINE, {
+        variables: {
+          dynamicQuery,
+        },
+      });
+      console.log('getSparkline res',res);
+      // return res.data.search.edges.map(repo => (
+      //   repoByOrgReducer(repo)
+      // ));
+    } catch (err) {
+      console.log('getSparkline ERROR:', err);
+    }
+  }
+
   //use queries here, map over response and send to reducer
 }
 
