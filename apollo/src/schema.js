@@ -20,6 +20,7 @@ const typeDefs = gql`
     CCRepos: [CCRepo]!
     CCRepo(id: ID!, name: String!): CCRepo!
     GithubRepos(search: String!, org: String): [GHRepo!]!
+    SparkyBoy: [Sparkline]!
   }
 
   type Mutation {
@@ -154,6 +155,15 @@ const typeDefs = gql`
     name: String!
     privateNote: Boolean!
     viewProducts: Boolean!
+  }
+
+  type Sparkline {
+    oid: ID!
+    message: String!
+    additions: Int!
+    deletions: Int!
+    changedFiles: Int!
+    committedDate: String!
   }
 
   enum NoteOrderByInput {

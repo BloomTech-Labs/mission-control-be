@@ -7,4 +7,15 @@ const repoByOrgReducer = repo => {
   };
 };
 
-module.exports = { repoByOrgReducer };
+const sparklineReducer = spark => {
+  return {
+    oid: spark.oid,
+    message: spark.message,
+    additions: spark.additions,
+    deletions: spark.deletions,
+    changedFiles: spark.changedFiles,
+    committedDate: spark.committedDate
+  };
+};
+
+module.exports = { repoByOrgReducer, sparklineReducer };

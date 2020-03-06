@@ -1,5 +1,5 @@
 const { GraphQLDataSource } = require('apollo-datasource-graphql');
-const { repoByOrgReducer } = require('./reducers/GitHubReducer');
+const { repoByOrgReducer, sparklineReducer } = require('./reducers/GitHubReducer');
 const { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE } = require('./queries/GitHubQueries');
 
 
@@ -30,23 +30,19 @@ class GitHubAPI extends GraphQLDataSource {
     }
   }
 
-  async getSparkline(dynamicQuery) {
+  async getSparkline() {
     try {
-      const res = await this.query(SPARKLINE, {
-        variables: {
-          dynamicQuery,
-        },
-      });
-      console.log('getSparkline res',res);
-      // return res.data.search.edges.map(repo => (
-      //   repoByOrgReducer(repo)
-      // ));
+      const res = await this.query(SPARKLINE);
+
+      const lineofspark = res.data.repository.defaultBranchRef.target.history.nodes;
+      return lineofspark.map(spark => (
+        sparklineReducer(spark)
+      ));
     } catch (err) {
       console.log('getSparkline ERROR:', err);
     }
   }
 
-  //use queries here, map over response and send to reducer
 }
 
 module.exports = GitHubAPI;

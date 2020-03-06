@@ -117,6 +117,18 @@ const GithubRepos = async (parent, args, context) => {
   }
 };
 
+const SparkyBoy = async (parent, args, context) => {
+  const GithubConnection = context.dataSources.gitHubAPI;
+  try {
+    const res = await GithubConnection.getSparkline();
+    console.log("Sparkyboy", res);
+    return res;
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   info,
   programs,
@@ -134,4 +146,5 @@ module.exports = {
   CCRepos,
   CCRepo,
   GithubRepos,
+  SparkyBoy
 };
