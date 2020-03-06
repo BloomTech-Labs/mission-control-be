@@ -152,6 +152,7 @@ const typeDefs = gql`
     name: String!
     color: String!
     column: Column!
+    selected: Boolean!
   }
 
   type Role {

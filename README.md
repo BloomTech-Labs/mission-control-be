@@ -115,6 +115,7 @@ type Label {
   name: String!
   color: String!
   column: Column!
+  selected: Boolean @default(value: false)
 }
 type Column {
   id: ID! @id
@@ -130,8 +131,6 @@ type Role {
   privateNote: Boolean! @default(value: false)
   viewProducts: Boolean! @default(value: false)
 }
-
-
 ```
 
 ### Authentication Services
