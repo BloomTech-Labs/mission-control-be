@@ -66,6 +66,22 @@ class GitHubAPI extends GraphQLDataSource {
       console.log('getSparklineByDate ERROR:', err);
     }
   }
+
+  async getPulse(owner, name) {
+    try {
+      const res = await this.query(PULSE, {
+        variables: {
+          owner,
+          name
+        }
+      });
+
+      console.log("getPulse res", res);
+    } catch (err) {
+      console.log('getPulse ERROR', err);
+    }
+  }
+
 }
 
 module.exports = GitHubAPI;
