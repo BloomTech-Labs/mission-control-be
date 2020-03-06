@@ -44,6 +44,33 @@ const SPARKLINE = gql`
     }
   }
 `
+const SPARKLINE_BY_DATE = gql`
+  query { 
+    repository(owner:"Lambda-School-Labs", name:"mission-control-be"){
+      defaultBranchRef{
+        name
+        target{
+          ... on Commit {
+            history(until: "2020-03-01T01:01:00"){
+              nodes{
+                additions
+                deletions
+                changedFiles
+                committedDate
+                committer {
+                  date
+                  email
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 
 class GitHubAPI extends GraphQLDataSource {
   baseURL = 'https://api.github.com/graphql';
