@@ -12,6 +12,8 @@ const User = require('./User');
 const Person = require('./Person');
 const Note = require('./Note');
 const CCRepo = require('./CCRepos');
+const Label = require('./Label');
+const Column = require('./Columns');
 
 const resolvers = {
   Query,
@@ -23,6 +25,8 @@ const resolvers = {
   Person,
   Note,
   CCRepo,
+  Label,
+  Column,
 };
 
 module.exports = resolvers;

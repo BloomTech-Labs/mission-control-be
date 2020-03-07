@@ -9,7 +9,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
-  const program = context.prisma.createProgram({ name: args.name });
+  const program = context.prisma.createProgram({
+    name: args.name,
+  });
 
   return program;
 };
@@ -26,12 +28,12 @@ const createProduct = (parent, args, context) => {
 
 // Create a new project, takes a string and a product ID
 const createProject = (parent, args, context) => {
-  const program = context.prisma.createProject({
+  const project = context.prisma.createProject({
     name: args.name,
     product: { connect: { id: args.id } },
   });
 
-  return program;
+  return project;
 };
 
 // Create a new label, needs name and color.
@@ -39,12 +41,23 @@ const createLabel = (parent, args, context) => {
   const label = context.prisma.createLabel({
     name: args.name,
     color: args.color,
+    column: { connect: { id: args.id } },
   });
 
   return label;
 };
 
-// Update Label. Id is required, and name and color are optional.
+//Create a new Column, needs Program ID and name
+const createColumn = (parent, args, context) => {
+  const column = context.prisma.createColumn({
+    name: args.name,
+    program: { connect: { id: args.id } },
+  });
+
+  return column;
+};
+
+//Update Label. Id is required, and name and color are optional.
 
 const updateLabel = async (parent, args, context) => {
   const { name, color, id } = args;
@@ -56,12 +69,31 @@ const updateLabel = async (parent, args, context) => {
   return updatedLabel;
 };
 
+//Update Column
+
+const updateColumn = async (parent, args, context) => {
+  const { name, id } = args;
+  const updatedColumn = await context.prisma.updateColumn({
+    data: { name },
+    where: { id },
+  });
+
+  return updatedColumn;
+};
+
 // Delete a Label, takes id of label to delete it.
 
 const deleteLabel = async (parent, args, context) => {
   const { id } = args;
   const deletedLabel = await context.prisma.deleteLabel({ id });
   return deletedLabel;
+};
+
+//Delete Column
+const deleteColumn = async (parent, args, context) => {
+  const { id } = args;
+  const deletedColumn = await context.prisma.deleteColumn({ id });
+  return deletedColumn;
 };
 
 // Create a new person, takes two strings and a role enum
@@ -190,12 +222,35 @@ const addProjectMember = (parent, args, context) => {
 
   return addMember;
 };
+//Adds a column to a project, takes a string where name = column name
+//Takes a project ID where a project exists
+
+const addColumnToProject = (parent, args, context) => {
+  const { id, name } = args;
+  const addColumn = context.prisma.updateProject({
+    data: { addedTo: { connect: { name } } },
+    where: { id },
+  });
+
+  return addColumn;
+};
+
+const addLabelToColumn = (parent, args, context) => {
+  const { id, name } = args;
+  const addLabel = context.prisma.updateColumn({
+    data: { labels: { connect: { id } } },
+    where: { name },
+  });
+
+  return addLabel;
+};
 
 module.exports = {
   createProgram,
   createProduct,
   createProject,
   createLabel,
+  createColumn,
   createPerson,
   createNote,
   deleteNote,
@@ -203,4 +258,8 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
+  addColumnToProject,
+  addLabelToColumn,
+  updateColumn,
+  deleteColumn,
 };
