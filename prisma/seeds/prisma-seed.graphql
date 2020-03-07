@@ -107,7 +107,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Mission Control"
-                  state: true
+                  projectActive: true
                   team: {
                     connect: [
                       { email: "missioncontrolstudent@gmail.com" }
@@ -178,7 +178,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - City Data Comparison"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }
@@ -207,7 +207,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Community Calendar"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }
@@ -232,7 +232,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Connect Our Kids Social Worker"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }
@@ -251,7 +251,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Sauti Databank"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }
@@ -271,7 +271,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Omega 2020"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }
@@ -308,7 +308,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Quality Hub"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }
@@ -337,7 +337,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Hackathon Portal"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }
@@ -370,7 +370,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Student Art Collection"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }
@@ -391,7 +391,7 @@ mutation {
               create: [
                 {
                   name: "Labs 19 - Well Done"
-                  status: false
+                  projectActive: false
                   team: { connect: [] }
                   projectManagers: { connect: [] }
                 }

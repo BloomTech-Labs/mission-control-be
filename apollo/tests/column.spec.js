@@ -6,14 +6,13 @@ const schema = fs.readFileSync('./schema/generated/prisma.graphql', 'utf8');
 const MyServer = mockServer(schema);
 
 // Queries if there is a label
-describe('Label', () => {
-  it('label query is there', async () => {
+describe('Column', () => {
+  it('Column query is there', async () => {
     const server = MyServer;
     const query = `
           {
-            labels {
+            columns {
               name
-              color
             }
           }
         `;
@@ -23,24 +22,16 @@ describe('Label', () => {
   });
 });
 
-// Adds a label mutation
-
-describe('Add Label', () => {
-  it('adds a label query', async () => {
+describe('Column', () => {
+  it('Column can be updated', async () => {
     const server = MyServer;
 
     const mutation = `
     mutation {
-      createLabel(
+      createColumn(
         data: 
-        {name:"Levin", color: "red", 
-      column: { create: {name: "Mission Control", 
-      program: { create: {name: "Labs 21"}}
-    }}
-  })
-  {
+        {name:"Status 1",  program: { create: {name: "Labs 22"}}}){
         name
-        color
         id
       }
     }

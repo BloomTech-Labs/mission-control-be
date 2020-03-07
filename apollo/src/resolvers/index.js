@@ -12,6 +12,8 @@ const User = require('./User');
 const Person = require('./Person');
 const Note = require('./Note');
 const CCRepo = require('./CCRepos');
+const Label = require('./Label');
+const Column = require('./Columns');
 const GHRepo = require('./GHRepos');
 
 const resolvers = {
@@ -24,6 +26,8 @@ const resolvers = {
   Person,
   Note,
   CCRepo,
+  Label,
+  Column,
   GHRepo,
 };
 

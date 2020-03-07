@@ -7,6 +7,13 @@ const products = (parent, args, context) => {
   return res;
 };
 
+const columns = (parent, args, context) => {
+  const res = context.prisma.program({ id: parent.id }).columns();
+
+  return res;
+};
+
 module.exports = {
   products,
+  columns,
 };
