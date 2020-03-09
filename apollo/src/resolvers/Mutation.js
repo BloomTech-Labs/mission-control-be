@@ -109,10 +109,11 @@ const createPerson = (parent, args, context) => {
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
 const createNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id, notification } = args;
+  const { topic, content, attendedBy, rating, id, notification, privateNote } = args;
   const note = {
     topic,
     content,
+    privateNote,
     author: { connect: { email: context.user.email } },
     attendedBy: {
       connect: attendedBy.map(email => {
@@ -159,7 +160,7 @@ const createNote = async (parent, args, context) => {
 // Takes in the same args are create note AND a specific note ID
 // uses note id to pull attendees to remove them and then pushes new data
 const updateNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id } = args;
+  const { topic, content, attendedBy, rating, id, privateNote } = args;
 
   // pulls the attendee data on the note where: id
   const oldAttendees = await context.prisma.note({ id }).attendedBy();
@@ -174,6 +175,7 @@ const updateNote = async (parent, args, context) => {
       data: {
         topic,
         rating,
+        privateNote,
         content,
         attendedBy: {
           // cleares the attendedBy field so it can be refill with new inputs

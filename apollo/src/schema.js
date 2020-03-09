@@ -42,6 +42,7 @@ const typeDefs = gql`
     createNote(
       topic: String!
       content: String!
+      privateNote: Boolean
       attendedBy: [String!]!
       id: ID!
       rating: Int!
@@ -50,6 +51,7 @@ const typeDefs = gql`
     updateNote(
       topic: String
       content: String
+      privateNote: Boolean
       attendedBy: [String]
       oldAttendees: [String]
       id: ID!
