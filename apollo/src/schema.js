@@ -91,7 +91,7 @@ const typeDefs = gql`
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
-    projectColumns: [Column!]!
+    projectColumns: [Column]
     projectActive: Boolean
   }
 

@@ -18,7 +18,6 @@ const sparklineReducer = spark => {
   };
 };
 
-
 const issueReducer = (data) => {
   const closedIssues = data.edges.filter(closed => closed.node.state === "CLOSED");
   const openIssues = data.edges.filter(open => open.node.state === "OPEN");
