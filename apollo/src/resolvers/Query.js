@@ -185,5 +185,6 @@ module.exports = {
   CCRepo,
   GithubRepos,
   SparkyBoy,
+  SparkyDate,
   GithubPulse
 };
