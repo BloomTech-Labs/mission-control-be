@@ -22,6 +22,8 @@ const typeDefs = gql`
     CCRepos: [CCRepo]!
     CCRepo(id: ID!, name: String!): CCRepo!
     GithubRepos(search: String!, org: String): [GHRepo!]!
+    SparkyBoy(owner: String!, name: String!): [Sparkline!]!
+    SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
   }
 
   type Mutation {
@@ -88,7 +90,7 @@ const typeDefs = gql`
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
-    projectColumns: [Column!]!
+    projectColumns: [Column]
     projectActive: Boolean
   }
 
@@ -160,6 +162,15 @@ const typeDefs = gql`
     name: String!
     privateNote: Boolean!
     viewProducts: Boolean!
+  }
+
+  type Sparkline {
+    oid: ID!
+    message: String!
+    additions: Int!
+    deletions: Int!
+    changedFiles: Int!
+    committedDate: String!
   }
 
   enum NoteOrderByInput {
