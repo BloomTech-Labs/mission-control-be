@@ -1,13 +1,6 @@
 const { GraphQLDataSource } = require('apollo-datasource-graphql');
-const {
-  repoByOrgReducer,
-  sparklineReducer,
-} = require('./reducers/GitHubReducer');
-const {
-  REPOS_BY_ORG,
-  SPARKLINE,
-  SPARKLINE_BY_DATE,
-} = require('./queries/GitHubQueries');
+const { repoByOrgReducer, sparklineReducer, issueReducer, prReducer } = require('./reducers/GitHubReducer');
+const { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE, PULSE } = require('./queries/GitHubQueries');
 
 class GitHubAPI extends GraphQLDataSource {
   baseURL = 'https://api.github.com/graphql';
@@ -102,6 +95,72 @@ class GitHubAPI extends GraphQLDataSource {
       throw err;
     }
   }
+
+  async getSparkline(owner, name) {
+    try {
+      const res = await this.query(SPARKLINE, {
+        variables: {
+          owner,
+          name
+        }
+      });
+
+      const lineofspark = res.data.repository.defaultBranchRef.target.history.nodes;
+      return lineofspark.map(spark => (
+        sparklineReducer(spark)
+      ));
+    } catch (err) {
+      console.log('getSparkline ERROR:', err);
+    }
+  }
+
+  async getSparklineByDate(owner, name, until) {
+    try {
+      const res = await this.query(SPARKLINE_BY_DATE, {
+        variables: {
+          owner,
+          name,
+          until
+        }
+      });
+
+      const lineofspark = res.data.repository.defaultBranchRef.target.history.nodes;
+      return lineofspark.map(spark => (
+        sparklineReducer(spark)
+      ));
+    } catch (err) {
+      console.log('getSparklineByDate ERROR:', err);
+    }
+  }
+
+  async getPulse(owner, name) {
+    try {
+      const res = await this.query(PULSE, {
+        variables: {
+          owner,
+          name
+        }
+      });
+
+      const issues = issueReducer(res.data.repository.issues)
+      
+      const PRs = prReducer(res.data.repository.pullRequests)
+
+      return {
+        id: res.data.repository.id,
+        issueCount: issues.issueCount,
+        closedIssues: issues.closedIssues,
+        openIssues: issues.openIssues,
+        prCount: PRs.prCount,
+        closedPRs: PRs.closedPRs,
+        openPRs: PRs.openPRs,
+        mergedPRs: PRs.mergedPRs
+      }
+    } catch (err) {
+      console.log('getPulse ERROR', err);
+    }
+  }
+
 }
 
 module.exports = GitHubAPI;

@@ -24,6 +24,7 @@ const typeDefs = gql`
     GithubRepos(search: String!, org: String): [GHRepo!]!
     SparkyBoy(owner: String!, name: String!): [Sparkline!]!
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
+    GithubPulse(owner: String!, name: String!): Pulse!
   }
 
   type Mutation {
@@ -92,6 +93,17 @@ const typeDefs = gql`
     updatedAt: String!
     projectColumns: [Column]
     projectActive: Boolean
+  }
+
+  type Pulse {
+    id: ID!
+    issueCount: Int!
+    closedIssues: Int!
+    openIssues: Int!
+    prCount: Int!
+    closedPRs: Int!
+    openPRs: Int!
+    mergedPRs: Int!
   }
 
   type CCRepo {

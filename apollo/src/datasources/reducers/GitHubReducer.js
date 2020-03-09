@@ -18,4 +18,26 @@ const sparklineReducer = spark => {
   };
 };
 
-module.exports = { repoByOrgReducer, sparklineReducer };
+const issueReducer = (data) => {
+  const closedIssues = data.edges.filter(closed => closed.node.state === "CLOSED");
+  const openIssues = data.edges.filter(open => open.node.state === "OPEN");
+  return {
+    issueCount: data.totalCount,
+    closedIssues: closedIssues.length,
+    openIssues: openIssues.length
+  };
+};
+
+const prReducer = (data) => {
+  const closedPRs = data.edges.filter(closed => closed.node.state === "CLOSED");
+  const openPRs = data.edges.filter(open => open.node.state === "OPEN");
+  const mergedPRs = data.edges.filter(merged => merged.node.state === "MERGED");
+  return {
+    prCount: data.totalCount,
+    closedPRs: closedPRs.length,
+    openPRs: openPRs.length,
+    mergedPRs: mergedPRs.length
+  };
+};
+
+module.exports = { repoByOrgReducer, sparklineReducer, issueReducer, prReducer };

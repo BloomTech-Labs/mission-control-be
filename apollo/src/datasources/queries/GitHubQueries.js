@@ -43,7 +43,6 @@ const SPARKLINE = gql`
   }
 `;
 
-//query for sparkline data points by date, need to set args/date to dynamic
 const SPARKLINE_BY_DATE = gql`
   query Github($owner: String!, $name: String!, $until: String!) { 
     repository(owner: $owner, name: $name){
@@ -68,4 +67,28 @@ const SPARKLINE_BY_DATE = gql`
   }
 `;
 
-module.exports = { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE };
+const PULSE = gql`
+  query Github($owner: String!, $name: String!) {
+    repository(owner: $owner, name: $name){
+      id
+      issues(first: 100){
+        totalCount
+        edges{
+          node{
+            state
+          }
+        }
+      }
+      pullRequests(first: 100){
+        totalCount
+        edges{
+          node{
+            state
+          }
+        }
+      }
+    }
+  }
+`;
+
+module.exports = { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE, PULSE };
