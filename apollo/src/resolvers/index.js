@@ -12,12 +12,8 @@ const User = require('./User');
 const Person = require('./Person');
 const Note = require('./Note');
 const CCRepo = require('./CCRepos');
-<<<<<<< HEAD
-=======
 const Label = require('./Label');
 const Column = require('./Columns');
-const GHRepo = require('./GHRepos');
->>>>>>> ba65d365e5621fb4f22bba8cea5536bcf0fb5131
 
 const resolvers = {
   Query,
@@ -29,12 +25,8 @@ const resolvers = {
   Person,
   Note,
   CCRepo,
-<<<<<<< HEAD
-=======
   Label,
   Column,
-  GHRepo,
->>>>>>> ba65d365e5621fb4f22bba8cea5536bcf0fb5131
 };
 
 module.exports = resolvers;
