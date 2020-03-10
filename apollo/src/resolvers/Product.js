@@ -19,6 +19,12 @@ const CCRepos = (parent, args, context) => {
   return res;
 };
 
+const GHRepos = (parent, args, context) => {
+  const res = context.prisma.product({id: parent.id }).Ghrepos();
+  
+  return res;
+}
+
 const grades = async (parent, args, context) => {
   const ccapi = context.dataSources.codeClimateAPI;
   const repos = await context.prisma.product({ id: parent.id }).Ccrepos();
@@ -42,4 +48,5 @@ module.exports = {
   projects,
   CCRepos,
   grades,
+  GHRepos
 };

@@ -21,10 +21,12 @@ const typeDefs = gql`
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
     CCRepo(id: ID!, name: String!): CCRepo!
-    GithubRepos(search: String!, org: String): [GHRepo!]!
+    GithubRepos(search: String!, org: String): [GHRepo]!  
     SparkyBoy(owner: String!, name: String!): [Sparkline!]!
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
     GithubPulse(owner: String!, name: String!): Pulse!
+    GHRepos: [GHRepo]!
+    GHRepo(id: String!): GHRepo!
   }
 
   type Mutation {
@@ -120,6 +122,7 @@ const typeDefs = gql`
     name: String!
     owner: String!
     ownerId: String!
+    repoId: String
   }
 
   type Person {

@@ -133,7 +133,7 @@ const SparkyBoy = async (parent, args, context) => {
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getSparkline(owner, name);
-    console.log("SparkyBoy", res);
+    console.log('SparkyBoy', res);
     return res;
   } catch (err) {
     console.log(err);
@@ -146,7 +146,7 @@ const SparkyDate = async (parent, args, context) => {
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
     const res = await GithubConnection.getSparkline(owner, name, until);
-    console.log("SparkyDate", res);
+    console.log('SparkyDate', res);
     return res;
   } catch (err) {
     console.log(err);
@@ -164,6 +164,16 @@ const GithubPulse = async (parent, args, context) => {
     console.log(err);
     throw new Error(err);
   }
+};
+
+const GHRepos = async (parent, args, context) => {
+  const res = context.prisma.ghrepoes();
+  return res;
+};
+const GHRepo = async (parent, args, context) => {
+  const { id } = args;
+  const res = context.prisma.ghrepo({ id });
+  return res;
 };
 
 module.exports = {
@@ -186,5 +196,7 @@ module.exports = {
   CCRepo,
   GithubRepos,
   SparkyBoy,
-  GithubPulse
+  GithubPulse,
+  GHRepo,
+  GHRepos,
 };

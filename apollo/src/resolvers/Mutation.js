@@ -9,17 +9,33 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 //Create a new Github Repo
-const createGithubRepo = (parent, args, context) => {
+const createGithubRepo = async (parent, args, context) => {
   const {repoId, name, owner, ownerId, id} = args
 
-  const GithubRepo = context.prisma.createGhrepo({
-    name: name,
-    product: { connect: { id } },
-    owner: owner,
-    ownerId: ownerId,
-    repoId, repoId
+  
+  const repoData =  await context.prisma.product({ id }).Ghrepos()
+  console.log(repoData);
+
+  const productRepoId = repoData.map(repo => {
+    return repo.repoId
   })
-  return GithubRepo
+
+  if(!productRepoId.includes(repoId)){
+    const GithubRepo = context.prisma.createGhrepo({
+      name: name,
+      product: { connect: { id } },
+      owner: owner,
+      ownerId: ownerId,
+      repoId, repoId
+    })
+    return GithubRepo
+  } else {
+    throw Error("This repository already exists on this product")
+
+  }
+  
+
+
 }
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
