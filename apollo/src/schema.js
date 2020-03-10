@@ -58,6 +58,7 @@ const typeDefs = gql`
     deleteNote(id: ID!): Note!
     addColumnToProject(id: ID!, name: String!): Project!
     addLabelToColumn(id: ID!, name: String!): Column!
+    createGithubRepo(repoId: String!, name: String!, id: String!, owner: String!, ownerId: String! ): GHRepo!
   }
 
   type Program {
@@ -78,6 +79,7 @@ const typeDefs = gql`
     projects: [Project!]!
     productActive: Boolean
     CCRepos: [CCRepo]!
+    GHRepos: [GHRepo]!
     grades: [CodeClimateSnapshot!]
   }
 
