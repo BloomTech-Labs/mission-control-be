@@ -179,7 +179,7 @@ const typeDefs = gql`
   }
 
   type Sparkline {
-    oid: ID!
+    id: ID!
     message: String!
     additions: Int!
     deletions: Int!
