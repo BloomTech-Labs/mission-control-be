@@ -7,8 +7,8 @@ const typeDefs = gql`
     products: [Product!]!
     projects: [Project!]!
     project(id: ID!): Project!
-    columns: [Column!]!
-    column(id: ID!): Column!
+    statuses: [Status!]!
+    status(id: ID!): Status!
     labels: [Label]
     label(id: ID!): Label
     persons: [Person!]!
@@ -32,11 +32,11 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!, id: ID!): Label!
-    createColumn(name: String!, id: ID!): Column!
+    createStatus(name: String!, id: ID!): Status!
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!): Label!
-    updateColumn(id: ID!, name: String!): Column!
-    deleteColumn(id: ID!): Column!
+    updateStatus(id: ID!, name: String!): Status!
+    deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
     createNote(
@@ -56,8 +56,8 @@ const typeDefs = gql`
       rating: Int
     ): Note!
     deleteNote(id: ID!): Note!
-    addColumnToProject(id: ID!, name: String!): Project!
-    addLabelToColumn(id: ID!, name: String!): Column!
+    addStatusToProject(id: ID!, name: String!): Project!
+    addLabelToStatus(id: ID!, name: String!): Status!
   }
 
   type Program {
@@ -66,7 +66,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     products: [Product!]!
-    columns: [Column!]!
+    statuses: [Status!]!
   }
 
   type Product {
@@ -91,7 +91,7 @@ const typeDefs = gql`
     CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
-    projectColumns: [Column]
+    projectStatus: [Status]
     projectActive: Boolean
   }
 
@@ -165,7 +165,7 @@ const typeDefs = gql`
     updatedAt: String!
     name: String!
     color: String!
-    column: Column!
+    status: Status!
     selected: Boolean!
   }
 
@@ -200,7 +200,7 @@ const typeDefs = gql`
     updatedAt_DESC
   }
 
-  type Column {
+  type Status {
     id: ID!
     createdAt: String!
     updatedAt: String!

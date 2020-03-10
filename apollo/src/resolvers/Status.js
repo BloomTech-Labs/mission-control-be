@@ -1,10 +1,10 @@
 const labels = (parent, args, context) => {
-  const res = context.prisma.column({ id: parent.id }).labels();
+  const res = context.prisma.status({ id: parent.id }).labels();
   return res;
 };
 
 const program = (parent, args, context) => {
-  const res = context.prisma.column({ id: parent.id }).program();
+  const res = context.prisma.status({ id: parent.id }).program();
 
   return res;
 };
