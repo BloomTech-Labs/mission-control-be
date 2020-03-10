@@ -9,7 +9,7 @@ const repoByOrgReducer = repo => {
 
 const sparklineReducer = spark => {
   return {
-    oid: spark.oid,
+    id: spark.oid,
     message: spark.message,
     additions: spark.additions,
     deletions: spark.deletions,
