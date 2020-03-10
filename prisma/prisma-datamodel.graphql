@@ -35,6 +35,13 @@ type Ccrepo {
   CCId: String! @unique
   product: Product! @relation(name: "CCRepos")
 }
+type Ghrepo {
+  id: ID! @id
+  repoId: String! @unique
+  name: String!
+  owner: String!
+  ownerID: String!
+}
 type Note {
   id: ID! @id
   topic: String!
