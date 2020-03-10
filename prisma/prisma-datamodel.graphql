@@ -41,7 +41,7 @@ type Ghrepo {
   repoId: String! @unique
   name: String!
   owner: String!
-  ownerID: String!
+  ownerId: String!
   product: Product! @relation(name: "GHRepos")
 }
 type Note {

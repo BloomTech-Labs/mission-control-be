@@ -7,6 +7,20 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // inside of the graphql schema to be valid.
 // See schema.js in src for examples
 
+
+//Create a new Github Repo
+const createGithubRepo = (parent, args, context) => {
+  const {repoId, name, owner, ownerId, id} = args
+
+  const GithubRepo = context.prisma.createGhrepo({
+    name: name,
+    product: { connect: { id } },
+    owner: owner,
+    ownerId: ownerId,
+    repoId, repoId
+  })
+  return GithubRepo
+}
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
   const program = context.prisma.createProgram({
@@ -246,6 +260,7 @@ const addLabelToColumn = (parent, args, context) => {
 };
 
 module.exports = {
+  createGithubRepo,
   createProgram,
   createProduct,
   createProject,
