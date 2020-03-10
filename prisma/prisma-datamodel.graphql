@@ -16,6 +16,7 @@ type Product {
   projects: [Project!]!
   productActive: Boolean @default(value: false)
   Ccrepos: [Ccrepo]! @relation(name: "CCRepos")
+  Ghrepos: [Ghrepo]! @relation(name: "GHRepos")
 }
 type Project {
   id: ID! @id
@@ -41,6 +42,7 @@ type Ghrepo {
   name: String!
   owner: String!
   ownerID: String!
+  product: Product! @relation(name: "GHRepos")
 }
 type Note {
   id: ID! @id
