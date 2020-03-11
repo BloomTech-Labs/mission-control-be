@@ -14,7 +14,7 @@ const sparklineReducer = spark => {
     additions: spark.additions,
     deletions: spark.deletions,
     changedFiles: spark.changedFiles,
-    committedDate: spark.committedDate
+    committedDate: spark.committedDate,
   };
 };
 
@@ -24,20 +24,25 @@ const issueReducer = (data) => {
   return {
     issueCount: data.totalCount,
     closedIssues: closedIssues.length,
-    openIssues: openIssues.length
+    openIssues: openIssues.length,
   };
 };
 
-const prReducer = (data) => {
-  const closedPRs = data.edges.filter(closed => closed.node.state === "CLOSED");
-  const openPRs = data.edges.filter(open => open.node.state === "OPEN");
-  const mergedPRs = data.edges.filter(merged => merged.node.state === "MERGED");
+const prReducer = data => {
+  const closedPRs = data.edges.filter(closed => closed.node.state === 'CLOSED');
+  const openPRs = data.edges.filter(open => open.node.state === 'OPEN');
+  const mergedPRs = data.edges.filter(merged => merged.node.state === 'MERGED');
   return {
     prCount: data.totalCount,
     closedPRs: closedPRs.length,
     openPRs: openPRs.length,
-    mergedPRs: mergedPRs.length
+    mergedPRs: mergedPRs.length,
   };
 };
 
-module.exports = { repoByOrgReducer, sparklineReducer, issueReducer, prReducer };
+module.exports = {
+  repoByOrgReducer,
+  sparklineReducer,
+  issueReducer,
+  prReducer,
+};

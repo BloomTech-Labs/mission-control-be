@@ -199,5 +199,5 @@ module.exports = {
   GHRepo,
   GHRepos,
   SparkyDate,
-  GithubPulse
+  GithubPulse,
 };

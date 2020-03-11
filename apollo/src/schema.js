@@ -21,7 +21,7 @@ const typeDefs = gql`
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
     CCRepos: [CCRepo]!
     CCRepo(id: ID!, name: String!): CCRepo!
-    GithubRepos(search: String!, org: String): [GHRepo]!  
+    GithubRepos(search: String!, org: String): [GHRepo]!
     SparkyBoy(owner: String!, name: String!): [Sparkline!]!
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
     GithubPulse(owner: String!, name: String!): Pulse!
@@ -62,7 +62,13 @@ const typeDefs = gql`
     deleteNote(id: ID!): Note!
     addColumnToProject(id: ID!, name: String!): Project!
     addLabelToColumn(id: ID!, name: String!): Column!
-    createGithubRepo(repoId: String!, name: String!, id: String!, owner: String!, ownerId: String! ): GHRepo!
+    createGithubRepo(
+      repoId: String!
+      name: String!
+      id: String!
+      owner: String!
+      ownerId: String!
+    ): GHRepo!
   }
 
   type Program {
