@@ -36,7 +36,7 @@ const typeDefs = gql`
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!): Label!
     updateColumn(id: ID!, name: String!): Column!
-    deleteColumn(id: ID!): Column!
+    deleteColumn(id: ID!, columnId: String): Column!
     createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
     createNote(
