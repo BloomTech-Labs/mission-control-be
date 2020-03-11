@@ -27,12 +27,10 @@ const notes = (parent, args, context) => {
   const where = { privateNote: false };
   const resPublic = context.prisma.project({ id }).notes({ where });
 
-  if(privatePerm) {
-    return res
-  } else {
-    return resPublic
+  if (privatePerm) {
+    return res;
   }
-
+  return resPublic;
 
   //  const res = context.prisma.project({ id }).notes({ orderBy });
 

@@ -56,18 +56,6 @@ const person = (parent, args, context) => {
   const res = context.prisma.person({ email });
   return res;
 };
-
-const CCRepos = (parent, args, context) => {
-  const res = context.prisma.ccrepoes();
-  return res;
-};
-
-const CCRepo = (parent, args, context) => {
-  const { id, name } = args;
-  const res = context.prisma.ccrepo({ id, name });
-  return res;
-};
-
 const me = (parent, args, context) => context.user;
 
 const note = (parent, args, context) => {
@@ -191,13 +179,10 @@ module.exports = {
   note,
   notes,
   CodeClimateSnapshot,
-  CCRepos,
-  CCRepo,
   GithubRepos,
   SparkyBoy,
   GithubPulse,
   GHRepo,
   GHRepos,
   SparkyDate,
-  GithubPulse,
 };

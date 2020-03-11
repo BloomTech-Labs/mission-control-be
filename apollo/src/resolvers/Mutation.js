@@ -131,7 +131,15 @@ const createPerson = (parent, args, context) => {
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
 const createNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id, notification, privateNote } = args;
+  const {
+    topic,
+    content,
+    attendedBy,
+    rating,
+    id,
+    notification,
+    privateNote,
+  } = args;
   const note = {
     topic,
     content,
