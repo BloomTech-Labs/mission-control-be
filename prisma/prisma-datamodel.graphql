@@ -64,7 +64,7 @@ type Label {
   updatedAt: DateTime! @updatedAt
   name: String!
   color: String!
-  column: Column!
+  column: Column! @relation(name: "ColumnLabel", onDelete: CASCADE)
   selected: Boolean! @default(value: false)
 }
 type Column {
@@ -73,7 +73,7 @@ type Column {
   updatedAt: DateTime! @updatedAt
   name: String
   program: Program!
-  labels: [Label!]!
+  labels: [Label!]! @relation(name: "ColumnLabel", onDelete: CASCADE)
 }
 type Role {
   id: ID! @id
