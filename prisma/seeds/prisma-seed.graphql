@@ -180,7 +180,9 @@ mutation {
                   name: "Labs 19 - City Data Comparison"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
@@ -209,7 +211,9 @@ mutation {
                   name: "Labs 19 - Community Calendar"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
@@ -234,7 +238,9 @@ mutation {
                   name: "Labs 19 - Connect Our Kids Social Worker"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
@@ -253,7 +259,9 @@ mutation {
                   name: "Labs 19 - Sauti Databank"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
@@ -273,7 +281,9 @@ mutation {
                   name: "Labs 19 - Omega 2020"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
@@ -310,7 +320,9 @@ mutation {
                   name: "Labs 19 - Quality Hub"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
@@ -339,7 +351,9 @@ mutation {
                   name: "Labs 19 - Hackathon Portal"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
@@ -372,7 +386,9 @@ mutation {
                   name: "Labs 19 - Student Art Collection"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
@@ -393,7 +409,9 @@ mutation {
                   name: "Labs 19 - Well Done"
                   projectActive: false
                   team: { connect: [] }
-                  projectManagers: { connect: [] }
+                  projectManagers: {
+                    connect: [{ email: "missioncontrolpm@gmail.com" }]
+                  }
                 }
               ]
             }
