@@ -5,7 +5,7 @@ type Program {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
-  statuses: [Status!]!
+  statuses: [Status!]
 }
 type Product {
   id: ID! @id
@@ -71,8 +71,9 @@ type Status {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  name: String
-  program: Program!
+  name: String!
+  projects: [Project!]!
+  program: Program
   labels: [Label!]!
 }
 type Role {

@@ -48,12 +48,15 @@ const createLabel = (parent, args, context) => {
 };
 
 //Create a new Status Column, needs Program ID and name
-const createStatus = (parent, args, context) => {
+//will populate to all projects
+const createStatus = async (parent, args, context) => {
+  const {name, id} = args;
+  const getProjects = await context.prisma.projects();
   const status = context.prisma.createStatus({
-    name: args.name,
-    program: { connect: { id: args.id } },
+    name,
+    projects: { connect: getProjects.map(({id}) => ({id}))},
+    program: {connect: { id }}
   });
-
   return status;
 };
 
@@ -225,25 +228,25 @@ const addProjectMember = (parent, args, context) => {
 //Adds a status column to a project, takes a string where name = status name
 //Takes a project ID where a project exists
 
-const addStatusToProject = (parent, args, context) => {
-  const { id, name } = args;
-  const addStatus = context.prisma.updateProject({
-    data: { addedTo: { connect: { name } } },
-    where: { id },
-  });
+// const addStatusToProgram = (parent, args, context) => {
+//   const { id, name } = args;
+//   const addStatus = context.prisma.updateProject({
+//     data: { addedTo: { connect: { name } } },
+//     where: { id },
+//   });
 
-  return addStatus;
-};
+//   return addStatus;
+// };
 
-const addLabelToStatus = (parent, args, context) => {
-  const { id, name } = args;
-  const addLabel = context.prisma.updateStatus({
-    data: { labels: { connect: { id } } },
-    where: { name },
-  });
+// const addLabelToStatus = (parent, args, context) => {
+//   const { id, name } = args;
+//   const addLabel = context.prisma.updateStatus({
+//     data: { labels: { connect: { id } } },
+//     where: { name },
+//   });
 
-  return addLabel;
-};
+//   return addLabel;
+// };
 
 module.exports = {
   createProgram,
@@ -258,8 +261,8 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
-  addStatusToProject,
-  addLabelToStatus,
+  // addStatusToProgram,
+  // addLabelToStatus,
   updateStatus,
   deleteStatus,
 };
