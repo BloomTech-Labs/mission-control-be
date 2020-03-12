@@ -24,7 +24,10 @@ services:
 
       SENDGRID_API_KEY: ${SENDGRID_API_KEY:?You must specify SENDGRID_API_KEY}
 
-      CODE_CLIMATE_API: 
+      CODE_CLIMATE_API: ${CODE_CLIMATE_API:?You must specify CODE_CLIMATE_API}
+      CODE_CLIMATE_TOKEN: ${CODE_CLIMATE_TOKEN:?You must specify CODE_CLIMATE_TOKEN}
+      GIT_HUB_API: ${GIT_HUB_API:?You must specify GIT_HUB_API}
+      GIT_HUB_TOKEN: ${GIT_HUB_TOKEN:?You must specify GIT_HUB_TOKEN}
 
   # The Prisma service
   prisma:
