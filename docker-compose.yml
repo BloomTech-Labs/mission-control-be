@@ -24,6 +24,8 @@ services:
 
       SENDGRID_API_KEY: ${SENDGRID_API_KEY:?You must specify SENDGRID_API_KEY}
 
+      CODE_CLIMATE_API: 
+
   # The Prisma service
   prisma:
     image: prismagraphql/prisma:1.34
