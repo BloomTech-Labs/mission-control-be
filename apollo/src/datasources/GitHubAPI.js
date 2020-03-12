@@ -3,8 +3,8 @@ const { repoByOrgReducer, sparklineReducer, issueReducer, prReducer } = require(
 const { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE, PULSE } = require('./queries/GitHubQueries');
 
 class GitHubAPI extends GraphQLDataSource {
-  baseURL = 'https://api.github.com/graphql';
-  token = 'bearer cdf9e6076522e639c93c493448b1f02bb403b94b'; //token needs to be updated to Lambda-School-Labs token
+  baseURL = `${process.env.GIT_HUB_API}`;
+  token = `bearer ${process.env.GIT_HUB_TOKEN}`; //token needs to be updated to Lambda-School-Labs token
 
   willSendRequest(request) {
     if (!request.headers) {
