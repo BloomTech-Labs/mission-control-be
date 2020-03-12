@@ -4,7 +4,7 @@ const { orgsReducer, repoReducer, snapshotReducer } = require('./reducers/CodeCl
 class CodeClimateAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'https://api.codeclimate.com/v1/';
+    this.baseURL = `${process.env.CODE_CLIMATE_API}`;
     this.token = 'Token token=673794749dacb6da2c2a4b5212d6202f7bc6b4b3';
   }
 
