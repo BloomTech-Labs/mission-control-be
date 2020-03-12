@@ -26,6 +26,7 @@ services:
 
       CODE_CLIMATE_API: ${CODE_CLIMATE_API:?You must specify CODE_CLIMATE_API}
       CODE_CLIMATE_TOKEN: ${CODE_CLIMATE_TOKEN:?You must specify CODE_CLIMATE_TOKEN}
+      
       GIT_HUB_API: ${GIT_HUB_API:?You must specify GIT_HUB_API}
       GIT_HUB_TOKEN: ${GIT_HUB_TOKEN:?You must specify GIT_HUB_TOKEN}
 
