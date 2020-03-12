@@ -5,7 +5,7 @@ class CodeClimateAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = `${process.env.CODE_CLIMATE_API}`;
-    this.token = 'Token token=673794749dacb6da2c2a4b5212d6202f7bc6b4b3';
+    this.token = `Token token=${process.env.CODE_CLIMATE_TOKEN}`;
   }
 
   willSendRequest(request) {
