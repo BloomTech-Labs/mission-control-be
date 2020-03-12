@@ -17,6 +17,5 @@
     "deploy": "prisma deploy",
     "reseed": "prisma delete && prisma generate && prisma deploy"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
