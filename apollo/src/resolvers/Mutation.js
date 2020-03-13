@@ -7,28 +7,6 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // inside of the graphql schema to be valid.
 // See schema.js in src for examples
 
-// Create a new Github Repo
-const createGithubRepo = async (parent, args, context) => {
-  const { repoId, name, owner, ownerId, id } = args;
-
-  const repoData = await context.prisma.product({ id }).Ghrepos();
-
-  const productRepoId = repoData.map(repo => {
-    return repo.repoId;
-  });
-
-  if (!productRepoId.includes(repoId)) {
-    const GithubRepo = context.prisma.createGhrepo({
-      name,
-      product: { connect: { id } },
-      owner,
-      ownerId,
-      repoId,
-    });
-    return GithubRepo;
-  }
-  throw Error('This repository already exists on this product');
-};
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
   const program = context.prisma.createProgram({
@@ -69,7 +47,7 @@ const createLabel = (parent, args, context) => {
   return label;
 };
 
-// Create a new Column, needs Program ID and name
+//Create a new Column, needs Program ID and name
 const createColumn = (parent, args, context) => {
   const column = context.prisma.createColumn({
     name: args.name,
@@ -79,7 +57,7 @@ const createColumn = (parent, args, context) => {
   return column;
 };
 
-// Update Label. Id is required, and name and color are optional.
+//Update Label. Id is required, and name and color are optional.
 
 const updateLabel = async (parent, args, context) => {
   const { name, color, id } = args;
@@ -91,7 +69,7 @@ const updateLabel = async (parent, args, context) => {
   return updatedLabel;
 };
 
-// Update Column
+//Update Column
 
 const updateColumn = async (parent, args, context) => {
   const { name, id } = args;
@@ -111,7 +89,7 @@ const deleteLabel = async (parent, args, context) => {
   return deletedLabel;
 };
 
-// Delete Column
+//Delete Column
 const deleteColumn = async (parent, args, context) => {
   const { id } = args;
   const deletedColumn = await context.prisma.deleteColumn({ id });
@@ -131,15 +109,7 @@ const createPerson = (parent, args, context) => {
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
 const createNote = async (parent, args, context) => {
-  const {
-    topic,
-    content,
-    attendedBy,
-    rating,
-    id,
-    notification,
-    privateNote,
-  } = args;
+  const { topic, content, attendedBy, rating, id, notification, privateNote } = args;
   const note = {
     topic,
     content,
@@ -254,8 +224,8 @@ const addProjectMember = (parent, args, context) => {
 
   return addMember;
 };
-// Adds a column to a project, takes a string where name = column name
-// Takes a project ID where a project exists
+//Adds a column to a project, takes a string where name = column name
+//Takes a project ID where a project exists
 
 const addColumnToProject = (parent, args, context) => {
   const { id, name } = args;
@@ -278,7 +248,6 @@ const addLabelToColumn = (parent, args, context) => {
 };
 
 module.exports = {
-  createGithubRepo,
   createProgram,
   createProduct,
   createProject,
