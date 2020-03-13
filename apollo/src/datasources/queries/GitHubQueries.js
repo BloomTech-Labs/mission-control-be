@@ -20,14 +20,14 @@ const REPOS_BY_ORG = gql`
 `;
 
 const SPARKLINE = gql`
-  query Github($owner: String!, $name: String!) {
-    repository(owner: $owner, name: $name) {
-      defaultBranchRef {
+  query Github($owner: String!, $name: String!){
+    repository(owner: $owner, name: $name){ 
+      defaultBranchRef{
         name
         target {
           ... on Commit {
-            history(first: 100) {
-              nodes {
+            history(first: 100){
+              nodes{
                 oid
                 message
                 additions
@@ -38,20 +38,20 @@ const SPARKLINE = gql`
             }
           }
         }
-      }
+      } 
     }
   }
 `;
 
 const SPARKLINE_BY_DATE = gql`
-  query Github($owner: String!, $name: String!, $until: String!) {
-    repository(owner: $owner, name: $name) {
-      defaultBranchRef {
+  query Github($owner: String!, $name: String!, $until: String!) { 
+    repository(owner: $owner, name: $name){
+      defaultBranchRef{
         name
-        target {
+        target{
           ... on Commit {
-            history(until: $until) {
-              nodes {
+            history(until: $until){
+              nodes{
                 oid
                 message
                 additions
@@ -69,20 +69,20 @@ const SPARKLINE_BY_DATE = gql`
 
 const PULSE = gql`
   query Github($owner: String!, $name: String!) {
-    repository(owner: $owner, name: $name) {
+    repository(owner: $owner, name: $name){
       id
-      issues(first: 100) {
+      issues(first: 100){
         totalCount
-        edges {
-          node {
+        edges{
+          node{
             state
           }
         }
       }
-      pullRequests(first: 100) {
+      pullRequests(first: 100){
         totalCount
-        edges {
-          node {
+        edges{
+          node{
             state
           }
         }

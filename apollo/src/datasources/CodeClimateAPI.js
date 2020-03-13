@@ -1,9 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
-const {
-  orgsReducer,
-  repoReducer,
-  snapshotReducer,
-} = require('./reducers/CodeClimateReducers');
+const { orgsReducer, repoReducer, snapshotReducer } = require('./reducers/CodeClimateReducers')
 
 class CodeClimateAPI extends RESTDataSource {
   constructor() {
@@ -16,35 +12,37 @@ class CodeClimateAPI extends RESTDataSource {
     request.headers.set('Authorization', this.token);
   }
 
-  async getRepobyID(repoId) {
-    return JSON.parse(await this.get(`repos/${repoId}`));
-  }
+  getRepobyID = async repoId => JSON.parse(await this.get(`repos/${repoId}`));
 
-  async getRepobyGHSlug(slug) {
-    return JSON.parse(await this.get(`repos?github_slug=${slug}`));
-  }
+  getRepobyGHSlug = async slug =>
+    JSON.parse(await this.get(`repos?github_slug=${slug}`));
 
-  async getSnapshot(repoId, snapshotId) {
-    const res = JSON.parse(
-      await this.get(`repos/${repoId}/snapshots/${snapshotId}`),
-    );
-    return snapshotReducer(res.data);
+  getSnapshot = async (repoId, snapshotId) => {
+    const res = JSON.parse(await this.get(`repos/${repoId}/snapshots/${snapshotId}`));
+    return snapshotReducer(res.data)
   }
+    
 
   async getAllOrgs() {
-    const query = `orgs`;
+    const query = `orgs`
     const res = JSON.parse(await this.get(query));
-    return Array.isArray(res.data) ? res.data.map(org => orgsReducer(org)) : [];
+    return Array.isArray(res.data)
+      ? 
+        res.data.map(org => orgsReducer(org))
+      
+      : [];
   }
 
-  //  Needed for future Code Climate Organization Support
-  // async getAllRepos({ productName: productArg }) {
-  //   const query = `orgs/${orgArg}/repos`;
-  //   const res = JSON.parse(await this.get(query));
-  //   return Array.isArray(res.data)
-  //     ? res.data.map(repo => repoReducer(repo))
-  //     : [];
-  // }
+  async getAllRepos( {productName: productArg} ) {
+      const query = `orgs/${orgArg}/repos`
+      const res = JSON.parse(await this.get(query))
+      return Array.isArray(res.data)
+      ? 
+          res.data.map(repo => repoReducer(repo))
+      
+      : [];
+  }
+
 }
 
 module.exports = CodeClimateAPI;
