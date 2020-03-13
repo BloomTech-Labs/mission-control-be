@@ -15,7 +15,7 @@ type Product {
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
   productActive: Boolean @default(value: false)
-  Ghrepos: [Ghrepo]! @relation(name: "GHRepos") 
+  Ccrepos: [Ccrepo]! @relation(name: "CCRepos")
 }
 type Project {
   id: ID! @id
@@ -29,15 +29,12 @@ type Project {
   projectColumns: [Column] @relation(name: "ProjectColumn")
   projectActive: Boolean @default(value: false)
 }
-
-type Ghrepo {
+type Ccrepo {
   id: ID! @id
-  repoId: String! 
   name: String!
-  owner: String!
-  ownerId: String!
-  product: Product! @relation(name: "GHRepos")
-} 
+  CCId: String! @unique
+  product: Product! @relation(name: "CCRepos")
+}
 type Note {
   id: ID! @id
   topic: String!

@@ -19,12 +19,12 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note!]!
     note(id: ID!): Note!
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
-    GithubRepos(search: String!, org: String): [GHRepo]!
+    CCRepos: [CCRepo]!
+    CCRepo(id: ID!, name: String!): CCRepo!
+    GithubRepos(search: String!, org: String): [GHRepo!]!
     SparkyBoy(owner: String!, name: String!): [Sparkline!]!
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
     GithubPulse(owner: String!, name: String!): Pulse!
-    GHRepos: [GHRepo]!
-    GHRepo(id: String!, name: String!): GHRepo!
   }
 
   type Mutation {
@@ -60,13 +60,6 @@ const typeDefs = gql`
     deleteNote(id: ID!): Note!
     addColumnToProject(id: ID!, name: String!): Project!
     addLabelToColumn(id: ID!, name: String!): Column!
-    createGithubRepo(
-      repoId: String!
-      name: String!
-      id: String!
-      owner: String!
-      ownerId: String!
-    ): GHRepo!
   }
 
   type Program {
@@ -86,7 +79,7 @@ const typeDefs = gql`
     updatedAt: String!
     projects: [Project!]!
     productActive: Boolean
-    GHRepos: [GHRepo]!
+    CCRepos: [CCRepo]!
     grades: [CodeClimateSnapshot!]
   }
 
@@ -97,6 +90,7 @@ const typeDefs = gql`
     projectManagers: [Person!]!
     team: [Person!]!
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note]
+    CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
     projectColumns: [Column]
@@ -114,13 +108,18 @@ const typeDefs = gql`
     mergedPRs: Int!
   }
 
+  type CCRepo {
+    id: ID!
+    name: String!
+    CCId: String!
+    product: Product!
+  }
+
   type GHRepo {
     id: ID!
     name: String!
     owner: String!
     ownerId: String!
-    repoId: String!
-    product: Product
   }
 
   type Person {
