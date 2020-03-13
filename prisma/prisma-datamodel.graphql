@@ -38,6 +38,7 @@ type Ghrepo {
   ownerId: String!
   product: Product! @relation(name: "GHRepos")
 } 
+
 type Note {
   id: ID! @id
   topic: String!
