@@ -13,8 +13,8 @@ const projects = (parent, args, context) => {
   return res;
 };
 
-const CCRepos = (parent, args, context) => {
-  const res = context.prisma.product({ id: parent.id }).Ccrepos();
+const GHRepos = (parent, args, context) => {
+  const res = context.prisma.product({ id: parent.id }).Ghrepos();
 
   return res;
 };
@@ -40,6 +40,6 @@ const grades = async (parent, args, context) => {
 module.exports = {
   program,
   projects,
-  CCRepos,
+  GHRepos,
   grades,
 };
