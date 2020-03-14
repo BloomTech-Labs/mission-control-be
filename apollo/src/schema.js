@@ -19,14 +19,13 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note!]!
     note(id: ID!): Note!
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
-    CCRepos: [CCRepo]!
-    CCRepo(id: ID!, name: String!): CCRepo!
-    GithubRepos(search: String!, org: String): [GHRepo!]!
+    GithubRepos(search: String!, org: String): [GHRepo]!
     SparkyBoy(owner: String!, name: String!): [Sparkline!]!
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
     GithubPulse(owner: String!, name: String!): Pulse!
+    GHRepos: [GHRepo]!
+    GHRepo(id: String!, name: String!): GHRepo!
   }
-
   type Mutation {
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
@@ -60,8 +59,14 @@ const typeDefs = gql`
     deleteNote(id: ID!): Note!
     addColumnToProject(id: ID!, name: String!): Project!
     addLabelToColumn(id: ID!, name: String!): Column!
+    createGithubRepo(
+      repoId: String!
+      name: String!
+      id: String!
+      owner: String!
+      ownerId: String!
+    ): GHRepo!
   }
-
   type Program {
     id: ID!
     name: String!
@@ -70,7 +75,6 @@ const typeDefs = gql`
     products: [Product!]!
     columns: [Column!]!
   }
-
   type Product {
     id: ID!
     name: String!
@@ -79,10 +83,9 @@ const typeDefs = gql`
     updatedAt: String!
     projects: [Project!]!
     productActive: Boolean
-    CCRepos: [CCRepo]!
+    GHRepos: [GHRepo]!
     grades: [CodeClimateSnapshot!]
   }
-
   type Project {
     id: ID!
     name: String!
@@ -90,13 +93,11 @@ const typeDefs = gql`
     projectManagers: [Person!]!
     team: [Person!]!
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note]
-    CCRepoIds: [String]
     createdAt: String!
     updatedAt: String!
     projectColumns: [Column]
     projectActive: Boolean
   }
-
   type Pulse {
     id: ID!
     issueCount: Int!
@@ -107,21 +108,14 @@ const typeDefs = gql`
     openPRs: Int!
     mergedPRs: Int!
   }
-
-  type CCRepo {
-    id: ID!
-    name: String!
-    CCId: String!
-    product: Product!
-  }
-
   type GHRepo {
     id: ID!
     name: String!
     owner: String!
     ownerId: String!
+    repoId: String!
+    product: Product
   }
-
   type Person {
     id: ID!
     name: String!
@@ -132,7 +126,6 @@ const typeDefs = gql`
     team: Project
     avatar: String
   }
-
   type User {
     id: ID!
     email: String!
@@ -140,7 +133,6 @@ const typeDefs = gql`
     projects: [Project!]!
     role: Role!
   }
-
   type Note {
     id: ID!
     topic: String!
@@ -153,14 +145,12 @@ const typeDefs = gql`
     rating: Int!
     privateNote: Boolean!
   }
-
   type CodeClimateSnapshot {
     id: ID!
     grade: String!
     name: String!
     link: String!
   }
-
   type Label {
     id: ID!
     createdAt: String!
@@ -170,14 +160,12 @@ const typeDefs = gql`
     column: Column!
     selected: Boolean!
   }
-
   type Role {
     id: ID!
     name: String!
     privateNote: Boolean!
     viewProducts: Boolean!
   }
-
   type Sparkline {
     id: ID!
     message: String!
@@ -186,7 +174,6 @@ const typeDefs = gql`
     changedFiles: Int!
     committedDate: String!
   }
-
   enum NoteOrderByInput {
     id_ASC
     id_DESC
@@ -201,7 +188,6 @@ const typeDefs = gql`
     updatedAt_ASC
     updatedAt_DESC
   }
-
   type Column {
     id: ID!
     createdAt: String!
