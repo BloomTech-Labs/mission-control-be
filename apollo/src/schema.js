@@ -69,13 +69,52 @@ const typeDefs = gql`
     ): GHRepo!
   }
 
-  type Program {
+  type CodeClimateSnapshot {
     id: ID!
+    grade: String!
     name: String!
+    link: String!
+  }
+
+  type Column {
+    id: ID!
     createdAt: String!
     updatedAt: String!
-    products: [Product!]!
-    columns: [Column!]!
+    name: String
+    labels: [Label!]!
+    program: Program!
+  }
+
+  type GHRepo {
+    id: ID!
+    name: String!
+    owner: String!
+    ownerId: String!
+    repoId: String!
+    product: Product
+  }
+
+  type Label {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    name: String!
+    color: String!
+    column: Column!
+    selected: Boolean!
+  }
+
+  type Note {
+    id: ID!
+    topic: String!
+    content: String!
+    author: Person!
+    project: Project!
+    attendedBy: [Person!]!
+    createdAt: String!
+    updatedAt: String!
+    rating: Int!
+    privateNote: Boolean!
   }
 
   type Product {
@@ -88,6 +127,26 @@ const typeDefs = gql`
     productActive: Boolean
     GHRepos: [GHRepo]!
     grades: [CodeClimateSnapshot!]
+  }
+
+  type Person {
+    id: ID!
+    name: String!
+    email: String!
+    role: Role!
+    manages: [Project!]!
+    notes: [Note]
+    team: Project
+    avatar: String
+  }
+
+  type Program {
+    id: ID!
+    name: String!
+    createdAt: String!
+    updatedAt: String!
+    products: [Product!]!
+    columns: [Column!]!
   }
 
   type Project {
@@ -114,64 +173,6 @@ const typeDefs = gql`
     mergedPRs: Int!
   }
 
-  type GHRepo {
-    id: ID!
-    name: String!
-    owner: String!
-    ownerId: String!
-    repoId: String!
-    product: Product
-  }
-
-  type Person {
-    id: ID!
-    name: String!
-    email: String!
-    role: Role!
-    manages: [Project!]!
-    notes: [Note]
-    team: Project
-    avatar: String
-  }
-
-  type User {
-    id: ID!
-    email: String!
-    claims: [String!]!
-    projects: [Project!]!
-    role: Role!
-  }
-
-  type Note {
-    id: ID!
-    topic: String!
-    content: String!
-    author: Person!
-    project: Project!
-    attendedBy: [Person!]!
-    createdAt: String!
-    updatedAt: String!
-    rating: Int!
-    privateNote: Boolean!
-  }
-
-  type CodeClimateSnapshot {
-    id: ID!
-    grade: String!
-    name: String!
-    link: String!
-  }
-
-  type Label {
-    id: ID!
-    createdAt: String!
-    updatedAt: String!
-    name: String!
-    color: String!
-    column: Column!
-    selected: Boolean!
-  }
-
   type Role {
     id: ID!
     name: String!
@@ -188,6 +189,14 @@ const typeDefs = gql`
     committedDate: String!
   }
 
+  type User {
+    id: ID!
+    email: String!
+    claims: [String!]!
+    projects: [Project!]!
+    role: Role!
+  }
+
   enum NoteOrderByInput {
     id_ASC
     id_DESC
@@ -201,15 +210,6 @@ const typeDefs = gql`
     createdAt_DESC
     updatedAt_ASC
     updatedAt_DESC
-  }
-
-  type Column {
-    id: ID!
-    createdAt: String!
-    updatedAt: String!
-    name: String
-    labels: [Label!]!
-    program: Program!
   }
 `;
 
