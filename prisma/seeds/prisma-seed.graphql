@@ -223,6 +223,26 @@ mutation {
           }
           {
             name: "Quality Hub"
+            Ccrepos: {
+              create: [
+                {
+                  name: "quality-hub-core-be"
+                  CCId: "5dcc1505234ac30f97008afc"
+                }
+                {
+                  name: "quality-hub-resume-be"
+                  CCId: "5e3656becc446c0163001572"
+                }
+                {
+                  name: "quality-hub-gateway-be"
+                  CCId: "5dcc1502b1c7b80f020081db"
+                }
+                {
+                  name: "quality-hub-rtc-server"
+                  CCId: "5e3656baad8361014e0018d9"
+                }
+              ]
+            }
             projects: {
               create: [
                 {
