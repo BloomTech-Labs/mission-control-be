@@ -65,7 +65,7 @@ type Label {
   name: String!
   color: String!
   status: Status! @relation(name: "StatusLabel", onDelete: CASCADE)
-  selected: Boolean! @default(value: false)
+  selected: [Project]
 }
 type Status {
   id: ID! @id
@@ -75,6 +75,7 @@ type Status {
   projects: [Project!]!
   program: Program
   labels: [Label!]! @relation(name: "StatusLabel", onDelete: CASCADE)
+  display: Boolean! @default(value: false)
 }
 type Role {
   id: ID! @id

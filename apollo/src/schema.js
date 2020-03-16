@@ -32,8 +32,18 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!, id: ID!): Label!
-    createStatus(name: String! projects: [String] id: ID!): Status!
-    updateLabel(id: ID!, name: String, color: String): Label!
+    createStatus(
+      name: String! 
+      projects: [String] 
+      id: ID!
+      labels: [String]
+      ): Status!
+    updateLabel(
+      id: ID!
+      name: String
+      color: String
+      selected: ID
+      ): Label!
     deleteLabel(id: ID!): Label!
     updateStatus(id: ID!, name: String!): Status!
     deleteStatus(id: ID!): Status!
@@ -168,7 +178,7 @@ const typeDefs = gql`
     name: String!
     color: String!
     status: Status!
-    selected: Boolean!
+    selected: [Project]
   }
 
   type Role {
@@ -210,6 +220,7 @@ const typeDefs = gql`
     labels: [Label!]!
     projects: [Project!]
     program: Program
+    display: Boolean!
   }
 `;
 

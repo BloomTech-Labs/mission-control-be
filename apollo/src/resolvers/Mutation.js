@@ -63,9 +63,9 @@ const createStatus = async (parent, args, context) => {
 //Update Label. Id is required, and name and color are optional.
 
 const updateLabel = async (parent, args, context) => {
-  const { name, color, id } = args;
+  const { name, color, selected, id } = args;
   const updatedLabel = await context.prisma.updateLabel({
-    data: { name, color },
+    data: { name, color, selected: {connect: { id: selected } } },
     where: { id },
   });
 

@@ -47,4 +47,5 @@ module.exports = {
   team,
   projectManagers,
   notes,
+  projectStatus
 };
