@@ -1,5 +1,5 @@
 SHELL := bash
-.SHELLFLAGS := -eu -o pipefail -c  
+.SHELLFLAGS := -eu -o pipefail -c
 
 # =================================================================
 # = Utility targets ===============================================
@@ -68,14 +68,14 @@ local-prisma-token:
 # = Apollo targets ================================================
 # =================================================================
 
-apollo-docker-build: prisma-generate 
+apollo-docker-build: prisma-generate
 	@export $$(cat .env | xargs)																																								&& \
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Building Apollo container image: $${APOLLO_CONTAINER_IMAGE}"														&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 cd apollo && docker build -t ${APOLLO_CONTAINER_IMAGE} .
+	 cd apollo && docker build -t $${APOLLO_CONTAINER_IMAGE} .
 
 apollo-push: apollo-docker-build
 	@export $$(cat .env | xargs)																																								&& \
@@ -84,7 +84,7 @@ apollo-push: apollo-docker-build
 	 printf "%s\n"   "= Pushing Apollo container image: $${APOLLO_CONTAINER_IMAGE}"															&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 cd apollo && docker push ${APOLLO_CONTAINER_IMAGE}
+	 cd apollo && docker push $${APOLLO_CONTAINER_IMAGE}
 
 apollo-token:
 	@export $$(cat .env | xargs)																																								&& \
