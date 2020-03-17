@@ -41,20 +41,23 @@ const createLabel = (parent, args, context) => {
   const label = context.prisma.createLabel({
     name: args.name,
     color: args.color,
-    column: { connect: { id: args.id } },
+    status: { connect: { id: args.id } },
   });
 
   return label;
 };
 
-//Create a new Column, needs Program ID and name
-const createColumn = (parent, args, context) => {
-  const column = context.prisma.createColumn({
-    name: args.name,
-    program: { connect: { id: args.id } },
+//Create a new Status Column, needs Program ID and name
+//will populate to all projects
+const createStatus = async (parent, args, context) => {
+  const {name, id} = args;
+  const getProjects = await context.prisma.projects();
+  const status = context.prisma.createStatus({
+    name,
+    projects: { connect: getProjects.map(({id}) => ({id}))},
+    program: {connect: { id }}
   });
-
-  return column;
+  return status;
 };
 
 //Update Label. Id is required, and name and color are optional.
@@ -69,16 +72,17 @@ const updateLabel = async (parent, args, context) => {
   return updatedLabel;
 };
 
-//Update Column
+//Update Status Column
 
-const updateColumn = async (parent, args, context) => {
+
+const updateStatus = async (parent, args, context) => {
   const { name, id } = args;
-  const updatedColumn = await context.prisma.updateColumn({
+  const updatedStatus = await context.prisma.updateStatus({
     data: { name },
     where: { id },
   });
 
-  return updatedColumn;
+  return updatedStatus;
 };
 
 // Delete a Label, takes id of label to delete it.
@@ -89,11 +93,11 @@ const deleteLabel = async (parent, args, context) => {
   return deletedLabel;
 };
 
-//Delete Column
-const deleteColumn = async (parent, args, context) => {
+//Delete Status column
+const deleteStatus = async (parent, args, context) => {
   const { id } = args;
-  const deletedColumn = await context.prisma.deleteColumn({ id });
-  return deletedColumn;
+  const deletedStatus = await context.prisma.deleteStatus({ id });
+  return deletedStatus;
 };
 
 // Create a new person, takes two strings and a role enum
@@ -224,35 +228,36 @@ const addProjectMember = (parent, args, context) => {
 
   return addMember;
 };
-//Adds a column to a project, takes a string where name = column name
+
+//Adds a status column to a project, takes a string where name = status name
 //Takes a project ID where a project exists
 
-const addColumnToProject = (parent, args, context) => {
-  const { id, name } = args;
-  const addColumn = context.prisma.updateProject({
-    data: { addedTo: { connect: { name } } },
-    where: { id },
-  });
+// const addStatusToProgram = (parent, args, context) => {
+//   const { id, name } = args;
+//   const addStatus = context.prisma.updateProject({
+//     data: { addedTo: { connect: { name } } },
+//     where: { id },
+//   });
 
-  return addColumn;
-};
+//   return addStatus;
+// };
 
-const addLabelToColumn = (parent, args, context) => {
-  const { id, name } = args;
-  const addLabel = context.prisma.updateColumn({
-    data: { labels: { connect: { id } } },
-    where: { name },
-  });
+// const addLabelToStatus = (parent, args, context) => {
+//   const { id, name } = args;
+//   const addLabel = context.prisma.updateStatus({
+//     data: { labels: { connect: { id } } },
+//     where: { name },
+//   });
 
-  return addLabel;
-};
+//   return addLabel;
+// };
 
 module.exports = {
   createProgram,
   createProduct,
   createProject,
   createLabel,
-  createColumn,
+  createStatus,
   createPerson,
   createNote,
   deleteNote,
@@ -260,8 +265,8 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
-  addColumnToProject,
-  addLabelToColumn,
-  updateColumn,
-  deleteColumn,
+  // addStatusToProgram,
+  // addLabelToStatus,
+  updateStatus,
+  deleteStatus,
 };

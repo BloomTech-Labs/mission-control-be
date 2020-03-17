@@ -40,9 +40,9 @@ const notes = (parent, args, context) => {
 //  return res;
 };
 
-const projectColumn = (parent, args, context) => {
+const projectStatus = (parent, args, context) => {
   const { id } = parent;
-  const res = context.prisma.project({ id }).projectColumn();
+  const res = context.prisma.project({ id }).projectStatus();
 
   return res;
 };
