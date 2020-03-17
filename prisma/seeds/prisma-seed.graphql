@@ -283,10 +283,6 @@ mutation {
             Ccrepos: {
               create: [
                 {
-                  name: "quality-hub-core-fe"
-                  CCId: "5dcc14feb1c7b80f020081d5"
-                }
-                {
                   name: "quality-hub-core-be"
                   CCId: "5dcc1505234ac30f97008afc"
                 }
