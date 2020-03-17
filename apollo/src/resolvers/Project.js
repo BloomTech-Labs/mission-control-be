@@ -33,6 +33,11 @@ const notes = (parent, args, context) => {
   } else {
     return resPublic
   }
+
+
+//  const res = context.prisma.project({ id }).notes({ orderBy });
+
+//  return res;
 };
 
 const projectStatus = (parent, args, context) => {
