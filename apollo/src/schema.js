@@ -42,8 +42,8 @@ const typeDefs = gql`
       id: ID!
       name: String
       color: String
-      selected: ID
       ): Label!
+    updateSelectedLabel (id: ID! selected: ID!): Label!
     deleteLabel(id: ID!): Label!
     updateStatus(id: ID!, name: String!): Status!
     deleteStatus(id: ID!): Status!

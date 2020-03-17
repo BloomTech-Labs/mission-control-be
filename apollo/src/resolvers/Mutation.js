@@ -63,14 +63,24 @@ const createStatus = async (parent, args, context) => {
 //Update Label. Id is required, and name and color are optional.
 
 const updateLabel = async (parent, args, context) => {
-  const { name, color, selected, id } = args;
+  const { name, color, id } = args;
   const updatedLabel = await context.prisma.updateLabel({
-    data: { name, color, selected: {connect: { id: selected } } },
+    data: { name, color },
     where: { id },
   });
 
   return updatedLabel;
 };
+
+const updateSelectedLabel = async (parent, args, context) => {
+  const {id, selected} = args;
+  const updateSelected = await context.prisma.updateLabel({
+    data: { selected: { connect: { id: selected } } },
+    where: { id }
+  });
+
+  return updateSelected;
+}
 
 //Update Status Column
 
@@ -267,4 +277,5 @@ module.exports = {
   // addLabelToStatus,
   updateStatus,
   deleteStatus,
+  updateSelectedLabel
 };
