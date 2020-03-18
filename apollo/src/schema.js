@@ -67,6 +67,7 @@ const typeDefs = gql`
       owner: String!
       ownerId: String!
     ): GHRepo!
+    deleteGithubRepo(id: ID!): GHRepo!
   }
 
   type CodeClimateSnapshot {
@@ -74,6 +75,7 @@ const typeDefs = gql`
     grade: String!
     name: String!
     link: String!
+    GHRepoId: String!
   }
 
   type Column {
