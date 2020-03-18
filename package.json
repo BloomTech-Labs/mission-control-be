@@ -18,5 +18,6 @@
     "reseed": "prisma delete && prisma generate && prisma deploy"
   },
   "dependencies": {
+    "aws": "0.0.3-2"
   }
 }
