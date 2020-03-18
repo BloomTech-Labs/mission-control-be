@@ -41,7 +41,7 @@ const typeDefs = gql`
     updateLabel(id: ID!, name: String, color: String): Label!
     updateSelectedLabel(id: ID!, selected: ID!): Label!
     deleteLabel(id: ID!, columnId: String): Label!
-    updateStatus(id: ID!, name: String!): Status!
+    updateStatus(id: ID!, name: String, display: Boolean): Status!
     deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
@@ -73,7 +73,6 @@ const typeDefs = gql`
       owner: String!
       ownerId: String!
     ): GHRepo!
-    updateStatusDisplay(id: ID!, display: Boolean): Status!
   }
 
   type Program {

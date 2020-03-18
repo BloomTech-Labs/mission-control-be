@@ -84,26 +84,14 @@ const updateSelectedLabel = async (parent, args, context) => {
 
 //Update Status Column
 
-
 const updateStatus = async (parent, args, context) => {
-  const { name, id } = args;
+  const { name, display, id } = args;
   const updatedStatus = await context.prisma.updateStatus({
-    data: { name },
+    data: { name, display },
     where: { id },
   });
 
   return updatedStatus;
-};
-
-//Update Status Column Display
-const updateStatusDisplay = async (parent, args, context) => {
-  const { display, id } = args;
-  const updatedDisplay = await context.prisma.updateStatus({
-    data: { display },
-    where: { id },
-  });
-
-  return updatedDisplay;
 };
 
 // Delete a Label, takes id of label to delete it.
@@ -299,5 +287,4 @@ module.exports = {
   updateStatus,
   deleteStatus,
   updateSelectedLabel,
-  updateStatusDisplay,
 };
