@@ -32,7 +32,6 @@ const createGithubRepo = async (parent, args, context) => {
 
 const deleteGithubRepo = async (_, args, context) => {
   const { id } = args;
-  console.log('delete', id)
   const deletedGHRepo = await context.prisma.deleteGhrepo({ id });
   return deletedGHRepo;
 }
