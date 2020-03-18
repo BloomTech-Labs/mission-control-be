@@ -72,6 +72,16 @@ const updateLabel = async (parent, args, context) => {
   return updatedLabel;
 };
 
+const disconnectSelectedLabel = async (parent, args, context) => {
+  const {id, selected} = args;
+  const disconnectSelected = await context.prisma.updateLabel({
+    data: { selected: { disconnect: { id: selected } } },
+    where: { id }
+  });
+
+  return disconnectSelected;
+}
+
 const updateSelectedLabel = async (parent, args, context) => {
   const {id, selected} = args;
   const updateSelected = await context.prisma.updateLabel({
@@ -279,5 +289,6 @@ module.exports = {
   // addLabelToStatus,
   updateStatus,
   deleteStatus,
-  updateSelectedLabel
+  updateSelectedLabel,
+  disconnectSelectedLabel
 };

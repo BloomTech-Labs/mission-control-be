@@ -10,25 +10,24 @@ describe('Column', () => {
   it('Column query is there', async () => {
     const server = MyServer;
     const query = `
-          {
-            columns {
-              name
-            }
-          }
-        `;
+    query {
+      statuses {
+        name
+      }
+    }`;
     await expect(server.query(query)).resolves.toBeTruthy();
     const { errors } = await server.query(query);
     expect(errors).not.toBeTruthy();
   });
 });
 
-describe('Column', () => {
-  it('Column can be updated', async () => {
+describe('Create Status', () => {
+  it('Status can be created', async () => {
     const server = MyServer;
 
     const mutation = `
     mutation {
-      createColumn(
+      createStatus(
         data: 
         {name:"Status 1",  program: { create: {name: "Labs 22"}}}){
         name
@@ -40,5 +39,35 @@ describe('Column', () => {
     await expect(server.query(mutation)).toBeTruthy();
     const { errors } = await server.query(mutation);
     expect(errors).not.toBeTruthy();
+  });
+});
+
+describe('Delete Status', () => {
+  it('deletes a status', async () => {
+    const server = MyServer;
+
+    const query=`
+    query{
+      statuses{
+      }
+    }`;
+
+    const deleteMutation =`
+    mutation{
+      deleteStatus(where: { ${query[0]} }){
+        id
+      }
+    }`;
+
+    await expect(server.query(deleteMutation)).toBeTruthy();
+    const { errors } = await server.query(deleteMutation);
+    expect(errors).not.toBeTruthy();
+  });
+});
+
+describe('Update Status', () => {
+  it('updates a status', async () => {
+    const server = MyServer;
+
   });
 });
