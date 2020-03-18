@@ -84,6 +84,7 @@ const updateSelectedLabel = async (parent, args, context) => {
 
 //Update Status Column
 
+
 const updateStatus = async (parent, args, context) => {
   const { name, id } = args;
   const updatedStatus = await context.prisma.updateStatus({
@@ -237,6 +238,7 @@ const addProjectMember = (parent, args, context) => {
 
   return addMember;
 };
+
 //Adds a status column to a project, takes a string where name = status name
 //Takes a project ID where a project exists
 

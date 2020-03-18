@@ -32,19 +32,9 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!, id: ID!): Label!
-    createStatus(
-      name: String! 
-      projects: [String] 
-      id: ID!
-      labels: [String]
-      ): Status!
-    updateLabel(
-      id: ID!
-      name: String
-      color: String
-      ): Label!
-    updateSelectedLabel (id: ID! selected: ID!): Label!
-    deleteLabel(id: ID!): Label!
+    createStatus(name: String!, projects: [String], id: ID!): Status!
+    updateLabel(id: ID!, name: String, color: String, labels: [String]): Label!
+    deleteLabel(id: ID!, columnId: String): Label!
     updateStatus(id: ID!, name: String!): Status!
     deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!
@@ -70,6 +60,13 @@ const typeDefs = gql`
     deleteNote(id: ID!): Note!
     addStatusToProject(id: ID!, name: String!): Project!
     addLabelToStatus(id: ID!, name: String!): Status!
+    createGithubRepo(
+      repoId: String!
+      name: String!
+      id: String!
+      owner: String!
+      ownerId: String!
+    ): GHRepo!
   }
 
   type Program {
