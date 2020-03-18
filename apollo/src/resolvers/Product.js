@@ -25,11 +25,15 @@ const grades = async (parent, args, context) => {
   try {
     return repos.map(async repo => {
       const ccRepo = await ccapi.getRepobyGHSlug(`${repo.owner}/${repo.name}`);
-      console.log('ccRepores here:', ccRepo.data[0].relationships.latest_default_branch_snapshot.data.id)
-      const snapShotID =
+      let snapShotID
+      let ccSnapshot
+      if(ccRepo.data[0].relationships.latest_default_branch_snapshot.data !== null){
+        snapShotID =
         ccRepo.data[0].relationships.latest_default_branch_snapshot.data.id;
-      console.log('snapShotID here:', snapShotID)
-      const ccSnapshot = await ccapi.getSnapshot(repo.CCId, snapShotID);
+        ccSnapshot = await ccapi.getSnapshot(repo.CCId, snapShotID);
+      } else {
+            ccSnapshot = { id: Date.now(), grade: '!' }
+      }
       const name = ccRepo.data[0].attributes.human_name;
       const link = ccRepo.data[0].links.self;
       return { ...ccSnapshot, name, link };
