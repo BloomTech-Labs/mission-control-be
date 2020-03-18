@@ -40,7 +40,7 @@ const typeDefs = gql`
     ): Status!
     updateLabel(id: ID!, name: String, color: String): Label!
     updateSelectedLabel(id: ID!, selected: ID!): Label!
-    deleteLabel(id: ID!): Label!
+    deleteLabel(id: ID!, columnId: String): Label!
     updateStatus(id: ID!, name: String!): Status!
     deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!

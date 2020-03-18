@@ -64,7 +64,7 @@ type Label {
   updatedAt: DateTime! @updatedAt
   name: String!
   color: String!
-  status: Status! @relation(name: "StatusLabel", onDelete: CASCADE)
+  status: Status! @relation(name: "StatusLabel")
   selected: [Project]
 }
 type Status {
