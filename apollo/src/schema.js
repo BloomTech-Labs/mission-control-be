@@ -33,17 +33,13 @@ const typeDefs = gql`
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!, id: ID!): Label!
     createStatus(
-      name: String! 
-      projects: [String] 
+      name: String!
+      projects: [String]
       id: ID!
       labels: [String]
-      ): Status!
-    updateLabel(
-      id: ID!
-      name: String
-      color: String
-      ): Label!
-    updateSelectedLabel (id: ID! selected: ID!): Label!
+    ): Status!
+    updateLabel(id: ID!, name: String, color: String): Label!
+    updateSelectedLabel(id: ID!, selected: ID!): Label!
     deleteLabel(id: ID!): Label!
     updateStatus(id: ID!, name: String!): Status!
     deleteStatus(id: ID!): Status!
@@ -70,8 +66,6 @@ const typeDefs = gql`
     deleteNote(id: ID!): Note!
     addStatusToProject(id: ID!, name: String!): Project!
     addLabelToStatus(id: ID!, name: String!): Status!
-<<<<<<< Updated upstream
-=======
     createGithubRepo(
       repoId: String!
       name: String!
@@ -80,7 +74,6 @@ const typeDefs = gql`
       ownerId: String!
     ): GHRepo!
     updateStatusDisplay(id: ID!, display: Boolean): Status!
->>>>>>> Stashed changes
   }
 
   type Program {
