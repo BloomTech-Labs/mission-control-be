@@ -13,10 +13,17 @@ const projects = (parent, args, context) => {
   const res = context.prisma.status({ id: parent.id }).projects();
 
   return res;
-}
+};
+
+const display = (parent, args, context) => {
+  const res = context.prisma.status({ id: parent.id }).display();
+
+  return res;
+};
 
 module.exports = {
   labels,
   program,
-  projects
+  projects,
+  display,
 };

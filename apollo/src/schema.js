@@ -70,6 +70,17 @@ const typeDefs = gql`
     deleteNote(id: ID!): Note!
     addStatusToProject(id: ID!, name: String!): Project!
     addLabelToStatus(id: ID!, name: String!): Status!
+<<<<<<< Updated upstream
+=======
+    createGithubRepo(
+      repoId: String!
+      name: String!
+      id: String!
+      owner: String!
+      ownerId: String!
+    ): GHRepo!
+    updateStatusDisplay(id: ID!, display: Boolean): Status!
+>>>>>>> Stashed changes
   }
 
   type Program {

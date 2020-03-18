@@ -50,12 +50,12 @@ const createLabel = (parent, args, context) => {
 //Create a new Status Column, needs Program ID and name
 //will populate to all projects
 const createStatus = async (parent, args, context) => {
-  const {name, id} = args;
+  const { name, id } = args;
   const getProjects = await context.prisma.projects();
   const status = context.prisma.createStatus({
     name,
-    projects: { connect: getProjects.map(({id}) => ({id}))},
-    program: {connect: { id }}
+    projects: { connect: getProjects.map(({ id }) => ({ id })) },
+    program: { connect: { id } },
   });
   return status;
 };
@@ -73,14 +73,14 @@ const updateLabel = async (parent, args, context) => {
 };
 
 const updateSelectedLabel = async (parent, args, context) => {
-  const {id, selected} = args;
+  const { id, selected } = args;
   const updateSelected = await context.prisma.updateLabel({
     data: { selected: { connect: { id: selected } } },
-    where: { id }
+    where: { id },
   });
 
   return updateSelected;
-}
+};
 
 //Update Status Column
 
@@ -92,6 +92,17 @@ const updateStatus = async (parent, args, context) => {
   });
 
   return updatedStatus;
+};
+
+//Update Status Column Display
+const updateStatusDisplay = async (parent, args, context) => {
+  const { display, id } = args;
+  const updatedDisplay = await context.prisma.updateStatus({
+    data: { display },
+    where: { id },
+  });
+
+  return updatedDisplay;
 };
 
 // Delete a Label, takes id of label to delete it.
@@ -122,7 +133,15 @@ const createPerson = (parent, args, context) => {
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
 const createNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id, notification, privateNote } = args;
+  const {
+    topic,
+    content,
+    attendedBy,
+    rating,
+    id,
+    notification,
+    privateNote,
+  } = args;
   const note = {
     topic,
     content,
@@ -277,5 +296,6 @@ module.exports = {
   // addLabelToStatus,
   updateStatus,
   deleteStatus,
-  updateSelectedLabel
+  updateSelectedLabel,
+  updateStatusDisplay,
 };
