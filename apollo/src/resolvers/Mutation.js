@@ -171,11 +171,11 @@ const createNote = async (parent, args, context) => {
     const recipients =
       process.env.ENVIRONMENT_NAME === 'production'
         ? Array.from(noteProjectManagers, ({ email }) => email)
-        : 'missioncontrolpm@gmail.com';
+        : '';
 
     const emailAlert = {
       to: recipients,
-      from: 'missioncontrol@lambdaschool.com',
+      from: '',
       subject: `${noteAuthor.name} has posted a note in ${noteProject.name}`,
       text: 'Mission Control',
       html: `<p>${content}<p>`,
