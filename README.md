@@ -55,7 +55,7 @@ type Program {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
-  columns: [Column!]!
+  statuses: [Status!]
 }
 type Product {
   id: ID! @id
@@ -76,7 +76,7 @@ type Project {
   notes: [Note!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  projectColumns: [Column!]! @relation(name: "ProjectColumn")
+  projectStatus: [Status]
   projectActive: Boolean @default(value: false)
 }
 type Ccrepo {
@@ -114,16 +114,17 @@ type Label {
   updatedAt: DateTime! @updatedAt
   name: String!
   color: String!
-  column: Column!
+  status: Status! @relation(name: "StatusLabel")
   selected: Boolean @default(value: false)
 }
-type Column {
+type Status {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  name: String
-  program: Program!
-  labels: [Label!]!
+  name: String!
+  projects: [Project!]!
+  program: Program
+  labels: [Label!]! @relation(name: "StatusLabel")
 }
 type Role {
   id: ID! @id

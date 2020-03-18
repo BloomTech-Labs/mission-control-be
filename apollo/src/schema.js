@@ -3,13 +3,13 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
   type Query {
     CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
-    columns: [Column!]!
-    column(id: ID!): Column!
     GithubPulse(owner: String!, name: String!): Pulse!
     GithubRepos(search: String!, org: String): [GHRepo]!
     GHRepos: [GHRepo]!
     GHRepo(id: String!, name: String!): GHRepo!
     info: String!
+    statuses: [Status!]!
+    status(id: ID!): Status!
     labels: [Label]
     label(id: ID!): Label
     persons: [Person!]!
@@ -32,11 +32,11 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!, id: ID!): Label!
-    createColumn(name: String!, id: ID!): Column!
+    createStatus(name: String!, projects: [String], id: ID!): Status!
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!, columnId: String): Label!
-    updateColumn(id: ID!, name: String!): Column!
-    deleteColumn(id: ID!): Column!
+    updateStatus(id: ID!, name: String!): Status!
+    deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
     createNote(
@@ -58,8 +58,8 @@ const typeDefs = gql`
       rating: Int
     ): Note!
     deleteNote(id: ID!): Note!
-    addColumnToProject(id: ID!, name: String!): Project!
-    addLabelToColumn(id: ID!, name: String!): Column!
+    addStatusToProject(id: ID!, name: String!): Project!
+    addLabelToStatus(id: ID!, name: String!): Status!
     createGithubRepo(
       repoId: String!
       name: String!
@@ -100,7 +100,7 @@ const typeDefs = gql`
     updatedAt: String!
     name: String!
     color: String!
-    column: Column!
+    status: Status!
     selected: Boolean!
   }
 
@@ -146,7 +146,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     products: [Product!]!
-    columns: [Column!]!
+    statuses: [Status!]
   }
 
   type Project {
@@ -210,6 +210,16 @@ const typeDefs = gql`
     createdAt_DESC
     updatedAt_ASC
     updatedAt_DESC
+  }
+
+  type Status {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    name: String!
+    labels: [Label!]!
+    projects: [Project!]
+    program: Program
   }
 `;
 
