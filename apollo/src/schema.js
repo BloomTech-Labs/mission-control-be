@@ -189,6 +189,16 @@ const typeDefs = gql`
     committedDate: String!
   }
 
+  type Status {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    name: String!
+    labels: [Label!]!
+    projects: [Project!]
+    program: Program
+  }
+
   type User {
     id: ID!
     email: String!
@@ -210,16 +220,6 @@ const typeDefs = gql`
     createdAt_DESC
     updatedAt_ASC
     updatedAt_DESC
-  }
-
-  type Status {
-    id: ID!
-    createdAt: String!
-    updatedAt: String!
-    name: String!
-    labels: [Label!]!
-    projects: [Project!]
-    program: Program
   }
 `;
 
