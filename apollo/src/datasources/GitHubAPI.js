@@ -104,13 +104,13 @@ class GitHubAPI extends GraphQLDataSource {
           name
         }
       });
-
       const lineofspark = res.data.repository.defaultBranchRef.target.history.nodes;
       return lineofspark.map(spark => (
         sparklineReducer(spark)
       ));
     } catch (err) {
-      console.log('getSparkline ERROR:', err);
+      this.helpfulErrorReturn(err, ['owner', 'name']);
+      throw err;
     }
   }
 
@@ -129,7 +129,8 @@ class GitHubAPI extends GraphQLDataSource {
         sparklineReducer(spark)
       ));
     } catch (err) {
-      console.log('getSparklineByDate ERROR:', err);
+      this.helpfulErrorReturn(err, ['owner', 'name', 'until']);
+      throw err;
     }
   }
 
@@ -157,7 +158,8 @@ class GitHubAPI extends GraphQLDataSource {
         mergedPRs: PRs.mergedPRs
       }
     } catch (err) {
-      console.log('getPulse ERROR', err);
+      this.helpfulErrorReturn(err, ['owner', 'name']);
+      throw err;
     }
   }
 

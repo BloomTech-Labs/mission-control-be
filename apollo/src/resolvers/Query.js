@@ -57,17 +57,6 @@ const person = (parent, args, context) => {
   return res;
 };
 
-const CCRepos = (parent, args, context) => {
-  const res = context.prisma.ccrepoes();
-  return res;
-};
-
-const CCRepo = (parent, args, context) => {
-  const { id, name } = args;
-  const res = context.prisma.ccrepo({ id, name });
-  return res;
-};
-
 const me = (parent, args, context) => context.user;
 
 const note = (parent, args, context) => {
@@ -164,6 +153,16 @@ const GithubPulse = async (parent, args, context) => {
   }
 };
 
+const GHRepos = async (parent, args, context) => {
+  const res = context.prisma.ghrepoes();
+  return res;
+};
+const GHRepo = async (parent, args, context) => {
+  const { id } = args;
+  const res = context.prisma.ghrepo({ id });
+  return res;
+};
+
 module.exports = {
   info,
   programs,
@@ -180,8 +179,8 @@ module.exports = {
   note,
   notes,
   CodeClimateSnapshot,
-  CCRepos,
-  CCRepo,
+  GHRepo,
+  GHRepos,
   GithubRepos,
   SparkyBoy,
   SparkyDate,
