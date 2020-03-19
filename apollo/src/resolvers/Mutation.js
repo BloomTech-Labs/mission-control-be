@@ -34,7 +34,7 @@ const deleteGithubRepo = async (_, args, context) => {
   const { id } = args;
   const deletedGHRepo = await context.prisma.deleteGhrepo({ id });
   return deletedGHRepo;
-}
+};
 
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
@@ -99,6 +99,16 @@ const updateLabel = async (parent, args, context) => {
   });
 
   return updatedLabel;
+};
+
+const disconnectSelectedLabel = async (parent, args, context) => {
+  const { id, selected } = args;
+  const disconnectSelected = await context.prisma.updateLabel({
+    data: { selected: { disconnect: { id: selected } } },
+    where: { id },
+  });
+
+  return disconnectSelected;
 };
 
 const updateSelectedLabel = async (parent, args, context) => {
@@ -318,4 +328,5 @@ module.exports = {
   updateStatus,
   deleteStatus,
   updateSelectedLabel,
+  disconnectSelectedLabel,
 };

@@ -34,7 +34,7 @@ describe('Add Label', () => {
       createLabel(
         data: 
         {name:"Levin", color: "red", 
-      column: { create: {name: "Mission Control", 
+      status: { create: {name: "Mission Control", 
       program: { create: {name: "Labs 21"}}
     }}
   })
@@ -49,5 +49,19 @@ describe('Add Label', () => {
     await expect(server.query(mutation)).toBeTruthy();
     const { errors } = await server.query(mutation);
     expect(errors).not.toBeTruthy();
+  });
+});
+
+describe('Delete Label', () => {
+  it('deletes a label', async () => {
+    const server = MyServer;
+
+  });
+});
+
+describe('Updates Label', () => {
+  it('deletes a label', async () => {
+    const server = MyServer;
+
   });
 });

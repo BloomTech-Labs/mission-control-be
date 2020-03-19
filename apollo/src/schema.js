@@ -42,6 +42,7 @@ const typeDefs = gql`
     updateSelectedLabel(id: ID!, selected: ID!): Label!
     deleteLabel(id: ID!, columnId: String): Label!
     updateStatus(id: ID!, name: String, display: Boolean): Status!
+    disconnectSelectedLabel(id: ID!, selected: ID!, columnId: String): Status!
     deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
@@ -100,7 +101,7 @@ const typeDefs = gql`
     name: String!
     color: String!
     status: Status!
-    selected: Boolean!
+    selected: [Project]
   }
 
   type Note {

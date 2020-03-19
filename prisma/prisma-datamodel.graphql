@@ -15,7 +15,7 @@ type Product {
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
   productActive: Boolean @default(value: false)
-  Ghrepos: [Ghrepo]! @relation(name: "GHRepos") 
+  Ghrepos: [Ghrepo]! @relation(name: "GHRepos")
 }
 type Project {
   id: ID! @id
@@ -32,12 +32,12 @@ type Project {
 
 type Ghrepo {
   id: ID! @id
-  repoId: String! 
+  repoId: String!
   name: String!
   owner: String!
   ownerId: String!
   product: Product! @relation(name: "GHRepos")
-} 
+}
 
 type Note {
   id: ID! @id
