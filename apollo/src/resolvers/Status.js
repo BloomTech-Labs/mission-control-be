@@ -15,15 +15,8 @@ const projects = (parent, args, context) => {
   return res;
 };
 
-const display = (parent, args, context) => {
-  const res = context.prisma.status({ id: parent.id }).display();
-
-  return res;
-};
-
 module.exports = {
   labels,
   program,
   projects,
-  display,
 };
