@@ -29,6 +29,13 @@ const createGithubRepo = async (parent, args, context) => {
   }
   throw Error('This repository already exists on this product');
 };
+
+const deleteGithubRepo = async (_, args, context) => {
+  const { id } = args;
+  const deletedGHRepo = await context.prisma.deleteGhrepo({ id });
+  return deletedGHRepo;
+}
+
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
   const program = context.prisma.createProgram({
@@ -284,6 +291,7 @@ const addProjectMember = (parent, args, context) => {
 
 module.exports = {
   createGithubRepo,
+  deleteGithubRepo,
   createProgram,
   createProduct,
   createProject,

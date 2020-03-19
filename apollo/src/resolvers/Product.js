@@ -24,6 +24,7 @@ const grades = async (parent, args, context) => {
   const repos = await context.prisma.product({ id: parent.id }).Ghrepos();
   try {
     return repos.map(async repo => {
+      const GHRepoId = repo.id
       const ccRepo = await ccapi.getRepobyGHSlug(`${repo.owner}/${repo.name}`);
       let snapShotID
       let ccSnapshot
@@ -36,7 +37,7 @@ const grades = async (parent, args, context) => {
       }
       const name = ccRepo.data[0].attributes.human_name;
       const link = ccRepo.data[0].links.self;
-      return { ...ccSnapshot, name, link };
+      return { ...ccSnapshot, name, link, GHRepoId };
     });
   } catch (error) {
     throw new Error(error);
