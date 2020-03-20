@@ -2,29 +2,29 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
   type Query {
+    CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
+    GithubPulse(owner: String!, name: String!): Pulse!
+    GithubRepos(search: String!, org: String): [GHRepo]!
+    GHRepos: [GHRepo]!
+    GHRepo(id: String!, name: String!): GHRepo!
     info: String!
-    programs: [Program!]!
-    products: [Product!]!
-    projects: [Project!]!
-    project(id: ID!): Project!
     statuses: [Status!]!
     status(id: ID!): Status!
     labels: [Label]
     label(id: ID!): Label
     persons: [Person!]!
     person(email: String!): Person!
-    roles: [Role!]!
-    role(id: ID!): Role!
+    products: [Product!]!
+    programs: [Program!]!
+    projects: [Project!]!
+    project(id: ID!): Project!
     me: User!
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note!]!
     note(id: ID!): Note!
-    CodeClimateSnapshot(slug: String!): CodeClimateSnapshot
-    CCRepos: [CCRepo]!
-    CCRepo(id: ID!, name: String!): CCRepo!
-    GithubRepos(search: String!, org: String): [GHRepo!]!
+    roles: [Role!]!
+    role(id: ID!): Role!
     SparkyBoy(owner: String!, name: String!): [Sparkline!]!
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
-    GithubPulse(owner: String!, name: String!): Pulse!
   }
 
   type Mutation {
@@ -69,59 +69,24 @@ const typeDefs = gql`
       owner: String!
       ownerId: String!
     ): GHRepo!
+    deleteGithubRepo(id: ID!): GHRepo!
   }
 
-  type Program {
+  type CodeClimateSnapshot {
     id: ID!
+    grade: String!
     name: String!
+    link: String!
+    GHRepoId: String!
+  }
+
+  type Column {
+    id: ID!
     createdAt: String!
     updatedAt: String!
-    products: [Product!]!
-    statuses: [Status!]
-  }
-
-  type Product {
-    id: ID!
-    name: String!
+    name: String
+    labels: [Label!]!
     program: Program!
-    createdAt: String!
-    updatedAt: String!
-    projects: [Project!]!
-    productActive: Boolean
-    CCRepos: [CCRepo]!
-    grades: [CodeClimateSnapshot!]
-  }
-
-  type Project {
-    id: ID!
-    name: String!
-    product: Product!
-    projectManagers: [Person!]!
-    team: [Person!]!
-    notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note]
-    CCRepoIds: [String]
-    createdAt: String!
-    updatedAt: String!
-    projectStatus: [Status]
-    projectActive: Boolean
-  }
-
-  type Pulse {
-    id: ID!
-    issueCount: Int!
-    closedIssues: Int!
-    openIssues: Int!
-    prCount: Int!
-    closedPRs: Int!
-    openPRs: Int!
-    mergedPRs: Int!
-  }
-
-  type CCRepo {
-    id: ID!
-    name: String!
-    CCId: String!
-    product: Product!
   }
 
   type GHRepo {
@@ -129,25 +94,18 @@ const typeDefs = gql`
     name: String!
     owner: String!
     ownerId: String!
+    repoId: String!
+    product: Product
   }
 
-  type Person {
+  type Label {
     id: ID!
+    createdAt: String!
+    updatedAt: String!
     name: String!
-    email: String!
-    role: Role!
-    manages: [Project!]!
-    notes: [Note]
-    team: Project
-    avatar: String
-  }
-
-  type User {
-    id: ID!
-    email: String!
-    claims: [String!]!
-    projects: [Project!]!
-    role: Role!
+    color: String!
+    status: Status!
+    selected: Boolean!
   }
 
   type Note {
@@ -163,21 +121,60 @@ const typeDefs = gql`
     privateNote: Boolean!
   }
 
-  type CodeClimateSnapshot {
+  type Product {
     id: ID!
-    grade: String!
     name: String!
-    link: String!
-  }
-
-  type Label {
-    id: ID!
+    program: Program!
     createdAt: String!
     updatedAt: String!
+    projects: [Project!]!
+    productActive: Boolean
+    GHRepos: [GHRepo]!
+    grades: [CodeClimateSnapshot!]
+  }
+
+  type Person {
+    id: ID!
     name: String!
-    color: String!
-    status: Status!
-    selected: [Project]
+    email: String!
+    role: Role!
+    manages: [Project!]!
+    notes: [Note]
+    team: Project
+    avatar: String
+  }
+
+  type Program {
+    id: ID!
+    name: String!
+    createdAt: String!
+    updatedAt: String!
+    products: [Product!]!
+    statuses: [Status!]
+  }
+
+  type Project {
+    id: ID!
+    name: String!
+    product: Product!
+    projectManagers: [Person!]!
+    team: [Person!]!
+    notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note]
+    createdAt: String!
+    updatedAt: String!
+    projectColumns: [Column]
+    projectActive: Boolean
+  }
+
+  type Pulse {
+    id: ID!
+    issueCount: Int!
+    closedIssues: Int!
+    openIssues: Int!
+    prCount: Int!
+    closedPRs: Int!
+    openPRs: Int!
+    mergedPRs: Int!
   }
 
   type Role {
@@ -194,6 +191,24 @@ const typeDefs = gql`
     deletions: Int!
     changedFiles: Int!
     committedDate: String!
+  }
+
+  type Status {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    name: String!
+    labels: [Label!]!
+    projects: [Project!]
+    program: Program
+  }
+
+  type User {
+    id: ID!
+    email: String!
+    claims: [String!]!
+    projects: [Project!]!
+    role: Role!
   }
 
   enum NoteOrderByInput {

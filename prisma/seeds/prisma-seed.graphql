@@ -97,10 +97,10 @@ mutation {
           # Mission Control =============================================================================================
           {
             name: "Mission Control"
-            Ccrepos: {
+            Ghrepos: {
               create: [
-                { name: "mission-control-fe", CCId: "5dcc15026300a40f000062a6" }
-                { name: "mission-control-be", CCId: "5dcc150b234ac30e83009498" }
+                { name: "mission-control-fe", repoId: "MDEwOlJlcG9zaXRvcnkyMTM3MTI3MTE=", owner: "Lambda-School-Labs", ownerId: "MDEyOk9yZ2FuaXphdGlvbjMyMjAwODUw"}
+                { name: "mission-control-be", repoId: "MDEwOlJlcG9zaXRvcnkyMTM3MTI3NzM=", owner: "Lambda-School-Labs", ownerId: "MDEyOk9yZ2FuaXphdGlvbjMyMjAwODUw"}
               ]
             }
             projects: {
@@ -158,22 +158,6 @@ mutation {
           }
           {
             name: "City Data Comparison"
-            Ccrepos: {
-              create: [
-                {
-                  name: "city-data-comparison-fe"
-                  CCId: "5e3656bc8e5407014c002901"
-                }
-                {
-                  name: "city-data-comparison-be"
-                  CCId: "5e3656bc6753ac014c002328"
-                }
-                {
-                  name: "city-data-comparison-ds"
-                  CCId: "5e3656bc35ad7201a2001e5f"
-                }
-              ]
-            }
             projects: {
               create: [
                 {
@@ -187,22 +171,6 @@ mutation {
           }
           {
             name: "Community Calendar"
-            Ccrepos: {
-              create: [
-                {
-                  name: "community-calendar-fe"
-                  CCId: "5e3656bd8e54070177001ec5"
-                }
-                {
-                  name: "community-calendar-be"
-                  CCId: "5e3656bd1b60ce01a10020bc"
-                }
-                {
-                  name: "community-calendar-ios"
-                  CCId: "5e3656bfcc446c01b700194d"
-                }
-              ]
-            }
             projects: {
               create: [
                 {
@@ -216,18 +184,6 @@ mutation {
           }
           {
             name: "Connect Our Kids Social Worker"
-            Ccrepos: {
-              create: [
-                {
-                  name: "connect-our-kids-impact-fe"
-                  CCId: "5dcc1503b1c7b80f7d00a28c"
-                }
-                {
-                  name: "connect-our-kids-impact-be"
-                  CCId: "5dcc1503b1c7b80ecc00974c"
-                }
-              ]
-            }
             projects: {
               create: [
                 {
@@ -241,12 +197,6 @@ mutation {
           }
           {
             name: "Sauti Databank"
-            Ccrepos: {
-              create: [
-                { name: "sauti-databank-fe", CCId: "5e3656bdad83610164001c33" }
-                { name: "sauti-databank-be", CCId: "5e3656bd8e540701a1001c20" }
-              ]
-            }
             projects: {
               create: [
                 {
@@ -260,13 +210,6 @@ mutation {
           }
           {
             name: "Omega 2020"
-            Ccrepos: {
-              create: [
-                { name: "omega2020-fe", CCId: "5e3656bccc446c0163001566" }
-                { name: "omega2020-be", CCId: "5e3656bc35ad72018d001fb0" }
-                { name: "omega2020-ds", CCId: "5e3656bdcc446c014d002007" }
-              ]
-            }
             projects: {
               create: [
                 {
@@ -280,26 +223,6 @@ mutation {
           }
           {
             name: "Quality Hub"
-            Ccrepos: {
-              create: [
-                {
-                  name: "quality-hub-core-be"
-                  CCId: "5dcc1505234ac30f97008afc"
-                }
-                {
-                  name: "quality-hub-resume-be"
-                  CCId: "5e3656becc446c0163001572"
-                }
-                {
-                  name: "quality-hub-gateway-be"
-                  CCId: "5dcc1502b1c7b80f020081db"
-                }
-                {
-                  name: "quality-hub-rtc-server"
-                  CCId: "5e3656baad8361014e0018d9"
-                }
-              ]
-            }
             projects: {
               create: [
                 {
@@ -313,22 +236,6 @@ mutation {
           }
           {
             name: "Hackathon Portal"
-            Ccrepos: {
-              create: [
-                {
-                  name: "hackathon-portal-fe"
-                  CCId: "5e3656bdad836101a3001d75"
-                }
-                {
-                  name: "hackathon-portal-be"
-                  CCId: "5e3656bc35ad7201a2001e65"
-                }
-                {
-                  name: "hackathon-portal-android"
-                  CCId: "5e3656be35ad720178001b7d"
-                }
-              ]
-            }
             projects: {
               create: [
                 {
@@ -342,26 +249,6 @@ mutation {
           }
           {
             name: "Student Art Collection"
-            Ccrepos: {
-              create: [
-                {
-                  name: "student-art-collection-fe"
-                  CCId: "5e321c52805c9d0168002bc6"
-                }
-                {
-                  name: "student-art-collection-be"
-                  CCId: "5e321cc5fa4623014c003f53"
-                }
-                {
-                  name: "student-art-collection-android"
-                  CCId: "5e321d2bfc9fd901a100774f"
-                }
-                {
-                  name: "student-art-collection-iOS"
-                  CCId: "5e321d0243e65a01b8002515"
-                }
-              ]
-            }
             projects: {
               create: [
                 {
@@ -375,14 +262,6 @@ mutation {
           }
           {
             name: "Well Done"
-            Ccrepos: {
-              create: [
-                { name: "well-done-fe", CCId: "5e3656bf8e54070177001ecb" }
-                { name: "well-done-be", CCId: "5e3656be8e540701b60016ae" }
-                { name: "well-done-android2", CCId: "5e3656bf6753ac01770019a0" }
-                { name: "WellDoneMobile", CCId: "5e3656be35ad720178001b83" }
-              ]
-            }
             projects: {
               create: [
                 {

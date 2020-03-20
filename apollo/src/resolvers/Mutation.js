@@ -7,6 +7,35 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // inside of the graphql schema to be valid.
 // See schema.js in src for examples
 
+// Create a new Github Repo
+const createGithubRepo = async (parent, args, context) => {
+  const { repoId, name, owner, ownerId, id } = args;
+
+  const repoData = await context.prisma.product({ id }).Ghrepos();
+
+  const productRepoId = repoData.map(repo => {
+    return repo.repoId;
+  });
+
+  if (!productRepoId.includes(repoId)) {
+    const GithubRepo = context.prisma.createGhrepo({
+      name,
+      product: { connect: { id } },
+      owner,
+      ownerId,
+      repoId,
+    });
+    return GithubRepo;
+  }
+  throw Error('This repository already exists on this product');
+};
+
+const deleteGithubRepo = async (_, args, context) => {
+  const { id } = args;
+  const deletedGHRepo = await context.prisma.deleteGhrepo({ id });
+  return deletedGHRepo;
+}
+
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
   const program = context.prisma.createProgram({
@@ -60,7 +89,7 @@ const createStatus = async (parent, args, context) => {
   return status;
 };
 
-//Update Label. Id is required, and name and color are optional.
+// Update Label. Id is required, and name and color are optional.
 
 const updateLabel = async (parent, args, context) => {
   const { name, color, id } = args;
@@ -133,7 +162,15 @@ const createPerson = (parent, args, context) => {
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
 const createNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id, notification, privateNote } = args;
+  const {
+    topic,
+    content,
+    attendedBy,
+    rating,
+    id,
+    notification,
+    privateNote,
+  } = args;
   const note = {
     topic,
     content,
@@ -161,11 +198,11 @@ const createNote = async (parent, args, context) => {
     const recipients =
       process.env.ENVIRONMENT_NAME === 'production'
         ? Array.from(noteProjectManagers, ({ email }) => email)
-        : 'missioncontrolpm@gmail.com';
+        : '';
 
     const emailAlert = {
       to: recipients,
-      from: 'missioncontrol@lambdaschool.com',
+      from: '',
       subject: `${noteAuthor.name} has posted a note in ${noteProject.name}`,
       text: 'Mission Control',
       html: `<p>${content}<p>`,
@@ -249,30 +286,9 @@ const addProjectMember = (parent, args, context) => {
   return addMember;
 };
 
-//Adds a status column to a project, takes a string where name = status name
-//Takes a project ID where a project exists
-
-// const addStatusToProgram = (parent, args, context) => {
-//   const { id, name } = args;
-//   const addStatus = context.prisma.updateProject({
-//     data: { addedTo: { connect: { name } } },
-//     where: { id },
-//   });
-
-//   return addStatus;
-// };
-
-// const addLabelToStatus = (parent, args, context) => {
-//   const { id, name } = args;
-//   const addLabel = context.prisma.updateStatus({
-//     data: { labels: { connect: { id } } },
-//     where: { name },
-//   });
-
-//   return addLabel;
-// };
-
 module.exports = {
+  createGithubRepo,
+  deleteGithubRepo,
   createProgram,
   createProduct,
   createProject,
@@ -285,8 +301,6 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
-  // addStatusToProgram,
-  // addLabelToStatus,
   updateStatus,
   deleteStatus,
   updateSelectedLabel,
