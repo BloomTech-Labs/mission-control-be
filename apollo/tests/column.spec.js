@@ -83,7 +83,7 @@ describe('Create Status', () => {
   it('Status can be created', async () => {
     const server = MyServer;
 
-    const createResponse = await server.createStatusMutation({name: "Test Status"});
+    const createResponse = await context.prisma.createStatus({name: "Test Status"});
 
     expect(createResponse).toEqual({data: { name: "Test Status"}});
   });

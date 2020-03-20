@@ -162,7 +162,7 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note]
     createdAt: String!
     updatedAt: String!
-    projectColumns: [Column]
+    projectStatus: [Status]
     projectActive: Boolean
   }
 
