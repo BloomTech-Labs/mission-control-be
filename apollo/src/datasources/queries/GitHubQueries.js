@@ -71,7 +71,7 @@ const PULSE = gql`
   query Github($owner: String!, $name: String!) {
     repository(owner: $owner, name: $name){
       id
-      issues(first: 100){
+      issues(last: 100){
         totalCount
         edges{
           node{
@@ -79,7 +79,7 @@ const PULSE = gql`
           }
         }
       }
-      pullRequests(first: 100){
+      pullRequests(last: 100){
         totalCount
         edges{
           node{
