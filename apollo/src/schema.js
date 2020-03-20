@@ -32,7 +32,7 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!, id: ID!): Label!
-    createStatus(name: String!, projects: [String], id: ID!, labels: [String]): Status!
+    createStatus(name: String!, projects: [String], id: ID!): Status!
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!, columnId: String): Label!
     updateStatus(id: ID!, name: String!): Status!
@@ -224,17 +224,6 @@ const typeDefs = gql`
     createdAt_DESC
     updatedAt_ASC
     updatedAt_DESC
-  }
-
-  type Status {
-    id: ID!
-    createdAt: String!
-    updatedAt: String!
-    name: String!
-    labels: [Label!]!
-    projects: [Project!]
-    program: Program
-    display: Boolean!
   }
 `;
 
