@@ -36,8 +36,8 @@ const typeDefs = gql`
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!, columnId: String): Label!
     updateStatus(id: ID!, name: String!): Status!
-    disconnectSelectedLabel(id: ID!, selected: ID!, columnId: String): Status!
-    updateSelectedLabel(id: ID!, selected: ID!): Status!
+    disconnectSelectedLabel(id: ID!, selected: ID!, columnId: String): Label!
+    updateSelectedLabel(id: ID!, selected: ID!, columnId: String): Label!
     deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!

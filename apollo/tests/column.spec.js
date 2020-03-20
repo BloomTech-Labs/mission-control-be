@@ -5,6 +5,64 @@ const schema = fs.readFileSync('./schema/generated/prisma.graphql', 'utf8');
 
 const MyServer = mockServer(schema);
 
+const createStatusMutation = `
+  mutation CreateStatusMutation($name: String!, $projects: [String], $id: ID!, $labels: [String]) {
+    createStatus(name: $name, projects: $projects, id: $id, labels: $labels){
+      id
+      name
+      projects{
+        id
+        name
+      }
+      labels{
+        id
+        name
+        color
+      }
+    }
+  }
+`;
+
+const statusQuery = `
+  query StatusQuery {
+    statuses{
+      id
+      name
+      labels{
+        id
+        name
+        color
+      }
+      projects{
+        id
+        name
+      }
+      program{
+        id
+        name
+      }
+    }
+  }
+`;
+
+const deleteStatusMutation = `
+  mutation DeleteStatusMutation($id: id){
+    deleteStatus(id: $id){
+      id
+      name
+    }
+  }
+`;
+
+const updateStatusMutation = `
+  mutation UpdateStatusMutation($id: id, $name: String!){
+    updateStatus(id: $id, name: $name){
+      id
+      name
+    }
+  }
+`
+
 // Queries if there is a label
 describe('Column', () => {
   it('Column query is there', async () => {
@@ -25,49 +83,14 @@ describe('Create Status', () => {
   it('Status can be created', async () => {
     const server = MyServer;
 
-    const mutation = `
-    mutation {
-      createStatus(
-        data: 
-        {name:"Status 1",  program: { create: {name: "Labs 22"}}}){
-        name
-        id
-      }
-    }
-    `;
+    const createResponse = await server.createStatusMutation({name: "Test Status"});
 
-    await expect(server.query(mutation)).toBeTruthy();
-    const { errors } = await server.query(mutation);
-    expect(errors).not.toBeTruthy();
+    expect(createResponse).toEqual({data: { name: "Test Status"}});
   });
 });
 
 describe('Delete Status', () => {
   it('deletes a status', async () => {
-    const server = MyServer;
-
-    const query=`
-    query{
-      statuses{
-      }
-    }`;
-
-    const deleteMutation =`
-    mutation{
-      deleteStatus(where: { ${query[0]} }){
-        id
-      }
-    }`;
-
-    await expect(server.query(deleteMutation)).toBeTruthy();
-    const { errors } = await server.query(deleteMutation);
-    expect(errors).not.toBeTruthy();
-  });
-});
-
-describe('Update Status', () => {
-  it('updates a status', async () => {
-    const server = MyServer;
-
+    
   });
 });
