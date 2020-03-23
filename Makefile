@@ -381,14 +381,14 @@ aws-prisma-reseed: aws-env-banner
 	 printf "$(NO_COLOR)\n"																																											&& \
 	 printf "%s\n" "PRISMA_MANAGEMENT_API_SECRET: $${PRISMA_MANAGEMENT_API_SECRET}"															&& \
 	 printf "%s\n" "PRISMA_SECRET: $${PRISMA_SECRET}"																														&& \
-	 cd prisma && prisma reset --force && prisma seed
+	 cd prisma && prisma delete --force && prisma generate && prisma seed && prisma deploy
 
 
 # =================================================================
 # Force an update of the Prisma service in AWS
 # =================================================================
 PRISMA_SERVICE_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-PrismaServiceArn
-PRISMA_SERVICE_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(PRISMA_SERVICE_ARN_EXPORT)`].Value' --output text)
+PRISMA_SERVICE_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(PRISA_SERVICE_ARN_EXPORT)`].Value' --output text)
 
 aws-prisma-update-service: aws-env-banner
 	@export PRISMA_SERVICE_ARN=$(PRISMA_SERVICE_ARN) && \
