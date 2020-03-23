@@ -101,6 +101,26 @@ const updateLabel = async (parent, args, context) => {
   return updatedLabel;
 };
 
+const disconnectSelectedLabel = async (parent, args, context) => {
+  const {id, selected} = args;
+  const disconnectSelected = await context.prisma.updateLabel({
+    data: { selected: { disconnect: { id: selected } } },
+    where: { id }
+  });
+
+  return disconnectSelected;
+}
+
+const updateSelectedLabel = async (parent, args, context) => {
+  const {id, selected} = args;
+  const updateSelected = await context.prisma.updateLabel({
+    data: { selected: { connect: { id: selected } } },
+    where: { id }
+  });
+
+  return updateSelected;
+}
+
 //Update Status Column
 
 
@@ -266,29 +286,6 @@ const addProjectMember = (parent, args, context) => {
   return addMember;
 };
 
-//Adds a status column to a project, takes a string where name = status name
-//Takes a project ID where a project exists
-
-// const addStatusToProgram = (parent, args, context) => {
-//   const { id, name } = args;
-//   const addStatus = context.prisma.updateProject({
-//     data: { addedTo: { connect: { name } } },
-//     where: { id },
-//   });
-
-//   return addStatus;
-// };
-
-// const addLabelToStatus = (parent, args, context) => {
-//   const { id, name } = args;
-//   const addLabel = context.prisma.updateStatus({
-//     data: { labels: { connect: { id } } },
-//     where: { name },
-//   });
-
-//   return addLabel;
-// };
-
 module.exports = {
   createGithubRepo,
   deleteGithubRepo,
@@ -304,8 +301,8 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
-  // addStatusToProgram,
-  // addLabelToStatus,
   updateStatus,
   deleteStatus,
+  updateSelectedLabel,
+  disconnectSelectedLabel
 };
