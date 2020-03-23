@@ -78,19 +78,3 @@ describe('Column', () => {
     expect(errors).not.toBeTruthy();
   });
 });
-
-describe('Create Status', () => {
-  it('Status can be created', async () => {
-    const server = MyServer;
-
-    const createResponse = await context.prisma.createStatus({name: "Test Status"});
-
-    expect(createResponse).toEqual({data: { name: "Test Status"}});
-  });
-});
-
-describe('Delete Status', () => {
-  it('deletes a status', async () => {
-    
-  });
-});
