@@ -105,7 +105,7 @@ const typeDefs = gql`
     name: String!
     color: String!
     status: Status!
-    selected: Boolean!
+    selected: [Project]!
   }
 
   type Note {
