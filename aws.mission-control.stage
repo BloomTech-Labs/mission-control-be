@@ -9,3 +9,5 @@ OAuthClientID=0oa23ze1sdfwtoKNQ357
 PrismaServicePort=8000
 
 PRISMA_ENDPOINT=https://prisma.stage.missionctrl.dev
+GithubApiUrl=https://api.github.com/graphql
+CodeClimateApiUrl=https://api.codeclimate.com/v1/

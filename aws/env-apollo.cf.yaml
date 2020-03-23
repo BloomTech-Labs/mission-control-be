@@ -1,17 +1,17 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Description: The Apollo task and service definitions for ECS
 
 Parameters:
   ApplicationName:
     Type: String
-    Description: The name of the application 
+    Description: The name of the application
     AllowedPattern: ^[a-z0-9\-]*$
 
   EnvironmentName:
     Type: String
     Description: The name of the application environment
     AllowedPattern: ^[a-z0-9\-]*$
-  
+
   ApplicationDomainNamespace:
     Type: String
     Description: The DNS domain namespace for the application (e.g. mycoolapplication.com)
@@ -24,7 +24,7 @@ Parameters:
   ApolloServicePort:
     Type: Number
     Description: The port that the Apollo service will be listening on
-  
+
   PrismaServicePort:
     Type: Number
     Description: The port that the Prisma service will be listening on
@@ -37,25 +37,33 @@ Parameters:
     Type: String
     Description: The ID of this OAuth client
 
+  GithubApiUrl:
+    Type: String
+    Description: The URL of GitHub's GraphQL API
+
+  CodeClimateApiUrl:
+    Type: String
+    Description: The URL of CodeClimate's API
+
 Conditions:
-  IsProductionEnvironment: !Equals [ !Ref EnvironmentName, production ]
-  
+  IsProductionEnvironment: !Equals [!Ref EnvironmentName, production]
+
 Resources:
   LogGroup:
-    Type: 'AWS::Logs::LogGroup'
+    Type: "AWS::Logs::LogGroup"
     Properties:
       LogGroupName: !Sub ${ApplicationName}-${EnvironmentName}-apollo
       RetentionInDays: 14
 
   TaskDefinition:
-    Type: 'AWS::ECS::TaskDefinition'
+    Type: "AWS::ECS::TaskDefinition"
     Properties:
       NetworkMode: awsvpc
       RequiresCompatibilities:
         - FARGATE
       Family: apollo
-      Cpu: '1024'
-      Memory: '2048'
+      Cpu: "1024"
+      Memory: "2048"
       ExecutionRoleArn:
         Fn::ImportValue: !Sub ${ApplicationName}-ECSTaskExecutionRole
       TaskRoleArn:
@@ -93,13 +101,32 @@ Resources:
             - Name: PRISMA_SECRET
               Value:
                 Fn::Sub:
-                  - '{{resolve:secretsmanager:${PrismaServiceAPISecret}:SecretString}}'
+                  - "{{resolve:secretsmanager:${PrismaServiceAPISecret}:SecretString}}"
                   - PrismaServiceAPISecret:
                       Fn::ImportValue: !Sub ${ApplicationName}-${EnvironmentName}-PrismaServiceAPISecret
             - Name: OAUTH_TOKEN_ENDPOINT
               Value: !Ref OAuthTokenEndpoint
             - Name: OAUTH_CLIENT_ID
               Value: !Ref OAuthClientID
+            - Name: GIT_HUB_API
+              Value: !Ref GithubApiUrl
+            - Name: CODE_CLIMATE_API
+              Value: !Ref CodeClimateApiUrl
+            - Name: GIT_HUB_TOKEN
+              Value:
+                Fn::Sub:
+                  - "{{resolve:secretsmanager:${GithubToken}:SecretString}}"
+                  - GithubToken: !Sub git-hub-token
+            - Name: CODE_CLIMATE_TOKEN
+              Value:
+                Fn::Sub:
+                  - "{{resolve:secretsmanager:${CodeClimateToken}:SecretString}}"
+                  - CodeClimateToken: !Sub code-climate-token
+            - Name: SENDGRID_API_KEY
+              Value:
+                Fn::Sub:
+                  - "{{resolve:secretsmanager:${SendGridApiKey}:SecretString}}"
+                  - SendGridApiKey: !Sub sendgrid-api-key-mission-control-stage
 
   Service:
     Type: AWS::ECS::Service
