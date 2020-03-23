@@ -16,7 +16,8 @@
     "start": "docker-compose up --build",
     "generate": "prisma generate",
     "deploy": "prisma deploy",
-    "reseed": "prisma delete && prisma generate && prisma deploy"
+    "reseed": "prisma delete && prisma generate && prisma deploy",
+    "test": "jest"
   },
   "dependencies": {}
 }
