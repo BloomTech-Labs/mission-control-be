@@ -36,6 +36,8 @@ const typeDefs = gql`
     updateLabel(id: ID!, name: String, color: String): Label!
     deleteLabel(id: ID!, columnId: String): Label!
     updateStatus(id: ID!, name: String!): Status!
+    disconnectSelectedLabel(id: ID!, selected: ID!, columnId: String): Label!
+    updateSelectedLabel(id: ID!, selected: ID!, columnId: String): Label!
     deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
@@ -103,7 +105,7 @@ const typeDefs = gql`
     name: String!
     color: String!
     status: Status!
-    selected: Boolean!
+    selected: [Project]
   }
 
   type Note {
@@ -160,7 +162,7 @@ const typeDefs = gql`
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note]
     createdAt: String!
     updatedAt: String!
-    projectColumns: [Column]
+    projectStatus: [Status]
     projectActive: Boolean
   }
 

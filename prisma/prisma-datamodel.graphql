@@ -68,8 +68,8 @@ type Label {
   updatedAt: DateTime! @updatedAt
   name: String!
   color: String!
+  selected: [Project]
   status: Status! @relation(name: "StatusLabel")
-  selected: Boolean! @default(value: false)
 }
 type Status {
   id: ID! @id
@@ -79,6 +79,7 @@ type Status {
   projects: [Project!]!
   program: Program
   labels: [Label!]! @relation(name: "StatusLabel", onDelete: CASCADE)
+  display: Boolean! @default(value: false)
 }
 type Role {
   id: ID! @id
