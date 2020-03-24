@@ -212,7 +212,7 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     name: String!
-    labels: [Label!]!
+    labels: [Label]
     projects: [Project!]
     program: Program
     display: Boolean!

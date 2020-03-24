@@ -304,4 +304,4 @@ module.exports = {
   deleteStatus,
   updateSelectedLabel,
   disconnectSelectedLabel,
-};
+}
