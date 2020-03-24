@@ -206,6 +206,7 @@ const typeDefs = gql`
     updatedAt_ASC
     updatedAt_DESC
   }
+<<<<<<< HEAD
 
   type Status {
     id: ID!
@@ -217,6 +218,8 @@ const typeDefs = gql`
     program: Program
     display: Boolean!
   }
+=======
+>>>>>>> c0e6e6e6782466bdf1d69dc09140e7c309fe55ee
 `;
 
 module.exports = typeDefs;
