@@ -285,29 +285,6 @@ const addProjectMember = (parent, args, context) => {
   return addMember;
 };
 
-//Adds a status column to a project, takes a string where name = status name
-//Takes a project ID where a project exists
-
-// const addStatusToProgram = (parent, args, context) => {
-//   const { id, name } = args;
-//   const addStatus = context.prisma.updateProject({
-//     data: { addedTo: { connect: { name } } },
-//     where: { id },
-//   });
-
-//   return addStatus;
-// };
-
-// const addLabelToStatus = (parent, args, context) => {
-//   const { id, name } = args;
-//   const addLabel = context.prisma.updateStatus({
-//     data: { labels: { connect: { id } } },
-//     where: { name },
-//   });
-
-//   return addLabel;
-// };
-
 module.exports = {
   createGithubRepo,
   deleteGithubRepo,
@@ -323,8 +300,6 @@ module.exports = {
   updateNote,
   updateLabel,
   deleteLabel,
-  // addStatusToProgram,
-  // addLabelToStatus,
   updateStatus,
   deleteStatus,
   updateSelectedLabel,
