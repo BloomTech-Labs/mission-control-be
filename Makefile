@@ -68,7 +68,7 @@ local-prisma-token:
 # = Apollo targets ================================================
 # =================================================================
 
-apollo-docker-build: prisma-generate
+apollo-docker-build: 
 	@export $$(cat .env | xargs)																																								&& \
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
@@ -381,7 +381,7 @@ aws-prisma-reseed: aws-env-banner
 	 printf "$(NO_COLOR)\n"																																											&& \
 	 printf "%s\n" "PRISMA_MANAGEMENT_API_SECRET: $${PRISMA_MANAGEMENT_API_SECRET}"															&& \
 	 printf "%s\n" "PRISMA_SECRET: $${PRISMA_SECRET}"																														&& \
-	 cd prisma && prisma delete --force && prisma generate && prisma seed && prisma deploy
+	 cd prisma && prisma delete --force && prisma generate  && prisma deploy --force
 
 
 # =================================================================
