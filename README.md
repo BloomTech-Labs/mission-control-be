@@ -79,11 +79,11 @@ type Project {
   projectStatus: [Status]
   projectActive: Boolean @default(value: false)
 }
-type Ccrepo {
+type Ghrepo {
   id: ID! @id
   name: String!
   CCId: String! @unique
-  product: Product! @relation(name: "CCRepos")
+  product: Product! @relation(name: "GHRepos")
 }
 type Note {
   id: ID! @id
