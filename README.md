@@ -181,6 +181,10 @@ create a .env file that includes the following:
 - PRISMA_MANAGEMENT_API_SECRET
 - PRISMA_ENDPOINT
 - PRISMA_SECRET
+- CODE_CLIMATE_API
+- CODE_CLIMATE_TOKEN
+- GIT_HUB_API
+- GIT_HUB_TOKEN
 
 ## Contributing
 
