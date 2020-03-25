@@ -6,7 +6,7 @@ class GitHubAPI extends GraphQLDataSource {
   baseURL = `${process.env.GIT_HUB_API}`;
   token = `bearer ${process.env.GIT_HUB_TOKEN}`;
 
-  willSendRequest(request) {
+  willSendRequest(request) { //Different procedure to send/set headers in a GQLDataSource vs RESTDataSource
     if (!request.headers) {
       request.headers = {};
     }
