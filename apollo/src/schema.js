@@ -34,10 +34,10 @@ const typeDefs = gql`
     createLabel(name: String!, color: String!, id: ID!): Label!
     createStatus(name: String!, projects: [String], id: ID!): Status!
     updateLabel(id: ID!, name: String, color: String): Label!
-    deleteLabel(id: ID!, columnId: String): Label!
-    updateStatus(id: ID!, name: String!): Status!
-    disconnectSelectedLabel(id: ID!, selected: ID!, columnId: String): Label!
     updateSelectedLabel(id: ID!, selected: ID!, columnId: String): Label!
+    deleteLabel(id: ID!, columnId: String): Label!
+    updateStatus(id: ID!, name: String, display: Boolean): Status!
+    disconnectSelectedLabel(id: ID!, selected: ID!, columnId: String): Label!
     deleteStatus(id: ID!): Status!
     createPerson(name: String!, email: String!): Person!
     addProjectMember(id: ID!, email: String!): Person!
@@ -78,15 +78,6 @@ const typeDefs = gql`
     name: String!
     link: String!
     GHRepoId: String!
-  }
-
-  type Column {
-    id: ID!
-    createdAt: String!
-    updatedAt: String!
-    name: String
-    labels: [Label!]!
-    program: Program!
   }
 
   type GHRepo {
@@ -193,16 +184,6 @@ const typeDefs = gql`
     committedDate: String!
   }
 
-  type Status {
-    id: ID!
-    createdAt: String!
-    updatedAt: String!
-    name: String!
-    labels: [Label!]!
-    projects: [Project!]
-    program: Program
-  }
-
   type User {
     id: ID!
     email: String!
@@ -224,6 +205,17 @@ const typeDefs = gql`
     createdAt_DESC
     updatedAt_ASC
     updatedAt_DESC
+  }
+
+  type Status {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    name: String!
+    labels: [Label]
+    projects: [Project!]
+    program: Program
+    display: Boolean!
   }
 `;
 
