@@ -207,6 +207,8 @@ To set up a testing environment,
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
+IMPORTANT!: These variables must also be added to the docker-compose.yml file.
+
 create a .env file that includes the following:
 
 - OAUTH_TOKEN_ENDPOINT
