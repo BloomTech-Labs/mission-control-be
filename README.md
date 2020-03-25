@@ -48,6 +48,15 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 #### Prisma Data Model
 
 ```graphql
+
+type CodeClimateSnapshot {
+  id: ID!
+  grade: String!
+  name: String!
+  link: String!
+  GHRepoId: String!
+}
+
 type Program {
   id: ID! @id
   name: String! @unique
@@ -57,16 +66,19 @@ type Program {
   products: [Product!]!
   statuses: [Status!]
 }
+
 type Product {
   id: ID! @id
   name: String!
   program: Program!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  createdAt: String! @createdAt
+  updatedAt: String! @updatedAt
   projects: [Project!]!
-  productActive: Boolean @default(value: false)
-  Ccrepos: [Ccrepo]! @relation(name: "CCRepos")
+  productActive: Boolean Boolean @default(value: false)
+  GHRepos: [GHRepo]! @relation(name: "GHRepos")
+  grades: [CodeClimateSnapshot!] @relation(name: "CodeClimateSnapshot")
 }
+
 type Project {
   id: ID! @id
   name: String!
@@ -79,12 +91,27 @@ type Project {
   projectStatus: [Status]
   projectActive: Boolean @default(value: false)
 }
-type Ghrepo {
+
+type Pulse {
+  id: ID! @id
+  issueCount: Int!
+  closedIssues: Int!
+  openIssues: Int!
+  prCount: Int!
+  closedPRs: Int!
+  openPRs: Int!
+  mergedPRs: Int!
+}
+
+type GHRepo {
   id: ID! @id
   name: String!
-  CCId: String! @unique
-  product: Product! @relation(name: "GHRepos")
+  owner: String!
+  ownerId: String!
+  repoId: String!
+  product: Product @relation(name: "GHRepos")
 }
+
 type Note {
   id: ID! @id
   topic: String!
@@ -117,6 +144,16 @@ type Label {
   status: Status! @relation(name: "StatusLabel")
   selected: Boolean @default(value: false)
 }
+
+type Sparkline {
+  id: ID! @id
+  message: String!
+  additions: Int!
+  deletions: Int!
+  changedFiles: Int!
+  committedDate: String!
+}
+
 type Status {
   id: ID! @id
   createdAt: DateTime! @createdAt
