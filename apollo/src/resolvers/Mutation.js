@@ -79,9 +79,10 @@ const createLabel = (parent, args, context) => {
 //Create a new Status Column, needs Program ID and name
 //will populate to all projects
 const createStatus = async (parent, args, context) => {
-  const { name, id } = args;
+  const { name, display, id } = args;
   const getProjects = await context.prisma.projects();
   const status = context.prisma.createStatus({
+    display,
     name,
     projects: { connect: getProjects.map(({ id }) => ({ id })) },
     program: { connect: { id } },
@@ -304,4 +305,4 @@ module.exports = {
   deleteStatus,
   updateSelectedLabel,
   disconnectSelectedLabel,
-}
+};
