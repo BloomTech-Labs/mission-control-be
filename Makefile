@@ -68,7 +68,7 @@ local-prisma-token:
 # = Apollo targets ================================================
 # =================================================================
 
-apollo-docker-build: 
+apollo-docker-build: prisma-generate
 	@export $$(cat .env | xargs)																																								&& \
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
