@@ -40,9 +40,24 @@ GIT_HUB_TOKEN=(get the value from your TL)
 export $(grep -v '^#' .env | xargs -0)
 ```
 * ```source sourceme.sh```
-* ```npm run generate``` will run ```prisma generate``` to to add the schema to Apollo.
-
-
+* ```npm run generate``` will run ```prisma generate``` to add the schema to Apollo.
+* Leaving the above Prisma terminal open, run next comand in a new terminal. 
+* ```npm run start```  will run ```docker-compose up --build```.
+* When nodemon error catch ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
+* Your odcert terminal should not say: 
+```
+apollo_1    | =========Running on http://localhost:8000/=========
+```
+* Go to ```http://localhost:7000/_admin```
+* In your above Prisma terminal ```prisma token```
+* Click the gear icon to add the token to the admin
+* Go to ```http://localhost:7000/```
+* in HTTP HEADERS add your token object.
+```
+{
+    "Authorization": "Bearer {token}"
+}
+```
 
 
 ## Linux
@@ -59,8 +74,8 @@ To get the server running locally:
     Export environment variables by running source sourceme.sh
 Follow the instructions in README.md in the /init folder for your platform
     Run prisma generate to add the schema to Apollo
-Run docker-compose up --build
-Run primsa deploy to fire up the Prisma data layer
+    Run docker-compose up --build
+    Run primsa deploy to fire up the Prisma data layer
 To reset the DB, run prisma reset
 To run the seed, run prisma seed
 The Apollo instance is listining on port 8000, and an authenticated prisma playground with documentation regarding the exposed methods can be found on port 7000. To authenticate and view the prisma playground:
