@@ -31,9 +31,30 @@ GIT_HUB_TOKEN=(get the value from your TL)
 ### Windows Pro
 
 ### Windows Home (very problminatic)
+* In Docker, ```printenv``` Look for DOCKER_HOST this will give you the IP that you will need to copy to your ```.env```
+* (replace LOCALHOST with IP in PRISMA_ENDPOINT)
+* ```npm run generate``` will run ```prisma generate``` to add the schema to Apollo.
+* Leaving the above Prisma terminal open, run next comand in a new terminal. 
+* ```npm run start```  will run ```docker-compose up --build```.
+* When nodemon error catch ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
+* Your odcert terminal should not say: 
+```
+apollo_1    | =========Running on http://localhost:8000/=========
+```
+* Go to ```http://localhost:7000/_admin```
+* In your above Prisma terminal ```prisma token```
+* Click the gear icon to add the token to the admin
+* Go to ```http://localhost:7000/```
+* in HTTP HEADERS add your token object.
+```
+{
+    "Authorization": "Bearer {token}"
+}
+```
 
 
 
+#
 ## Mac/OSX
 * in the root create ```sourceme.sh```
 ```
@@ -59,7 +80,7 @@ apollo_1    | =========Running on http://localhost:8000/=========
 }
 ```
 
-
+#
 ## Linux
 * Note: you may need to manualy install a difrtent version of ```Docker Compose```. If you encounter this error you can find the steps to check your distros version and compadablity with the projects ```Compose file format``` [here](https://docs.docker.com/compose/compose-file/) and [here](https://docs.docker.com/compose/install/).
 * ```npm run generate``` will run ```prisma generate``` to add the schema to Apollo.
@@ -84,7 +105,8 @@ apollo_1    | =========Running on http://localhost:8000/=========
 
 
 
-**** OLD REDME
+#
+# Useful info
 
 To get the server running locally:
 
