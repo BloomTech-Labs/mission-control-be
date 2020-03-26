@@ -12,6 +12,3 @@ generate:
 
 seed:
   import: ./seeds/prisma-seed.graphql
-hooks:
-  post-deploy:
-    - prisma generate

@@ -15,7 +15,7 @@
     "start": "docker-compose up --build",
     "generate": "prisma generate",
     "deploy": "prisma deploy",
-    "reseed": "prisma delete && prisma generate && prisma deploy"
+    "reseed": "prisma delete && prisma deploy"
   },
   "dependencies": {
     "aws": "0.0.3-2"

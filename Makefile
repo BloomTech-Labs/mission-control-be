@@ -381,7 +381,7 @@ aws-prisma-reseed: aws-env-banner
 	 printf "$(NO_COLOR)\n"																																											&& \
 	 printf "%s\n" "PRISMA_MANAGEMENT_API_SECRET: $${PRISMA_MANAGEMENT_API_SECRET}"															&& \
 	 printf "%s\n" "PRISMA_SECRET: $${PRISMA_SECRET}"																														&& \
-	 cd prisma && prisma delete --force && prisma generate  && prisma deploy --force
+	 cd prisma && prisma delete --force && prisma deploy --force
 
 
 # =================================================================
