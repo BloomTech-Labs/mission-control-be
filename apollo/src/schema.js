@@ -32,7 +32,12 @@ const typeDefs = gql`
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
     createLabel(name: String!, color: String!, id: ID!): Label!
-    createStatus(name: String!, projects: [String], id: ID!): Status!
+    createStatus(
+      name: String!
+      projects: [String]
+      display: Boolean
+      id: ID!
+    ): Status!
     updateLabel(id: ID!, name: String, color: String): Label!
     updateSelectedLabel(id: ID!, selected: ID!, columnId: String): Label!
     deleteLabel(id: ID!, columnId: String): Label!
