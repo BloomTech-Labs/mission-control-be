@@ -4,9 +4,9 @@ const { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE, PULSE } = require('./queries
 
 class GitHubAPI extends GraphQLDataSource {
   baseURL = `${process.env.GIT_HUB_API}`;
-  token = `bearer ${process.env.GIT_HUB_TOKEN}`; //token needs to be updated to Lambda-School-Labs token
+  token = `bearer ${process.env.GIT_HUB_TOKEN}`;
 
-  willSendRequest(request) {
+  willSendRequest(request) { //Different procedure to send/set headers in a GQLDataSource vs RESTDataSource
     if (!request.headers) {
       request.headers = {};
     }
