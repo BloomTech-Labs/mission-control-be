@@ -48,6 +48,15 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 #### Prisma Data Model
 
 ```graphql
+
+type CodeClimateSnapshot {
+  id: ID!
+  grade: String!
+  name: String!
+  link: String!
+  GHRepoId: String!
+}
+
 type Program {
   id: ID! @id
   name: String! @unique
@@ -57,16 +66,19 @@ type Program {
   products: [Product!]!
   statuses: [Status!]
 }
+
 type Product {
   id: ID! @id
   name: String!
   program: Program!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  createdAt: String! @createdAt
+  updatedAt: String! @updatedAt
   projects: [Project!]!
-  productActive: Boolean @default(value: false)
-  Ccrepos: [Ccrepo]! @relation(name: "CCRepos")
+  productActive: Boolean Boolean @default(value: false)
+  GHRepos: [GHRepo]! @relation(name: "GHRepos")
+  grades: [CodeClimateSnapshot!] @relation(name: "CodeClimateSnapshot")
 }
+
 type Project {
   id: ID! @id
   name: String!
@@ -79,12 +91,27 @@ type Project {
   projectStatus: [Status]
   projectActive: Boolean @default(value: false)
 }
-type Ccrepo {
+
+type Pulse {
+  id: ID! @id
+  issueCount: Int!
+  closedIssues: Int!
+  openIssues: Int!
+  prCount: Int!
+  closedPRs: Int!
+  openPRs: Int!
+  mergedPRs: Int!
+}
+
+type GHRepo {
   id: ID! @id
   name: String!
-  CCId: String! @unique
-  product: Product! @relation(name: "CCRepos")
+  owner: String!
+  ownerId: String!
+  repoId: String!
+  product: Product @relation(name: "GHRepos")
 }
+
 type Note {
   id: ID! @id
   topic: String!
@@ -117,6 +144,16 @@ type Label {
   status: Status! @relation(name: "StatusLabel")
   selected: Boolean @default(value: false)
 }
+
+type Sparkline {
+  id: ID! @id
+  message: String!
+  additions: Int!
+  deletions: Int!
+  changedFiles: Int!
+  committedDate: String!
+}
+
 type Status {
   id: ID! @id
   createdAt: DateTime! @createdAt
@@ -170,17 +207,25 @@ To set up a testing environment,
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
+IMPORTANT!: These variables must also be added to the docker-compose.yml file.
+
 create a .env file that includes the following:
 
+- APPLICATION_NAME
+- APOLLO_CONTAINER_IMAGE
+- ENVIRONMENT_NAME
 - OAUTH_TOKEN_ENDPOINT
 - OAUTH_CLIENT_ID
-- APPLICATION_NAME
-- ENVIRONMENT_NAME
 - TEST_OAUTH_CLIENT_ID
 - TEST_OAUTH_CLIENT_SECRET
 - PRISMA_MANAGEMENT_API_SECRET
-- PRISMA_ENDPOINT
 - PRISMA_SECRET
+- PRISMA_ENDPOINT
+- SENDGRID_API_KEY
+- CODE_CLIMATE_API
+- CODE_CLIMATE_TOKEN
+- GIT_HUB_API
+- GIT_HUB_TOKEN
 
 ## Contributing
 

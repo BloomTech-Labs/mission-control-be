@@ -8,10 +8,11 @@ class CodeClimateAPI extends RESTDataSource {
     this.token = `Token token=${process.env.CODE_CLIMATE_TOKEN}`;
   }
 
-  willSendRequest(request) {
+  willSendRequest(request) { //Different procedure to send/set headers in a GQLDataSource vs RESTDataSource
     request.headers.set('Authorization', this.token);
   }
 
+  //ALL responses from CodeClimate API must be parsed into JSON  
   getRepobyID = async repoId => JSON.parse(await this.get(`repos/${repoId}`));
 
   getRepobyGHSlug = async slug =>
@@ -22,7 +23,6 @@ class CodeClimateAPI extends RESTDataSource {
     return snapshotReducer(res.data)
   }
     
-
   async getAllOrgs() {
     const query = `orgs`
     const res = JSON.parse(await this.get(query));
