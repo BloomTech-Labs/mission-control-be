@@ -1,4 +1,4 @@
-# Docker, Prisma, Appolo Backend Setup and Run Localy
+# Docker, Prisma, Apollo Backend Setup and Run Locally
 
 * Clone the repo https://github.com/Lambda-School-Labs/mission-control-be
 * cd in to your local copy
@@ -27,17 +27,17 @@ GIT_HUB_TOKEN=(get the value from your TL)
 * install Prisma ```npm install -g prisma```
 
 
-## Windows (Idealy you use Mac or Linux)
+## Windows (Ideally you use Mac or Linux)
 ### Windows Pro
 
-### Windows Home (very problminatic)
-* In Docker, ```printenv``` Look for DOCKER_HOST this will give you the IP that you will need to copy to your ```.env```
+Windows Home (very problematic)
+* In Docker, ```printenv``` Look for DOCKER_HOST this will give you the IP address that you will need to copy to your ```.env```
 * (replace LOCALHOST with IP in PRISMA_ENDPOINT)
 * ```npm run generate``` will run ```prisma generate``` to add the schema to Apollo.
 * Leaving the above Prisma terminal open, run next comand in a new terminal. 
 * ```npm run start```  will run ```docker-compose up --build```.
 * When nodemon error catch ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
-* Your odcert terminal should not say: 
+* Your docker terminal should now say: 
 ```
 apollo_1    | =========Running on http://localhost:8000/=========
 ```
@@ -65,7 +65,7 @@ export $(grep -v '^#' .env | xargs -0)
 * Leaving the above Prisma terminal open, run next comand in a new terminal. 
 * ```npm run start```  will run ```docker-compose up --build```.
 * When nodemon error catch ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
-* Your odcert terminal should not say: 
+* Your docker terminal should now say:
 ```
 apollo_1    | =========Running on http://localhost:8000/=========
 ```
@@ -87,7 +87,7 @@ apollo_1    | =========Running on http://localhost:8000/=========
 * Leaving the above Prisma terminal open, run next comand in a new terminal. 
 * ```npm run start```  will run ```docker-compose up --build```.
 * When nodemon error catch ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
-* Your odcert terminal should not say: 
+* Your docker terminal should now say: 
 ```
 apollo_1    | =========Running on http://localhost:8000/=========
 ```
