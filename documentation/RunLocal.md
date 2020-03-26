@@ -32,17 +32,17 @@ GIT_HUB_TOKEN=(get the value from your TL)
 
 Windows Home (very problematic)
 * In Docker, ```printenv``` Look for DOCKER_HOST this will give you the IP address that you will need to copy to your ```.env```
-* (replace LOCALHOST with IP in PRISMA_ENDPOINT)
+* (replace LOCALHOST with this IP address in PRISMA_ENDPOINT)
 * ```npm run generate``` will run ```prisma generate``` to add the schema to Apollo.
-* Leaving the above Prisma terminal open, run next comand in a new terminal. 
+* Leaving the above Prisma terminal open, run the following command in a new terminal.
 * ```npm run start```  will run ```docker-compose up --build```.
-* When nodemon error catch ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
+* When nodemon error catch triggers, ```npm run deploy``` will run ```primsa deploy``` to fire up the Prisma data layer.
 * Your docker terminal should now say: 
 ```
 apollo_1    | =========Running on http://localhost:8000/=========
 ```
 * Go to ```http://localhost:7000/_admin```
-* In your above Prisma terminal ```prisma token```
+* In your above Prisma terminal run ```prisma token```
 * Click the gear icon to add the token to the admin
 * Go to ```http://localhost:7000/```
 * in HTTP HEADERS add your token object.
@@ -53,24 +53,24 @@ apollo_1    | =========Running on http://localhost:8000/=========
 ```
 
 
-
 #
 ## Mac/OSX
 * in the root create ```sourceme.sh```
+* Copy and paste the following to sourceme.sh
 ```
 export $(grep -v '^#' .env | xargs -0)
 ```
-* ```source sourceme.sh```
+* run ```source sourceme.sh```
 * ```npm run generate``` will run ```prisma generate``` to add the schema to Apollo.
 * Leaving the above Prisma terminal open, run next comand in a new terminal. 
 * ```npm run start```  will run ```docker-compose up --build```.
-* When nodemon error catch ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
+* When you get ```prisma_1    | Server running on :7000```` run ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
 * Your docker terminal should now say:
 ```
 apollo_1    | =========Running on http://localhost:8000/=========
 ```
 * Go to ```http://localhost:7000/_admin```
-* In your above Prisma terminal ```prisma token```
+* In your above Prisma terminal run ```prisma token```
 * Click the gear icon to add the token to the admin
 * Go to ```http://localhost:7000/```
 * in HTTP HEADERS add your token object.
@@ -82,11 +82,11 @@ apollo_1    | =========Running on http://localhost:8000/=========
 
 #
 ## Linux
-* Note: you may need to manualy install a difrtent version of ```Docker Compose```. If you encounter this error you can find the steps to check your distros version and compadablity with the projects ```Compose file format``` [here](https://docs.docker.com/compose/compose-file/) and [here](https://docs.docker.com/compose/install/).
+* Note: You may need to manually install a different version of ```Docker Compose```. If you encounter this error you can find the steps to check your distros version and  compatibility with the projects ```Compose file format``` [here](https://docs.docker.com/compose/compose-file/) and [here](https://docs.docker.com/compose/install/).
 * ```npm run generate``` will run ```prisma generate``` to add the schema to Apollo.
-* Leaving the above Prisma terminal open, run next comand in a new terminal. 
+* Leaving the above Prisma terminal open, run next command in a new terminal. 
 * ```npm run start```  will run ```docker-compose up --build```.
-* When nodemon error catch ```npm run deploy``` will run ```primsa deploy``` to to fire up the Prisma data layer.
+* When nodemon error catch ```npm run deploy``` will run ```prisma deploy``` to to fire up the Prisma data layer.
 * Your docker terminal should now say: 
 ```
 apollo_1    | =========Running on http://localhost:8000/=========
