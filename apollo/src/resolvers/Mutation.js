@@ -34,7 +34,7 @@ const deleteGithubRepo = async (_, args, context) => {
   const { id } = args;
   const deletedGHRepo = await context.prisma.deleteGhrepo({ id });
   return deletedGHRepo;
-}
+};
 
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
@@ -79,12 +79,12 @@ const createLabel = (parent, args, context) => {
 //Create a new Status Column, needs Program ID and name
 //will populate to all projects
 const createStatus = async (parent, args, context) => {
-  const {name, id} = args;
+  const { name, id } = args;
   const getProjects = await context.prisma.projects();
   const status = context.prisma.createStatus({
     name,
-    projects: { connect: getProjects.map(({id}) => ({id}))},
-    program: {connect: { id }}
+    projects: { connect: getProjects.map(({ id }) => ({ id })) },
+    program: { connect: { id } },
   });
   return status;
 };
@@ -102,32 +102,31 @@ const updateLabel = async (parent, args, context) => {
 };
 
 const disconnectSelectedLabel = async (parent, args, context) => {
-  const {id, selected} = args;
+  const { id, selected } = args;
   const disconnectSelected = await context.prisma.updateLabel({
     data: { selected: { disconnect: { id: selected } } },
-    where: { id }
+    where: { id },
   });
 
   return disconnectSelected;
-}
+};
 
 const updateSelectedLabel = async (parent, args, context) => {
-  const {id, selected} = args;
+  const { id, selected } = args;
   const updateSelected = await context.prisma.updateLabel({
     data: { selected: { connect: { id: selected } } },
-    where: { id }
+    where: { id },
   });
 
   return updateSelected;
-}
+};
 
 //Update Status Column
 
-
 const updateStatus = async (parent, args, context) => {
-  const { name, id } = args;
+  const { name, display, id } = args;
   const updatedStatus = await context.prisma.updateStatus({
-    data: { name },
+    data: { name, display },
     where: { id },
   });
 
@@ -304,5 +303,5 @@ module.exports = {
   updateStatus,
   deleteStatus,
   updateSelectedLabel,
-  disconnectSelectedLabel
-};
+  disconnectSelectedLabel,
+}
