@@ -36,7 +36,7 @@ Windows Home (very problematic)
 * ```npm run generate``` will run ```prisma generate``` to add the schema to Apollo.
 * Leaving the above Prisma terminal open, run the following command in a new terminal.
 * ```npm run start```  will run ```docker-compose up --build```.
-* When nodemon error catch triggers, ```npm run deploy``` will run ```primsa deploy``` to fire up the Prisma data layer.
+* When nodemon error catch triggers, ```npm run deploy``` will run ```prisma deploy``` to fire up the Prisma data layer.
 * Your docker terminal should now say: 
 ```
 apollo_1    | =========Running on http://localhost:8000/=========

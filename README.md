@@ -2,11 +2,11 @@
 
 #### Backend is delpoyed [Here!](https://stage.missionctrl.dev/)
 
-## [Getting started](https://github.com/Lambda-School-Labs/mission-control-be/blob/document/readme-setup/documentation/RunLocal.md)
+## [Getting started](/documentation/RunLocal.md)
 
 
+## Tech
 ### Apollo Server
-
 - Apollo Server is the best way to quickly build a production-ready, self-documenting API for GraphQL clients, using data from any source.
 
 - Apollo communicates directly with the front-end to act as a bridge between the graphQL client and the prisma ORM data layer.
@@ -150,7 +150,7 @@ When contributing to this repository, please first discuss the change you wish t
 
 Please note we have a [code of conduct](./code_of_conduct.md). Please follow it in all your interactions with the project.
 
-### Issue/Bug Request
+### Issue/Bug Request (Should this be mearged with gitflow doc)
 
 **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
 
