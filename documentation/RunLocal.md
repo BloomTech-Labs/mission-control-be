@@ -103,29 +103,13 @@ apollo_1    | =========Running on http://localhost:8000/=========
 ```
 
 
-
-
 #
 # Useful info
 
-To get the server running locally:
+* To reset the DB, run prisma reset
+* To run the seed, run prisma seed
+* The Apollo instance is listining on port 8000, and an authenticated prisma playground with documentation
 
-    Clone this repo
-    Ensure you have configured your environment variables as seen below
-    Export environment variables by running source sourceme.sh
-Follow the instructions in README.md in the /init folder for your platform
-    Run prisma generate to add the schema to Apollo
-    Run docker-compose up --build
-    Run primsa deploy to fire up the Prisma data layer
-To reset the DB, run prisma reset
-To run the seed, run prisma seed
-The Apollo instance is listining on port 8000, and an authenticated prisma playground with documentation regarding the exposed methods can be found on port 7000. To authenticate and view the prisma playground:
-
-Run prisma token
-Copy the token and attach it to the HTTP headers inside the playground:
-{
-"authorization": "Bearer {token}"
-}
 
 
 
