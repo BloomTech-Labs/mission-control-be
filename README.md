@@ -1,31 +1,9 @@
 # Mission Control API Documentation
 
-#### Backend delpoyed at [Coming Soon!]() <br>
+#### Backend is delpoyed [Here!](https://stage.missionctrl.dev/)
 
-## Getting started
+## [Getting started](https://github.com/Lambda-School-Labs/mission-control-be/blob/document/readme-setup/documentation/RunLocal.md)
 
-To get the server running locally:
-
-- Clone this repo
-- Ensure you have configured your environment variables as seen below
-- Export environment variables by running `source sourceme.sh`
-- Follow the instructions in `README.md` in the `/init` folder for your platform
-- Run `prisma generate` to add the schema to Apollo
-- Run `docker-compose up --build`
-- Run `primsa deploy` to fire up the Prisma data layer
-- To reset the DB, run `prisma reset`
-- To run the seed, run `prisma seed`
-
-The Apollo instance is listining on port 8000, and an authenticated prisma playground with documentation regarding the exposed methods can be found on port 7000. To authenticate and view the prisma playground:
-
-- Run `prisma token`
-- Copy the token and attach it to the HTTP headers inside the playground:
-
-```
-{
-"authorization": "Bearer {token}"
-}
-```
 
 ### Apollo Server
 
@@ -148,7 +126,7 @@ const context = async ({ req }) => {
   throw new Error('A valid token _must_ be provided!');
 };
 ```
-
+#
 ## Back-End Testing
 
 To run tests, cd into the apollo directory and run 'npm i' on your terminal to download the depedencies. Run 'npm test' to run tests.
@@ -165,22 +143,6 @@ To set up a testing environment,
 -Pass the above variable name into your mockServer as a parameter.
 -Example: const MyServer = mockServer(schema);
 -Run tests
-
-## Environment Variables
-
-In order for the app to function correctly, the user must set up their own environment variables.
-
-create a .env file that includes the following:
-
-- OAUTH_TOKEN_ENDPOINT
-- OAUTH_CLIENT_ID
-- APPLICATION_NAME
-- ENVIRONMENT_NAME
-- TEST_OAUTH_CLIENT_ID
-- TEST_OAUTH_CLIENT_SECRET
-- PRISMA_MANAGEMENT_API_SECRET
-- PRISMA_ENDPOINT
-- PRISMA_SECRET
 
 ## Contributing
 
