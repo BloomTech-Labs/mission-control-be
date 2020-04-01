@@ -99,14 +99,24 @@ mutation {
             name: "Mission Control"
             Ghrepos: {
               create: [
-                { name: "mission-control-fe", repoId: "MDEwOlJlcG9zaXRvcnkyMTM3MTI3MTE=", owner: "Lambda-School-Labs", ownerId: "MDEyOk9yZ2FuaXphdGlvbjMyMjAwODUw"}
-                { name: "mission-control-be", repoId: "MDEwOlJlcG9zaXRvcnkyMTM3MTI3NzM=", owner: "Lambda-School-Labs", ownerId: "MDEyOk9yZ2FuaXphdGlvbjMyMjAwODUw"}
+                {
+                  name: "mission-control-fe"
+                  repoId: "MDEwOlJlcG9zaXRvcnkyMTM3MTI3MTE="
+                  owner: "Lambda-School-Labs"
+                  ownerId: "MDEyOk9yZ2FuaXphdGlvbjMyMjAwODUw"
+                }
+                {
+                  name: "mission-control-be"
+                  repoId: "MDEwOlJlcG9zaXRvcnkyMTM3MTI3NzM="
+                  owner: "Lambda-School-Labs"
+                  ownerId: "MDEyOk9yZ2FuaXphdGlvbjMyMjAwODUw"
+                }
               ]
             }
             projects: {
               create: [
                 {
-                  name: "Labs 19 - Mission Control"
+                  name: "Labs 23 - Mission Control"
                   projectActive: true
                   team: {
                     connect: [
