@@ -7,9 +7,40 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // inside of the graphql schema to be valid.
 // See schema.js in src for examples
 
+// Create a new Github Repo
+const createGithubRepo = async (parent, args, context) => {
+  const { repoId, name, owner, ownerId, id } = args;
+
+  const repoData = await context.prisma.product({ id }).Ghrepos();
+
+  const productRepoId = repoData.map(repo => {
+    return repo.repoId;
+  });
+
+  if (!productRepoId.includes(repoId)) {
+    const GithubRepo = context.prisma.createGhrepo({
+      name,
+      product: { connect: { id } },
+      owner,
+      ownerId,
+      repoId,
+    });
+    return GithubRepo;
+  }
+  throw Error('This repository already exists on this product');
+};
+
+const deleteGithubRepo = async (_, args, context) => {
+  const { id } = args;
+  const deletedGHRepo = await context.prisma.deleteGhrepo({ id });
+  return deletedGHRepo;
+};
+
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
-  const program = context.prisma.createProgram({ name: args.name });
+  const program = context.prisma.createProgram({
+    name: args.name,
+  });
 
   return program;
 };
@@ -26,19 +57,103 @@ const createProduct = (parent, args, context) => {
 
 // Create a new project, takes a string and a product ID
 const createProject = (parent, args, context) => {
-  const program = context.prisma.createProject({
+  const project = context.prisma.createProject({
     name: args.name,
     product: { connect: { id: args.id } },
   });
 
-  return program;
+  return project;
+};
+
+// Create a new label, needs name and color.
+const createLabel = (parent, args, context) => {
+  const label = context.prisma.createLabel({
+    name: args.name,
+    color: args.color,
+    status: { connect: { id: args.id } },
+  });
+
+  return label;
+};
+
+//Create a new Status Column, needs Program ID and name
+//will populate to all projects
+const createStatus = async (parent, args, context) => {
+  const { name, display, id } = args;
+  const getProjects = await context.prisma.projects();
+  const status = context.prisma.createStatus({
+    display,
+    name,
+    projects: { connect: getProjects.map(({ id }) => ({ id })) },
+    program: { connect: { id } },
+  });
+  return status;
+};
+
+// Update Label. Id is required, and name and color are optional.
+
+const updateLabel = async (parent, args, context) => {
+  const { name, color, id } = args;
+  const updatedLabel = await context.prisma.updateLabel({
+    data: { name, color },
+    where: { id },
+  });
+
+  return updatedLabel;
+};
+
+const disconnectSelectedLabel = async (parent, args, context) => {
+  const { id, selected } = args;
+  const disconnectSelected = await context.prisma.updateLabel({
+    data: { selected: { disconnect: { id: selected } } },
+    where: { id },
+  });
+
+  return disconnectSelected;
+};
+
+const updateSelectedLabel = async (parent, args, context) => {
+  const { id, selected } = args;
+  const updateSelected = await context.prisma.updateLabel({
+    data: { selected: { connect: { id: selected } } },
+    where: { id },
+  });
+
+  return updateSelected;
+};
+
+//Update Status Column
+
+const updateStatus = async (parent, args, context) => {
+  const { name, display, id } = args;
+  const updatedStatus = await context.prisma.updateStatus({
+    data: { name, display },
+    where: { id },
+  });
+
+  return updatedStatus;
+};
+
+// Delete a Label, takes id of label to delete it.
+
+const deleteLabel = async (parent, args, context) => {
+  const { id } = args;
+  const deletedLabel = await context.prisma.deleteLabel({ id });
+  return deletedLabel;
+};
+
+//Delete Status column
+const deleteStatus = async (parent, args, context) => {
+  const { id } = args;
+  const deletedStatus = await context.prisma.deleteStatus({ id });
+  return deletedStatus;
 };
 
 // Create a new person, takes two strings and a role enum
 // NOTE: email field is @unique, for enum see type defs
 const createPerson = (parent, args, context) => {
-  const { name, email, role } = args;
-  const person = context.prisma.createPerson({ name, email, role });
+  const { name, email } = args;
+  const person = context.prisma.createPerson({ name, email });
 
   return person;
 };
@@ -47,10 +162,19 @@ const createPerson = (parent, args, context) => {
 // and takes email strings for attendedBy and Author
 // ID input will have to be a project ID
 const createNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id, notification } = args;
+  const {
+    topic,
+    content,
+    attendedBy,
+    rating,
+    id,
+    notification,
+    privateNote,
+  } = args;
   const note = {
     topic,
     content,
+    privateNote,
     author: { connect: { email: context.user.email } },
     attendedBy: {
       connect: attendedBy.map(email => {
@@ -74,11 +198,11 @@ const createNote = async (parent, args, context) => {
     const recipients =
       process.env.ENVIRONMENT_NAME === 'production'
         ? Array.from(noteProjectManagers, ({ email }) => email)
-        : 'missioncontrolpm@gmail.com';
+        : '';
 
     const emailAlert = {
       to: recipients,
-      from: 'missioncontrol@lambdaschool.com',
+      from: '',
       subject: `${noteAuthor.name} has posted a note in ${noteProject.name}`,
       text: 'Mission Control',
       html: `<p>${content}<p>`,
@@ -97,7 +221,7 @@ const createNote = async (parent, args, context) => {
 // Takes in the same args are create note AND a specific note ID
 // uses note id to pull attendees to remove them and then pushes new data
 const updateNote = async (parent, args, context) => {
-  const { topic, content, attendedBy, rating, id } = args;
+  const { topic, content, attendedBy, rating, id, privateNote } = args;
 
   // pulls the attendee data on the note where: id
   const oldAttendees = await context.prisma.note({ id }).attendedBy();
@@ -112,6 +236,7 @@ const updateNote = async (parent, args, context) => {
       data: {
         topic,
         rating,
+        privateNote,
         content,
         attendedBy: {
           // cleares the attendedBy field so it can be refill with new inputs
@@ -149,30 +274,6 @@ const deleteNote = async (_, args, context) => {
   throw new Error('Only the author can delete this note.');
 };
 
-// Adds a Section Lead to a project, takes a string where email = person email
-// Takes a project ID where a project exists
-const addProjectSectionLead = (parent, args, context) => {
-  const { id, email } = args;
-  const addSectionLead = context.prisma.updateProject({
-    data: { sectionLead: { connect: { email } } },
-    where: { id },
-  });
-
-  return addSectionLead;
-};
-
-// Adds a Team Lead to a project, takes a string where email = person email
-// Takes a project ID where a project exists
-const addProjectTeamLead = (parent, args, context) => {
-  const { id, email } = args;
-  const addTeamLead = context.prisma.updateProject({
-    data: { teamLead: { connect: { email } } },
-    where: { id },
-  });
-
-  return addTeamLead;
-};
-
 // Adds a new member to a project, takes a string where email = person email
 // Takes a project ID where a project exists
 const addProjectMember = (parent, args, context) => {
@@ -186,14 +287,22 @@ const addProjectMember = (parent, args, context) => {
 };
 
 module.exports = {
+  createGithubRepo,
+  deleteGithubRepo,
   createProgram,
   createProduct,
   createProject,
+  createLabel,
+  createStatus,
   createPerson,
   createNote,
   deleteNote,
-  addProjectSectionLead,
-  addProjectTeamLead,
   addProjectMember,
   updateNote,
+  updateLabel,
+  deleteLabel,
+  updateStatus,
+  deleteStatus,
+  updateSelectedLabel,
+  disconnectSelectedLabel,
 };

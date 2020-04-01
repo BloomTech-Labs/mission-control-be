@@ -3,7 +3,6 @@
 // your resolvers but not seeing anything print to stdout, this is
 // the most likely culprit
 
-const Subscription = require('./Subscription');
 const Query = require('./Query');
 const Mutation = require('./Mutation');
 const Program = require('./Program');
@@ -12,9 +11,11 @@ const Project = require('./Project');
 const User = require('./User');
 const Person = require('./Person');
 const Note = require('./Note');
+const GHRepo = require('./GHRepos');
+const Label = require('./Label');
+const Status = require('./Status');
 
 const resolvers = {
-  Subscription,
   Query,
   Mutation,
   Program,
@@ -23,6 +24,9 @@ const resolvers = {
   User,
   Person,
   Note,
+  GHRepo,
+  Label,
+  Status,
 };
 
 module.exports = resolvers;

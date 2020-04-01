@@ -9,6 +9,8 @@ To get the server running locally:
 - Clone this repo
 - Ensure you have configured your environment variables as seen below
 - Export environment variables by running `source sourceme.sh`
+- Follow the instructions in `README.md` in the `/init` folder for your platform
+- Run `prisma generate` to add the schema to Apollo
 - Run `docker-compose up --build`
 - Run `primsa deploy` to fire up the Prisma data layer
 - To reset the DB, run `prisma reset`
@@ -46,73 +48,126 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 #### Prisma Data Model
 
 ```graphql
-type Program {
+
+type CodeClimateSnapshot {
   id: ID!
+  grade: String!
   name: String!
-  createdAt: String!
-  updatedAt: String!
+  link: String!
+  GHRepoId: String!
+}
+
+type Program {
+  id: ID! @id
+  name: String! @unique
+  Cctoken: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   products: [Product!]!
+  statuses: [Status!]
 }
 
 type Product {
-  id: ID!
+  id: ID! @id
   name: String!
   program: Program!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: String! @createdAt
+  updatedAt: String! @updatedAt
   projects: [Project!]!
+  productActive: Boolean Boolean @default(value: false)
+  GHRepos: [GHRepo]! @relation(name: "GHRepos")
+  grades: [CodeClimateSnapshot!] @relation(name: "CodeClimateSnapshot")
 }
 
 type Project {
-  id: ID!
+  id: ID! @id
   name: String!
   product: Product!
-  status: Boolean!
-  sectionLead: Person
-  teamLead: Person
-  projectManagers: [Person!]!
-  team: [Person!]!
-  notes: [Note]
-  createdAt: String!
-  updatedAt: String!
+  projectManagers: [Person!]! @relation(name: "ProjectManager")
+  team: [Person!]! @relation(name: "Team")
+  notes: [Note!]!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  projectStatus: [Status]
+  projectActive: Boolean @default(value: false)
 }
 
-type Person {
-  id: ID!
+type Pulse {
+  id: ID! @id
+  issueCount: Int!
+  closedIssues: Int!
+  openIssues: Int!
+  prCount: Int!
+  closedPRs: Int!
+  openPRs: Int!
+  mergedPRs: Int!
+}
+
+type GHRepo {
+  id: ID! @id
   name: String!
-  email: String!
-  role: Role!
-  manages: [Project!]!
-  notes: [Note]
-  team: Project
-  sl: [Project!]!
-  tl: Project
-}
-
-type User {
-  id: ID!
-  email: String!
-  claims: [String!]!
-  projects: [Project!]!
-}
-
-enum Role {
-  SL
-  TL
-  WEB
-  DS
-  UX
-  PM
+  owner: String!
+  ownerId: String!
+  repoId: String!
+  product: Product @relation(name: "GHRepos")
 }
 
 type Note {
-  id: ID!
+  id: ID! @id
   topic: String!
   content: String!
-  author: Person!
-  attendedBy: [Person!]!
-  createdAt: String!
-  updatedAt: String!
+  author: Person! @relation(name: "NoteAuthor")
+  attendedBy: [Person!]! @relation(name: "NoteAttendee")
+  project: Project!
+  rating: Int!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  privateNote: Boolean! @default(value: false)
+}
+type Person {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  role: Role!
+  authored: [Note!]! @relation(name: "NoteAuthor")
+  attended: [Note!]! @relation(name: "NoteAttendee")
+  manages: [Project!]! @relation(name: "ProjectManager")
+  team: Project @relation(name: "Team")
+  avatar: String
+}
+type Label {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String!
+  color: String!
+  status: Status! @relation(name: "StatusLabel")
+  selected: Boolean @default(value: false)
+}
+
+type Sparkline {
+  id: ID! @id
+  message: String!
+  additions: Int!
+  deletions: Int!
+  changedFiles: Int!
+  committedDate: String!
+}
+
+type Status {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String!
+  projects: [Project!]!
+  program: Program
+  labels: [Label!]! @relation(name: "StatusLabel")
+}
+type Role {
+  id: ID! @id
+  name: String!
+  privateNote: Boolean! @default(value: false)
+  viewProducts: Boolean! @default(value: false)
 }
 ```
 
@@ -131,21 +186,46 @@ const context = async ({ req }) => {
 };
 ```
 
+## Back-End Testing
+
+To run tests, cd into the apollo directory and run 'npm i' on your terminal to download the depedencies. Run 'npm test' to run tests.
+
+You need to reset your prisma first in order to run the tests. The commands are as follows:
+-prisma delete
+-prisma generate
+-prisma deploy
+
+To set up a testing environment,
+-Import the file-system(fs) reader
+-Import mockServer from graphql-tools
+-Set variable name equal to the contents fs reads from the generated prisma.graphql file. - Example: const schema = fs.readFileSync('./schema/generated/prisma.graphql', 'utf8');
+-Pass the above variable name into your mockServer as a parameter.
+-Example: const MyServer = mockServer(schema);
+-Run tests
+
 ## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
+IMPORTANT!: These variables must also be added to the docker-compose.yml file.
+
 create a .env file that includes the following:
 
+- APPLICATION_NAME
+- APOLLO_CONTAINER_IMAGE
+- ENVIRONMENT_NAME
 - OAUTH_TOKEN_ENDPOINT
 - OAUTH_CLIENT_ID
-- APPLICATION_NAME
-- ENVIRONMENT_NAME
 - TEST_OAUTH_CLIENT_ID
 - TEST_OAUTH_CLIENT_SECRET
 - PRISMA_MANAGEMENT_API_SECRET
-- PRISMA_ENDPOINT
 - PRISMA_SECRET
+- PRISMA_ENDPOINT
+- SENDGRID_API_KEY
+- CODE_CLIMATE_API
+- CODE_CLIMATE_TOKEN
+- GIT_HUB_API
+- GIT_HUB_TOKEN
 
 ## Contributing
 

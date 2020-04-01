@@ -1,9 +1,11 @@
 type Program {
   id: ID! @id
   name: String! @unique
+  Cctoken: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   products: [Product!]!
+  statuses: [Status!]
 }
 type Product {
   id: ID! @id
@@ -12,20 +14,31 @@ type Product {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   projects: [Project!]!
+  productActive: Boolean @default(value: false)
+  Ghrepos: [Ghrepo]! @relation(name: "GHRepos")
 }
 type Project {
   id: ID! @id
   name: String!
   product: Product!
-  status: Boolean @default(value: false)
-  sectionLead: Person @relation(link: INLINE, name: "SectionLead")
-  teamLead: Person @relation(link: INLINE, name: "TeamLead")
   projectManagers: [Person!]! @relation(name: "ProjectManager")
   team: [Person!]! @relation(name: "Team")
   notes: [Note!]!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  projectStatus: [Status]
+  projectActive: Boolean @default(value: false)
 }
+
+type Ghrepo {
+  id: ID! @id
+  repoId: String!
+  name: String!
+  owner: String!
+  ownerId: String!
+  product: Product! @relation(name: "GHRepos")
+}
+
 type Note {
   id: ID! @id
   topic: String!
@@ -36,14 +49,7 @@ type Note {
   rating: Int!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-}
-enum Role {
-  SL
-  TL
-  WEB
-  DS
-  UX
-  PM
+  privateNote: Boolean! @default(value: false)
 }
 type Person {
   id: ID! @id
@@ -54,7 +60,30 @@ type Person {
   attended: [Note!]! @relation(name: "NoteAttendee")
   manages: [Project!]! @relation(name: "ProjectManager")
   team: Project @relation(name: "Team")
-  sl: [Project!]! @relation(name: "SectionLead")
-  tl: Project @relation(name: "TeamLead")
   avatar: String
+}
+type Label {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String!
+  color: String!
+  status: Status! @relation(name: "StatusLabel")
+  selected: [Project]
+}
+type Status {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String!
+  projects: [Project!]!
+  program: Program
+  labels: [Label!]! @relation(name: "StatusLabel", onDelete: CASCADE)
+  display: Boolean! @default(value: true)
+}
+type Role {
+  id: ID! @id
+  name: String!
+  privateNote: Boolean! @default(value: false)
+  viewProducts: Boolean! @default(value: false)
 }

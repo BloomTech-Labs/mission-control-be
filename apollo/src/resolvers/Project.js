@@ -7,16 +7,6 @@ const product = (parent, args, context) => {
   return res;
 };
 
-const teamLead = (parent, args, context) => {
-  const res = context.prisma.project({ id: parent.id }).teamLead();
-
-  return res;
-};
-const sectionLead = (parent, args, context) => {
-  const res = context.prisma.project({ id: parent.id }).sectionLead();
-
-  return res;
-};
 const team = (parent, args, context) => {
   const res = context.prisma.project({ id: parent.id }).team();
 
@@ -31,17 +21,36 @@ const projectManagers = (parent, args, context) => {
 
 const notes = (parent, args, context) => {
   const { id } = parent;
-  const { orderBy } = args;
+  const { orderBy, privatePerm } = args;
+
   const res = context.prisma.project({ id }).notes({ orderBy });
+  const where = { privateNote: false }
+  const resPublic = context.prisma.project({ id }).notes({ where })
+
+
+  if(privatePerm) {
+    return res
+  } else {
+    return resPublic
+  }
+
+
+//  const res = context.prisma.project({ id }).notes({ orderBy });
+
+//  return res;
+};
+
+const projectStatus = (parent, args, context) => {
+  const { id } = parent;
+  const res = context.prisma.project({ id }).projectStatus();
 
   return res;
 };
 
 module.exports = {
   product,
-  teamLead,
-  sectionLead,
   team,
   projectManagers,
   notes,
+  projectStatus
 };
