@@ -1,7 +1,5 @@
 # Mission Control API Documentation
 
-#### Backend delpoyed at [Coming Soon!]() <br>
-
 ## Getting started
 
 To get the server running locally:
@@ -21,7 +19,7 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 - Run `prisma token`
 - Copy the token and attach it to the HTTP headers inside the playground:
 
-```
+```json
 {
 "authorization": "Bearer {token}"
 }
@@ -264,6 +262,6 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 These contribution guidelines have been adapted from [this template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
 
-## Documentation
+## Frontend Documentation
 
-See [Coming Soon: Front end edition]() for details on the frontend of our project.
+See [this repository](https://github.com/Lambda-School-Labs/mission-control-fe) for details on the frontend of our project.
