@@ -7,7 +7,6 @@ const typeDefs = gql`
     GithubRepos(search: String!, org: String): [GHRepo]!
     GHRepos: [GHRepo]!
     GHRepo(id: String!, name: String!): GHRepo!
-    info: String!
     statuses: [Status!]!
     status(id: ID!): Status!
     labels: [Label]
@@ -18,7 +17,6 @@ const typeDefs = gql`
     programs: [Program!]!
     projects: [Project!]!
     project(id: ID!): Project!
-    me: User!
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note!]!
     note(id: ID!): Note!
     roles: [Role!]!
@@ -31,7 +29,7 @@ const typeDefs = gql`
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
-    createLabel(name: String!, color: String!, id: ID!): Label!
+    # createLabel(name: String!, color: String!, id: ID!): Label!
     createStatus(
       name: String!
       projects: [String]
@@ -94,15 +92,15 @@ const typeDefs = gql`
     product: Product
   }
 
-  type Label {
-    id: ID!
-    createdAt: String!
-    updatedAt: String!
-    name: String!
-    color: String!
-    status: Status!
-    selected: [Project]
-  }
+  # type Label {
+  #   id: ID!
+  #   createdAt: String!
+  #   updatedAt: String!
+  #   name: String!
+  #   color: String!
+  #   status: Status!
+  #   selected: [Project]
+  # }
 
   type Note {
     id: ID!
