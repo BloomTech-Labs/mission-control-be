@@ -1,0 +1,48 @@
+extend type Query {
+  codeClimateSnapshot(slug: String!): CodeClimateSnapshot
+  githubRepo(id: String!, name: String!): GithubRepo!
+  githubRepos: [GithubRepo]!
+  githubReposForOrg(search: String!, org: String): [GithubRepo]!
+  githubPulse(owner: String!, name: String!): GithubPulse!
+
+  sparkyBoy(owner: String!, name: String!): [Sparkline!]!
+  sparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
+
+  me: User
+}
+
+type CodeClimateSnapshot {
+  id: ID!
+  grade: String!
+  name: String!
+  link: String!
+  GHRepoId: String!
+}
+
+type Sparkline {
+  id: ID!
+  message: String!
+  additions: Int!
+  deletions: Int!
+  changedFiles: Int!
+  committedDate: String!
+}
+
+type GithubPulse {
+  id: ID!
+  issueCount: Int!
+  closedIssues: Int!
+  openIssues: Int!
+  prCount: Int!
+  closedPRs: Int!
+  openPRs: Int!
+  mergedPRs: Int!
+}
+
+type User {
+  id: ID!
+  email: String!
+  claims: [String!]!
+  projects: [Project!]!
+  role: Role!
+}

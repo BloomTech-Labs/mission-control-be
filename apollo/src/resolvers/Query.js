@@ -1,7 +1,7 @@
+// @ts-check
+
 // Queries must be defined to return fields of the same type
 // See the Query field in the type definitions for examples
-
-const info = () => `Hello World`;
 
 const programs = (parent, args, context) => {
   const res = context.prisma.programs();
@@ -18,65 +18,72 @@ const projects = (parent, args, context) => {
   return res;
 };
 
-const project = (parent, args, context) => {
-  const { id } = args;
-  const res = context.prisma.project({ id });
+/**
+ * @param { import('../context').ApolloContext } context
+ * @returns { import('../generated/prisma-client').ProjectNullablePromise }
+ */
+const project = (_, args, context) => {
+  const { where } = args;
+  const res = context.prisma.project(where);
   return res;
 };
 
-const statuses = (parent, args, context) => {
-  const res = context.prisma.statuses();
-  return res;
-};
+// /**
+//  * @param Nil _parent
+//  * @param { import('../context').ApolloContext } context
+//  * @returns { import('../generated/prisma-client').FragmentableArray<import('../generated/prisma-client').Status> }
+//  */
+// const statuses = (_parent, _args, context) => {
+//   const res = context.prisma.statuses();
+//   return res;
+// };
 
-const status = (parent, args, context) => {
-  const { id } = args;
-  const res = context.prisma.status({ id });
-  return res;
-};
+// const status = (parent, args, context) => {
+//   const { where } = args;
+//   const res = context.prisma.status(where);
+//   return res;
+// };
 
-const labels = (parent, args, context) => {
-  const res = context.prisma.labels();
-  return res;
-};
+// const labels = (parent, args, context) => {
+//   const res = context.prisma.labels();
+//   return res;
+// };
 
-const label = (parent, args, context) => {
-  const { id } = args;
-  const res = context.prisma.label({ id });
-  return res;
-};
+// const label = (_, args, context) => {
+//   const { id } = args;
+//   const res = context.prisma.label({ id });
+//   return res;
+// };
 
-const persons = (parent, args, context) => {
+const persons = (_, args, context) => {
   const res = context.prisma.persons();
   return res;
 };
 
-const person = (parent, args, context) => {
-  const { email } = args;
-  const res = context.prisma.person({ email });
+const person = (_, args, context) => {
+  const { where } = args;
+  const res = context.prisma.person(where);
   return res;
 };
 
-const me = (parent, args, context) => context.user;
+// const note = (_, args, context) => {
+//   const { id } = args;
+//   const res = context.prisma.note({ id });
+//   return res;
+// };
 
-const note = (parent, args, context) => {
-  const { id } = args;
-  const res = context.prisma.note({ id });
-  return res;
-};
+// const notes = (_, args, context) => {
+//   const { orderBy, privatePerm } = args;
+//   const res = context.prisma.notes({ orderBy });
+//   const where = { privateNote: false };
+//   const resPublic = context.prisma.notes({ where });
+//   if (privatePerm) {
+//     return res;
+//   }
+//   return resPublic;
+// };
 
-const notes = (parent, args, context) => {
-  const { orderBy, privatePerm } = args;
-  const res = context.prisma.notes({ orderBy });
-  const where = { privateNote: false };
-  const resPublic = context.prisma.notes({ where });
-  if (privatePerm) {
-    return res;
-  }
-  return resPublic;
-};
-
-const CodeClimateSnapshot = async (parent, args, context) => {
+const codeClimateSnapshot = async (parent, args, context) => {
   const CodeClimateConnection = context.dataSources.codeClimateAPI;
   try {
     const { slug } = args;
@@ -99,7 +106,7 @@ const CodeClimateSnapshot = async (parent, args, context) => {
   }
 };
 
-const GithubRepos = async (parent, args, context) => {
+const githubReposForOrg = async (parent, args, context) => {
   const { search, org } = args;
   let name;
   if (!org) {
@@ -117,7 +124,7 @@ const GithubRepos = async (parent, args, context) => {
   }
 };
 
-const SparkyBoy = async (parent, args, context) => {
+const sparkyBoy = async (parent, args, context) => {
   const { owner, name } = args;
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
@@ -129,7 +136,7 @@ const SparkyBoy = async (parent, args, context) => {
   }
 };
 
-const SparkyDate = async (parent, args, context) => {
+const sparkyDate = async (parent, args, context) => {
   const { owner, name, until } = args;
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
@@ -141,48 +148,68 @@ const SparkyDate = async (parent, args, context) => {
   }
 };
 
-const GithubPulse = async (parent, args, context) => {
+/**
+ * @param { import('../context').ApolloContext } context
+ * @returns any
+ */
+const githubPulse = async (_, args, context) => {
+  context.logger.debug('Query.gitHubPulse: %O', args);
+
   const { owner, name } = args;
+
+  /** @type {import("../datasources/GitHubAPI")} */
   const GithubConnection = context.dataSources.gitHubAPI;
   try {
-    const res = await GithubConnection.getPulse(owner, name);
-    return res;
-  } catch (err) {
-    console.log(err);
-    throw new Error(err);
+    return await GithubConnection.getPulse(owner, name);
+  } catch (error) {
+    context.logger.error(
+      'Error executing GithubConnection.getPulse\n%O',
+      error,
+    );
+    throw new Error(error);
   }
 };
 
-const GHRepos = async (parent, args, context) => {
+const githubRepos = (parent, args, context) => {
   const res = context.prisma.ghrepoes();
   return res;
 };
-const GHRepo = async (parent, args, context) => {
+
+const githubRepo = (parent, args, context) => {
   const { id } = args;
   const res = context.prisma.ghrepo({ id });
   return res;
 };
 
+/**
+ * @param { import('../context').ApolloContext } context
+ * @returns { import('../context').User }
+ */
+const me = (parent, args, context) => {
+  console.log('%O', context.user);
+
+  return context.user;
+};
+
 module.exports = {
-  info,
   programs,
   products,
   projects,
   project,
-  statuses,
-  status,
-  labels,
-  label,
+  // statuses,
+  // status,
+  // labels,
+  // label,
   persons,
   person,
+  // note,
+  // notes,
+  codeClimateSnapshot,
+  githubRepo,
+  githubRepos,
+  githubReposForOrg,
+  sparkyBoy,
+  sparkyDate,
+  githubPulse,
   me,
-  note,
-  notes,
-  CodeClimateSnapshot,
-  GHRepo,
-  GHRepos,
-  GithubRepos,
-  SparkyBoy,
-  SparkyDate,
-  GithubPulse
 };
