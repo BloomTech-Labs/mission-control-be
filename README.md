@@ -1,6 +1,6 @@
 # Mission Control API Documentation
 
-#### Backend delpoyed at [Coming Soon!]() <br>
+## Backend deployed at [Coming Soon!]()
 
 ## Getting started
 
@@ -21,7 +21,7 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 - Run `prisma token`
 - Copy the token and attach it to the HTTP headers inside the playground:
 
-```
+```json
 {
 "authorization": "Bearer {token}"
 }
@@ -39,7 +39,7 @@ The Apollo instance is listining on port 8000, and an authenticated prisma playg
 
 - Prisma is a data layer that sits between Apollo Server and the Database
 
-- The Prisma client squats in the context layer of all resolvers run against the DB and exposes an extensive list of CRUD operations that are generated from the type definitions inside of the datam model.
+- The Prisma client squats in the context layer of all resolvers run against the DB and exposes an extensive list of CRUD operations that are generated from the type definitions inside of the data model.
 
 - Prisma bridges the gap between your database and GraphQL resolvers. It replaces traditional ORMs and makes it easy to implement resilient, production-ready GraphQL servers.
 
@@ -226,6 +226,120 @@ create a .env file that includes the following:
 - CODE_CLIMATE_TOKEN
 - GIT_HUB_API
 - GIT_HUB_TOKEN
+
+## Adding New Apollo Environment Variables
+
+Your code running in Apollo may need additional environment variables in order to run. For example, if you resolver reaches out to
+an external API, it'll likely need to know the API endpoint and client credentials, which should _never_ be hardcoded.
+
+The Apollo service gets environment variable from the AWS Elastic Container Service (ECS) when it starts. These environment
+variables are part of the Task Definition that ECS uses to configure and run the container. In order to add new environment
+variables to the Task Definition for Apollo, you need to add them to the AWS Cloudformation template that creates the Task
+Definition.
+
+The template `aws/env-apollo.cf.yaml' contains the Task Definition to which we will add an environment variable called GITHUB_API.
+
+1. Add the environment variable to the Task Definition in the Cloudformation Template:
+
+   ```yaml
+      TaskDefinition:
+      Type: 'AWS::ECS::TaskDefinition'
+      Properties:
+        NetworkMode: awsvpc
+        ...
+        ContainerDefinitions:
+          - Name: apollo
+            ...
+            Environment:
+              ...
+              - Name: GITHUB_API
+                Value: !Ref GithubApi
+    ```
+
+1. The `!Ref GithubApi` is Cloudformation syntax for saying the the value of this environment variable is a reference to a parameter to the template.
+   This allows us to pass the parameter to the template later, so we don't have to hardcode the value _inside_ the template, which is bad.
+
+1. The next step is going to be to define the parameter that the `!Ref GithubAPI` is referring to, this is done at the top of the template:
+
+  ```yaml
+  Parameters:
+    ...
+    GithubApi:
+      Type: String
+      Description: The API for GitHub integration
+  ```
+
+1. Now, when we deploy the template, the value of the GITHUB_API environment variable in the Task Definition can be provided as a parameter.
+
+1. Next, we need to set the value for this template parameter, which can vary per environment. Template parameters that can vary by environment
+   are stored in a file called `aws.<application-name>.<environment-name>` (e.g. aws.mission-control.stage)
+
+    ```bash
+    EnvironmentName=stage
+
+    ApolloDockerImage=lambdaschoollabs/missioncontrol:latest
+    ApolloServicePort=8000
+
+    OAuthTokenEndpoint=https://XXXXXXXXXXXXX/oauth2/default
+    OAuthClientID=XXXXXXXXXXXX
+
+    PrismaServicePort=8000
+
+    GithubApi=https://api.github.com/v2
+    ```
+
+1. Finally, we need to deploy the update Cloudformation template to AWS, which will update the Task Definition with our new environment variable.
+
+    ```bash
+    $ make aws-deploy-env-apollo
+    ...
+    ```
+
+1. You can view the progress in the AWS Console by watching the events in the Cloudformation service console.
+
+## Apollo Environment Variable Secrets
+
+You can and should keep your non-secret CloudFormation template parameter files in version control. However, if these variable contain secrets the
+values should _absolutely not_ be kept in version control.
+
+If you have a secret that you need to pass to your Apollo container, you'll need to first store the secret in secrets manager.
+
+1. Navigate to AWS Secrets Manager in the console.
+
+1. Store your secret as an 'Other type of secrets' which will allow you to save a name/value pair
+
+1. Press Next
+
+1. Give your secret a name, which should include the application and environment name: (e.g. github-api-key-mission-control-production)
+
+1. Add a new environment variable to the Task Definition using the slightly funky Cloudformation syntax to reference it in Secrets Manager
+
+    ```yaml
+      TaskDefinition:
+      Type: 'AWS::ECS::TaskDefinition'
+      Properties:
+        NetworkMode: awsvpc
+        ...
+        ContainerDefinitions:
+          - Name: apollo
+            ...
+            Environment:
+              ...
+              - Name: GITHUB_API
+                Value: !Ref GithubApi
+              - Name: GITHUB_API_KEY
+                Value:
+                  Fn::Sub:
+                    - '{{resolve:secretsmanager:${GithubApiKey}:SecretString}}'
+                    - GithubApiKey: !Sub github-api-key-${ApplicationName}-${EnvironmentName}
+    ```
+
+1. Finally, we need to deploy the update Cloudformation template to AWS, which will update the Task Definition with our new environment variable.
+
+    ```bash
+    $ make aws-deploy-env-apollo
+    ...
+    ```
 
 ## Contributing
 
