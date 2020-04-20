@@ -1,7 +1,5 @@
 # Mission Control API Documentation
 
-## Backend deployed at [Coming Soon!]()
-
 ## Getting started
 
 To get the server running locally:
@@ -378,6 +376,6 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 These contribution guidelines have been adapted from [this template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
 
-## Documentation
+## Frontend Documentation
 
-See [Coming Soon: Front end edition]() for details on the frontend of our project.
+See [this repository](https://github.com/Lambda-School-Labs/mission-control-fe) for details on the frontend of our project.

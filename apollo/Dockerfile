@@ -4,8 +4,8 @@
 FROM node:12-alpine AS deps
 WORKDIR /app
 
-COPY package.json npm-shrinkwrap.json ./
-RUN npm install --production --silent
+COPY package.json yarn.lock ./
+RUN yarn install --production --silent
 
 
 # ============================================================================================================
@@ -15,7 +15,8 @@ FROM node:12-alpine
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules/
-COPY ./src/ ./
+COPY ./src/ ./src
+COPY ./schema/ ./schema
 
-CMD [ "node", "index.js" ]
+CMD [ "node", "src/index.js" ]
 EXPOSE 8000

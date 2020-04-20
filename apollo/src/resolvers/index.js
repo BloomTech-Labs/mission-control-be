@@ -1,3 +1,5 @@
+// @ts-check
+
 // All resolvers must be imported here and declared in the resolvers
 // object in order to be received by the client. If you are logging
 // your resolvers but not seeing anything print to stdout, this is
@@ -8,12 +10,14 @@ const Mutation = require('./Mutation');
 const Program = require('./Program');
 const Product = require('./Product');
 const Project = require('./Project');
+const ProjectRoleAssignment = require('./ProjectRoleAssignment');
+const ProjectStatusElement = require('./ProjectStatusElement');
 const User = require('./User');
 const Person = require('./Person');
 const Note = require('./Note');
-const GHRepo = require('./GHRepos');
-const Label = require('./Label');
-const Status = require('./Status');
+const GithubRepo = require('./GithubRepo');
+// const Label = require('./Label');
+const StatusCategory = require('./StatusCategory');
 
 const resolvers = {
   Query,
@@ -21,12 +25,14 @@ const resolvers = {
   Program,
   Product,
   Project,
+  ProjectRoleAssignment,
+  ProjectStatusElement,
   User,
   Person,
   Note,
-  GHRepo,
-  Label,
-  Status,
+  GithubRepo,
+  // Label,
+  StatusCategory,
 };
 
 module.exports = resolvers;

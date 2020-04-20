@@ -1,5 +1,3 @@
-sourceme.sh
-
 # Logs
 **/logs
 **/*.log
@@ -82,8 +80,6 @@ typings/
 .cache/
 public
 
-
-
 # FuseBox cache
 .fusebox/
 
@@ -98,15 +94,6 @@ serverless.yml
 out/
 dist/
 
-apollo/src/generated/
-apollo/src/schema/generated/
-
-# lockfiles
-yarn.lock
-package-lock.json
-apollo/schema/generated/prisma.graphql
-apollo/src/generated/prisma-client/index.d.ts
-apollo/src/generated/prisma-client/prisma-schema.js
 **/.vscode
 **/out
 **/build

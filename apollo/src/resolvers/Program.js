@@ -1,19 +1,13 @@
-// Resolves all relational fields on type Program
-// where the name of the function is an exact match to the field
+// @ts-check
 
-const products = (parent, args, context) => {
-  const res = context.prisma.program({ id: parent.id }).products();
-
-  return res;
-};
-
-const statuses = (parent, args, context) => {
-  const res = context.prisma.program({ id: parent.id }).statuses();
-
-  return res;
+/**
+ * @param { import('../context').ApolloContext } context
+ * @returns { import('../generated/prisma-client').FragmentableArray<import('../generated/prisma-client').Product> }
+ */
+const products = (parent, _, context) => {
+  return context.prisma.program({ id: parent.id }).products();
 };
 
 module.exports = {
   products,
-  statuses,
 };

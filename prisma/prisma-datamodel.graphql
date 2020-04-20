@@ -1,89 +1,209 @@
+#
+# Important Notes
+#   - For list fields, the [Field!]! notation is required: https://bit.ly/3aLOuBK
+#
+
 type Program {
   id: ID! @id
   name: String! @unique
-  Cctoken: String
+
+  codeClimateToken: String
+
+  # Zero or more products associated with this particular program
+  products: [Product!]! @relation(name: "ProductsByProgram")
+
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  products: [Product!]!
-  statuses: [Status!]
 }
+
 type Product {
   id: ID! @id
   name: String!
-  program: Program!
+
+  program: Program! @relation(name: "ProductsByProgram")
+
+  # Is the product currently active?
+  active: Boolean @default(value: false)
+
+  projects: [Project!]! @relation(name: "ProjectsByProduct")
+
+  githubRepos: [GithubRepo!]! @relation(name: "GitHubReposByProduct")
+
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  projects: [Project!]!
-  productActive: Boolean @default(value: false)
-  Ghrepos: [Ghrepo]! @relation(name: "GHRepos")
 }
+
+# A Project is a group of people doing work related to a specific product for a period of time
 type Project {
   id: ID! @id
   name: String!
-  product: Product!
-  projectManagers: [Person!]! @relation(name: "ProjectManager")
-  team: [Person!]! @relation(name: "Team")
-  notes: [Note!]!
+
+  # The product associated with this project
+  product: Product! @relation(name: "ProjectsByProduct")
+
+  # The project status is composed of zero or more ProjectStatus records
+  status: [ProjectStatusElement!]! @relation(name: "ProjectStatusesByProject")
+
+  # Is the project currently active?
+  active: Boolean @default(value: false)
+
+  # People are assigned roles on a project, this links people to a project _through_ a role
+  assignments: [ProjectRoleAssignment!]! @relation(name: "ProjectRoleAssignmentsByProject")
+
+  # Captures project specific notes
+  notes: [Note!]! @relation(name: "NotesByProject")
+
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  projectStatus: [Status]
-  projectActive: Boolean @default(value: false)
 }
 
-type Ghrepo {
+# A ProjectStatusElement record maintains the current value of a status element to a status category for the project
+# Remember, overall project status is composed of zero or more ProjectStatusElements. These objects represent the
+#   state of one element of the overall project status.
+type ProjectStatusElement {
   id: ID! @id
-  repoId: String!
+
+  # The project this status element is part of
+  project: Project! @relation(name: "ProjectStatusesByProject")
+
+  # The category of this status element
+  category: StatusCategory!
+
+  # The current value of this status element; may be null
+  value: StatusValueOption
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type StatusCategory {
+  id: ID! @id
   name: String!
+
+  # The set of possible values for this status category
+  valueOptions: [StatusValueOption!]!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+# A possible value for a status category
+type StatusValueOption {
+  id: ID! @id
+
+  # A label for the value
+  label: String!
+
+  # A color for the value
+  color: String!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type GithubRepo {
+  id: ID! @id
+
   owner: String!
-  ownerId: String!
-  product: Product! @relation(name: "GHRepos")
+  name: String!
+
+  repoId: String!
+
+  # A URL that leads to the details of the repo
+  url: String!
+  # ownerId: String!
+
+  product: Product! @relation(name: "GitHubReposByProduct")
+
+  grade: GithubRepoGrade @relation(name: "GitHubRepoGradesByGitHubRepo", link: "INLINE")
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type GithubRepoGrade {
+  id: ID! @id
+
+  githubRepo: GithubRepo! @relation(name: "GitHubRepoGradesByGitHubRepo")
+
+  # The current value of the grade
+  value: LetterGrade
+
+  # A URL that leads to the details of the grade
+  url: String!
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+enum LetterGrade {
+  A
+  B
+  C
+  D
+  F
 }
 
 type Note {
   id: ID! @id
   topic: String!
   content: String!
-  author: Person! @relation(name: "NoteAuthor")
-  attendedBy: [Person!]! @relation(name: "NoteAttendee")
-  project: Project!
+
+  private: Boolean! @default(value: false)
+
+  author: Person! @relation(name: "NotesByAuthor")
+  # attendedBy: [Person] @relation(name: "MeetingAttendee")
+
+  project: Project! @relation(name: "NotesByProject")
+
   rating: Int!
+
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  privateNote: Boolean! @default(value: false)
 }
+
 type Person {
   id: ID! @id
   name: String!
   email: String! @unique
-  role: Role!
-  authored: [Note!]! @relation(name: "NoteAuthor")
-  attended: [Note!]! @relation(name: "NoteAttendee")
-  manages: [Project!]! @relation(name: "ProjectManager")
-  team: Project @relation(name: "Team")
   avatar: String
-}
-type Label {
-  id: ID! @id
+
+  # role: Role!
+
+  # All of the notes authored by this person
+  notes: [Note!]! @relation(name: "NotesByAuthor")
+
+  # All of the meetings attended by this person
+  attended: [Note!]! @relation(name: "NoteAttendee")
+
+  # All of the project roles assigned to this person
+  projectRoleAssignments: [ProjectRoleAssignment!]! @relation(name: "ProjectRoleAssignmentsByPerson")
+
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  name: String!
-  color: String!
-  status: Status! @relation(name: "StatusLabel")
-  selected: [Project]
 }
-type Status {
+
+# Maps a person to a project by giving them a specific role on the project
+type ProjectRoleAssignment {
   id: ID! @id
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  name: String!
-  projects: [Project!]!
-  program: Program
-  labels: [Label!]! @relation(name: "StatusLabel", onDelete: CASCADE)
-  display: Boolean! @default(value: true)
+
+  # The person
+  person: Person! @relation(name: "ProjectRoleAssignmentsByPerson")
+
+  # The project
+  project: Project! @relation(name: "ProjectRoleAssignmentsByProject")
+
+  # The person's role on the project
+  role: Role!
 }
+
 type Role {
   id: ID! @id
   name: String!
+
   privateNote: Boolean! @default(value: false)
   viewProducts: Boolean! @default(value: false)
+
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
