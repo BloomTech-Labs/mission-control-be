@@ -38,11 +38,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Create a new program, takes a string
 const createProgram = (parent, args, context) => {
-  const program = context.prisma.createProgram({
+  return context.prisma.createProgram({
     name: args.name,
   });
-
-  return program;
 };
 
 // Create a new product, takes a string and a program ID

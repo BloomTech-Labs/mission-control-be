@@ -124,6 +124,7 @@ const context = async ({ req }) => {
 
   // Decode the JWT so we can get the header
   logger.debug('Decoding token: %s', token);
+
   let tokenHeader;
   try {
     tokenHeader = jwt.decode(token, { complete: true }).header;

@@ -4,8 +4,7 @@
 // See the Query field in the type definitions for examples
 
 const programs = (parent, args, context) => {
-  const res = context.prisma.programs();
-  return res;
+  return context.prisma.programs();
 };
 
 const products = (parent, args, context) => {
