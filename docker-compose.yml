@@ -1,13 +1,15 @@
 version: '3'
+
 services:
   # The Apollo service
   apollo:
     build:
       context: ./apollo
       dockerfile: Dockerfile
-    command: sh -c "npm install -g nodemon && nodemon src/index.js"
+    command: sh -c "yarn global add nodemon && nodemon -v && nodemon -L --watch src --watch schema -e js,graphql src/index.js"
     volumes:
       - ./apollo/src:/app/src
+      - ./apollo/schema:/app/schema
     ports:
       - '${APOLLO_LISTEN_PORT:-8000}:${APOLLO_LISTEN_PORT:-8000}'
     environment:
@@ -22,13 +24,18 @@ services:
       OAUTH_TOKEN_ENDPOINT: ${OAUTH_TOKEN_ENDPOINT:?You must specify OAUTH_TOKEN_ENDPOINT}
       OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:?You must specify OAUTH_CLIENT_ID}
 
+      JWKS_URI: ${JWKS_URI:?You must specify JWKS_URI}
+      JWT_ISSUER: ${JWT_ISSUER:?You must specify JWT_ISSUER}
+
       SENDGRID_API_KEY: ${SENDGRID_API_KEY:?You must specify SENDGRID_API_KEY}
 
       CODE_CLIMATE_API: ${CODE_CLIMATE_API:?You must specify CODE_CLIMATE_API}
       CODE_CLIMATE_TOKEN: ${CODE_CLIMATE_TOKEN:?You must specify CODE_CLIMATE_TOKEN}
-      
+
       GIT_HUB_API: ${GIT_HUB_API:?You must specify GIT_HUB_API}
       GIT_HUB_TOKEN: ${GIT_HUB_TOKEN:?You must specify GIT_HUB_TOKEN}
+
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
 
   # The Prisma service
   prisma:

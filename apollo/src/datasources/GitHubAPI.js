@@ -1,12 +1,35 @@
 const { GraphQLDataSource } = require('apollo-datasource-graphql');
-const { repoByOrgReducer, sparklineReducer, issueReducer, prReducer } = require('./reducers/GitHubReducer');
-const { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE, PULSE } = require('./queries/GitHubQueries');
+const {
+  repoByOrgReducer,
+  sparklineReducer,
+  issueReducer,
+  prReducer,
+} = require('./reducers/GitHubReducer');
+const {
+  REPOS_BY_ORG,
+  SPARKLINE,
+  SPARKLINE_BY_DATE,
+  PULSE,
+} = require('./queries/GitHubQueries');
 
 class GitHubAPI extends GraphQLDataSource {
-  baseURL = `${process.env.GIT_HUB_API}`;
-  token = `bearer ${process.env.GIT_HUB_TOKEN}`;
+  constructor() {
+    super();
 
-  willSendRequest(request) { //Different procedure to send/set headers in a GQLDataSource vs RESTDataSource
+    if (!('GIT_HUB_API' in process.env)) {
+      throw new Error('Required environment variable GIT_HUB_API not set!');
+    }
+
+    if (!('GIT_HUB_TOKEN' in process.env)) {
+      throw new Error('Required environment variable GIT_HUB_TOKEN not set!');
+    }
+
+    this.baseURL = `${process.env.GIT_HUB_API}`;
+    this.token = `bearer ${process.env.GIT_HUB_TOKEN}`;
+  }
+
+  willSendRequest(request) {
+    // Different procedure to send/set headers in a GQLDataSource vs RESTDataSource
     if (!request.headers) {
       request.headers = {};
     }
@@ -36,12 +59,11 @@ class GitHubAPI extends GraphQLDataSource {
           const newParam = `"${param}"`;
           // ↑ adds "quote" around each param
           // ↓ if it's the last item, adds the word 'and'
-          if (i === paramsArr.length - 1) return 'and ' + newParam;
+          if (i === paramsArr.length - 1) return `and ${newParam}`;
           return newParam;
         })
         .join(', ');
-      err.message +=
-        '. Are the ' + paramsStr + ' properties typed correctly in this query?';
+      err.message += `. Are the ${paramsStr} properties typed correctly in this query?`;
     }
     return err;
   }
@@ -101,13 +123,12 @@ class GitHubAPI extends GraphQLDataSource {
       const res = await this.query(SPARKLINE, {
         variables: {
           owner,
-          name
-        }
+          name,
+        },
       });
-      const lineofspark = res.data.repository.defaultBranchRef.target.history.nodes;
-      return lineofspark.map(spark => (
-        sparklineReducer(spark)
-      ));
+      const lineofspark =
+        res.data.repository.defaultBranchRef.target.history.nodes;
+      return lineofspark.map(spark => sparklineReducer(spark));
     } catch (err) {
       this.helpfulErrorReturn(err, ['owner', 'name']);
       throw err;
@@ -120,14 +141,13 @@ class GitHubAPI extends GraphQLDataSource {
         variables: {
           owner,
           name,
-          until
-        }
+          until,
+        },
       });
 
-      const lineofspark = res.data.repository.defaultBranchRef.target.history.nodes;
-      return lineofspark.map(spark => (
-        sparklineReducer(spark)
-      ));
+      const lineofspark =
+        res.data.repository.defaultBranchRef.target.history.nodes;
+      return lineofspark.map(spark => sparklineReducer(spark));
     } catch (err) {
       this.helpfulErrorReturn(err, ['owner', 'name', 'until']);
       throw err;
@@ -139,13 +159,13 @@ class GitHubAPI extends GraphQLDataSource {
       const res = await this.query(PULSE, {
         variables: {
           owner,
-          name
-        }
+          name,
+        },
       });
 
-      const issues = issueReducer(res.data.repository.issues)
-      
-      const PRs = prReducer(res.data.repository.pullRequests)
+      const issues = issueReducer(res.data.repository.issues);
+
+      const PRs = prReducer(res.data.repository.pullRequests);
 
       return {
         id: res.data.repository.id,
@@ -155,14 +175,13 @@ class GitHubAPI extends GraphQLDataSource {
         prCount: PRs.prCount,
         closedPRs: PRs.closedPRs,
         openPRs: PRs.openPRs,
-        mergedPRs: PRs.mergedPRs
-      }
+        mergedPRs: PRs.mergedPRs,
+      };
     } catch (err) {
       this.helpfulErrorReturn(err, ['owner', 'name']);
       throw err;
     }
   }
-
 }
 
 module.exports = GitHubAPI;
