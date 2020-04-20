@@ -4,7 +4,7 @@ Description: An RDS instance for a particular environment
 Parameters:
   ApplicationName:
     Type: String
-    Description: The name of the application 
+    Description: The name of the application
     AllowedPattern: ^[a-z0-9\-]*$
 
   EnvironmentName:
@@ -23,12 +23,12 @@ Resources:
         PasswordLength: 16
         ExcludeCharacters: '"@/\'
 
-  DBSubnetGroup: 
+  DBSubnetGroup:
     Type: "AWS::RDS::DBSubnetGroup"
     Properties:
       DBSubnetGroupName: !Sub ${ApplicationName}-${EnvironmentName}
       DBSubnetGroupDescription: "Subnet group for the API database"
-      SubnetIds: 
+      SubnetIds:
         - Fn::ImportValue:
             !Sub ${ApplicationName}-PrivateSubnet01
         - Fn::ImportValue:
@@ -62,7 +62,7 @@ Resources:
       DBSubnetGroupName: !Ref DBSubnetGroup
       MasterUsername: !Join ['', ['{{resolve:secretsmanager:', !Ref DBInstanceCredentials, ':SecretString:username}}' ]]
       MasterUserPassword: !Join ['', ['{{resolve:secretsmanager:', !Ref DBInstanceCredentials, ':SecretString:password}}' ]]
-      Tags: 
+      Tags:
         - Key: Name
           Value: !Sub ${ApplicationName}-${EnvironmentName}
 

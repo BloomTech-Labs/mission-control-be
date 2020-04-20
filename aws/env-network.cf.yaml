@@ -4,7 +4,7 @@ Description: Environment specific AWS resources
 Parameters:
   ApplicationName:
     Type: String
-    Description: The name of the application 
+    Description: The name of the application
     AllowedPattern: ^[a-z0-9\-]*$
 
   EnvironmentName:
@@ -15,7 +15,6 @@ Parameters:
   ApplicationDomainNamespace:
     Type: String
     Description: The DNS domain namespace for the application (e.g. mycoolapplication.com)
-    AllowedPattern: ^[a-z0-9\-]*\.[a-z0-9\-]*$
 
 Conditions:
   IsProductionEnvironment: !Equals [ !Ref EnvironmentName, production ]
@@ -53,7 +52,7 @@ Resources:
             !Sub ${ApplicationName}-PublicSubnet02
       SecurityGroups:
         - !Ref PublicLoadBalancerSG
-      Tags: 
+      Tags:
         - Key: Name
           Value: !Sub ${ApplicationName}-${EnvironmentName}-prisma
 
@@ -72,10 +71,10 @@ Resources:
             !Sub ${ApplicationName}-PublicSubnet02
       SecurityGroups:
         - !Ref PublicLoadBalancerSG
-      Tags: 
+      Tags:
         - Key: Name
           Value: !Sub ${ApplicationName}-${EnvironmentName}-apollo
-  
+
   PrismaTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -94,7 +93,7 @@ Resources:
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
           Value: '10'
-      Tags: 
+      Tags:
         - Key: Name
           Value: !Sub ${ApplicationName}-${EnvironmentName}-prisma
 
@@ -116,7 +115,7 @@ Resources:
       TargetGroupAttributes:
         - Key: deregistration_delay.timeout_seconds
           Value: '10'
-      Tags: 
+      Tags:
         - Key: Name
           Value: !Sub ${ApplicationName}-${EnvironmentName}-apollo
 
@@ -193,7 +192,7 @@ Resources:
       AliasTarget:
         DNSName: !GetAtt ApolloLoadBalancer.DNSName
         HostedZoneId: !GetAtt ApolloLoadBalancer.CanonicalHostedZoneID
-  
+
   ARecordPrismaPublicAPI:
     Type: AWS::Route53::RecordSet
     Properties:
@@ -210,7 +209,7 @@ Resources:
 
   ECSCluster:
     Type: "AWS::ECS::Cluster"
-    Properties:      
+    Properties:
       ClusterName: !Sub ${ApplicationName}-${EnvironmentName}
 
 Outputs:

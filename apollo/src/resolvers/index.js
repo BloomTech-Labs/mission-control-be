@@ -16,7 +16,6 @@ const User = require('./User');
 const Person = require('./Person');
 const Note = require('./Note');
 const GithubRepo = require('./GithubRepo');
-// const Label = require('./Label');
 const StatusCategory = require('./StatusCategory');
 
 const resolvers = {
@@ -31,7 +30,6 @@ const resolvers = {
   Person,
   Note,
   GithubRepo,
-  // Label,
   StatusCategory,
 };
 
