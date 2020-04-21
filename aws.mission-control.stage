@@ -1,11 +1,8 @@
 EnvironmentName=stage
 
-ApolloDockerImage=lambdaschoollabs/missioncontrol:latest
-ApolloServicePort=8000
+ApolloDockerImage=lambdaschoollabs/missioncontrol-apollo:stage
 
-OAuthTokenEndpoint=https://dev-173777.okta.com/oauth2/default
-OAuthClientID=0oa23ze1sdfwtoKNQ357
+JwksUri=https://okta.missionctrl.dev/oauth2/default/v1/keys
+JwtIssuer=https://okta.missionctrl.dev/oauth2/default
 
-PrismaServicePort=8000
-
-PRISMA_ENDPOINT=https://prisma.stage.missionctrl.dev
+LogLevel=debug

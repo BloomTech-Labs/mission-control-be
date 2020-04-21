@@ -44,7 +44,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
       Policies:
-        - PolicyName: AmazonECSTaskExecutionRolePolicy
+        - PolicyName: PrismatopiaExtendedPolicy
           PolicyDocument:
             Statement:
             - Effect: Allow

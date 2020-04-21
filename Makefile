@@ -1,13 +1,14 @@
 SHELL := bash
 .SHELLFLAGS := -eu -o pipefail -c
 
-include .env
-export
+ifneq ("$(wildcard .env)","")
+	include .env
+	export
+endif
 
 # =================================================================
 # = Utility targets ===============================================
 # =================================================================
-
 NO_COLOR		:= \x1b[0m
 OK_COLOR		:= \x1b[32;01m
 ERROR_COLOR	:= \x1b[31;01m
@@ -35,80 +36,131 @@ clean:
 	 printf "$(NO_COLOR)"
 	 rm -rf apollo/dist apollo/node_modules apollo/src/generated apollo/schema/generated prisma/node_modules
 
-init: clean
+init: clean apollo-build
 	@printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
-	 printf "%s\n"   "= Initializing Prismatopia"																																&& \
+	 printf "%s\n"   "= Done initializing Prisma"																																&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"
-	 cd apollo && yarn install
 
-docker-clean: clean
+docker-stop-all:
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Stopping all Docker containers"																													&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"
+	-docker stop $(docker ps -q)
+
+docker-clean: docker-stop-all
 	@printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Deep cleaning your Docker environment"																									&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"
-	-docker container stop $$(docker container ls -aq)
 	-docker container rm $$(docker container ls -aq)
 	-docker system prune -f
 
 local-up: apollo-build
-	@export $$(cat .env | xargs)																																								&& \
-	 printf "$(OK_COLOR)" 																																											&& \
+	@printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Bringing up Prismatopia"																																&& \
 	 printf "%s\n"   "======================================================================================"		&& \
-	 printf "$(NO_COLOR)" 																																											&& \
+	 printf "$(NO_COLOR)"
 	 docker-compose up --abort-on-container-exit
 
-coverage:
-	@printf "$(OK_COLOR)" 																																											&& \
+lint: apollo-lint
+	@printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
-	 printf "%s\n"   "= Generating test coverage"																																&& \
+	 printf "%s\n"   "= Linting Complete"																																				&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"
-	 yarn coverage --prefix apollo
+
+coverage: apollo-coverage
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Coverage Run Complete"																																	&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"
 
 # =================================================================
 # = Prisma targets ================================================
 # =================================================================
 
-prisma-generate: env-PRISMA_ENDPOINT env-PRISMA_SECRET
-	@echo															&& \
-	 echo Generating Prisma schema		&& \
+prisma-generate:
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Generating Prisma schema"																																&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"
 	 cd prisma && yarn install && yarn generate
 
-local-prisma-deploy: env-PRISMA_MANAGEMENT_API_SECRET
-	@echo															&& \
-	 echo Deploying Prisma schema			&& \
-	 cd prisma && yarn install 				&& \
-	 yarn reset && yarn deploy
+local-prisma-deploy: env-PRISMA_ENDPOINT env-PRISMA_SECRET env-PRISMA_MANAGEMENT_API_SECRET
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Deploying Prisma schema"																																&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"
+	 cd prisma && yarn install && yarn deploy
 
-local-prisma-reseed: local-prisma-deploy
-	@echo															&& \
-	 echo Deploying Prisma schema			&& \
-	 cd prisma && yarn install 				&& \
-	 yarn deploy && yarn seed
+local-prisma-deploy-force: env-PRISMA_ENDPOINT env-PRISMA_SECRET env-PRISMA_MANAGEMENT_API_SECRET
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Forcing deployment of Prisma schema"																										&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"
+	 cd prisma && yarn install && yarn deploy --force
 
-local-prisma-token:
-	@echo																&& \
-	 echo Generating Prisma token				&& \
-	 cd prisma && yarn install --silent && \
-	 yarn token
+local-prisma-reseed: env-PRISMA_ENDPOINT env-PRISMA_SECRET
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Reeseeding Prisma deployment"																														&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"
+	 cd prisma && yarn install && yarn reseed
 
+local-prisma-token: env-PRISMA_ENDPOINT env-PRISMA_SECRET
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Generating Prisma token"																																&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"
+	 cd prisma && yarn install && yarn token
 
 # =================================================================
 # = Apollo targets ================================================
 # =================================================================
 
-apollo-build: env-APOLLO_CONTAINER_IMAGE prisma-generate
+apollo-yarn-install: prisma-generate
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Checking Apollo Yarn packages																												"		&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"																																												&& \
+	 cd apollo && yarn install
+
+apollo-build: env-APOLLO_CONTAINER_IMAGE apollo-yarn-install prisma-generate apollo-lint
 	@printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Building Apollo container image: $${APOLLO_CONTAINER_IMAGE}"														&& \
 	 printf "%s\n"   "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 cd apollo && yarn install && docker build --cpuset-cpus="0" --memory 150M -t $${APOLLO_CONTAINER_IMAGE} .
+	 yarn install && cd apollo && yarn install && docker build -t $${APOLLO_CONTAINER_IMAGE} .
+
+apollo-lint: apollo-yarn-install
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Linting Apollo																																			"		&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"																																												&& \
+	 cd apollo && yarn lint
+
+apollo-coverage: apollo-yarn-install
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Creating test coverage report for Apollo																						"		&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"																																												&& \
+	 cd apollo && yarn coverage
 
 apollo-push: env-APOLLO_CONTAINER_IMAGE apollo-build
 	@printf "$(OK_COLOR)"																																												&& \
@@ -118,22 +170,21 @@ apollo-push: env-APOLLO_CONTAINER_IMAGE apollo-build
 	 printf "$(NO_COLOR)"																																												&& \
 	 cd apollo && docker push $${APOLLO_CONTAINER_IMAGE}
 
-apollo-token:
-	export $$(cat .env | xargs)																																								  && 			\
-	 printf "$(OK_COLOR)"																																												&& 			\
-	 printf "\n%s\n" "======================================================================================"		&& 			\
-	 printf "%s\n"   "= Grabbing token from: $${OAUTH_TOKEN_ENDPOINT}"																					&& 			\
-	 printf "%s\n"   "======================================================================================"		&& 			\
-	 printf "$(NO_COLOR)"																																												&& 			\
-	 curl -v 																																																 					  \
-		    --url $${OKTA_DOMAIN}/oauth2/default/v1/token																									 								\
-				--header 'accept: application/json'																																			 			\
-		    --header 'content-type: application/x-www-form-urlencoded' 																							 			\
-		    --data grant_type=password																																										\
-				--data scope=openid																																														\
-				--data-urlencode username=$${APOLLO_TEST_USERNAME}																														\
-				--data-urlencode password=$${APOLLO_TEST_PASSWORD}																														\
-				-u $${APOLLO_TEST_CLIENT_ID}:$${APOLLO_TEST_CLIENT_SECRET}
+apollo-token: env-APOLLO_TOKEN_ENDPOINT env-APOLLO_CLIENT_ID env-APOLLO_CLIENT_SECRET
+	@printf "$(OK_COLOR)"																																												&& \
+	 printf "\n%s\n" "======================================================================================"		&& \
+	 printf "%s\n"   "= Grabbing token from: $${APOLLO_TOKEN_ENDPOINT}"																					&& \
+	 printf "%s\n"   "======================================================================================"		&& \
+	 printf "$(NO_COLOR)"																																												&& \
+	 curl -s 																																																 			 \
+		    --url $${APOLLO_TOKEN_ENDPOINT}																																 					 \
+				--header 'accept: application/json'																																			 \
+		    --header 'content-type: application/x-www-form-urlencoded' 																							 \
+		    --data grant_type=password																																							 \
+				--data scope=openid																																											 \
+				--data-urlencode username=$${APOLLO_TEST_USERNAME}																											 \
+				--data-urlencode password=$${APOLLO_TEST_PASSWORD}																											 \
+				-u $${APOLLO_CLIENT_ID}:$${APOLLO_CLIENT_SECRET}
 
 
 # =================================================================
@@ -160,18 +211,18 @@ aws-app-banner: env-APPLICATION_NAME
 # =================================================================
 aws-deploy-app-iam: aws-app-banner
 	@export STACK_NAME=$(APPLICATION_NAME)-iam 																																	&& \
-	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) | tr '\n' ' ')"																		&& \
+	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) | grep -v "#" | tr '\n' ' ')"											&& \
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"																					&& \
 	 printf "%s"     "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 aws cloudformation deploy 																				\
-	  --no-fail-on-empty-changeset 																		\
-    --template-file aws/app-iam.cf.yaml 														\
-    --stack-name $${STACK_NAME} 																		\
-	  --capabilities CAPABILITY_IAM 																	\
-	  --parameter-overrides $${STACK_PARAMETERS} 											\
+	 aws cloudformation deploy 																						  		 												 					 \
+	  --no-fail-on-empty-changeset 																				  		 												 					 \
+    --template-file aws/app-iam.cf.yaml 																  		 												 					 \
+    --stack-name $${STACK_NAME} 																				  		 												 					 \
+	  --capabilities CAPABILITY_IAM 																			  		 												 					 \
+	  --parameter-overrides $${STACK_PARAMETERS} 													  		 												 					 \
 	  --tags poweredby=prismatopia application=$(APPLICATION_NAME)
 
 # =================================================================
@@ -179,7 +230,7 @@ aws-deploy-app-iam: aws-app-banner
 # =================================================================
 aws-deploy-app-network: aws-app-banner
 	@export STACK_NAME=$(APPLICATION_NAME)-network 	 																														&& \
-	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) | tr '\n' ' ')"																		&& \
+	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) | grep -v "#" | tr '\n' ' ')"											&& \
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"																					&& \
@@ -189,12 +240,12 @@ aws-deploy-app-network: aws-app-banner
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "%s"     "======================================================================================"		&& \
 	 printf "$(NO_COLOR)"																																												&& \
-	 aws cloudformation deploy 																																					\
-	  --no-fail-on-empty-changeset 																																			\
-    --template-file aws/app-network.cf.yaml 																													\
-    --stack-name $${STACK_NAME} 																																			\
-	  --capabilities CAPABILITY_IAM 																																		\
-	  --parameter-overrides $${STACK_PARAMETERS} 																												\
+	 aws cloudformation deploy 																																							  		 \
+	  --no-fail-on-empty-changeset 																																					  		 \
+    --template-file aws/app-network.cf.yaml 																															  		 \
+    --stack-name $${STACK_NAME} 																																					  		 \
+	  --capabilities CAPABILITY_IAM 																																				  		 \
+	  --parameter-overrides $${STACK_PARAMETERS} 																														  		 \
 	  --tags poweredby=prismatopia application=$(APPLICATION_NAME)
 
 # =================================================================
@@ -218,113 +269,113 @@ aws-env-banner: env-APPLICATION_NAME env-ENVIRONMENT_NAME
 # Provision DNS resources for the environment
 # ===========================================================================
 aws-deploy-env-dns: aws-env-banner
-	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-dns 																												&& \
-	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | tr '\n' ' ')"	&& \
-	 printf "$(OK_COLOR)"																																																	&& \
-	 printf "\n%s\n" "======================================================================================"							&& \
-	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"																										&& \
-	 printf "%s"     "======================================================================================"							&& \
-	 printf "$(NO_COLOR)"																																																	&& \
-	 aws cloudformation deploy 																																					\
-	  --no-fail-on-empty-changeset 																																			\
-    --template-file aws/env-dns.cf.yaml 																															\
-    --stack-name $${STACK_NAME} 																																			\
-	  --parameter-overrides $${STACK_PARAMETERS} 																												\
+	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-dns 																																			&& \
+	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | tr '\n' ' ')"	&& \
+	 printf "$(OK_COLOR)"																																																								&& \
+	 printf "\n%s\n" "======================================================================================"														&& \
+	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"																																	&& \
+	 printf "%s"     "======================================================================================"														&& \
+	 printf "$(NO_COLOR)"																																																								&& \
+	 aws cloudformation deploy 																																							  		 												 \
+	  --no-fail-on-empty-changeset 																																					  		 												 \
+    --template-file aws/env-dns.cf.yaml 																																	  		 												 \
+    --stack-name $${STACK_NAME} 																																					  		 												 \
+	  --parameter-overrides $${STACK_PARAMETERS} 																														  		 												 \
 	  --tags poweredby=prismatopia application=$(APPLICATION_NAME) environment=$(ENVIRONMENT_NAME)
 
 # ===========================================================================
 # Provision SSL certificate for the environmnet
 # ===========================================================================
 aws-deploy-env-certificate: aws-env-banner
-	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-certificate 	 																							&& \
-	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | tr '\n' ' ')"	&& \
-	 printf "$(OK_COLOR)"																																																	&& \
-	 printf "\n%s\n" "======================================================================================"							&& \
-	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"																										&& \
-	 printf "$(WARN_COLOR)"																																																&& \
-	 printf "%s\n"   "= Note: You need to verify the certificate deployed by this step in the AWS console"								&& \
-	 printf "%s\n"   "=       before you continue."																																				&& \
-	 printf "%s\n"   "=       TODO: https://github.com/binxio/cfn-certificate-provider"																		&& \
-	 printf "$(OK_COLOR)"																																																	&& \
-	 printf "%s"     "======================================================================================"							&& \
-	 printf "$(NO_COLOR)"																																																	&& \
-	 aws cloudformation deploy 																																					\
-	  --no-fail-on-empty-changeset 																																			\
-    --template-file aws/env-certificate.cf.yaml 																											\
-    --stack-name $${STACK_NAME} 																																			\
-	  --parameter-overrides $${STACK_PARAMETERS} 																												\
+	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-certificate 	 																														&& \
+	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | tr '\n' ' ')"	&& \
+	 printf "$(OK_COLOR)"																																																								&& \
+	 printf "\n%s\n" "======================================================================================"														&& \
+	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"																																	&& \
+	 printf "$(WARN_COLOR)"																																																							&& \
+	 printf "%s\n"   "= Note: You need to verify the certificate deployed by this step in the AWS console"															&& \
+	 printf "%s\n"   "=       before you continue."																																											&& \
+	 printf "%s\n"   "=       TODO: https://github.com/binxio/cfn-certificate-provider"																									&& \
+	 printf "$(OK_COLOR)"																																																								&& \
+	 printf "%s"     "======================================================================================"														&& \
+	 printf "$(NO_COLOR)"																																																								&& \
+	 aws cloudformation deploy 																																							  		 												 \
+	  --no-fail-on-empty-changeset 																																					  		 												 \
+    --template-file aws/env-certificate.cf.yaml 																													  		 												 \
+    --stack-name $${STACK_NAME} 																																					  		 												 \
+	  --parameter-overrides $${STACK_PARAMETERS} 																														  		 												 \
 	  --tags poweredby=prismatopia application=$(APPLICATION_NAME) environment=$(ENVIRONMENT_NAME)
 
 # ===========================================================================
 # Provision network resources for the environment
 # ===========================================================================
 aws-deploy-env-network: aws-env-banner
-	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-network 	 																									&& \
-	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | tr '\n' ' ')"	&& \
-	 printf "$(OK_COLOR)"																																																	&& \
-	 printf "\n%s\n" "======================================================================================"							&& \
-	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"																										&& \
-	 printf "%s"     "======================================================================================"							&& \
-	 printf "$(NO_COLOR)"																																																	&& \
-	 aws cloudformation deploy 																																					\
-	  --no-fail-on-empty-changeset 																																			\
-    --template-file aws/env-network.cf.yaml 																													\
-    --stack-name $${STACK_NAME} 																																			\
-	  --parameter-overrides $${STACK_PARAMETERS} 																												\
+	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-network 	 																																&& \
+	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | tr '\n' ' ')"	&& \
+	 printf "$(OK_COLOR)"																																																								&& \
+	 printf "\n%s\n" "======================================================================================"														&& \
+	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"																																	&& \
+	 printf "%s"     "======================================================================================"														&& \
+	 printf "$(NO_COLOR)"																																																								&& \
+	 aws cloudformation deploy 																																							  		 												 \
+	  --no-fail-on-empty-changeset 																																					  		 												 \
+    --template-file aws/env-network.cf.yaml 																															  		 												 \
+    --stack-name $${STACK_NAME} 																																					  		 												 \
+	  --parameter-overrides $${STACK_PARAMETERS} 																														  		 												 \
 	  --tags poweredby=prismatopia application=$(APPLICATION_NAME) environment=$(ENVIRONMENT_NAME)
 
 # ===========================================================================
 # Provision database resources for the environment
 # ===========================================================================
 aws-deploy-env-db: aws-env-banner
-	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-db 	 																											&& \
-	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | tr '\n' ' ')"	&& \
-	 printf "$(OK_COLOR)"																																																	&& \
-	 printf "\n%s\n" "======================================================================================"							&& \
-	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"		   																							&& \
-	 printf "%s"     "======================================================================================"							&& \
-	 printf "$(NO_COLOR)"																																																	&& \
-	 aws cloudformation deploy 																																					\
-	  --no-fail-on-empty-changeset 																																			\
-    --template-file aws/env-db.cf.yaml 																																\
-    --stack-name $${STACK_NAME} 																																			\
-	  --parameter-overrides $${STACK_PARAMETERS} 																												\
+	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-db 	 																																		&& \
+	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | tr '\n' ' ')"	&& \
+	 printf "$(OK_COLOR)"																																																								&& \
+	 printf "\n%s\n" "======================================================================================"														&& \
+	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"		   																														&& \
+	 printf "%s"     "======================================================================================"														&& \
+	 printf "$(NO_COLOR)"																																																								&& \
+	 aws cloudformation deploy 																																							  		 												 \
+	  --no-fail-on-empty-changeset 																																					  		 												 \
+    --template-file aws/env-db.cf.yaml 																																		  		 												 \
+    --stack-name $${STACK_NAME} 																																					  		 												 \
+	  --parameter-overrides $${STACK_PARAMETERS} 																														  		 												 \
 	  --tags poweredby=prismatopia application=$(APPLICATION_NAME) environment=$(ENVIRONMENT_NAME)
 
 # ===========================================================================
 # Provisions the Prisma service for the environment
 # ===========================================================================
 aws-deploy-env-prisma: aws-env-banner
-	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-prisma 	 																									&& \
-	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | tr '\n' ' ')"	&& \
-	 printf "$(OK_COLOR)"																																																	&& \
-	 printf "\n%s\n" "======================================================================================"							&& \
-	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"				   																					&& \
-	 printf "%s"     "======================================================================================"							&& \
-	 printf "$(NO_COLOR)"																																																	&& \
-	 aws cloudformation deploy 																																					\
-	  --no-fail-on-empty-changeset 																																			\
-	  --template-file aws/env-prisma.cf.yaml 																														\
-	  --stack-name $${STACK_NAME} 																																			\
-	  --parameter-overrides $${STACK_PARAMETERS} 																												\
+	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-prisma 	 																																&& \
+	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | tr '\n' ' ')"	&& \
+	 printf "$(OK_COLOR)"																																																								&& \
+	 printf "\n%s\n" "======================================================================================"														&& \
+	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"				   																												&& \
+	 printf "%s"     "======================================================================================"														&& \
+	 printf "$(NO_COLOR)"																																																								&& \
+	 aws cloudformation deploy 																																							  		 												 \
+	  --no-fail-on-empty-changeset 																																					  		 												 \
+	  --template-file aws/env-prisma.cf.yaml 																																  		 												 \
+	  --stack-name $${STACK_NAME} 																																					  		 												 \
+	  --parameter-overrides $${STACK_PARAMETERS} 																														  		 												 \
 	  --tags poweredby=prismatopia application=$(APPLICATION_NAME) environment=$(ENVIRONMENT_NAME)
 
 # ===========================================================================
 # Provisions the Apollo service for the environment
 # ===========================================================================
 aws-deploy-env-apollo: aws-env-banner apollo-push
-	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-apollo 			 																							&& \
-	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | tr '\n' ' ')"	&& \
-	 printf "$(OK_COLOR)"																																																	&& \
-	 printf "\n%s\n" "======================================================================================"							&& \
-	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"				   																					&& \
-	 printf "%s"     "======================================================================================"							&& \
-	 printf "$(NO_COLOR)"																																																	&& \
-	 aws cloudformation deploy 																																					\
-	  --no-fail-on-empty-changeset 																																			\
-    --template-file aws/env-apollo.cf.yaml 																														\
-    --stack-name $${STACK_NAME} 																																			\
-	  --parameter-overrides $${STACK_PARAMETERS} 																												\
+	@export STACK_NAME=$(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-apollo 			 																														&& \
+	 export STACK_PARAMETERS="$$(cat aws.$(APPLICATION_NAME) aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | tr '\n' ' ')"	&& \
+	 printf "$(OK_COLOR)"																																																								&& \
+	 printf "\n%s\n" "======================================================================================"														&& \
+	 printf "%s\n"   "= Deploying CloudFormation stack $${STACK_NAME}"				   																												&& \
+	 printf "%s"     "======================================================================================"														&& \
+	 printf "$(NO_COLOR)"																																																								&& \
+	 aws cloudformation deploy 																																							  		 												 \
+	  --no-fail-on-empty-changeset 																																					  		 												 \
+    --template-file aws/env-apollo.cf.yaml 																																  		 												 \
+    --stack-name $${STACK_NAME} 																																					  		 												 \
+	  --parameter-overrides $${STACK_PARAMETERS} 																														  		 												 \
 	  --tags poweredby=prismatopia application=$(APPLICATION_NAME) environment=$(ENVIRONMENT_NAME)
 
 # ===========================================================================
@@ -339,7 +390,7 @@ aws-deploy-app: aws-deploy-app-iam aws-deploy-app-network
 # ===========================================================================
 # Deploys all of the environment level AWS resources in the proper order
 # ===========================================================================
-aws-deploy-env: aws-deploy-env-dns aws-deploy-env-certificate aws-deploy-env-network aws-deploy-env-db aws-deploy-env-prisma aws-deploy-env-apollo
+aws-deploy-env: aws-deploy-env-dns aws-deploy-env-certificate aws-deploy-env-network aws-deploy-env-db aws-deploy-env-prisma aws-prisma-deploy apollo-push aws-deploy-env-apollo aws-apollo-update-service
 	@echo
 	@echo ======================================================================================
 	@echo Finished deploying all environment level AWS resources
@@ -348,7 +399,7 @@ aws-deploy-env: aws-deploy-env-dns aws-deploy-env-certificate aws-deploy-env-net
 # ===========================================================================
 # Retrieves the Prisma secret for the AWS deployed Prisma management API
 # ===========================================================================
-AWS_PRISMA_MANAGEMENT_API_SECRET_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-PrismaManagementAPISecret
+AWS_PRISMA_MANAGEMENT_API_SECRET_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-PrismaManagementAPISecretArn
 AWS_PRISMA_MANAGEMENT_API_SECRET_ARN := $$(aws cloudformation list-exports --query "Exports[?Name=='$(AWS_PRISMA_MANAGEMENT_API_SECRET_ARN_EXPORT)'].Value" --output text)
 AWS_PRISMA_MANAGEMENT_API_SECRET := $$(aws secretsmanager get-secret-value --secret-id $(AWS_PRISMA_MANAGEMENT_API_SECRET_ARN) --query 'SecretString' --output text)
 
@@ -358,7 +409,7 @@ aws-prisma-management-secret: aws-env-banner
 # ===========================================================================
 # Retrieves the Prisma secret for the AWS deployed service
 # ===========================================================================
-AWS_PRISMA_SERVICE_API_SECRET_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-PrismaServiceAPISecret
+AWS_PRISMA_SERVICE_API_SECRET_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-PrismaServiceAPISecretArn
 AWS_PRISMA_SERVICE_API_SECRET_ARN := $$(aws cloudformation list-exports --query "Exports[?Name=='$(AWS_PRISMA_SERVICE_API_SECRET_ARN_EXPORT)'].Value" --output text)
 AWS_PRISMA_SERVICE_API_SECRET := $$(aws secretsmanager get-secret-value --secret-id $(AWS_PRISMA_SERVICE_API_SECRET_ARN) --query 'SecretString' --output text)
 
@@ -371,11 +422,15 @@ aws-prisma-service-secret: env-ENVIRONMENT_NAME aws-env-banner
 # Gets a token for connecting to the AWS Prisma API
 # ===========================================================================
 aws-prisma-token: aws-env-banner
-	@export $$(cat aws.$(APPLICATION_NAME) | xargs)																															&& \
-	 export $$(cat aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | xargs)																					&& \
+	@export $$(cat aws.$(APPLICATION_NAME) | grep -v "#" | xargs)																								&& \
+	 export $$(cat aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | xargs)														&& \
 	 export PRISMA_MANAGEMENT_API_SECRET="$(AWS_PRISMA_MANAGEMENT_API_SECRET)"																	&& \
 	 export PRISMA_SECRET="$(AWS_PRISMA_SERVICE_API_SECRET)" 																										&& \
-	 export PRISMA_ENDPOINT="https://prisma.$${ApplicationDomainNamespace}"																			&& \
+	 if [ $(ENVIRONMENT_NAME) = "production" ]; then																															 \
+	 		export PRISMA_ENDPOINT="https://prisma.$${ApplicationDomainNamespace}";																		 \
+	 else																																																					 \
+	 		export PRISMA_ENDPOINT="https://prisma.$(ENVIRONMENT_NAME).$${ApplicationDomainNamespace}";								 \
+	 fi																																																					&& \
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Getting Prisma API token for $${PRISMA_ENDPOINT}"		  		 															&& \
@@ -387,14 +442,18 @@ aws-prisma-token: aws-env-banner
 # Runs Prisma deploy against the AWS environment
 # ===========================================================================
 aws-prisma-deploy: aws-env-banner
-	@export $$(cat aws.$(APPLICATION_NAME) | xargs)																															&& \
-	 export $$(cat aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | xargs)																					&& \
+	@export $$(cat aws.$(APPLICATION_NAME) | grep -v "#" | xargs)																								&& \
+	 export $$(cat aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | xargs)														&& \
 	 export PRISMA_MANAGEMENT_API_SECRET="$(AWS_PRISMA_MANAGEMENT_API_SECRET)"																	&& \
 	 export PRISMA_SECRET="$(AWS_PRISMA_SERVICE_API_SECRET)" 																										&& \
-	 export PRISMA_ENDPOINT="https://prisma.$${ApplicationDomainNamespace}"																			&& \
+	 if [ $(ENVIRONMENT_NAME) = "production" ]; then																															 \
+	 		export PRISMA_ENDPOINT="https://prisma.$${ApplicationDomainNamespace}";																		 \
+	 else																																																					 \
+	 		export PRISMA_ENDPOINT="https://prisma.$(ENVIRONMENT_NAME).$${ApplicationDomainNamespace}";								 \
+	 fi																																																					&& \
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
-	 printf "%s\n"   "= Deploying Prisma datamodel to ${AWS_PRISMA_ENDPOINT}"		   															&& \
+	 printf "%s\n"   "= Deploying Prisma datamodel to $${PRISMA_ENDPOINT}"		   																&& \
 	 printf "%s"     "======================================================================================"		&& \
 	 printf "$(NO_COLOR)\n"																																											&& \
 	 cd prisma && yarn deploy
@@ -403,10 +462,15 @@ aws-prisma-deploy: aws-env-banner
 # Runs Prisma seed against the AWS environment
 # ===========================================================================
 aws-prisma-reseed: aws-env-banner
-	@export $$(cat aws.$(APPLICATION_NAME) | xargs)																															&& \
-	 export $$(cat aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | xargs)																					&& \
+	@export $$(cat aws.$(APPLICATION_NAME) | grep -v "#" | xargs)																								&& \
+	 export $$(cat aws.$(APPLICATION_NAME).$(ENVIRONMENT_NAME) | grep -v "#" | xargs)														&& \
 	 export PRISMA_MANAGEMENT_API_SECRET="$(AWS_PRISMA_MANAGEMENT_API_SECRET)"																	&& \
 	 export PRISMA_SECRET="$(AWS_PRISMA_SERVICE_API_SECRET)" 																										&& \
+	 if [ $(ENVIRONMENT_NAME) = "production" ]; then																															 \
+	 		export PRISMA_ENDPOINT="https://prisma.$${ApplicationDomainNamespace}";																		 \
+	 else																																																					 \
+	 		export PRISMA_ENDPOINT="https://prisma.$(ENVIRONMENT_NAME).$${ApplicationDomainNamespace}";								 \
+	 fi																																																					&& \
 	 printf "$(OK_COLOR)"																																												&& \
 	 printf "\n%s\n" "======================================================================================"		&& \
 	 printf "%s\n"   "= Seeding ${PRISMA_ENDPOINT}"			   																											&& \
@@ -433,10 +497,10 @@ AWS_APOLLO_SERVICE_ARN_EXPORT := $(APPLICATION_NAME)-$(ENVIRONMENT_NAME)-ApolloS
 AWS_APOLLO_SERVICE_ARN := $$(aws cloudformation list-exports --query 'Exports[?Name==`$(AWS_APOLLO_SERVICE_ARN_EXPORT)`].Value' --output text)
 
 aws-apollo-update-service: aws-env-banner
-	@printf "$(OK_COLOR)"																																												&& \
-	 printf "\n%s\n" "======================================================================================"		&& \
-	 printf "%s\n"   "= Updating the Apollo service"													   																&& \
-	 printf "%s"     "======================================================================================"		&& \
-	 printf "$(NO_COLOR)"																																												&& \
-	 export APOLLO_SERVICE_ARN=$(AWS_APOLLO_SERVICE_ARN) 																												&& \
+	@printf "$(OK_COLOR)"																																																										&& \
+	 printf "\n%s\n" "======================================================================================"																&& \
+	 printf "%s\n"   "= Updating the Apollo service"													   																														&& \
+	 printf "%s"     "======================================================================================"																&& \
+	 printf "$(NO_COLOR)"																																																										&& \
+	 export APOLLO_SERVICE_ARN=$(AWS_APOLLO_SERVICE_ARN) 																																										&& \
 	 aws ecs update-service --cluster $(APPLICATION_NAME)-$(ENVIRONMENT_NAME) --service "$${APOLLO_SERVICE_ARN}" --force-new-deployment

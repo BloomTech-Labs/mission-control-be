@@ -24,18 +24,12 @@ Parameters:
   ApolloServicePort:
     Type: Number
     Description: The port that the Apollo service will be listening on
+    Default: 8000
 
   PrismaServicePort:
     Type: Number
     Description: The port that the Prisma service will be listening on
-
-  OAuthTokenEndpoint:
-    Type: String
-    Description: Endpoint for validating OAuth tokens
-
-  OAuthClientID:
-    Type: String
-    Description: The ID of this OAuth client
+    Default: 8000
 
   JwksUri:
     Type: String
@@ -51,6 +45,7 @@ Parameters:
 
   LogLevel:
     Type: String
+    Default: info
 
 Conditions:
   IsProductionEnvironment: !Equals [ !Ref EnvironmentName, production ]
@@ -69,8 +64,8 @@ Resources:
       RequiresCompatibilities:
         - FARGATE
       Family: !Sub ${ApplicationName}-${EnvironmentName}-apollo
-      Cpu: '1024'
-      Memory: '2048'
+      Cpu: "256"
+      Memory: "512"
       ExecutionRoleArn:
         Fn::ImportValue: !Sub ${ApplicationName}-ECSTaskExecutionRole
       TaskRoleArn:
@@ -95,17 +90,21 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: apollo
           Secrets:
+            # TODO: This should _not_ be hardcoded!
             - Name: SENDGRID_API_KEY
-              ValueFrom: 'arn:aws:secretsmanager:us-east-1:888115460547:secret:sendgrid-api-key-mission-control-production-wYatzw'
+              ValueFrom: 'arn:aws:secretsmanager:us-east-1:576275871595:secret:sendgrid-api-key-mission-control-production-JuvQDV'
 
+            # TODO: This should _not_ be hardcoded!
             - Name: CODE_CLIMATE_TOKEN
-              ValueFrom: 'arn:aws:secretsmanager:us-east-1:888115460547:secret:code-climate-token-mission-control-production-8LxwRg'
+              ValueFrom: 'arn:aws:secretsmanager:us-east-1:576275871595:secret:code-climate-token-mission-control-production-l33xKi'
 
+            # TODO: This should _not_ be hardcoded!
             - Name: GIT_HUB_TOKEN
-              ValueFrom: 'arn:aws:secretsmanager:us-east-1:888115460547:secret:github-token-mission-control-production-h5xUSF'
+              ValueFrom: 'arn:aws:secretsmanager:us-east-1:576275871595:secret:github-token-mission-control-production-ceeAMJ'
 
+            # TODO: This should _not_ be hardcoded!
             - Name: PRISMA_SECRET
-              ValueFrom: 'arn:aws:secretsmanager:us-east-1:888115460547:secret:prisma-service-api-secret-mission-control-production-HaLr4t'
+              ValueFrom: 'arn:aws:secretsmanager:us-east-1:576275871595:secret:prisma-service-api-secret-mission-control-production-3jzIWu'
           Environment:
             - Name: PORT
               Value: !Ref ApolloServicePort
@@ -119,12 +118,6 @@ Resources:
                   - IsProductionEnvironment
                   - !Sub "http://prisma.private.${ApplicationDomainNamespace}:${PrismaServicePort}"
                   - !Sub "http://prisma.private.${EnvironmentName}.${ApplicationDomainNamespace}:${PrismaServicePort}"
-
-            - Name: OAUTH_TOKEN_ENDPOINT
-              Value: !Ref OAuthTokenEndpoint
-
-            - Name: OAUTH_CLIENT_ID
-              Value: !Ref OAuthClientID
 
             - Name: JWKS_URI
               Value: !Ref JwksUri
@@ -149,6 +142,9 @@ Resources:
       Cluster:
         Fn::ImportValue: !Sub ${ApplicationName}-${EnvironmentName}-ECSCluster
       DesiredCount: 1
+      DeploymentConfiguration:
+        MaximumPercent: 100
+        MinimumHealthyPercent: 0
       LoadBalancers:
         - ContainerName: apollo
           ContainerPort: !Ref ApolloServicePort

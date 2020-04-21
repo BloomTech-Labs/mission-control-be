@@ -1,2 +1,6 @@
 ApplicationName=mission-control
 ApplicationDomainNamespace=missionctrl.dev
+
+# == Mission Control Specific Environment Variables ==
+GitHubApi=https://api.github.com/graphql
+CodeClimateAPI=https://api.codeclimate.com/v1/
