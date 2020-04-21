@@ -15,6 +15,7 @@ Parameters:
   ApplicationDomainNamespace:
     Type: String
     Description: The DNS domain namespace for the application (e.g. mycoolapplication.com)
+    AllowedPattern: ^[a-z0-9\-]*\.[a-z0-9\-]*$
 
 Conditions:
   IsProductionEnvironment: !Equals [ !Ref EnvironmentName, production ]
@@ -104,7 +105,7 @@ Resources:
       HealthCheckPath: /.well-known/apollo/server-health
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
-      HealthyThresholdCount: 2
+      HealthyThresholdCount: 5
       Port: 80
       Protocol: HTTP
       UnhealthyThresholdCount: 2

@@ -1,6 +1,5 @@
-name: Test Coverage
+name: CI
 
-# Coverage only counts against master
 on:
   push:
     branches:
@@ -10,30 +9,47 @@ on:
       - master
 
 jobs:
-  coverage:
-    name: Runs tests publish test coverage to Code Climate
-
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-
-		# The steps for the job, executed in sequence
     steps:
-			# A GitHub action for checking out the current branch
-      - uses: actions/checkout@master
+      - name: Checkout Branch
+        uses: actions/checkout@master
 
-			# A GitHub action to setup Node.js
-      - uses: actions/setup-node@master
+      - name: Install Node
+        uses: actions/setup-node@v1
         with:
-          node-version: "12"
+          node-version: '12'
 
-			# A GitHub action for running tests and publishing coverage
-      - uses: paambaati/codeclimate-action@v2.4.0
+      - name: Install Yarn
+        run: "yarn install"
+        working-directory: apollo
+
+      - name: Lint
+        run: "make lint"
+
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@master
+
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Install Yarn
+        uses: Borales/actions-yarn@v2.1.0
+        with:
+          cmd: install
+
+      - name: Test and publish code coverage
+        uses: paambaati/codeclimate-action@v2.4.0
         env:
-					# An environment variable, the value is stored as a GitHub repo secret
           CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
         with:
-					# Run the coverage target in the Makefile
           coverageCommand: make coverage
-
-					coverageLocations: ["./apollo/coverage/clover.xml:clover", "./prisma/coverage/clover.xml:clover"]
-
+          coverageLocations: "./apollo/coverage/clover.xml:clover"
           debug: true
