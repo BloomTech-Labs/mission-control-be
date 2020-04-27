@@ -18,6 +18,9 @@ const Note = require('./Note');
 const GithubRepo = require('./GithubRepo');
 const StatusCategory = require('./StatusCategory');
 
+//KS TAG
+const Tag = require('./Tag');
+
 const resolvers = {
   Query,
   Mutation,
@@ -31,6 +34,8 @@ const resolvers = {
   Note,
   GithubRepo,
   StatusCategory,
+//KS TAG
+  Tag
 };
 
 module.exports = resolvers;

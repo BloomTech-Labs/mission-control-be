@@ -23,6 +23,10 @@ const typeDefs = gql`
     role(id: ID!): Role!
     SparkyBoy(owner: String!, name: String!): [Sparkline!]!
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
+
+#KS Tag Query
+    tags:[Tag]
+    tag(id: ID!): Tag
   }
 
   type Mutation {
@@ -73,6 +77,23 @@ const typeDefs = gql`
       ownerId: String!
     ): GHRepo!
     deleteGithubRepo(id: ID!): GHRepo!
+
+#KS Tag Mutation
+          
+    createTag(
+      name:String! 
+      createTagInput!): Tag!
+    updateTag(
+      name:String
+      isUsed: Boolean
+    ): Tag!
+    deleteTag(
+      tagId:String!): Tag!
+
+#KS Disconnects filter tag INCOMPLETE
+     #disconnectSelectedTag(id: ID!, selectedTag: ID!, connectedItemId: String): Tag!
+  }
+
   }
 
   type CodeClimateSnapshot {
@@ -220,6 +241,13 @@ const typeDefs = gql`
     program: Program
     display: Boolean!
   }
+  #KS TAG  Needs Order by input
+  type Tag {
+    id: ID!
+    name: String!
+    isAdded: Boolean!
+  }
+
 `;
 
 module.exports = typeDefs;

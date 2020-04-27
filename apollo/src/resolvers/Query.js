@@ -190,6 +190,22 @@ const me = (parent, args, context) => {
   return context.user;
 };
 
+/** IMPORTS WILL MAYBE FOUND IS generated/prisma-client and add to apollo.graphql
+ * 
+ * @param { import('../context').ApolloContext } context
+ * @returns any
+*/ 
+const tags = (parent, args, context) => {
+  const res = context.prisma.tags();
+  return res;
+};
+
+const tag = (_, args, context) => {
+  const { id } = args;
+  const res = context.prisma.tag({ id });
+  return res;
+};
+
 module.exports = {
   programs,
   products,
@@ -211,4 +227,6 @@ module.exports = {
   sparkyDate,
   githubPulse,
   me,
+  tag,
+  tags
 };

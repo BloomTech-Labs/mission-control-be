@@ -9,6 +9,9 @@ extend type Query {
   sparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
 
   me: User
+
+
+
 }
 
 type CodeClimateSnapshot {
