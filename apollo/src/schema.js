@@ -79,19 +79,19 @@ const typeDefs = gql`
     deleteGithubRepo(id: ID!): GHRepo!
 
 #KS Tag Mutation
-          
+        
     createTag(
-      name:String! 
-      createTagInput!): Tag!
+      id:ID!
+      name:String!): Tag!
     updateTag(
-      name:String
-      isUsed: Boolean
-    ): Tag!
+      id:ID!
+      name:String!
+      isUsed: Boolean!):Tag!
     deleteTag(
-      tagId:String!): Tag!
+    id:String!):Tag!
 
 #KS Disconnects filter tag INCOMPLETE
-     #disconnectSelectedTag(id: ID!, selectedTag: ID!, connectedItemId: String): Tag!
+#disconnectSelectedTag(id: ID!, selectedTag: ID!, connectedItemId: String): Tag!
   }
 
   }
@@ -245,7 +245,7 @@ const typeDefs = gql`
   type Tag {
     id: ID!
     name: String!
-    isAdded: Boolean!
+    isUsed: Boolean!
   }
 
 `;

@@ -272,30 +272,42 @@ const updateProject = (_, args, context) => {
   return context.prisma.updateProject(args);
 };
 
-
 //KS CREATE-TAG
 const createTag = (parent, args, context) => {
-  const { id, name, isAdded } = args;
-  const tag = context.prisma.createTag({ id, name, isAdded });
-
+  const { id, name, isUsed } = args;
+  const tag = context.prisma.createTag({ id, name, isUsed })
+  .catch((e => {
+    console.error(e.message)
+  }),
+  console.log(createTag ? `Tag ${name} was added` : `Tag ${name} was not added`)
+  );
   return tag;
 };
 
 //KS DELETE-TAG
 const deleteTag = async (parent, args, context) => {
   const { id } = args;
-  const deletedTag = await context.prisma.deleteTag({ id });
+  const deletedTag = await context.prisma.deleteTag({ id })
+  .catch((e => {
+    console.error(e.message)
+  }),
+  console.log(deleteTag ? `Tag ${name} deleted` : `Tag ${name} was not`)
+  );
   return deletedTag;
 };
 
 //KS UPDATE-TAG
 const updateTag = async (parent, args, context) => {
-  const { id, name, isAdded } = args;
+  const { id, name, isUsed } = args;
   const updateTag = await context.prisma.updateTag({
-    data: { name, isAdded },
+    data: { name, isUsed },
     where: { id },
-  });
-
+  })
+  .catch((e => {
+    console.error(e.message)
+  }),
+  console.log(updateTag ? `Tag ${name} was updated to ${data.name}` : `Tag ${name} was not updated`)
+  );
   return updateTag;
 };
 
