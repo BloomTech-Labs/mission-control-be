@@ -100,7 +100,7 @@ Generate a token for communicating with your local Prisma API.
 
    ```json
       {
-        "Authorization":"Bearer <The token from 'make local-prisma-token'>  "
+        "Authorization":"Bearer <The token from 'make local-prisma-token'> "
       }
    ```
 
