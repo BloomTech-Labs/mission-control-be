@@ -96,11 +96,11 @@ Clear out any existing data and will rerun seeding to give you a fresh cut of da
 
 Generate a token for communicating with your local Prisma API.
 
-- Open the 'HTTP Headers' setting in the GraphQL Platground and set your token, like this:
+- Open the 'HTTP Headers' setting in the GraphQL Playground and set your token, like this:
 
    ```json
       {
-        "Authorization":"Bearer <The token from 'make local-prisma-token'>"
+        "Authorization":"Bearer <The token from 'make local-prisma-token'>  "
       }
    ```
 
