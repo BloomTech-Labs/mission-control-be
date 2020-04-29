@@ -1,39 +1,39 @@
-const { GraphQLDataSource } = require('apollo-datasource-graphql');
+const { GraphQLDataSource } = require('apollo-datasource-graphql')
 const {
   repoByOrgReducer,
   sparklineReducer,
   issueReducer,
   prReducer,
-} = require('./reducers/GitHubReducer');
+} = require('./reducers/GitHubReducer')
 const {
   REPOS_BY_ORG,
   SPARKLINE,
   SPARKLINE_BY_DATE,
   PULSE,
-} = require('./queries/GitHubQueries');
+} = require('./queries/GitHubQueries')
 
 class GitHubAPI extends GraphQLDataSource {
   constructor() {
-    super();
+    super()
 
     if (!('GIT_HUB_API' in process.env)) {
-      throw new Error('Required environment variable GIT_HUB_API not set!');
+      throw new Error('Required environment variable GIT_HUB_API not set!')
     }
 
     if (!('GIT_HUB_TOKEN' in process.env)) {
-      throw new Error('Required environment variable GIT_HUB_TOKEN not set!');
+      throw new Error('Required environment variable GIT_HUB_TOKEN not set!')
     }
 
-    this.baseURL = `${process.env.GIT_HUB_API}`;
-    this.token = `bearer ${process.env.GIT_HUB_TOKEN}`;
+    this.baseURL = `${process.env.GIT_HUB_API}`
+    this.token = `bearer ${process.env.GIT_HUB_TOKEN}`
   }
 
   willSendRequest(request) {
     // Different procedure to send/set headers in a GQLDataSource vs RESTDataSource
     if (!request.headers) {
-      request.headers = {};
+      request.headers = {}
     }
-    request.headers.Authorization = `${this.token}`;
+    request.headers.Authorization = `${this.token}`
   }
 
   /**
@@ -56,16 +56,16 @@ class GitHubAPI extends GraphQLDataSource {
       // Maps through our params to create a readable list
       const paramsStr = paramsArr
         .map((param, i) => {
-          const newParam = `"${param}"`;
+          const newParam = `"${param}"`
           // ↑ adds "quote" around each param
           // ↓ if it's the last item, adds the word 'and'
-          if (i === paramsArr.length - 1) return `and ${newParam}`;
-          return newParam;
+          if (i === paramsArr.length - 1) return `and ${newParam}`
+          return newParam
         })
-        .join(', ');
-      err.message += `. Are the ${paramsStr} properties typed correctly in this query?`;
+        .join(', ')
+      err.message += `. Are the ${paramsStr} properties typed correctly in this query?`
     }
-    return err;
+    return err
   }
 
   async getReposByOrg(dynamicQuery) {
@@ -74,10 +74,10 @@ class GitHubAPI extends GraphQLDataSource {
         variables: {
           dynamicQuery,
         },
-      });
-      return res.data.search.edges.map(repo => repoByOrgReducer(repo));
+      })
+      return res.data.search.edges.map(repo => repoByOrgReducer(repo))
     } catch (err) {
-      throw err;
+      throw err
     }
   }
 
@@ -88,14 +88,14 @@ class GitHubAPI extends GraphQLDataSource {
           owner,
           name,
         },
-      });
+      })
 
       const lineofspark =
-        res.data.repository.defaultBranchRef.target.history.nodes;
-      return lineofspark.map(spark => sparklineReducer(spark));
+        res.data.repository.defaultBranchRef.target.history.nodes
+      return lineofspark.map(spark => sparklineReducer(spark))
     } catch (err) {
-      this.helpfulErrorReturn(err, ['owner', 'name']);
-      throw err;
+      this.helpfulErrorReturn(err, ['owner', 'name'])
+      throw err
     }
   }
 
@@ -107,14 +107,14 @@ class GitHubAPI extends GraphQLDataSource {
           name,
           until,
         },
-      });
+      })
 
       const lineofspark =
-        res.data.repository.defaultBranchRef.target.history.nodes;
-      return lineofspark.map(spark => sparklineReducer(spark));
+        res.data.repository.defaultBranchRef.target.history.nodes
+      return lineofspark.map(spark => sparklineReducer(spark))
     } catch (err) {
-      this.helpfulErrorReturn(err, ['owner', 'name', 'until']);
-      throw err;
+      this.helpfulErrorReturn(err, ['owner', 'name', 'until'])
+      throw err
     }
   }
 
@@ -125,13 +125,13 @@ class GitHubAPI extends GraphQLDataSource {
           owner,
           name,
         },
-      });
+      })
       const lineofspark =
-        res.data.repository.defaultBranchRef.target.history.nodes;
-      return lineofspark.map(spark => sparklineReducer(spark));
+        res.data.repository.defaultBranchRef.target.history.nodes
+      return lineofspark.map(spark => sparklineReducer(spark))
     } catch (err) {
-      this.helpfulErrorReturn(err, ['owner', 'name']);
-      throw err;
+      this.helpfulErrorReturn(err, ['owner', 'name'])
+      throw err
     }
   }
 
@@ -143,14 +143,14 @@ class GitHubAPI extends GraphQLDataSource {
           name,
           until,
         },
-      });
+      })
 
       const lineofspark =
-        res.data.repository.defaultBranchRef.target.history.nodes;
-      return lineofspark.map(spark => sparklineReducer(spark));
+        res.data.repository.defaultBranchRef.target.history.nodes
+      return lineofspark.map(spark => sparklineReducer(spark))
     } catch (err) {
-      this.helpfulErrorReturn(err, ['owner', 'name', 'until']);
-      throw err;
+      this.helpfulErrorReturn(err, ['owner', 'name', 'until'])
+      throw err
     }
   }
 
@@ -161,11 +161,11 @@ class GitHubAPI extends GraphQLDataSource {
           owner,
           name,
         },
-      });
+      })
 
-      const issues = issueReducer(res.data.repository.issues);
+      const issues = issueReducer(res.data.repository.issues)
 
-      const PRs = prReducer(res.data.repository.pullRequests);
+      const PRs = prReducer(res.data.repository.pullRequests)
 
       return {
         id: res.data.repository.id,
@@ -176,12 +176,12 @@ class GitHubAPI extends GraphQLDataSource {
         closedPRs: PRs.closedPRs,
         openPRs: PRs.openPRs,
         mergedPRs: PRs.mergedPRs,
-      };
+      }
     } catch (err) {
-      this.helpfulErrorReturn(err, ['owner', 'name']);
-      throw err;
+      this.helpfulErrorReturn(err, ['owner', 'name'])
+      throw err
     }
   }
 }
 
-module.exports = GitHubAPI;
+module.exports = GitHubAPI

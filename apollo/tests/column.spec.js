@@ -1,9 +1,9 @@
-const fs = require('fs');
-const { mockServer } = require('graphql-tools');
+const fs = require('fs')
+const { mockServer } = require('graphql-tools')
 
-const schema = fs.readFileSync('./schema/generated/prisma.graphql', 'utf8');
+const schema = fs.readFileSync('./schema/generated/prisma.graphql', 'utf8')
 
-const MyServer = mockServer(schema);
+const MyServer = mockServer(schema)
 
 const createStatusMutation = `
   mutation CreateStatusMutation($name: String!, $projects: [String], $id: ID!, $labels: [String]) {
@@ -21,7 +21,7 @@ const createStatusMutation = `
       }
     }
   }
-`;
+`
 
 const statusQuery = `
   query StatusQuery {
@@ -43,7 +43,7 @@ const statusQuery = `
       }
     }
   }
-`;
+`
 
 const deleteStatusMutation = `
   mutation DeleteStatusMutation($id: id){
@@ -52,7 +52,7 @@ const deleteStatusMutation = `
       name
     }
   }
-`;
+`
 
 const updateStatusMutation = `
   mutation UpdateStatusMutation($id: id, $name: String!){
@@ -66,15 +66,15 @@ const updateStatusMutation = `
 // Queries if there is a label
 describe('Column', () => {
   it('Column query is there', async () => {
-    const server = MyServer;
+    const server = MyServer
     const query = `
     query {
       statuses {
         name
       }
-    }`;
-    await expect(server.query(query)).resolves.toBeTruthy();
-    const { errors } = await server.query(query);
-    expect(errors).not.toBeTruthy();
-  });
-});
+    }`
+    await expect(server.query(query)).resolves.toBeTruthy()
+    const { errors } = await server.query(query)
+    expect(errors).not.toBeTruthy()
+  })
+})

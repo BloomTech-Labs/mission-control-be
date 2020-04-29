@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+const { gql } = require('apollo-server')
 
 const REPOS_BY_ORG = gql`
   query Github($dynamicQuery: String!) {
@@ -17,7 +17,7 @@ const REPOS_BY_ORG = gql`
       }
     }
   }
-`;
+`
 
 const SPARKLINE = gql`
   query Github($owner: String!, $name: String!) {
@@ -41,7 +41,7 @@ const SPARKLINE = gql`
       }
     }
   }
-`;
+`
 
 const SPARKLINE_BY_DATE = gql`
   query Github($owner: String!, $name: String!, $until: String!) {
@@ -65,7 +65,7 @@ const SPARKLINE_BY_DATE = gql`
       }
     }
   }
-`;
+`
 
 const PULSE = gql`
   query Github($owner: String!, $name: String!) {
@@ -89,6 +89,6 @@ const PULSE = gql`
       }
     }
   }
-`;
+`
 
-module.exports = { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE, PULSE };
+module.exports = { REPOS_BY_ORG, SPARKLINE, SPARKLINE_BY_DATE, PULSE }

@@ -2,8 +2,8 @@
 /* eslint-disable no-console */
 // @ts-check
 
-const faker = require('faker');
-const { prisma } = require('../apollo/src/generated/prisma-client');
+const faker = require('faker')
+const { prisma } = require('../apollo/src/generated/prisma-client')
 
 //LAB23-T1
 const TAGS = [
@@ -12,7 +12,7 @@ const TAGS = [
   'GraphQL',
   'Postgress',
   'Prisma',
-];
+]
 
 const ROLES = [
   'Software Engineer',
@@ -20,7 +20,7 @@ const ROLES = [
   'Data Scientist',
   'Team Lead',
   'Section Lead',
-];
+]
 
 const STATUS_CATEGORIES = [
   'Team Health',
@@ -28,14 +28,14 @@ const STATUS_CATEGORIES = [
   'Design Quality',
   'Engineering Quality',
   'DS Quality',
-];
+]
 
 const STATUS_VALUE_OPTIONS = [
   { label: 'Crushing it! 🚀', color: 'Purple' },
   { label: 'Healthy ✅', color: 'Green' },
   { label: 'At Risk ⚠️', color: 'Yellow' },
   { label: 'On Fire 🔥', color: 'Red' },
-];
+]
 
 const repoDetails = [
   {
@@ -66,7 +66,7 @@ const repoDetails = [
     gradeUrl:
       'https://codeclimate.com/github/Lambda-School-Labs/miracle-messages-be',
   },
-];
+]
 
 const seed = async () => {
   /**
@@ -75,13 +75,13 @@ const seed = async () => {
    * ====================================================================
    */
   /** @type {import('../apollo/src/generated/prisma-client').Tag[]} */
-  const tags = [];
-  for (let i = 0; i < TAGS.length; i += 1) {
+  const tags = []
+  for (let i = 0 i < TAGS.length i += 1) {
     tags.push(
       await prisma.createTag({
         name: TAGS[i],
       }),
-    );
+    )
   }
   /**
    * ====================================================================
@@ -89,13 +89,13 @@ const seed = async () => {
    * ====================================================================
    */
   /** @type {import('../apollo/src/generated/prisma-client').Role[]} */
-  const roles = [];
-  for (let i = 0; i < ROLES.length; i += 1) {
+  const roles = []
+  for (let i = 0 i < ROLES.length i += 1) {
     roles.push(
       await prisma.createRole({
         name: ROLES[i],
       }),
-    );
+    )
   }
 
   /**
@@ -104,14 +104,14 @@ const seed = async () => {
    * ====================================================================
    */
   /** @type {import('../apollo/src/generated/prisma-client').StatusValueOption[]} */
-  const statusValueOptions = [];
-  for (let i = 0; i < STATUS_VALUE_OPTIONS.length; i += 1) {
+  const statusValueOptions = []
+  for (let i = 0 i < STATUS_VALUE_OPTIONS.length i += 1) {
     statusValueOptions.push(
       await prisma.createStatusValueOption({
         label: STATUS_VALUE_OPTIONS[i].label,
         color: STATUS_VALUE_OPTIONS[i].color,
       }),
-    );
+    )
   }
 
   /**
@@ -120,8 +120,8 @@ const seed = async () => {
    * ====================================================================
    */
   /** @type {import('../apollo/src/generated/prisma-client').StatusCategory[]} */
-  const statusCategories = [];
-  for (let i = 0; i < STATUS_CATEGORIES.length; i += 1) {
+  const statusCategories = []
+  for (let i = 0 i < STATUS_CATEGORIES.length i += 1) {
     statusCategories.push(
       await prisma.createStatusCategory({
         name: STATUS_CATEGORIES[i],
@@ -134,7 +134,7 @@ const seed = async () => {
           ],
         },
       }),
-    );
+    )
   }
 
   /**
@@ -144,14 +144,14 @@ const seed = async () => {
    */
 
   /** @type {import('../apollo/src/generated/prisma-client').Person[]} */
-  const persons = [];
-  for (let i = 0; i < 300; i += 1) {
-    const firstname = faker.name.firstName();
-    const lastname = faker.name.lastName();
+  const persons = []
+  for (let i = 0 i < 300 i += 1) {
+    const firstname = faker.name.firstName()
+    const lastname = faker.name.lastName()
     const email = faker.internet.email(
       firstname,
       `${lastname}${(Math.floor(Math.random() * 900000) + 100000).toString()}`,
-    );
+    )
 
     persons.push(
       // eslint-disable-next-line no-await-in-loop
@@ -160,7 +160,7 @@ const seed = async () => {
         email,
         avatar: faker.internet.avatar(),
       }),
-    );
+    )
   }
 
   /**
@@ -168,36 +168,36 @@ const seed = async () => {
    *  Create a bunch of programs
    * ====================================================================
    */
-  const programPromises = [];
-  for (let i = 0; i < 2; i += 1) {
-    const programName = faker.company.companyName();
-    programPromises.push(prisma.createProgram({ name: programName }));
+  const programPromises = []
+  for (let i = 0 i < 2 i += 1) {
+    const programName = faker.company.companyName()
+    programPromises.push(prisma.createProgram({ name: programName }))
   }
 
   /** @type {import('../apollo/src/generated/prisma-client').Program[]} */
-  const programs = await Promise.all(programPromises);
+  const programs = await Promise.all(programPromises)
 
   /**
    * ====================================================================
    *  Create a bunch of products
    * ====================================================================
    */
-  const productPromises = [];
-  for (let i = 0; i < programs.length; i += 1) {
-    const program = programs[i];
+  const productPromises = []
+  for (let i = 0 i < programs.length i += 1) {
+    const program = programs[i]
 
-    for (let j = 0; j < 20; j += 1) {
+    for (let j = 0 j < 20 j += 1) {
       productPromises.push(
         prisma.createProduct({
           name: faker.commerce.productName(),
           program: { connect: { id: program.id } },
         }),
-      );
+      )
     }
   }
 
   /** @type {import('../apollo/src/generated/prisma-client').Product[]} */
-  const products = await Promise.all(productPromises);
+  const products = await Promise.all(productPromises)
 
   /**
    * ====================================================================
@@ -205,27 +205,27 @@ const seed = async () => {
    * ====================================================================
    */
   /** @type {import('../apollo/src/generated/prisma-client').Project[]} */
-  const projects = [];
+  const projects = []
 
   /** @type {import('../apollo/src/generated/prisma-client').GithubRepo[]} */
-  const githubRepos = [];
-  for (let i = 0; i < products.length; i += 1) {
-    const product = products[i];
+  const githubRepos = []
+  for (let i = 0 i < products.length i += 1) {
+    const product = products[i]
 
     // Add some projects
-    for (let j = Math.floor(Math.random() * 10) + 1; j > 0; j -= 1) {
+    for (let j = Math.floor(Math.random() * 10) + 1 j > 0 j -= 1) {
       projects.push(
         await prisma.createProject({
           name: `Project ${faker.commerce.productAdjective()}`,
           product: { connect: { id: product.id } },
         }),
-      );
+      )
     }
 
     // Add some GitHub repositories
-    for (let j = Math.floor(Math.random() * 5) + 2; j > 0; j -= 1) {
+    for (let j = Math.floor(Math.random() * 5) + 2 j > 0 j -= 1) {
       // Grab a random URL for the repo and grade
-      const randomRepoDetails = faker.random.arrayElement(repoDetails);
+      const randomRepoDetails = faker.random.arrayElement(repoDetails)
 
       githubRepos.push(
         await prisma.createGithubRepo({
@@ -241,7 +241,7 @@ const seed = async () => {
             },
           },
         }),
-      );
+      )
     }
   }
 
@@ -252,12 +252,12 @@ const seed = async () => {
    */
 
   /** @type {import('../apollo/src/generated/prisma-client').Note[]} */
-  const projectNotes = [];
-  for (let i = 0; i < projects.length; i += 1) {
-    const project = projects[i];
+  const projectNotes = []
+  for (let i = 0 i < projects.length i += 1) {
+    const project = projects[i]
 
     // Add some notes
-    for (let j = Math.floor(Math.random() * 5); j > 0; j -= 1) {
+    for (let j = Math.floor(Math.random() * 5) j > 0 j -= 1) {
       projectNotes.push(
         await prisma.createNote({
           topic: faker.hacker.phrase(),
@@ -270,11 +270,11 @@ const seed = async () => {
           },
           rating: Math.floor(Math.random() * 3) + 1,
         }),
-      );
+      )
     }
 
     // Create some assignments for the project
-    for (let j = Math.floor(Math.random() * 15) + 3; j > 0; j -= 1) {
+    for (let j = Math.floor(Math.random() * 15) + 3 j > 0 j -= 1) {
       await prisma.createProjectRoleAssignment({
         project: {
           connect: {
@@ -289,11 +289,11 @@ const seed = async () => {
         role: {
           connect: { id: roles[Math.floor(Math.random() * roles.length)].id },
         },
-      });
+      })
     }
 
     // Add all the status categories to the project, each with a random value
-    for (let j = 0; j < statusCategories.length; j += 1) {
+    for (let j = 0 j < statusCategories.length j += 1) {
       await prisma.createProjectStatusElement({
         project: { connect: { id: project.id } },
         category: {
@@ -306,9 +306,9 @@ const seed = async () => {
             id: faker.random.arrayElement(statusValueOptions).id,
           },
         },
-      });
+      })
     }
   }
-};
+}
 
-seed().catch(e => console.error(e));
+seed().catch(e => console.error(e))

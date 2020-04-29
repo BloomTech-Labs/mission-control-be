@@ -5,21 +5,21 @@
 // your resolvers but not seeing anything print to stdout, this is
 // the most likely culprit
 
-const Query = require('./Query');
-const Mutation = require('./Mutation');
-const Program = require('./Program');
-const Product = require('./Product');
-const Project = require('./Project');
-const ProjectRoleAssignment = require('./ProjectRoleAssignment');
-const ProjectStatusElement = require('./ProjectStatusElement');
-const User = require('./User');
-const Person = require('./Person');
-const Note = require('./Note');
-const GithubRepo = require('./GithubRepo');
-const StatusCategory = require('./StatusCategory');
+const Query = require('./Query')
+const Mutation = require('./Mutation')
+const Program = require('./Program')
+const Product = require('./Product')
+const Project = require('./Project')
+const ProjectRoleAssignment = require('./ProjectRoleAssignment')
+const ProjectStatusElement = require('./ProjectStatusElement')
+const User = require('./User')
+const Person = require('./Person')
+const Note = require('./Note')
+const GithubRepo = require('./GithubRepo')
+const StatusCategory = require('./StatusCategory')
 
 //KS TAG
-const Tag = require('./Tag');
+const Tag = require('./Tag')
 
 const resolvers = {
   Query,
@@ -36,6 +36,6 @@ const resolvers = {
   StatusCategory,
 //KS TAG
   Tag
-};
+}
 
-module.exports = resolvers;
+module.exports = resolvers

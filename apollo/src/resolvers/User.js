@@ -8,7 +8,7 @@ const projects = context => {
   const {
     user: { email },
     prisma,
-  } = context;
+  } = context
 
   const where = {
     OR: [
@@ -17,22 +17,22 @@ const projects = context => {
       { projectManagers_some: { email } },
       { team_some: { email_in: email } },
     ],
-  };
-  const res = prisma.projects({ where });
+  }
+  const res = prisma.projects({ where })
 
-  return res;
-};
+  return res
+}
 
 // /**
 //  * @param { import('../context').ApolloContext } context
 //  * @returns { import('../generated/prisma-client').FragmentableArray<import('../generated/prisma-client').Project> }
 //  */
 // const role = context => {
-//   const res = context.prisma.user({ id: parent.id }).role();
-//   return res;
-// };
+//   const res = context.prisma.user({ id: parent.id }).role()
+//   return res
+// }
 
 module.exports = {
   projects,
   // role,
-};
+}

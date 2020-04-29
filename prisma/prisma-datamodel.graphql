@@ -69,7 +69,7 @@ type ProjectStatusElement {
   # The category of this status element
   category: StatusCategory!
 
-  # The current value of this status element; may be null
+  # The current value of this status element may be null
   value: StatusValueOption
 
   createdAt: DateTime! @createdAt

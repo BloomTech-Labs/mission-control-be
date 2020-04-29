@@ -1,7 +1,7 @@
 const name = (parent, _, context) => {
     const res = context.prisma.name({ id: parent.id }).name()
-      return res;
-    };
+      return res
+    }
 
 
     const isUsed = (parent, _, context) => {
@@ -12,4 +12,4 @@ const name = (parent, _, context) => {
   module.exports = {
     name,
     isUsed
-  };
+  }

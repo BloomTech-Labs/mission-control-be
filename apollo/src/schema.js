@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+const { gql } = require('apollo-server')
 
 const typeDefs = gql`
   type Query {
@@ -248,6 +248,6 @@ const typeDefs = gql`
     isUsed: Boolean!
   }
 
-`;
+`
 
-module.exports = typeDefs;
+module.exports = typeDefs

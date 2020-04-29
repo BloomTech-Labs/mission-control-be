@@ -128,7 +128,7 @@ const context = async ({ req }) => {
   let tokenHeader
   try {
     const decodedToken = jwt.decode(token, { complete: true })
-    tokenHeader = (/** @type {{[key: string]: any;}} */ (decodedToken)).header
+    tokenHeader = (/** @type {{[key: string]: any}} */ (decodedToken)).header
   } catch (err) {
     logger.error('Error while decoding token: %O', token, err)
     throw new AuthenticationError('Not authorized')
