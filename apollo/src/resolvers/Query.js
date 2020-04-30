@@ -190,6 +190,56 @@ const me = (parent, args, context) => {
   return context.user;
 };
 
+
+
+const tags = (parent, args, context) => {
+  const res = context.prisma.tags()
+  return res
+}
+
+
+/** IMPORTS WILL MAYBE FOUND IS generated/prisma-client and add to apollo.graphql
+ * 
+ * @param { import('../context').ApolloContext } context
+ * @returns { import('../generated/prisma-client').TagNullablePromise }
+*/ 
+
+const tag = (parent, args, context) => {
+  const { where } = args
+  const res = context.prisma.tag(where)
+  return res
+}
+
+//LAB23-T1-Search component added
+
+const feed = async (_, args, context) => {
+  context.logger.debug('Query.feed: %O', args)
+  const { filter, count } = args 
+  try {
+    return await context.prisma.projectConnection({
+      where: {
+        OR: [
+          { name_contains: args.filter },
+           { product_contains: args.filter },
+           { persons_contains: args.filter },
+           { notes_contains: args.filter },
+           { projectStatus_contains: args.filter },
+        ],
+      },   
+    }
+      skip: args.skip,
+      first: args.first,
+      orderBy: args.orderBy,
+    })
+    .aggregate()
+    .count()
+  } catch (error) {
+    context.logger.error(
+      `Error executing ProjectConnection \n%O`
+    )
+  }
+}
+
 module.exports = {
   programs,
   products,
@@ -211,4 +261,7 @@ module.exports = {
   sparkyDate,
   githubPulse,
   me,
+  tags,
+  tag,
+  feed
 };

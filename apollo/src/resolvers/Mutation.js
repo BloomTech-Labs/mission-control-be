@@ -272,6 +272,47 @@ const updateProject = (_, args, context) => {
   return context.prisma.updateProject(args);
 };
 
+
+//LAB23-T1 CREATE-TAG
+const createTag = (parent, args, context) => {
+  const { id, name, isUsed } = args
+  const tag = context.prisma.createTag({ id, name, isUsed })
+  .catch((e => {
+    console.error(e.message)
+  }),
+  console.log(createTag ? `Tag ${name} was added` : `Tag ${name} was not added`)
+  )
+  return tag
+}
+
+//LAB23-T1 DELETE-TAG
+const deleteTag = async (parent, args, context) => {
+  const { id } = args
+  const deletedTag = await context.prisma.deleteTag({ id })
+  .catch((e => {
+    console.error(e.message)
+  }),
+  console.log(deleteTag ? `Tag ${name} deleted` : `Tag ${name} was not`)
+  )
+  return deletedTag
+}
+
+//LAB23-T1 UPDATE-TAG
+const updateTag = async (parent, args, context) => {
+  const { id, name, isUsed } = args
+  const updateTag = await context.prisma.updateTag({
+    data: { name, isUsed },
+    where: { id },
+  })
+  .catch((e => {
+    console.error(e.message)
+  }),
+  console.log(updateTag ? `Tag ${name} was updated to ${data.name}` : `Tag ${name} was not updated`)
+  )
+  return updateTag
+}
+
+
 module.exports = {
   // createGithubRepo,
   // deleteGithubRepo,
@@ -289,4 +330,8 @@ module.exports = {
   // deleteLabel,
   // updateStatus,
   // deleteStatus,
+  createTag,
+  deleteTag,
+  updateTag
+
 };
