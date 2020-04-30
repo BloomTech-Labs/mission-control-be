@@ -214,7 +214,8 @@ const tag = (parent, args, context) => {
 
 const feed = async (_, args, context) => {
   context.logger.debug('Query.feed: %O', args)
-  const { filter, count } = args 
+  const { filter, count } = args;
+
   try {
     return await context.prisma.projectConnection({
       where: {
@@ -226,19 +227,27 @@ const feed = async (_, args, context) => {
            { projectStatus_contains: args.filter },
         ],
       },   
-    }
       skip: args.skip,
       first: args.first,
       orderBy: args.orderBy,
-    })
-    .aggregate()
+    }
+        .aggregate()
     .count()
-  } catch (error) {
-    context.logger.error(
-      `Error executing ProjectConnection \n%O`
+      
     )
+  }catch (error) {
+    context.logger.error(
+      'Error executing ProjectConnection\n%O',
+      error,
+    );
+    throw new Error(error);
   }
-}
+};
+
+    
+
+
+
 
 module.exports = {
   programs,
