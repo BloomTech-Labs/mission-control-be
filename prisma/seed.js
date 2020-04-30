@@ -72,7 +72,6 @@ const repoDetails = [
 
 const seed = async () => {
 
-  
   /**
    * ====================================================================
    *  Create the tags
