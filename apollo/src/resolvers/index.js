@@ -17,6 +17,8 @@ const Person = require('./Person');
 const Note = require('./Note');
 const GithubRepo = require('./GithubRepo');
 const StatusCategory = require('./StatusCategory');
+const Tag = require('./Tag');
+const Feed = require('./Feed');
 
 const resolvers = {
   Query,
@@ -31,6 +33,8 @@ const resolvers = {
   Note,
   GithubRepo,
   StatusCategory,
+  Tag,
+  Feed
 };
 
 module.exports = resolvers;

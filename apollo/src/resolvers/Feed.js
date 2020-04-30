@@ -1,6 +1,6 @@
 //LAB23-T1 Search Feed Resolver
 const count = (_, args, context) => {
-    const res = await context.prisma
+    const res =  context.prisma
       .ProjectsConnection({
         where: {
           OR: [
@@ -18,7 +18,7 @@ const count = (_, args, context) => {
       return res
     }
     const filter = (_, args, context) => {
-    const res = await context.prisma.projects({
+    const res =  context.prisma.projects({
       where: {
         OR: [
             { name_contains: args.filter },
