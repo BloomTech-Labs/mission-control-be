@@ -15,7 +15,7 @@ const typeDefs = gql`
     person(email: String!): Person!
     products: [Product!]!
     programs: [Program!]!
-    projects: [Project!]!
+    projects(filter: String): [Project!]!
     project(id: ID!): Project!
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note!]!
     note(id: ID!): Note!
@@ -228,7 +228,7 @@ const typeDefs = gql`
     isUsed: Boolean!
   }
 
-#Lab23-T1 Search 
+#Lab23-T1 Search
 enum ProjectsOrderByInput {
   name_ASC
   name_DESC
@@ -241,7 +241,7 @@ enum ProjectsOrderByInput {
 
 type Feed {
   id:ID! @id
-  filter: String! 
+  filter: String!
   projects: [Project!]!
   count: Int!
 }
