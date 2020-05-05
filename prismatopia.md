@@ -104,7 +104,7 @@ Generate a token for communicating with your local Prisma API.
       }
    ```
 
-> `make prisma-generate`
+> `make prisma-generate` 
 
 Generates a JavaScript client (with types!) and a GraphQL schema that reflects the Prisma API.
 

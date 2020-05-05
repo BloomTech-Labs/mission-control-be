@@ -5,6 +5,17 @@
 const faker = require('faker');
 const { prisma } = require('../apollo/src/generated/prisma-client');
 
+
+//LAB23-T1
+const TAGS = [
+  'Apollo',
+  'React',
+  'GraphQL',
+  'Postgress',
+  'Prisma',
+]
+
+
 const ROLES = [
   'Software Engineer',
   'UX Designer',
@@ -60,6 +71,21 @@ const repoDetails = [
 ];
 
 const seed = async () => {
+
+  /**
+   * ====================================================================
+   *  Create the tags
+   * ====================================================================
+   */
+  /** @type {import('../apollo/src/generated/prisma-client').Tag[]} */
+  const tags = [];
+  for (let i = 0; i < TAGS.length; i += 1) {
+    tags.push(
+      await prisma.createTag({
+        name: TAGS[i],
+      }),
+    );
+  }
   /**
    * ====================================================================
    *  Create the roles

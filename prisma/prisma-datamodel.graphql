@@ -207,3 +207,25 @@ type Role {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
+
+#LAB23-T1 Tag and Connect Map
+type Tag {
+id: ID! @id
+createdAt: DateTime! @createdAt
+updatedAt: DateTime! @updatedAt
+name: String! @unique
+isUsed:Boolean! @default(value: false)
+
+#Creates connection to projects, programs, and labels
+#project:Project @relation(name:"TagByProject")
+#program:Program @relation(name:"TagByProgram")
+#projectStatusElement:ProjectStatusElement @relation(name:"TagByStatus")
+}
+
+type Feed {
+id:ID! @id
+  filter: String! 
+  projects: [Project!]!
+  count: Int!
+}
+

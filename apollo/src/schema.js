@@ -15,7 +15,7 @@ const typeDefs = gql`
     person(email: String!): Person!
     products: [Product!]!
     programs: [Program!]!
-    projects: [Project!]!
+    projects(filter: String): [Project!]!
     project(id: ID!): Project!
     notes(orderBy: NoteOrderByInput, privatePerm: Boolean): [Note!]!
     note(id: ID!): Note!
@@ -220,6 +220,33 @@ const typeDefs = gql`
     program: Program
     display: Boolean!
   }
+
+  #LAB23-T1 TAG  Needs Order by input
+  type Tag {
+    id: ID!
+    name: String!
+    isUsed: Boolean!
+  }
+
+#Lab23-T1 Search
+enum ProjectsOrderByInput {
+  name_ASC
+  name_DESC
+  product
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+}'
+
+type Feed {
+  id:ID! @id
+  filter: String!
+  projects: [Project!]!
+  count: Int!
+}
+
+
 `;
 
 module.exports = typeDefs;

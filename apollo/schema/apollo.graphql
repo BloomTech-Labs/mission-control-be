@@ -29,4 +29,13 @@
 # import Mutation.createGithubRepo from "generated/prisma.graphql"
 # import Mutation.deleteGithubRepo from "generated/prisma.graphql"
 
+# import Query.feed from "generated/prisma.graphql"
+
+# import Query.tags from "generated/prisma.graphql"
+# import Query.tag from "generated/prisma.graphql"
+
+# import Mutation.createTag from "generated/prisma.graphql"
+# import Mutation.updateTag from "generated/prisma.graphql"
+# import Mutation.deleteTag from "generated/prisma.graphql"
+
 # import Query.* from "api.graphql"
