@@ -199,10 +199,10 @@ const tags = (parent, args, context) => {
 
 
 /** IMPORTS WILL MAYBE FOUND IS generated/prisma-client and add to apollo.graphql
- * 
+ *
  * @param { import('../context').ApolloContext } context
  * @returns { import('../generated/prisma-client').TagNullablePromise }
-*/ 
+*/
 
 const tag = (parent, args, context) => {
   const { where } = args
@@ -226,14 +226,14 @@ const feed = async (_, args, context) => {
            { notes_contains: args.filter },
            { projectStatus_contains: args.filter },
         ],
-      },   
+      },
       skip: args.skip,
       first: args.first,
       orderBy: args.orderBy,
     }
         .aggregate()
     .count()
-      
+
     )
   }catch (error) {
     context.logger.error(
@@ -244,7 +244,7 @@ const feed = async (_, args, context) => {
   }
 };
 
-    
+
 
 
 
