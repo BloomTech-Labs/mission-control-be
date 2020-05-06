@@ -13,7 +13,7 @@ const products = (parent, args, context) => {
 };
 
 const projects = (parent, args, context) => {
-  const res = context.prisma.projects();
+  const res = context.prisma.projects(args);
   return res;
 };
 
