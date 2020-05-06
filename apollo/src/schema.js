@@ -25,7 +25,7 @@ const typeDefs = gql`
     SparkyDate(owner: String!, name: String!, until: String!): [Sparkline!]!
   }
 
-  type Mutation {
+  type Mutation { 
     createProgram(name: String!): Program!
     createProduct(name: String!, id: ID!): Product!
     createProject(name: String!, id: ID!): Project!
